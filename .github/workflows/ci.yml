@@ -15,7 +15,7 @@ jobs:
       - name: Set up Python
         run: uv python install 3.11
       - name: Install dependencies
-        run: uv sync --all-groups
+        run: uv sync  # dev group only; notebooks group is for local use
       - name: Lint
         run: uv run ruff check .
       - name: Format check
