@@ -19,6 +19,9 @@ dev = [
     "pre-commit>=3.8",
     "pandas-stubs>=2.2",
 ]
+notebooks = [
+    "jupyterlab>=4.2",
+]
 
 [build-system]
 requires = ["hatchling"]
@@ -34,6 +37,10 @@ extend-exclude = ["**/notebooks/**"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP", "SIM", "N"]
+
+[tool.ruff.lint.pep8-naming]
+# Capital X for feature matrices is the scikit-learn convention.
+ignore-names = ["X", "X_*"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["classical_ml", "payments_rag"]

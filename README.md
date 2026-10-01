@@ -14,7 +14,7 @@ A 12-week path to an Azure GenAI/ML Engineer role, built as code. Two tracks sha
 Requires Python 3.11+ and [uv](https://docs.astral.sh/uv/).
 
 ```bash
-uv sync --all-groups          # create .venv with runtime + dev deps
+uv sync --all-groups          # create .venv with runtime, dev and notebook deps
 uv run pre-commit install     # ruff, ruff-format, mypy on every commit
 ```
 
@@ -25,6 +25,7 @@ uv run pytest                 # tests
 uv run ruff check . --fix     # lint
 uv run ruff format .          # format
 uv run mypy                   # type check (strict)
+uv run jupyter lab            # notebooks (classical_ml/notebooks/)
 ```
 
 CI runs the same four checks on every push and pull request.
