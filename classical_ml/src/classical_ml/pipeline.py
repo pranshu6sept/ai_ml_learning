@@ -19,16 +19,31 @@ from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import StratifiedKFold, cross_val_score
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.preprocessing import FunctionTransformer, OneHotEncoder, StandardScaler
 
 from classical_ml.datasets import CATEGORICAL_FEATURES, NUMERIC_FEATURES
+
+
+def debt_to_income(X: pd.DataFrame) -> npt.NDArray[np.float64]:
+    """Loan amount / annual income as one column. NaN wherever income is missing."""
+    ratio = X["loan_amount"] / X["annual_income"]
+    return ratio.to_numpy(dtype=np.float64).reshape(-1, 1)
+
+
+def _debt_to_income_names(
+    transformer: FunctionTransformer, input_features: Sequence[str]
+) -> npt.NDArray[np.object_]:
+    return np.array(["debt_to_income"], dtype=object)
 
 
 def build_preprocessor(
     numeric: Sequence[str] = NUMERIC_FEATURES,
     categorical: Sequence[str] = CATEGORICAL_FEATURES,
 ) -> ColumnTransformer:
-    """Impute + scale numeric columns; impute + one-hot categorical columns."""
+    """Impute + scale numeric columns; impute + one-hot categorical columns.
+
+    Also adds a ``debt_to_income`` feature computed from the raw loan and income columns.
+    """
     numeric_steps = Pipeline(
         [
             ("impute", SimpleImputer(strategy="median")),
@@ -41,10 +56,20 @@ def build_preprocessor(
             ("onehot", OneHotEncoder(handle_unknown="ignore", sparse_output=False)),
         ]
     )
+    # The ratio is built from the raw columns (before imputing), so a missing income stays NaN
+    # and is then imputed like any other numeric feature.
+    ratio_steps = Pipeline(
+        [
+            ("ratio", FunctionTransformer(debt_to_income, feature_names_out=_debt_to_income_names)),
+            ("impute", SimpleImputer(strategy="median")),
+            ("scale", StandardScaler()),
+        ]
+    )
     return ColumnTransformer(
         [
             ("num", numeric_steps, list(numeric)),
             ("cat", categorical_steps, list(categorical)),
+            ("dti", ratio_steps, ["loan_amount", "annual_income"]),
         ]
     )
 
