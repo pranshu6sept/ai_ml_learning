@@ -5,6 +5,7 @@ description = "12-week Azure GenAI/ML learning repo: classical ML project and a 
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "imbalanced-learn>=0.14.2",
     "numpy>=1.26",
     "pandas>=2.2",
     "scikit-learn>=1.5",
@@ -21,6 +22,7 @@ dev = [
 ]
 notebooks = [
     "jupyterlab>=4.2",
+    "matplotlib>=3.11.2",
 ]
 
 [build-system]

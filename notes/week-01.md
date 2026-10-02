@@ -120,8 +120,5 @@ I saw both: a feature selector that used the validation labels leaked informatio
 score, while a random forest scored 1.000 on training rows and only 0.662 on held-out rows because
 it fit noise. Cross-validation and a clean pipeline help separate the two.
 
-Exercise 5 is finished: I read the fitted logistic-regression coefficients and compared their signs to
-`make_credit_applicants()`. The learned model agreed with the generator: higher debt-to-income and
-more late payments pushed default risk up, while longer credit history and owning a home pushed it
-down. That was the moment the coefficients stopped being abstract numbers and started feeling like
-an explanation.
+I read the fitted logistic-regression coefficients and compared their signs to
+`make_credit_applicants()`. The learned model agreed with the generator: higher debt-to-income and more late payments pushed default risk up, while longer credit history and owning a home pushed it down. That was the moment the coefficients stopped being abstract numbers and started feeling like an explanation.
