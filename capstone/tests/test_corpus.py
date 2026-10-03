@@ -5,7 +5,17 @@ from pathlib import Path
 from payments_rag import strip_sections
 
 CORPUS = Path(__file__).resolve().parents[1] / "docs" / "corpus"
-REQUIRED = {"id", "title", "source_type", "jurisdiction", "url", "file", "status", "verification"}
+REQUIRED = {
+    "id",
+    "title",
+    "source_type",
+    "jurisdiction",
+    "url",
+    "file",
+    "status",
+    "verification",
+    "licence",
+}
 VERIFICATION = {
     "fetched",
     "fetched_and_search_summary",

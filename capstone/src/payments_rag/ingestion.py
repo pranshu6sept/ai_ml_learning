@@ -57,6 +57,7 @@ REQUIRED_FIELDS = (
     "status",
     "verification",
     "published",
+    "licence",
 )
 _DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
 
@@ -77,6 +78,7 @@ class SourceDocument:
     file: str
     status: str
     verification: str
+    licence: str  # of the source material: "author_written", "not_checked", or the licence name
     published: str | None
     retrieved: str | None
     superseded_by: str | None
@@ -128,6 +130,8 @@ def _problems(entries: list[dict[str, Any]], corpus_dir: Path) -> list[str]:
             problems.append(f"{label}: no file, and status is not 'planned'")
         elif file and not (corpus_dir / file).is_file():
             problems.append(f"{label}: file {file!r} does not exist")
+        if "licence" in entry and not str(entry["licence"]).strip():
+            problems.append(f"{label}: licence is empty (use 'not_checked' if you have not looked)")
         if entry.get("verification") not in VERIFICATION_LEVELS:
             problems.append(f"{label}: unknown verification {entry.get('verification')!r}")
         for field in ("published", "retrieved"):
@@ -170,6 +174,7 @@ def load_registry(corpus_dir: Path = CORPUS_DIR) -> list[SourceDocument]:
             file=e["file"],
             status=e["status"],
             verification=e["verification"],
+            licence=e["licence"],
             published=e["published"],
             retrieved=e.get("retrieved"),
             superseded_by=e.get("superseded_by"),

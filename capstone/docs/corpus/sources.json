@@ -10,6 +10,7 @@
     "published": null,
     "retrieved": "2026-10-03",
     "verification": "author_written_partly_verified",
+    "licence": "author_written",
     "notes": "Author-written. Checked: the BIS CPMI report 'Harmonisation of ISO 20022' (fetched, published 2022-09-09) supports 'a messaging standard that most payment systems are adopting' and use by payment system operators. Search-engine summaries of Fed Financial Services and BIS pages describe richer structured data. Not confirmed: users (corporations, regulators), the concept list, the example message content. The ISO site returns 403.",
     "checked_against": [
       "https://www.bis.org/cpmi/publ/d211.pdf",
@@ -27,6 +28,7 @@
     "published": null,
     "retrieved": "2026-10-02",
     "verification": "via_search_summary",
+    "licence": "not_checked",
     "notes": "The page blocked automated fetching (HTTP 403); details come from a search-engine summary of it. Names three business areas (pain, pacs, camt) and the identifier structure. Check against the page."
   },
   {
@@ -40,6 +42,7 @@
     "published": null,
     "retrieved": "2026-10-03",
     "verification": "author_written_partly_verified",
+    "licence": "author_written",
     "notes": "Author-written, generic. Supported by the fetched RBI Master Direction on Digital Payment Security Controls (issued 2021-02-18) and the 2025 Authentication Directions: secure digital payments, authentication and fraud controls, risk management and governance, customer protection. NOT confirmed: system resilience and operational continuity (the 2021 Master Direction's fetched summary reports no mention of business continuity) and the payment infrastructure topic; both bullets are annotated in the document. Prefer rbi-authentication-directions-2025.",
     "checked_against": [
       "https://www.rbi.org.in/scripts/BS_ViewMasDirections.aspx?id=12032",
@@ -57,6 +60,7 @@
     "published": "2016-12-06",
     "retrieved": "2026-10-02",
     "verification": "fetched",
+    "licence": "not_checked",
     "notes": "RBI/2016-17/172 (DPSS.CO.PD No.1431/02.14.003/2016-17). Repealed: listed in Annexure 2 of the RBI Authentication Directions 2025. Kept as a historical document and labelled as such.",
     "superseded_by": "rbi-authentication-directions-2025"
   },
@@ -71,6 +75,7 @@
     "published": "2025-09-25",
     "retrieved": "2026-10-03",
     "verification": "fetched",
+    "licence": "not_checked",
     "notes": "Summarised from an automated fetch of the RBI Master Directions page: issue and compliance dates, two-factor rule, seven exemption categories, issuer duties, cross-border card-not-present dates, and the eight circulars repealed (including the 2016 card-not-present relaxation). Check exact wording against the page."
   },
   {
@@ -84,6 +89,7 @@
     "published": "2025-11-27",
     "retrieved": "2026-10-02",
     "verification": "fetched",
+    "licence": "not_checked",
     "notes": "Page date 27 Nov 2025. States aims, the SCA start date, new provider category, EBA role and the PSD3/PSR revision. Does not give SCA rules or exemption thresholds."
   },
   {
@@ -97,6 +103,7 @@
     "published": null,
     "retrieved": "2026-10-02",
     "verification": "fetched",
+    "licence": "not_checked",
     "notes": "States purpose, applicability and who manages compliance programmes. Does not list the individual requirements or penalties."
   },
   {
@@ -110,6 +117,7 @@
     "published": null,
     "retrieved": "2026-10-03",
     "verification": "author_written_partly_verified",
+    "licence": "author_written",
     "notes": "Author-written. Checked: the ECB glossary (30 Sep 2008, PDF text read directly) defines card issuer, card scheme, clearing and settlement consistently with this summary; its acquirer definition is looser than 'the bank that handles the merchant's account'. The authorization step is consistent only with search-engine summaries of Mastercard (403 on the guide). Visa not checked for the lifecycle.",
     "checked_against": [
       "https://www.ecb.europa.eu/press/intro/cons/shared/files/glossarypaymentclearingsettlementsystems.pdf",
@@ -127,6 +135,7 @@
     "published": "2024-04-15",
     "retrieved": "2026-10-02",
     "verification": "fetched_and_search_summary",
+    "licence": "not_checked",
     "notes": "Consumer-law billing error process (Regulation Z, 1026.13), not card-scheme chargeback rules. The rights during an investigation come from a search summary of the same page. The date is the page's 'last reviewed' date (page last modified 2024-05-03)."
   },
   {
@@ -140,6 +149,7 @@
     "published": null,
     "retrieved": "2026-10-02",
     "verification": "via_search_summary",
+    "licence": "not_checked",
     "notes": "The page did not load for automated fetching; details come from a search-engine summary of it. Check against the page."
   },
   {
@@ -153,6 +163,7 @@
     "published": null,
     "retrieved": "2026-10-03",
     "verification": "author_written_partly_verified",
+    "licence": "author_written",
     "notes": "Author-written. FAQ 1 (authorization and settlement) is consistent with the ECB glossary and other corpus documents; FAQ 2 (ISO 20022) partly with the BIS report; FAQ 3 (strong customer authentication) with the PSD2 and RBI documents; FAQ 4 (PCI DSS) with the PCI SSC page; FAQ 5's dispute reasons: 'non-receipt' is supported by a Visa FAQ (April 2020) naming the dispute condition 'Merchandise/Services Not Received', 'billing problems' by CFPB; 'fraud' is not in those two sources. FAQ 6 is about this RAG system, not payments.",
     "checked_against": [
       "https://usa.visa.com/dam/VCOM/global/support-legal/documents/faq-apr-disputes.pdf",

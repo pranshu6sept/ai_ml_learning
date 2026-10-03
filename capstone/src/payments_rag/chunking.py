@@ -112,6 +112,9 @@ class Chunk:
     source_url: str = ""
     strategy: str = ""
     title: str = ""
+    jurisdiction: str = ""  # region of the source document, e.g. "India"
+    source_type: str = ""
+    published: str = ""  # YYYY-MM-DD, or "" when the source gives no date
 
     @property
     def word_count(self) -> int:
@@ -390,6 +393,9 @@ def chunk_document(
     strategy: str,
     title: str = "",
     source_url: str = "",
+    jurisdiction: str = "",
+    source_type: str = "",
+    published: str = "",
     chunk_size: int = 80,
     overlap: int = 20,
     max_sentences: int = 4,
@@ -406,7 +412,18 @@ def chunk_document(
     else:
         raise ValueError(f"unknown strategy {strategy!r}; choose from {STRATEGIES}")
     return [
-        Chunk(piece.text, index, doc_id, piece.section, source_url, strategy, title)
+        Chunk(
+            piece.text,
+            index,
+            doc_id,
+            piece.section,
+            source_url,
+            strategy,
+            title,
+            jurisdiction,
+            source_type,
+            published,
+        )
         for index, piece in enumerate(pieces)
     ]
 

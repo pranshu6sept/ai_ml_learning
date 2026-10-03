@@ -813,3 +813,21 @@ Sources lists only the passages the answer cites.
 Live spot checks (not a measurement): "What is ISO 20022?" and "What is remittance information?" were answered with citations; the 2011
 cricket question was refused ("none"); the pacs.008 and Visa card-not-present chargeback questions were refused as "partial". I have not
 checked whether those two refusals are right or too strict. The measured refusal behaviour is in the abstention and answerability sections above.
+
+## Licence field and metadata filters (closing the small Week 4 gaps)
+
+**Licence.** Every registry entry in `sources.json` now has a required `licence` (an empty value is a registry error). Honest state: the
+4 author-written documents say `author_written`; the other 7 say `not_checked`. I did not look up the licences or terms of use of the public
+sources, so those 7 are still a to-do before anything is republished.
+
+**Filters.** Chunks now carry `jurisdiction` (region), `source_type` and `published`, and the Azure index has them as filterable fields.
+`SearchFilter` (in `search_filters.py`, no Azure imports) turns source, region, type and date range into an OData filter, applied before ranking.
+`python -m payments_rag.ask "..." --source psd2_overview --region EU --published-from 2025-01-01` uses them (names are matched ignoring case; an
+unknown value is an error that lists the valid ones). Values are validated, so a filter value cannot break out of the OData string.
+
+Checked live after rebuilding the index (52/63/100/63 chunks, index matches the corpus): for "rules for authenticating card payments", no filter
+returned the repealed 2016 RBI circular first; `--region India` returned only India documents; `--source psd2_overview` only PSD2;
+`--published-from 2025-01-01` returned the 2025 RBI directions and PSD2 and dropped the 2016 circular.
+
+Limits: matching is exact (`India` does not include `global` documents); a date filter drops the 7 documents with no published date; filters
+exist for Azure search only, not the local retriever; filtered retrieval is not part of the evaluation tables.

@@ -26,3 +26,6 @@ data/raw/
 .vscode/
 .idea/
 .DS_Store
+
+# personal career notes, kept local
+notes/resume-reframing.md

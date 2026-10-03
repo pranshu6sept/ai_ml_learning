@@ -28,6 +28,7 @@ def _entry(**overrides: object) -> dict[str, object]:
         "file": "raw/a.md",
         "status": "available",
         "verification": "fetched",
+        "licence": "not_checked",
         "published": "2025-01-02",
         "retrieved": "2026-10-03",
     }
@@ -49,6 +50,31 @@ def test_the_real_registry_is_valid_and_every_document_is_ingested() -> None:
     assert len(documents) >= 11
     assert all(d.text.endswith("\n") and d.words > 50 for d in documents)
     assert {d.source.doc_id for d in documents} >= {"faqs", "pci_dss_overview"}
+
+
+def test_every_real_document_states_its_licence_status() -> None:
+    sources = load_registry(REAL_CORPUS)
+
+    assert all(s.licence.strip() for s in sources)
+    for source in sources:
+        if source.verification.startswith("author_written"):
+            assert source.licence == "author_written", source.id
+
+
+def test_a_missing_or_empty_licence_is_a_registry_problem(tmp_path: Path) -> None:
+    no_licence = _entry(id="doc-b", file="raw/b.md")
+    del no_licence["licence"]
+    corpus = _corpus(
+        tmp_path,
+        [_entry(licence="  "), no_licence],
+        {"a.md": "# A\n", "b.md": "# B\n"},
+    )
+
+    with pytest.raises(RegistryError) as error:
+        load_registry(corpus)
+
+    assert "doc-a: licence is empty" in str(error.value)
+    assert "doc-b: missing field 'licence'" in str(error.value)
 
 
 def test_registry_problems_are_all_reported_together(tmp_path: Path) -> None:

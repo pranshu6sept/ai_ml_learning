@@ -23,7 +23,9 @@ from .azure_clients import (
     AzureSettings,
 )
 from .grounding import NO_ANSWER, GroundedAnswer
+from .ingestion import load_registry
 from .retrieval import Hit
+from .search_filters import SearchFilter
 
 STRATEGY = "structure_aware"
 TOP_K = 3
@@ -70,17 +72,44 @@ def ask(
     return Answer(question, reply.text, sources, False, grounded.reason)
 
 
+def _known(
+    parser: argparse.ArgumentParser, flag: str, given: list[str], valid: list[str]
+) -> tuple[str, ...]:
+    """Match each value to the registry spelling, ignoring case; unknown values are an error."""
+    canonical = {v.lower(): v for v in valid}
+    unknown = [v for v in given if v.lower() not in canonical]
+    if unknown:
+        parser.error(f"{flag}: unknown {unknown}; choose from {sorted(canonical.values())}")
+    return tuple(canonical[v.lower()] for v in given)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Ask a question about the payments corpus.")
     parser.add_argument("question")
     parser.add_argument("--no-semantic", action="store_true", help="skip Azure's semantic ranker")
+    parser.add_argument(
+        "--source", action="append", default=[], help="only this document (repeatable)"
+    )
+    parser.add_argument(
+        "--region", action="append", default=[], help="only this region (repeatable)"
+    )
+    parser.add_argument("--published-from", help="only documents published on or after YYYY-MM-DD")
+    parser.add_argument("--published-to", help="only documents published on or before YYYY-MM-DD")
     args = parser.parse_args(argv)
+    sources = load_registry()
+    filters = SearchFilter(
+        doc_ids=_known(parser, "--source", args.source, [s.doc_id for s in sources]),
+        jurisdictions=_known(parser, "--region", args.region, [s.jurisdiction for s in sources]),
+        published_from=args.published_from,
+        published_to=args.published_to,
+    )
     settings = AzureSettings.from_env()
     retriever = AzureHybridRetriever(
         AzureSearchStore(settings),
         AzureOpenAIEmbedder(settings),
         STRATEGY,
         semantic=not args.no_semantic,
+        filters=filters,
     )
     result = ask(args.question, retriever, AzureChatGenerator(settings))
     print(result.text)

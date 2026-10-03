@@ -30,6 +30,7 @@ from .grounding import (
     parse_answerability,
 )
 from .retrieval import Hit
+from .search_filters import SearchFilter, build_odata
 
 OPENAI_API_VERSION = "2024-10-21"  # documented GA Azure OpenAI data-plane version; override via env
 OPENAI_TOKEN_SCOPE = "https://cognitiveservices.azure.com/.default"
@@ -194,7 +195,19 @@ class AzureSearchStore:
     index serves all four strategies (the free tier allows only three indexes).
     """
 
-    _SELECT = ["id", "text", "doc_id", "section", "source_url", "title", "strategy", "chunk_index"]
+    _SELECT = [
+        "id",
+        "text",
+        "doc_id",
+        "section",
+        "source_url",
+        "title",
+        "strategy",
+        "chunk_index",
+        "jurisdiction",
+        "source_type",
+        "published",
+    ]
 
     def __init__(
         self,
@@ -257,6 +270,11 @@ class AzureSearchStore:
             SimpleField(name="title", type=text),
             SimpleField(name="strategy", type=text, filterable=True, facetable=True),
             SimpleField(name="chunk_index", type=kinds.Int32, filterable=True),
+            SimpleField(name="jurisdiction", type=text, filterable=True, facetable=True),
+            SimpleField(name="source_type", type=text, filterable=True, facetable=True),
+            SimpleField(
+                name="published", type=kinds.DateTimeOffset, filterable=True, sortable=True
+            ),
             SearchField(
                 name="vector",
                 type=kinds.Collection(kinds.Single),
@@ -309,6 +327,9 @@ class AzureSearchStore:
                 "title": chunk.title,
                 "strategy": chunk.strategy,
                 "chunk_index": chunk.chunk_index,
+                "jurisdiction": chunk.jurisdiction,
+                "source_type": chunk.source_type,
+                "published": f"{chunk.published}T00:00:00Z" if chunk.published else None,
                 "vector": [float(x) for x in vector],
             }
             for chunk, vector in zip(chunks, vectors, strict=True)
@@ -324,8 +345,10 @@ class AzureSearchStore:
         top_k: int = 3,
         strategy: str | None = None,
         semantic: bool = False,
+        filters: SearchFilter | None = None,
     ) -> list[Hit]:
-        """Hybrid search (keyword plus vector), optionally limited to one chunking strategy.
+        """Hybrid search (keyword plus vector), optionally limited to one chunking strategy and to
+        chunks matching ``filters`` (source document, region, source type, publication date).
 
         With ``semantic=True`` Azure re-ranks the fused results with its semantic ranker and the hit
         score becomes the ranker's score (0 to 4). ``semantic_error_mode`` is ``fail`` so that a
@@ -348,7 +371,7 @@ class AzureSearchStore:
         results = self._search_client.search(
             search_text=query,
             vector_queries=[vector_query],
-            filter=f"strategy eq '{strategy}'" if strategy else None,
+            filter=build_odata(strategy, filters),
             select=self._SELECT,
             top=top_k,
             **semantic_options,
@@ -363,6 +386,9 @@ class AzureSearchStore:
                 source_url=row.get("source_url") or "",
                 strategy=row.get("strategy") or "",
                 title=row.get("title") or "",
+                jurisdiction=row.get("jurisdiction") or "",
+                source_type=row.get("source_type") or "",
+                published=str(row.get("published") or "")[:10],
             )
             score = row["@search.reranker_score"] if semantic else row["@search.score"]
             hits.append(Hit(chunk, float(score)))
@@ -378,14 +404,21 @@ class AzureHybridRetriever:
         embedder: AzureOpenAIEmbedder,
         strategy: str | None = None,
         semantic: bool = False,
+        filters: SearchFilter | None = None,
     ) -> None:
         self._store = store
         self._embedder = embedder
         self._strategy = strategy
         self._semantic = semantic
+        self._filters = filters
 
     def search(self, query: str, top_k: int = 3) -> list[Hit]:
         vector = self._embedder([query])[0]
         return self._store.search(
-            query, vector, top_k=top_k, strategy=self._strategy, semantic=self._semantic
+            query,
+            vector,
+            top_k=top_k,
+            strategy=self._strategy,
+            semantic=self._semantic,
+            filters=self._filters,
         )

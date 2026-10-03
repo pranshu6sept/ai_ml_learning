@@ -50,6 +50,20 @@ def test_every_chunk_carries_its_documents_title_url_and_strategy(tmp_path: Path
             assert chunk.source_url == sources[chunk.doc_id].url
 
 
+def test_every_chunk_carries_its_documents_region_type_and_date(tmp_path: Path) -> None:
+    store = FakeStore()
+
+    build_index(store=store, embedder=_embed, manifest_path=tmp_path / "m.json")  # type: ignore[arg-type]
+
+    sources = {d.source.doc_id: d.source for d in ingest()}
+    for chunks in store.uploads.values():
+        for chunk in chunks:
+            source = sources[chunk.doc_id]
+            assert chunk.jurisdiction == source.jurisdiction
+            assert chunk.source_type == source.source_type
+            assert chunk.published == (source.published or "")  # "" when the source has no date
+
+
 def test_the_chunks_are_exactly_what_the_chunker_makes_from_the_cleaned_text() -> None:
     documents = ingest()
 

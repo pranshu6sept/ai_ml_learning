@@ -34,6 +34,7 @@ from .grounding import (
 )
 from .reranking import CrossEncoderReranker, Reranker, rerank
 from .retrieval import METHODS, Hit, Retriever, build_retriever, retrieve_chunks
+from .search_filters import SearchFilter, build_odata
 
 __version__ = "0.1.0"
 
@@ -57,12 +58,14 @@ __all__ = [
     "CrossEncoderReranker",
     "Hit",
     "Retriever",
+    "SearchFilter",
     "SentenceTransformerEmbedder",
     "__version__",
     "build_retriever",
     "retrieve_evidence",
     "rerank",
     "choose_threshold",
+    "build_odata",
     "build_prompt",
     "enforce_citations",
     "split_sentences",

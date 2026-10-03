@@ -16,6 +16,7 @@ from payments_rag import (
     Chunk,
     GroundedAnswer,
     Hit,
+    SearchFilter,
 )
 from payments_rag.azure_clients import read_dotenv
 
@@ -281,6 +282,62 @@ def _row(**extra: Any) -> dict[str, Any]:
         "@search.score": 0.0327,
         **extra,
     }
+
+
+def test_upload_sends_region_type_and_date_and_null_when_the_date_is_unknown() -> None:
+    store, search, _ = _store()
+    dated = Chunk("a", 0, "d1", "S", "u", "fixed", "T", "EU", "regulator_public_docs", "2025-11-27")
+    undated = Chunk("b", 0, "d2", "S", "u", "fixed", "T", "global", "standards_summary", "")
+
+    store.upload([dated, undated], np.eye(2, dtype=np.float32))
+
+    first, second = search.uploaded[0]
+    assert first["jurisdiction"] == "EU" and first["published"] == "2025-11-27T00:00:00Z"
+    assert second["jurisdiction"] == "global" and second["published"] is None
+
+
+def test_the_index_makes_region_type_and_date_filterable() -> None:
+    pytest.importorskip("azure.search.documents")
+    store, _, index_client = _store()
+
+    store.ensure_index(dimensions=3)
+
+    fields = {f.name: f for f in index_client.index.fields}
+    assert fields["jurisdiction"].filterable and fields["source_type"].filterable
+    assert fields["published"].filterable and fields["published"].type == "Edm.DateTimeOffset"
+
+
+def test_search_applies_metadata_filters_and_returns_the_metadata() -> None:
+    pytest.importorskip("azure.search.documents")
+    row = _row(
+        jurisdiction="EU", source_type="regulator_public_docs", published="2025-11-27T00:00:00Z"
+    )
+    store, search, _ = _store([row])
+
+    hits = store.search(
+        "surcharges?",
+        [0.1, 0.2],
+        strategy="structure_aware",
+        filters=SearchFilter(jurisdictions=("EU",), published_from="2025-01-01"),
+    )
+
+    assert search.search_kwargs["filter"] == (
+        "strategy eq 'structure_aware' and search.in(jurisdiction, 'EU', ',')"
+        " and published ge 2025-01-01T00:00:00Z"
+    )
+    assert hits[0].chunk.jurisdiction == "EU"
+    assert hits[0].chunk.published == "2025-11-27"
+
+
+def test_the_retriever_passes_its_filters_to_the_store() -> None:
+    pytest.importorskip("azure.search.documents")
+    store, search, _ = _store([_row()])
+    embedder = AzureOpenAIEmbedder(SETTINGS, client=SimpleNamespace(embeddings=FakeEmbeddings()))
+    flt = SearchFilter(doc_ids=("psd2_overview",))
+
+    AzureHybridRetriever(store, embedder, "structure_aware", filters=flt).search("q")
+
+    assert "search.in(doc_id, 'psd2_overview', ',')" in search.search_kwargs["filter"]
 
 
 def test_the_index_declares_a_semantic_configuration_for_the_section_and_text() -> None:
