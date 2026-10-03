@@ -249,6 +249,7 @@ class RecordingIndexClient(FakeIndexClient):
 
 
 def test_recreate_deletes_the_old_index_before_creating_the_new_one() -> None:
+    pytest.importorskip("azure.search.documents")
     index = RecordingIndexClient()
     store = AzureSearchStore(SETTINGS, index_client=index, search_client=FakeSearchClient())
 
@@ -258,6 +259,7 @@ def test_recreate_deletes_the_old_index_before_creating_the_new_one() -> None:
 
 
 def test_recreate_works_on_a_first_run_when_there_is_no_index_to_delete() -> None:
+    pytest.importorskip("azure.search.documents")
     index = RecordingIndexClient(missing=True)
     store = AzureSearchStore(SETTINGS, index_client=index, search_client=FakeSearchClient())
 
