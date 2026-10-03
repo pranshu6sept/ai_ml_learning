@@ -2,11 +2,11 @@
 
 ## Week 4 · Oct 26–Nov 1 · RAG core
 
-> ### Status: the work below is delivered, but Week 4 is NOT closed against the roadmap (corrected 3 Oct 2026)
+> ### Status: Week 4 is closed against the roadmap (4 Oct 2026)
 >
-> I marked this week closed against the plan in this file. That plan does not match the roadmap: it mixed in Week 5 items
-> (comparing chunking strategies, groundedness and retrieval evaluation) and left out Week 4 items (the semantic ranker,
-> HNSW and filter concepts, the resume). See "Roadmap check" below for the real status of both weeks.
+> On 3 Oct I wrongly marked this week closed against a plan that mixed in Week 5 items and left out Week 4 items (semantic ranker,
+> HNSW and filter concepts, the resume). Those are now done: see "Roadmap check" below. The resume item was done by the author; I
+> have not seen the finished resume. Week 5 items done early are listed separately in the same table.
 >
 > **Delivered.** An 11-document public payments corpus with a validated registry and manifest; four chunking strategies; a
 > retrieval stack (TF-IDF, BM25, stemming, local and Azure embeddings, hybrid search, cross-encoder reranker); Azure OpenAI
@@ -47,7 +47,7 @@
 | Embeddings model choice; vector DB concepts (HNSW, filters) | **Done, with limits.** Two models compared on retrieval, and the rationale, HNSW, filters and the semantic ranker are written up in `week-04-fundamentals.md` section 11. Not done: recall against exact search, HNSW tuning, `text-embedding-3-large`. |
 | Azure AI Search index with vector + keyword (hybrid) + semantic ranker | **Done and measured live.** Semantic ranker (`semantic=True`) compared with hybrid alone and with the local cross-encoder on all four question sets (`evals/rerankers_eval.md`): best Hit@1 and MRR on every set. Small n, my own questions, one run: see the reranker section. |
 | Deliverable: ingest and retrieve working end to end against AI Search | **Done.** `python -m payments_rag.indexing` ran live (52/63/100/63 chunks per strategy) and records which corpus the index holds. `python -m payments_rag.ask "question"` is the plain retrieve -> generate path: hybrid + semantic ranker, quote-verified answerability check, cited answer or refusal. |
-| Resume: start reframing | **Not done.** Nothing in the repo, and I have not seen the Resume section. |
+| Resume: start reframing | **Done by the author** (4 Oct 2026). I drafted a plan from the resume (kept local, git-ignored); I have not seen the final resume. |
 | Write-up + push | **Done** |
 
 **Week 5 (roadmap), partly done early inside this file:**
