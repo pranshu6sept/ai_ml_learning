@@ -18,14 +18,12 @@ from pathlib import Path
 from typing import Any
 
 from payments_rag import STRATEGIES, Chunk, Retriever, chunk_document, strip_sections
+from payments_rag.indexing import CHUNK_WORDS, MAX_SENTENCES, OVERLAP
 from payments_rag.ingestion import META_SECTIONS, SourceDocument, load_registry
 
 HERE = Path(__file__).resolve().parent
 CORPUS = HERE.parent / "docs" / "corpus"
 QUESTIONS = HERE / "questions.json"
-CHUNK_WORDS = 80
-OVERLAP = 20
-MAX_SENTENCES = 4
 KS = (1, 3, 5)
 MAX_RANK = 10
 # Sections that only describe the corpus or list sample questions; they are not knowledge.

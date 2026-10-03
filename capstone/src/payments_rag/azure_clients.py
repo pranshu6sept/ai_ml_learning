@@ -36,6 +36,7 @@ OPENAI_TOKEN_SCOPE = "https://cognitiveservices.azure.com/.default"
 EMBEDDING_DIMENSIONS = 1536  # text-embedding-3-small
 VECTOR_PROFILE = "payrag-hnsw-profile"
 VECTOR_ALGORITHM = "payrag-hnsw"
+SEMANTIC_CONFIGURATION = "payrag-semantic"
 _REQUIRED = {
     "AZURE_OPENAI_ENDPOINT": "openai_endpoint",
     "AZURE_OPENAI_EMBEDDING_DEPLOYMENT": "embedding_deployment",
@@ -236,6 +237,10 @@ class AzureSearchStore:
             SearchField,
             SearchFieldDataType,
             SearchIndex,
+            SemanticConfiguration,
+            SemanticField,
+            SemanticPrioritizedFields,
+            SemanticSearch,
             SimpleField,
             VectorSearch,
             VectorSearchProfile,
@@ -268,8 +273,25 @@ class AzureSearchStore:
                 )
             ],
         )
+        # The semantic ranker re-reads the top results with a language model. It needs to know which
+        # field is the title (the section path) and which holds the text to read.
+        semantic_search = SemanticSearch(
+            default_configuration_name=SEMANTIC_CONFIGURATION,
+            configurations=[
+                SemanticConfiguration(
+                    name=SEMANTIC_CONFIGURATION,
+                    prioritized_fields=SemanticPrioritizedFields(
+                        title_field=SemanticField(field_name="section"),
+                        content_fields=[SemanticField(field_name="text")],
+                    ),
+                )
+            ],
+        )
         index = SearchIndex(
-            name=self._settings.search_index, fields=fields, vector_search=vector_search
+            name=self._settings.search_index,
+            fields=fields,
+            vector_search=vector_search,
+            semantic_search=semantic_search,
         )
         self._index_client.create_or_update_index(index)
 
@@ -296,13 +318,32 @@ class AzureSearchStore:
         return len(documents)
 
     def search(
-        self, query: str, vector: Sequence[float], top_k: int = 3, strategy: str | None = None
+        self,
+        query: str,
+        vector: Sequence[float],
+        top_k: int = 3,
+        strategy: str | None = None,
+        semantic: bool = False,
     ) -> list[Hit]:
-        """Hybrid search (keyword plus vector), optionally limited to one chunking strategy."""
+        """Hybrid search (keyword plus vector), optionally limited to one chunking strategy.
+
+        With ``semantic=True`` Azure re-ranks the fused results with its semantic ranker and the hit
+        score becomes the ranker's score (0 to 4). ``semantic_error_mode`` is ``fail`` so that a
+        service where the ranker is not enabled raises, instead of quietly returning ordinary hits.
+        """
         from azure.search.documents.models import VectorizedQuery
 
         vector_query = VectorizedQuery(
             vector=[float(x) for x in vector], k_nearest_neighbors=max(top_k, 50), fields="vector"
+        )
+        semantic_options: dict[str, Any] = (
+            {
+                "query_type": "semantic",
+                "semantic_configuration_name": SEMANTIC_CONFIGURATION,
+                "semantic_error_mode": "fail",
+            }
+            if semantic
+            else {}
         )
         results = self._search_client.search(
             search_text=query,
@@ -310,6 +351,7 @@ class AzureSearchStore:
             filter=f"strategy eq '{strategy}'" if strategy else None,
             select=self._SELECT,
             top=top_k,
+            **semantic_options,
         )
         hits = []
         for row in results:
@@ -322,7 +364,8 @@ class AzureSearchStore:
                 strategy=row.get("strategy") or "",
                 title=row.get("title") or "",
             )
-            hits.append(Hit(chunk, float(row["@search.score"])))
+            score = row["@search.reranker_score"] if semantic else row["@search.score"]
+            hits.append(Hit(chunk, float(score)))
         return hits
 
 
@@ -330,12 +373,19 @@ class AzureHybridRetriever:
     """Adapts the Azure index to the ``search(query, top_k)`` shape of the local ``Retriever``."""
 
     def __init__(
-        self, store: AzureSearchStore, embedder: AzureOpenAIEmbedder, strategy: str | None = None
+        self,
+        store: AzureSearchStore,
+        embedder: AzureOpenAIEmbedder,
+        strategy: str | None = None,
+        semantic: bool = False,
     ) -> None:
         self._store = store
         self._embedder = embedder
         self._strategy = strategy
+        self._semantic = semantic
 
     def search(self, query: str, top_k: int = 3) -> list[Hit]:
         vector = self._embedder([query])[0]
-        return self._store.search(query, vector, top_k=top_k, strategy=self._strategy)
+        return self._store.search(
+            query, vector, top_k=top_k, strategy=self._strategy, semantic=self._semantic
+        )

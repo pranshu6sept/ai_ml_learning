@@ -23,6 +23,7 @@ import hashlib
 import json
 import re
 import sys
+from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -260,18 +261,23 @@ def manifest_differences(corpus_dir: Path = CORPUS_DIR) -> list[str]:
 
 
 def write_index_manifest(
-    documents: list[IngestedDocument], chunks_per_strategy: dict[str, int]
+    documents: Sequence[IngestedDocument],
+    chunks_per_strategy: dict[str, int],
+    path: Path = INDEX_MANIFEST,
 ) -> Path:
     """Record which corpus the Azure index was built from (called by the index builder)."""
-    INDEX_MANIFEST.write_text(
+    path.write_text(
         json.dumps(
-            {"corpus_sha256": corpus_sha256(documents), "chunks_per_strategy": chunks_per_strategy},
+            {
+                "corpus_sha256": corpus_sha256(list(documents)),
+                "chunks_per_strategy": chunks_per_strategy,
+            },
             indent=2,
         )
         + "\n",
         encoding="utf-8",
     )
-    return INDEX_MANIFEST
+    return path
 
 
 def index_matches_corpus(corpus_dir: Path = CORPUS_DIR) -> bool | None:

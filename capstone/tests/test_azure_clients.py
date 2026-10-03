@@ -267,3 +267,69 @@ def test_recreate_works_on_a_first_run_when_there_is_no_index_to_delete() -> Non
 
     assert index.calls == ["delete payments-rag", "create"]
     assert index.index is not None
+
+
+def _row(**extra: Any) -> dict[str, Any]:
+    return {
+        "text": "PSD2 bans retailer surcharges.",
+        "chunk_index": 2,
+        "doc_id": "psd2_overview",
+        "section": "PSD2 > Fees",
+        "source_url": "https://eu",
+        "strategy": "structure_aware",
+        "title": "PSD2",
+        "@search.score": 0.0327,
+        **extra,
+    }
+
+
+def test_the_index_declares_a_semantic_configuration_for_the_section_and_text() -> None:
+    pytest.importorskip("azure.search.documents")
+    store, _, index_client = _store()
+
+    store.ensure_index(dimensions=3)
+
+    semantic = index_client.index.semantic_search.as_dict()
+    assert semantic["defaultConfiguration"] == "payrag-semantic"
+    prioritized = semantic["configurations"][0]["prioritizedFields"]
+    assert prioritized["titleField"] == {"fieldName": "section"}
+    assert prioritized["prioritizedContentFields"] == [{"fieldName": "text"}]
+
+
+def test_semantic_search_asks_for_the_ranker_fails_loudly_and_uses_its_score() -> None:
+    pytest.importorskip("azure.search.documents")
+    store, search, _ = _store([_row(**{"@search.reranker_score": 2.75})])
+
+    hits = store.search("surcharges?", [0.1, 0.2], top_k=3, semantic=True)
+
+    assert search.search_kwargs["query_type"] == "semantic"
+    assert search.search_kwargs["semantic_configuration_name"] == "payrag-semantic"
+    assert search.search_kwargs["semantic_error_mode"] == "fail"  # never fall back silently
+    assert hits[0].score == pytest.approx(2.75)  # the ranker's score, not the fused 0.0327
+
+
+def test_ordinary_search_sends_no_semantic_options() -> None:
+    pytest.importorskip("azure.search.documents")
+    store, search, _ = _store([_row()])
+
+    hits = store.search("surcharges?", [0.1, 0.2], top_k=3)
+
+    assert (
+        not {"query_type", "semantic_configuration_name", "semantic_error_mode"}
+        & search.search_kwargs.keys()
+    )
+    assert hits[0].score == pytest.approx(0.0327)
+
+
+def test_the_retriever_passes_the_semantic_flag_through() -> None:
+    pytest.importorskip("azure.search.documents")
+    store, search, _ = _store([_row(**{"@search.reranker_score": 3.1})])
+
+    class Embedder:
+        def __call__(self, texts: Any) -> Any:
+            return [[0.1, 0.2] for _ in texts]
+
+    retriever = AzureHybridRetriever(store, Embedder(), "structure_aware", semantic=True)  # type: ignore[arg-type]
+
+    assert retriever.search("surcharges?", top_k=1)[0].score == pytest.approx(3.1)
+    assert search.search_kwargs["query_type"] == "semantic"

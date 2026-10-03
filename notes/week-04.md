@@ -2,6 +2,65 @@
 
 ## Week 4 · Oct 26–Nov 1 · RAG core
 
+> ### Status: the work below is delivered, but Week 4 is NOT closed against the roadmap (corrected 3 Oct 2026)
+>
+> I marked this week closed against the plan in this file. That plan does not match the roadmap: it mixed in Week 5 items
+> (comparing chunking strategies, groundedness and retrieval evaluation) and left out Week 4 items (the semantic ranker,
+> HNSW and filter concepts, the resume). See "Roadmap check" below for the real status of both weeks.
+>
+> **Delivered.** An 11-document public payments corpus with a validated registry and manifest; four chunking strategies; a
+> retrieval stack (TF-IDF, BM25, stemming, local and Azure embeddings, hybrid search, cross-encoder reranker); Azure OpenAI
+> (South India) and Azure AI Search (Central India) deployed from Bicep with keyless auth; a grounding rule with cited
+> generation, citation enforcement and a quote-verified answerability check; and 130 evaluation questions across five
+> files. 111 tests; CI green on `d6ee1e6`. All seven original plan items are done, with caveats written beside each.
+>
+> **Headline numbers, with their limits.** Azure hybrid retrieval, structure-aware chunks: Hit@3 0.91 on my dev questions
+> but 0.67 on 44 questions from the web (Hit@5 1.00). Grounding on 80 questions: 53 of 55 answerable answered, 52 correct,
+> no wrong answer shipped through the gate. The quote-verified check answers 45 of 55 where the reranker gate answers 31, but
+> on the web questions the two were within noise (6 against 5 of 9). Every number comes from questions I wrote or labelled,
+> a judge model that missed real errors, and small samples.
+>
+> **Gaps carried forward, not done:**
+> 1. A question set written and labelled by someone who has not read the corpus (the biggest weakness).
+> 2. The grounding, citation and answerability runs predate the final RBI annotations; repeating them takes about 40 minutes.
+> 3. Four author-written documents are only partly verified; the ISO, Mastercard and NPCI pages could not be read; dates are
+>    `null` for 7 of 11 documents.
+> 4. Citation enforcement can drop the sentence that answers the question (h02); the rewrite retry is not measured at scale.
+> 5. The retrieval misses behind q17 and q33; paraphrased questions are the weak spot; the BM25 and stemming gain did not
+>    generalise to the web questions.
+> 6. Not tried: a true embedding-based semantic chunker, a different checker model, a chunk-size test.
+> 7. **The Azure resources are still deployed** (free Search tier; OpenAI bills per token only). `infra/teardown.ps1` removes
+>    them, and `python -m payments_rag.ingestion --check-index` tells you whether the index matches the corpus.
+>
+> **What I would do differently.** Check a claim against the data before writing it down (the judge, the "caches committed"
+> claim and the generation timing were all wrong at first); run the suite with the optional packages blocked before pushing
+> (CI failed once because I did not); and record which corpus an index was built from the moment it is built.
+
+### Roadmap check: what the roadmap asks for in Weeks 4 and 5
+
+**Week 4 (roadmap):**
+
+| Roadmap item | Status |
+|---|---|
+| Assemble the corpus (no confidential employer material) | **Done, with caveats:** 11 documents, 4 only partly verified; only you can confirm no employer content |
+| Chunking: fixed, recursive, semantic, structure-aware | **Done** |
+| Embeddings model choice; vector DB concepts (HNSW, filters) | **Done, with limits.** Two models compared on retrieval, and the rationale, HNSW, filters and the semantic ranker are written up in `week-04-fundamentals.md` section 11. Not done: recall against exact search, HNSW tuning, `text-embedding-3-large`. |
+| Azure AI Search index with vector + keyword (hybrid) + semantic ranker | **Done and measured live.** Semantic ranker (`semantic=True`) compared with hybrid alone and with the local cross-encoder on all four question sets (`evals/rerankers_eval.md`): best Hit@1 and MRR on every set. Small n, my own questions, one run: see the reranker section. |
+| Deliverable: ingest and retrieve working end to end against AI Search | **Done.** `python -m payments_rag.indexing` ran live (52/63/100/63 chunks per strategy) and records which corpus the index holds; retrieval then ran against it in the evaluations. |
+| Resume: start reframing | **Not done.** Nothing in the repo, and I have not seen the Resume section. |
+| Write-up + push | **Done** |
+
+**Week 5 (roadmap), partly done early inside this file:**
+
+| Roadmap item | Status |
+|---|---|
+| Golden set of 50 to 100 questions with expected source chunks and reference answers | 130 questions with expected documents and gold phrases; **no reference answers** |
+| Retrieval metrics: recall@k, MRR, nDCG | Hit@k (recall@k when there is one expected chunk) and MRR done; **nDCG not done** |
+| Generation metrics: faithfulness/groundedness, answer relevance (RAGAS or Azure AI Foundry evaluators) | Groundedness measured with my own judge model, which is unreliable; **answer relevance not measured; RAGAS and Foundry evaluators not used** |
+| Compare the 4 chunking strategies with a results table | Done for retrieval; answer-level only for structure-aware chunks |
+| Deliverable: `evals/` runnable with one command, results committed | Results committed; **many scripts, no single command** |
+| Write-up + push | Partly: written up here, not as a separate Week 5 write-up |
+
 ### The question
 
 How do I build a payments assistant that answers questions from public banking and payments docs
@@ -38,14 +97,14 @@ This week is about building the evidence layer that every later orchestration st
 
 #### 1. Corpus setup
 
-- [ ] Create a public-only payments corpus under the capstone source directory.
-- [ ] Include source metadata: title, source type, publication date, URL, jurisdiction, and notes.
-- [ ] Start with a small but realistic set of documents:
+- [x] Create a public-only payments corpus under the capstone source directory.
+- [x] (publication date is `null` for 7 of 11 documents: the sources show none) Include source metadata: title, source type, publication date, URL, jurisdiction, and notes.
+- [x] Start with a small but realistic set of documents:
   - ISO 20022 overview and message examples
   - card-network rules summaries (e.g. authorization, settlement, dispute basics)
   - RBI / PSD2 / PCI-DSS public guidance summaries
   - 5–10 FAQ pages written from public documentation in your own words
-- [ ] Keep every document clearly labelled as public material only and remove any confidential or employer-specific content.
+- [ ] (the corpus README states the rule and every source is a public page or author-written, but only you can confirm no employer-specific content) Keep every document clearly labelled as public material only and remove any confidential or employer-specific content.
 
 #### 2. Chunking implementation
 
@@ -705,8 +764,7 @@ can show a gap that disappears at scale, and a retrieval score can't tell me whe
 - [x] Embeddings and hybrid search tried locally (all-MiniLM-L6-v2): the first clear gain.
 - [x] Azure infrastructure as Bicep, deployed to the free account, keyless; smoke test passes on live Azure.
 - [x] Ran `evaluate_azure.py` and compared with the local hybrid result (see above).
-- [ ] Try Azure's semantic ranker (Central India) and a cross-region latency fix (put OpenAI and Search in the same
-      region if a region with both is acceptable), then measure again.
+- [x] Azure's semantic ranker tried and measured (see reranker section). Still open: a cross-region latency fix (OpenAI and Search in one region), then re-measure.
 - [x] Ran the grounding rule end to end on Azure on the 80 questions and measured groundedness.
 - [ ] Tear down (`infra/teardown.ps1`) when finished, or leave running (OpenAI bills per token only; free Search
       may be deleted if idle).
@@ -722,4 +780,21 @@ can show a gap that disappears at scale, and a retrieval score can't tell me whe
       shipped. Still open: a different checker model, independent questions, and a cost that makes a wrong answer worse
       than a refusal.
 - [ ] Fix the retrieval misses that cause the real failures (q17, q33), since generation is not the weak link.
-- [ ] Commit and push.
+- [x] Committed and pushed (`be2072b`, then `d6ee1e6` to fix CI).
+
+## Reranker section: hybrid vs local cross-encoder vs Azure semantic ranker
+
+Run with `uv run --all-groups python capstone/evals/evaluate_rerankers.py` (needs `az login`). Same structure-aware index, same questions, three orderings.
+
+| Set (answerable n) | hybrid Hit@1 / MRR | + local cross-encoder | + Azure semantic ranker |
+|---|---|---|---|
+| dev (43) | 0.70 / 0.81 | 0.70 / 0.82 | 0.86 / 0.92 |
+| heldout (12) | 0.67 / 0.78 | 0.67 / 0.82 | 0.92 / 0.96 |
+| corpus_update (5) | 0.40 / 0.49 | 0.60 / 0.70 | 0.80 / 0.87 |
+| independent (9) | 0.33 / 0.58 | 0.67 / 0.80 | 0.78 / 0.87 |
+
+- The semantic ranker is best on every set, on Hit@1 and MRR. Hit@3 reaches 0.98-1.00 on all four sets.
+- The local cross-encoder adds little on dev and heldout, but helps clearly on the two newer sets.
+- Honest limits: the 9- and 5-question sets move 11 and 20 points per question; the questions are mine; one run; the free tier's
+  semantic allowance (about 180 queries a month) is now mostly used. Query time was similar (0.4-0.6 s).
+- Not yet tried: feeding the semantic reranker score to the abstention gate (it is on a 0-4 scale, unlike the local score).

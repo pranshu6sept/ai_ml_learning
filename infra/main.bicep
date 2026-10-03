@@ -118,6 +118,9 @@ resource search 'Microsoft.Search/searchServices@2025-05-01' = {
     replicaCount: 1
     partitionCount: 1
     publicNetworkAccess: 'enabled'
+    // The semantic ranker re-reads the top search results with a language model. 'free' allows a
+    // monthly allowance of semantic queries at no cost; 'standard' is billed per query.
+    semanticSearch: 'free'
     // Accept Entra ID tokens as well as keys. The default is keys only, which would reject role-based calls.
     authOptions: {
       aadOrApiKey: {

@@ -14,7 +14,6 @@ import time
 from evaluate_chunking import (
     HERE,
     META_SECTIONS,
-    chunk_corpus,
     evaluate,
     load_documents,
     load_questions,
@@ -28,7 +27,7 @@ from payments_rag import (
     AzureSettings,
     strip_sections,
 )
-from payments_rag.ingestion import ingest, write_index_manifest
+from payments_rag.indexing import build_index
 
 SPLITS = {
     "dev": HERE / "questions.json",
@@ -46,16 +45,10 @@ def main() -> None:
     settings = AzureSettings.from_env()
     embedder = AzureOpenAIEmbedder(settings)
     store = AzureSearchStore(settings)
-    store.recreate_index()  # clean rebuild: upserts would leave stale chunks of changed documents
-
     docs = {n: strip_sections(t, META_SECTIONS) for n, t in load_documents().items()}
-    for strategy in STRATEGIES:
-        chunks = chunk_corpus(docs, strategy)
-        store.upload(chunks, embedder([c.text for c in chunks]))
-    write_index_manifest(
-        ingest(),
-        {strategy: len(chunk_corpus(docs, strategy)) for strategy in STRATEGIES},
-    )  # records which corpus this index holds; `python -m payments_rag.ingestion --check-index`
+    # The same code as `python -m payments_rag.indexing`: recreate the index, chunk, embed, upload,
+    # and record which corpus the index holds.
+    build_index(store=store, embedder=embedder)
     print("Uploaded; waiting 20 s for the index to refresh...", flush=True)
     time.sleep(20)
 
@@ -71,6 +64,16 @@ def main() -> None:
             )
             for s in STRATEGIES
         }
+        # The semantic ranker re-reads the top hybrid results with a language model. Scored for
+        # structure-aware chunks only, to spare the free tier's monthly semantic-query allowance.
+        results[split]["structure_aware+semantic"] = evaluate(
+            "structure_aware",
+            docs,
+            questions,
+            retriever_factory=lambda _chunks: AzureHybridRetriever(
+                store, embedder, "structure_aware", semantic=True
+            ),
+        )
 
     lines = [
         "Azure OpenAI embeddings + Azure AI Search hybrid (keyword + vector, fused by Azure). "

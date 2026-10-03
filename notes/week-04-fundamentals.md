@@ -2,7 +2,7 @@
 
 Every number below comes from `capstone/evals/evaluate_chunking.py` on the public payments corpus (10 documents, about 2,400 words: ISO 20022, card schemes, RBI guidance, PCI DSS, PSD2, CFPB, UPI and FAQs) and 48 questions (43 answerable, 5 not). The code is in `capstone/src/payments_rag/`. Retrieval here is **TF-IDF**, not embeddings; embeddings and Azure AI Search come next.
 
-Contents: 1. What RAG is · 2. The pipeline · 3. Chunking · 4. Metadata and citations · 5. Retrieval with TF-IDF, BM25 and stemming · 6. Evaluating retrieval · 7. Your results · 8. Corpus lessons · 9. Grounding and abstaining · 10. Where Azure fits · 11. Interview check
+Contents: 1. What RAG is · 2. The pipeline · 3. Chunking · 4. Metadata and citations · 5. Retrieval with TF-IDF, BM25 and stemming · 6. Evaluating retrieval · 7. Your results · 8. Corpus lessons · 9. Grounding and abstaining · 10. Where Azure fits · 11. Vector search concepts · 12. Interview check
 
 ---
 
@@ -29,7 +29,7 @@ The model is no longer asked to remember facts. It is asked to **read the eviden
 | **Attach metadata** | record document, section, URL, strategy on each chunk | `chunk_document` → `Chunk` |
 | **Index** | turn every chunk into a searchable vector | `Retriever.__init__` (TF-IDF) |
 | **Retrieve** | find the top-k chunks for a question | `Retriever.search` |
-| **Generate + cite** | answer from the chunks and point to them | *not built yet* |
+| **Generate + cite** | answer from the chunks and point to them | `build_prompt`, `AzureChatGenerator.generate_cited`, `enforce_citations` |
 | **Evaluate** | measure each stage separately | `evaluate_chunking.py` |
 
 **Evaluate each stage on its own.** A wrong final answer could come from bad chunking, bad retrieval or bad generation. Measuring retrieval separately (this week) tells you which one to fix.
@@ -347,19 +347,94 @@ A model can sound confident even on weak or irrelevant evidence, so abstaining h
 
 ---
 
-## 10. Where Azure fits (a preview, not built yet)
+## 10. Where Azure fits (deployed)
 
-This part is general knowledge about the services this roadmap uses, not something implemented here:
+This was a preview when first written and is now built (`infra/`, `azure_clients.py`, `indexing.py`). Nothing below is a plan any more:
 
-- **Azure OpenAI** supplies the **embedding model** (text to vector) and the **chat model** that writes the answer.
-- **Azure AI Search** stores the chunks with their metadata and supports keyword search, vector search and **hybrid** (both together), plus an optional semantic reranker.
+- **Azure OpenAI** supplies the **embedding model** (`text-embedding-3-small`) and the **chat model** (`gpt-4.1-mini`) that writes the answer.
+- **Azure AI Search** stores the chunks with their metadata and supports keyword search, vector search and **hybrid** (both together), plus an optional semantic ranker (measured: see section 11).
 - Hybrid search is attractive here because **exact terms matter in payments** (a message name, a regulation number) while paraphrases need meaning-based matching.
 
-The plan: keep the 48 questions and the gold-phrase check, swap TF-IDF for embeddings and AI Search, and compare. Because the evaluation is fixed, any change in score is about retrieval, not about a moved goalpost.
+The comparison with local retrieval was run on the same questions and the same chunks, so any change in score is about retrieval, not about a moved goalpost.
 
 ---
 
-## 11. Interview check: can you answer these out loud?
+## 11. Vector search concepts: model choice, HNSW, filters, the semantic ranker
+
+(This covers the roadmap's "embeddings model choice; vector DB concepts (HNSW, filters)". Numbers marked *measured* come from this repo's
+evaluations; the rest is general background.)
+
+### Choosing an embedding model
+
+The two models I compared, on the same chunks and questions:
+
+| | `all-MiniLM-L6-v2` (local) | `text-embedding-3-small` (Azure OpenAI) |
+|---|---|---|
+| Vector size | 384 numbers | 1,536 numbers |
+| Reads at most | about 256 word pieces, so chunks must stay short | much longer input (limit not checked here) |
+| Cost | free, runs on the CPU | per token |
+| Speed per query | about 10 ms (*measured*) | about 0.5 s including two network calls (*measured*) |
+| Fits the target stack | no | yes (Azure) |
+
+*Measured*, on my dev questions with structure-aware chunks and hybrid search (an earlier, 10-document corpus): the Azure model put the right chunk
+first more often (Hit@1 0.74 against 0.60, MRR 0.84 against 0.77) but found no more answers in the top 5 (0.93 against 0.98). On 44 questions
+from the web, Azure hybrid search had Hit@1 0.33 and Hit@5 1.00; the local model was not scored there.
+
+**Why Azure for the capstone:** better ordering on my questions, longer inputs, and it is the stack the roadmap targets. **What would change the
+choice:** latency (about 40 times slower per query here), cost at volume, or data that cannot leave the machine. **Untested:**
+`text-embedding-3-large`, other local models, and any model on questions written by someone else.
+
+How to choose in general: use your own questions (not a benchmark's), compare at the same chunking, check the model's input limit against your
+chunk size, and weigh vector size (memory and index size grow with it), speed and price against the quality gain.
+
+### HNSW
+
+Finding the closest vectors exactly means comparing the query with every stored vector. That is fine for hundreds of chunks and slow for millions.
+**HNSW (Hierarchical Navigable Small World)** is an *approximate* nearest-neighbour index: it links each vector to a few near neighbours, stacks
+sparser layers on top, and answers a query by entering at the top layer and walking downhill through the neighbours toward the query, layer by
+layer. It trades a little accuracy (it can miss the true nearest vector) for a large speed-up.
+
+Its knobs, in the SDK's words: `m` is the number of links made for each new vector, `ef_construction` is how many candidates are considered while
+building, and `ef_search` is how many are considered while querying. Larger values give better recall and cost more build time, memory or latency.
+The metric is how closeness is measured: cosine, euclidean, dot product or hamming. The alternative is **exhaustive KNN**, which compares everything
+and is exact.
+
+**What this repo does:** one HNSW configuration with the service defaults (I did not set `m` or the `ef` values, and did not verify their numeric
+defaults), cosine similarity. With 52 to 100 chunks per strategy, HNSW buys nothing over exact search; it matters from tens of thousands of vectors
+upward. I did not measure recall against exact search, and I did not tune the parameters.
+
+### Filters
+
+A **filter** restricts which documents a search may return, using an OData expression over fields declared `filterable` in the index schema. Here
+`strategy eq 'structure_aware'` keeps one index serving four chunking strategies, and `doc_id`, `chunk_index` and `id` are filterable too. The
+question for vector search is **when** the filter applies. **Pre-filtering** narrows the candidates first and then finds the nearest ones among
+them, which returns up to `k` matches; **post-filtering** finds the nearest vectors first and then discards those that fail the filter, which can
+leave fewer than `k` results or none. The SDK's documented default for Azure AI Search is `preFilter`, and that is what this repo uses. Filters are
+also how you would restrict results by jurisdiction, document status (hide `repealed`) or, in a real system, by what the user is allowed to see.
+
+### The semantic ranker
+
+Hybrid search fuses a keyword ranking and a vector ranking. The **semantic ranker** is a second stage: Azure re-reads the top results with a
+language model and re-scores them, returning `@search.reranker_score` (0 to 4). It needs a **semantic configuration** that names the title and
+content fields; here the title is the section path and the content is the chunk text. It is the same idea as the local cross-encoder reranker
+already in `reranking.py` (retrieve many cheaply, rerank a few carefully), but run inside the service.
+
+**What is built:** the semantic configuration is part of the index definition, `semantic=True` switches it on per query, and
+`semantic_error_mode="fail"` makes a service without the ranker raise instead of quietly returning ordinary results. The Bicep template sets
+`semanticSearch: free` (a monthly allowance of free queries). **Measured live** (`evals/evaluate_rerankers.py`, structure-aware chunks, one index; Hit@1 / MRR):
+
+| Set (answerable n) | hybrid | + local cross-encoder | + Azure semantic ranker |
+|---|---|---|---|
+| dev (43) | 0.70 / 0.81 | 0.70 / 0.82 | 0.86 / 0.92 |
+| heldout (12) | 0.67 / 0.78 | 0.67 / 0.82 | 0.92 / 0.96 |
+| corpus_update (5) | 0.40 / 0.49 | 0.60 / 0.70 | 0.80 / 0.87 |
+| independent (9) | 0.33 / 0.58 | 0.67 / 0.80 | 0.78 / 0.87 |
+
+The semantic ranker is best on every set. The local cross-encoder helps little on dev and heldout but clearly on the two newer sets.
+Caveats: one question is worth 1/n (11 points on the 9-question set, 20 on the 5-question set), the questions are mine, it is one run,
+and the free tier's semantic allowance (about 180 queries a month) was used up by this. Query time was about 0.4-0.6 s for all three.
+
+## 12. Interview check: can you answer these out loud?
 
 1. What is RAG, and what problem does it solve compared with a plain LLM?
 2. Walk through a RAG pipeline end to end. Which stage would you measure first, and why separately?
@@ -387,5 +462,9 @@ The plan: keep the 48 questions and the gold-phrase check, swap TF-IDF for embed
 24. When a model's answer fails, how do you tell a retrieval problem from a generation problem? What did you find?
 25. Your judge model said an answer was fully supported, but it was wrong. How can that happen, and how do you make groundedness measurement more trustworthy?
 26. The model followed "cite every claim" for only 78% of sentences. How would you enforce it?
+27. How do you choose between two embedding models? What did you compare, and what stayed untested?
+28. Explain HNSW in a few sentences. What do `m`, `ef_construction` and `ef_search` trade off, and why does it not matter at 100 chunks?
+29. What is the difference between pre-filtering and post-filtering in vector search, and which can return fewer than k results?
+30. What does a semantic ranker add on top of hybrid search, and how is it like the cross-encoder reranker?
 
 When these feel easy, do the open items under *Still to do* in `notes/week-04.md`: a larger corpus, embeddings, and the grounding rule.
