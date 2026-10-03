@@ -46,7 +46,7 @@
 | Chunking: fixed, recursive, semantic, structure-aware | **Done** |
 | Embeddings model choice; vector DB concepts (HNSW, filters) | **Done, with limits.** Two models compared on retrieval, and the rationale, HNSW, filters and the semantic ranker are written up in `week-04-fundamentals.md` section 11. Not done: recall against exact search, HNSW tuning, `text-embedding-3-large`. |
 | Azure AI Search index with vector + keyword (hybrid) + semantic ranker | **Done and measured live.** Semantic ranker (`semantic=True`) compared with hybrid alone and with the local cross-encoder on all four question sets (`evals/rerankers_eval.md`): best Hit@1 and MRR on every set. Small n, my own questions, one run: see the reranker section. |
-| Deliverable: ingest and retrieve working end to end against AI Search | **Done.** `python -m payments_rag.indexing` ran live (52/63/100/63 chunks per strategy) and records which corpus the index holds; retrieval then ran against it in the evaluations. |
+| Deliverable: ingest and retrieve working end to end against AI Search | **Done.** `python -m payments_rag.indexing` ran live (52/63/100/63 chunks per strategy) and records which corpus the index holds. `python -m payments_rag.ask "question"` is the plain retrieve -> generate path: hybrid + semantic ranker, quote-verified answerability check, cited answer or refusal. |
 | Resume: start reframing | **Not done.** Nothing in the repo, and I have not seen the Resume section. |
 | Write-up + push | **Done** |
 
@@ -798,3 +798,18 @@ Run with `uv run --all-groups python capstone/evals/evaluate_rerankers.py` (need
 - Honest limits: the 9- and 5-question sets move 11 and 20 points per question; the questions are mine; one run; the free tier's
   semantic allowance (about 180 queries a month) is now mostly used. Query time was similar (0.4-0.6 s).
 - Not yet tried: feeding the semantic reranker score to the abstention gate (it is on a 0-4 scale, unlike the local score).
+
+
+## The `ask` command (retrieve -> generate in one step)
+
+```
+uv run --project capstone --all-groups python -m payments_rag.ask "What is ISO 20022?"
+```
+
+Run from the repo root (that is where `.env` is). Hybrid search with the semantic ranker returns the top 3 passages; the quote-verified
+answerability check decides whether they fully answer the question; then a cited answer is written, or the assistant refuses and says why.
+Sources lists only the passages the answer cites.
+
+Live spot checks (not a measurement): "What is ISO 20022?" and "What is remittance information?" were answered with citations; the 2011
+cricket question was refused ("none"); the pacs.008 and Visa card-not-present chargeback questions were refused as "partial". I have not
+checked whether those two refusals are right or too strict. The measured refusal behaviour is in the abstention and answerability sections above.
