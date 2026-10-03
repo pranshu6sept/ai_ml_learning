@@ -1,9 +1,14 @@
 # Evaluation questions
 
-All 86 questions in `questions*.json` were written by the same author as the documents (an AI assistant working
-with you), who had read the documents first. That is the biggest weakness of every score in `notes/week-04.md`:
-the questions share vocabulary and assumptions with the corpus. **A set written by a different person is the most
-valuable thing still missing.** This page is how to add one. I cannot do it for you: anything I write is not independent.
+The 86 questions in `questions.json`, `questions_heldout.json`, `questions_abstain.json` and
+`questions_corpus_update.json` were written by the same author as the documents (an AI assistant working with you), who had
+read the documents first. That is the biggest weakness of every score in `notes/week-04.md`: the questions share vocabulary
+and assumptions with the corpus.
+
+`questions_independent.json` (44 questions) is a first step: the wording comes from the web (Quora titles and the PCI SSC FAQ
+page, each with its source recorded), not from me. It is still not fully independent, because I chose the searches, the
+exclusion rule, the answerable/unanswerable labels and the gold phrases, and only 9 of the 44 are answerable from the corpus.
+**A set written and labelled by a different person is still the most valuable thing missing.** This page is how to add one.
 
 ## How to write independent questions (about 40 minutes for 30 questions)
 

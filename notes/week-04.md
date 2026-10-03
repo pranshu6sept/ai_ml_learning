@@ -13,15 +13,15 @@ idea is that the model should answer from retrieved evidence, not from memory al
 
 ### Planned work
 
-- [ ] (partial: 10 documents, about 2,400 words; 6 were added from official public pages, 4 older ones are still author-written and unverified) Assemble the banking/payments corpus from public sources only: ISO 20022 guides, card-scheme
+- [x] (11 documents, about 3,000 words after cleaning; 5 read from official pages, 2 known only through search summaries, 4 author-written and only partly verified because several sources block automated fetching: see "Round 2") Assemble the banking/payments corpus from public sources only: ISO 20022 guides, card-scheme
   rules summaries, RBI/PSD2/PCI-DSS public docs, and your own written FAQs based on public
   information.
-- [ ] (partial: loading, section stripping and per-chunk metadata exist; no cleaning or document registry yet) Build a document ingestion pipeline that keeps clean source metadata and avoids confidential
+- [x] (registry validation, cleaning, manifest and index-staleness check in `payments_rag/ingestion.py`; it cannot judge whether a document is confidential) Build a document ingestion pipeline that keeps clean source metadata and avoids confidential
   employer material.
 - [x] Implement four chunking strategies: fixed-size, recursive, semantic, and structure-aware.
-- [x] (retrieval quality only; answer usefulness needs the generation step) Compare the chunking strategies on retrieval quality and answer usefulness.
-- [x] (TF-IDF for now, not embeddings) Add a retrieval pipeline that indexes chunks and keeps source references for each answer.
-- [x] (retrieval half: evidence + abstain rule and prompt exist and are tested; generation is not built) Define a simple grounding rule: every answer must cite evidence from retrieved passages.
+- [x] (retrieval quality for all four strategies; answer quality was measured for structure-aware chunks only) Compare the chunking strategies on retrieval quality and answer usefulness.
+- [x] (TF-IDF, BM25, local and Azure embeddings, hybrid search and a reranker) Add a retrieval pipeline that indexes chunks and keeps source references for each answer.
+- [x] (evidence, abstain rule, cited prompt and generation with gpt-4.1-mini on Azure, all built, tested and measured) Define a simple grounding rule: every answer must cite evidence from retrieved passages.
 - [x] (retrieval, groundedness and latency all measured; judge-based groundedness is imperfect) Write an evaluation plan for retrieval quality, answer groundedness, and latency.
 
 ### Why this matters
@@ -534,6 +534,115 @@ seen before it);
 one corpus; `gpt-4.1-mini` as both generator and checker (a different model is untested); the checker has not been tried
 on questions written by someone else.
 
+### Questions from the web that I did not write (`capstone/evals/questions_independent.json`)
+
+Every earlier score used questions written by the same author as the documents. To get wording I did not control, I took 44
+real questions: 27 question titles from Quora (found by topic searches, in the order the search returned them) and the 17
+questions on the PCI Security Standards Council's FAQ page (as returned by an automated fetch, in page order). Each question
+records its source. I excluded multi-part questions where only the first part is covered, truncated titles, blog headings and
+results that were not about payments (ISO 22000 food safety, crypto "ISO" coins). The PSD2 and PCI searches on Q&A sites
+returned no usable questions, and NPCI's FAQ pages would not load, so those topics are thin.
+
+**Only 9 of 44 (20%) can be answered from the corpus.** That is a finding in itself: real people's questions on these topics are
+mostly outside an 11-document corpus. The rule for "answerable" was fixed before I looked: a corpus sentence must state the main
+fact asked. All 17 PCI FAQ questions (SAQ A, TLS versions, truncated PANs) are expert-level and unanswerable here.
+
+**What "independent" does and doesn't mean.** The question wording is not mine. The topics I searched, the exclusion rule, the
+answerable/unanswerable labels and the gold phrases are mine, and only 9 questions are answerable, so one question is worth 0.11.
+
+**Retrieval on these questions:**
+
+| Hit@k (structure-aware chunks) | My dev questions | These independent questions |
+|---|---|---|
+| Local TF-IDF, Hit@3 | 0.72 | **0.89** |
+| Local BM25 + stemming, Hit@3 | 0.81 | **0.44** |
+| Azure hybrid, Hit@1 | 0.70 | **0.33** |
+| Azure hybrid, Hit@3 | 0.88 | 0.67 |
+| Azure hybrid, Hit@5 | 0.93 | **1.00** |
+
+- **The BM25 and stemming gain did not generalise.** On my questions it looked best (0.81 vs 0.72); on these it is clearly worst
+  (0.44 vs 0.89, four questions of nine). I had warned the gain came from fixing failures I had already seen, and this is
+  consistent with that, but nine questions is small and I did not investigate why stemming hurts here.
+- **Azure hybrid search puts the right chunk first far less often on unfamiliar wording** (Hit@1 0.33 to 0.44 against 0.40
+  to 0.70), yet the answer is in the top 5 for every question except one (semantic chunks, 0.89). The three structure-aware misses
+  at Hit@3 are all at rank 4. Since the pipeline reranks 10 candidates, rank 4 to 5 is recoverable.
+- **The strategy ranking changed** (recursive 0.78 is best at Hit@3 here, structure-aware 0.67), which is one question; I would
+  not read anything into it.
+
+**Abstaining on these questions** (nothing tuned: the 4.41 threshold and the prompt were fixed before these questions existed):
+
+| | Reranker gate | Quote-verified check |
+|---|---|---|
+| AUROC (all 44) | 0.83 | 0.80 as yes/no, **0.92** as the 3-level label |
+| Answerable answered | 5 of 9 | 6 of 9 |
+| Unanswerable refused | 34 of 35 | 33 of 35 |
+| Wrong answers shipped | 1 (iu08) | 2 (iu05, iu08) |
+| Made-up quotes | n/a | 0 |
+
+- **The check's advantage on my own questions did not clearly replicate.** There it answered 44 of 55 against 31, at the same
+  safety. Here it answers 6 against 5 and ships one more. With 9 answerable questions that is within noise: I can't say the
+  check is better or worse.
+- **The two gates make different mistakes.** The check answered the broad "how does it work" and "what are the steps" questions
+  (i02, i04) that the reranker scored low (-6.39 and -0.33), and it answered the "full name of UPI" question the reranker scored
+  3.97, just under the threshold. The reranker answered i05 (UPI security), whose passages did not contain the answer.
+- **All 17 PCI FAQ questions were refused by both gates.** Expert-level questions on a topic the corpus only touches are reliably
+  turned away, which is the abstain behaviour working.
+- **The "mistakes" are partly my labelling.** iu05 ("Do someone uses UPI for regular payments? What are their reviews?") breaks
+  my own exclusion rule: its first part is covered by the sentence the check quoted, so it should have been excluded. iu08
+  ("Can I dispute a credit card charge after 60 days?") is debatable, since the corpus states the 60-day rule and an answer quoting
+  it is responsive, not made up. Excluding iu05 and reclassifying iu08 would leave the check shipping 0 or 1. I did not change
+  the labels after seeing the results, so they are reported as they stood.
+- **Two answerable questions were lost to retrieval, not to the gate** (i05 and i07, the UPI security questions): the
+  authentication passage was not among the top 3 (the top result for i07 was the PCI DSS summary).
+
+### Round 2: the ingestion pipeline and the corpus checks (`payments_rag/ingestion.py`)
+
+**The pipeline.** Before this, documents were read by whichever script needed them, the registry was trusted, and nothing
+noticed when a document changed. Now `python -m payments_rag.ingestion` does three things:
+
+1. **Validates the registry** (`sources.json`) against the files and reports every problem at once: duplicate ids or files, a
+   missing file, an unknown verification level, a date that is not YYYY-MM-DD, a web-fetched document with no retrieval
+   date, a repealed document that names no replacement, a source that is neither author-written nor given a public https
+   URL, and any file in `raw/` that is not registered. Planned documents without a file are skipped.
+2. **Cleans each document** (`clean_text`): removes a byte-order mark, normalises line endings, strips trailing spaces, drops
+   the meta sections, collapses blank lines. It does not rewrite words, and cleaning twice gives the same result.
+3. **Writes `processed/manifest.json`** with a hash of every raw and cleaned document. `--check` fails when a document has
+   changed since, a test does the same in CI, and an Azure index record (`evals/azure_index_manifest.json`, written when the
+   index is built) lets `--check-index` say whether the live index matches the corpus. That is the check I lacked when the
+   index silently kept the repealed RBI text.
+
+12 tests cover it, including one that proves ingestion produces **exactly the same chunks** as the earlier
+raw-text-plus-strip path for all four strategies, so earlier evaluation results remain valid, and one that checks every gold
+phrase of every question file survives cleaning. The evaluation scripts now load documents through the validated registry.
+What it cannot do: decide that a document is public or non-confidential. That remains a human responsibility.
+
+**Verifying the unverified documents.** I tried every route that was open. What I found:
+
+| Document | What I checked it against | Result |
+|---|---|---|
+| Card-scheme summary | ECB Glossary of payment, clearing and settlement terms (30 Sep 2008; the PDF text read directly) | Issuer, card scheme, clearing and settlement are defined consistently. The glossary's acquirer is the entity to which the acceptor (usually a merchant) transmits the information needed to process the card payment, which is looser than "the bank that handles the merchant's account". The authorization step is still supported only by search summaries of Mastercard (403). |
+| ISO 20022 overview | BIS report "Harmonisation of ISO 20022" (9 Sep 2022), fetched | Supports "a messaging standard most payment systems are adopting" and use by payment system operators. Not confirmed: corporations and regulators as users, the concept list, the example message. The ISO site returns 403. |
+| RBI payment-systems summary | RBI Master Direction on Digital Payment Security Controls (18 Feb 2021) and the 2025 Directions, fetched | Secure payments, authentication and fraud controls, risk and governance, and customer protection are supported. **"System resilience and operational continuity" is not: the 2021 Master Direction's fetched summary reports no mention of business continuity.** The infrastructure topic was not checked. |
+| FAQs | Visa dispute FAQ (April 2020, text extracted from the PDF), CFPB, PCI SSC, the other corpus documents | "Non-receipt" as a dispute reason is supported by Visa's "Merchandise/Services Not Received" condition, "billing problems" by CFPB. "Fraud" is in neither. FAQ 6 is about this RAG system, not payments. |
+
+I did **not** delete or rewrite the unsupported RBI claim, because two questions use that exact phrase as their gold answer.
+Instead the bullets are annotated "(not confirmed in the sources checked)" and the document ends with a source note, so a
+grounded answer that quotes them carries the warning. The other three documents also got a source note.
+
+New verification level `author_written_partly_verified` means "author-written, some claims checked against fetched sources,
+others not", with `checked_against` listing the sources and the notes saying which claims each supports. The registry now
+holds: 4 fetched, 1 fetched plus search summary, 2 search summary only, 4 author-written and partly verified.
+
+**Dates.** The CFPB page shows "last reviewed 15 Apr 2024" (modified 3 May 2024), so it now has a date. **Dates are still `null`
+for 7 of 11 documents.** For author-written summaries there is no publication date, and for the NPCI and ISO pages no
+date was readable. I did not guess.
+
+**After the document changes** the Azure index was stale again, so I rebuilt it; `--check-index` now reports it matches. The
+retrieval results moved by at most one or two questions on every split (for example dev structure-aware Hit@3 0.88 to 0.91,
+held-out 0.83 to 0.92, independent Hit@3 unchanged at 0.67), so the annotations did no harm. **The grounding, citation and
+answerability runs predate these annotations**, and the RBI wording changes could alter answers to the resilience questions
+(q14, q22); I have not repeated them.
+
 ### What I fixed in the review of this week's code
 
 - The recursive chunker silently dropped text: a 400-word section kept 78 words. Fixed, with a test.
@@ -549,7 +658,7 @@ on questions written by someone else.
 - The first evaluation had four questions and counted a hit when any keyword appeared in the top chunk
   (nearly the signal TF-IDF ranks on), never checked `expected_doc`, and left out the FAQ file. All four
   strategies scored 100%, so it could not tell them apart. The new evaluation replaces it.
-- CI would have failed on 8 lint errors and a formatting check. Fixed. Tests went from 23 to 96 (plus one that needs a model download).
+- CI would have failed on 8 lint errors and a formatting check. Fixed. Tests went from 23 to 111 (plus one that needs a model download).
 - `sources.json` listed PSD2 and PCI-DSS as "planned", had no publication dates, and no way to tell which documents were checked against a source. Now every entry has a file, a date where known, and a `verification` field, and a test keeps the registry and the files in sync.
 
 ### What confused me
@@ -584,16 +693,15 @@ can show a gap that disappears at scale, and a retrieval score can't tell me whe
 
 ### Still to do
 
-- [x] Checked the author-written and search-summary documents against real sources as far as the sites allow (one rule
-      turned out to be repealed; see above). Still open: the ISO and Mastercard pages return 403, the NPCI page has no text,
-      the RBI summary and FAQ 5 are unverified. (The live Azure index has been rebuilt and the grounding, citation and
-      answerability runs repeated on it.)
+- [x] Verified the unverified documents as far as the sources allow, and annotated what could not be confirmed (see Round 2).
+      Still blocked: the ISO, Mastercard and NPCI pages (403 or no text) and the RBI Payments Vision page (CAPTCHA).
 - [ ] Grow the corpus further (dozens of documents, longer ones), so chunk boundaries finally matter. Publication dates
-      exist as a field but are `null` for 8 of 11 documents.
+      are `null` for 7 of 11 documents because the sources show none.
 - [x] Cheap retrieval fixes: stemming and BM25 tried (dev gains, not confirmed on held-out questions).
 - [ ] Test the "longer chunks help paraphrases" hypothesis with different chunk sizes.
-- [ ] **You:** write an independent question set (50+, before reading the documents) in `capstone/evals/`. The format, a
-      checker and the scoring hook are ready (`capstone/evals/README.md`). I can't do this one: anything I write isn't independent.
+- [x] An independent question set from the web (44 questions, 9 answerable) is in place and scored. Still open: a set
+      written by a person who has not read the corpus, with labels and gold phrases that are not mine (the format and
+      checks are in `capstone/evals/README.md`). The web set has too few answerable questions (9) to separate close methods.
 - [x] Embeddings and hybrid search tried locally (all-MiniLM-L6-v2): the first clear gain.
 - [x] Azure infrastructure as Bicep, deployed to the free account, keyless; smoke test passes on live Azure.
 - [x] Ran `evaluate_azure.py` and compared with the local hybrid result (see above).

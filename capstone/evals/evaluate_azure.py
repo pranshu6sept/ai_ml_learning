@@ -28,6 +28,7 @@ from payments_rag import (
     AzureSettings,
     strip_sections,
 )
+from payments_rag.ingestion import ingest, write_index_manifest
 
 SPLITS = {
     "dev": HERE / "questions.json",
@@ -35,6 +36,10 @@ SPLITS = {
     "corpus_update": HERE
     / "questions_corpus_update.json",  # the 2025 RBI document: only 5 answerable
 }
+if (
+    HERE / "questions_independent.json"
+).exists():  # questions taken from the web, not written by me
+    SPLITS["independent"] = HERE / "questions_independent.json"
 
 
 def main() -> None:
@@ -47,6 +52,10 @@ def main() -> None:
     for strategy in STRATEGIES:
         chunks = chunk_corpus(docs, strategy)
         store.upload(chunks, embedder([c.text for c in chunks]))
+    write_index_manifest(
+        ingest(),
+        {strategy: len(chunk_corpus(docs, strategy)) for strategy in STRATEGIES},
+    )  # records which corpus this index holds; `python -m payments_rag.ingestion --check-index`
     print("Uploaded; waiting 20 s for the index to refresh...", flush=True)
     time.sleep(20)
 

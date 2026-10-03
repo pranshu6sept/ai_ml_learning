@@ -38,3 +38,12 @@ This source helps a payments assistant answer questions such as:
 - Who handles card dispute processing?
 - What role do issuing and acquiring banks play?
 - How does a transaction move from a merchant to the card network and back?
+
+## Source note
+
+This is an author-written summary, partly checked on 3 October 2026. The European Central Bank's Glossary of terms
+related to payment, clearing and settlement systems (30 September 2008) defines card issuer, card scheme, clearing and
+settlement in terms consistent with this summary. It describes the acquirer as the entity to which the merchant sends the
+information needed to process the card payment, which is looser than "the bank that handles the merchant's account"
+above. The authorization step as described here is consistent only with search-engine summaries of Mastercard pages (the
+Mastercard guide returned 403). Visa was not checked for the lifecycle.

@@ -1,0 +1,530 @@
+{
+ "i01": {
+  "question": "What is the difference between authorization and settlement in credit card transactions?",
+  "fields": {
+   "top_score": 8.867121696472168,
+   "evidence_has_answer": true,
+   "top_section": "faqs > Payments FAQ starter set > FAQ 1: What is the difference between authorization and settlement?",
+   "label": "full",
+   "quote": "Authorization is the approval step that checks whether a payment instrument can be used and whether the account has sufficient funds or approval for the transaction. Settlement is the later process where funds move between parties after the transaction is accepted and processed.",
+   "quote_found": true,
+   "can_answer": true
+  }
+ },
+ "i02": {
+  "question": "How does a credit or debit card transaction actually work behind the scenes?",
+  "fields": {
+   "top_score": -6.386603355407715,
+   "evidence_has_answer": true,
+   "top_section": "card_scheme_public_summary > Card scheme public summary > Payment lifecycle",
+   "label": "full",
+   "quote": "1. Authorization: the merchant sends a request to verify that the card is valid and the account can support the transaction.",
+   "quote_found": true,
+   "can_answer": true
+  }
+ },
+ "i03": {
+  "question": "How do credit card companies settle payments with the banks in clearing system?",
+  "fields": {
+   "top_score": 4.891719818115234,
+   "evidence_has_answer": true,
+   "top_section": "card_scheme_public_summary > Card scheme public summary > Payment lifecycle",
+   "label": "partial",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "i04": {
+  "question": "What are all the steps to complete a credit card transaction?",
+  "fields": {
+   "top_score": -0.3280408978462219,
+   "evidence_has_answer": true,
+   "top_section": "card_scheme_public_summary > Card scheme public summary > Payment lifecycle",
+   "label": "full",
+   "quote": "1. Authorization: the merchant sends a request to verify that the card is valid and the account can support the transaction.\n2. Clearing: the transaction details are exchanged through the card network and acquiring/issuing banks so the payment can be reconciled.\n3. Settlement: funds move between participating institutions after the transaction is accepted and processed.\n4. Dispute handling: the scheme and the banks may investigate customer disputes, chargebacks, or fraud-related exceptions.",
+   "quote_found": true,
+   "can_answer": true
+  }
+ },
+ "iu01": {
+  "question": "When a customer pays for the merchandise with a credit card, when does the merchant or retailer get the money? Does the credit card company pay the merchant right away or does it pay in some kind of cycles?",
+  "fields": {
+   "top_score": -2.511451482772827,
+   "evidence_has_answer": false,
+   "top_section": "card_scheme_public_summary > Card scheme public summary > Core concepts",
+   "label": "partial",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu02": {
+  "question": "If I use my debit card as credit, will I be charged interest?",
+  "fields": {
+   "top_score": -0.7493149638175964,
+   "evidence_has_answer": false,
+   "top_section": "cfpb_credit_card_disputes > CFPB guidance: disputing a credit card charge (United States) > During the investigation",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "i05": {
+  "question": "Are UPI payments really secure in India?",
+  "fields": {
+   "top_score": 4.989511489868164,
+   "evidence_has_answer": false,
+   "top_section": "upi_overview > NPCI UPI overview > Public summary",
+   "label": "partial",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu03": {
+  "question": "With just 25 percent of the population using UPI, what are the hurdles for its wider adoption?",
+  "fields": {
+   "top_score": -7.881814002990723,
+   "evidence_has_answer": false,
+   "top_section": "upi_overview > NPCI UPI overview > Public summary",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "i06": {
+  "question": "What is the full name of UPI?",
+  "fields": {
+   "top_score": 3.971519947052002,
+   "evidence_has_answer": true,
+   "top_section": "upi_overview > NPCI UPI overview > Public summary",
+   "label": "full",
+   "quote": "The Unified Payments Interface, UPI, is an instant, real-time payment system developed by NPCI, the National Payments Corporation of India, an RBI-regulated entity.",
+   "quote_found": true,
+   "can_answer": true
+  }
+ },
+ "iu04": {
+  "question": "Is UPI available for India only?",
+  "fields": {
+   "top_score": 4.142853736877441,
+   "evidence_has_answer": false,
+   "top_section": "upi_overview > NPCI UPI overview > Public summary",
+   "label": "partial",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu05": {
+  "question": "Do someone uses UPI for regular payments? What are their reviews?",
+  "fields": {
+   "top_score": 2.7073593139648438,
+   "evidence_has_answer": false,
+   "top_section": "upi_overview > NPCI UPI overview > How people use it",
+   "label": "full",
+   "quote": "UPI is used for bill payments, mobile recharges, loan instalments, insurance premiums and subscriptions.",
+   "quote_found": true,
+   "can_answer": true
+  }
+ },
+ "i07": {
+  "question": "How secure are UPI transactions? What measures are in place to protect user data?",
+  "fields": {
+   "top_score": -0.876883327960968,
+   "evidence_has_answer": true,
+   "top_section": "pci_dss_overview > PCI DSS overview > Public summary",
+   "label": "partial",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "i08": {
+  "question": "What is UPI, and how does it work?",
+  "fields": {
+   "top_score": 7.68402099609375,
+   "evidence_has_answer": true,
+   "top_section": "upi_overview > NPCI UPI overview > Public summary",
+   "label": "full",
+   "quote": "The Unified Payments Interface, UPI, is an instant, real-time payment system developed by NPCI, the National Payments Corporation of India, an RBI-regulated entity. It is designed to enable inter-bank transactions through mobile phones.",
+   "quote_found": true,
+   "can_answer": true
+  }
+ },
+ "iu06": {
+  "question": "Which is the safest UPI app?",
+  "fields": {
+   "top_score": -1.3811070919036865,
+   "evidence_has_answer": false,
+   "top_section": "upi_overview > NPCI UPI overview > How people use it",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "i09": {
+  "question": "How many days do I have to dispute a credit card charge?",
+  "fields": {
+   "top_score": 7.829126358032227,
+   "evidence_has_answer": true,
+   "top_section": "cfpb_credit_card_disputes > CFPB guidance: disputing a credit card charge (United States) > What the card company must do",
+   "label": "full",
+   "quote": "To protect your rights, you must also send a written billing error notice to the card company within 60 calendar days after the charge appeared on your statement.",
+   "quote_found": true,
+   "can_answer": true
+  }
+ },
+ "iu07": {
+  "question": "Can I dispute a charge from 8 months ago with my Chase Bank?",
+  "fields": {
+   "top_score": -2.2581138610839844,
+   "evidence_has_answer": false,
+   "top_section": "cfpb_credit_card_disputes > CFPB guidance: disputing a credit card charge (United States) > How to dispute",
+   "label": "partial",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu08": {
+  "question": "Can I dispute a credit card charge after 60 days?",
+  "fields": {
+   "top_score": 8.664981842041016,
+   "evidence_has_answer": false,
+   "top_section": "cfpb_credit_card_disputes > CFPB guidance: disputing a credit card charge (United States) > How to dispute",
+   "label": "full",
+   "quote": "To protect your rights, you must also send a written billing error notice to the card company within 60 calendar days after the charge appeared on your statement.",
+   "quote_found": true,
+   "can_answer": true
+  }
+ },
+ "iu09": {
+  "question": "What is the typical timeline for a bank to refund an unauthorized charge on a credit card?",
+  "fields": {
+   "top_score": -1.5181889533996582,
+   "evidence_has_answer": false,
+   "top_section": "cfpb_credit_card_disputes > CFPB guidance: disputing a credit card charge (United States) > What the card company must do",
+   "label": "partial",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu10": {
+  "question": "Can you describe a common scenario where a bank might still consider a debit card dispute even if it's reported after the typical 60-day window?",
+  "fields": {
+   "top_score": -2.4023990631103516,
+   "evidence_has_answer": false,
+   "top_section": "cfpb_credit_card_disputes > CFPB guidance: disputing a credit card charge (United States) > How to dispute",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu11": {
+  "question": "What is the difference between ISO8583 and ISO20022 payment messages?",
+  "fields": {
+   "top_score": 0.789459228515625,
+   "evidence_has_answer": false,
+   "top_section": "faqs > Payments FAQ starter set > FAQ 2: What is ISO 20022?",
+   "label": "partial",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu12": {
+  "question": "What is the difference between MT103 and MT202 wire payments?",
+  "fields": {
+   "top_score": -7.2790117263793945,
+   "evidence_has_answer": false,
+   "top_section": "faqs > Payments FAQ starter set > FAQ 1: What is the difference between authorization and settlement?",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu13": {
+  "question": "What are the tools used by the SEPA Direct Debit processor companies like SlimPay or GoCardless to create ISO 20022 payment messages?",
+  "fields": {
+   "top_score": -2.6937456130981445,
+   "evidence_has_answer": false,
+   "top_section": "faqs > Payments FAQ starter set > FAQ 2: What is ISO 20022?",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu14": {
+  "question": "What is an MT202?",
+  "fields": {
+   "top_score": -6.965487480163574,
+   "evidence_has_answer": false,
+   "top_section": "iso20022_overview > ISO 20022 overview > Public summary",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu15": {
+  "question": "Are there any financial institutions using ISO 20022 / XBRL for payments in EU?",
+  "fields": {
+   "top_score": 2.777646780014038,
+   "evidence_has_answer": false,
+   "top_section": "faqs > Payments FAQ starter set > FAQ 2: What is ISO 20022?",
+   "label": "partial",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu16": {
+  "question": "Is the SWIFT system outdated for the current digital financial services demand?",
+  "fields": {
+   "top_score": -8.485230445861816,
+   "evidence_has_answer": false,
+   "top_section": "rbi_payment_systems_public_summary > RBI payment systems public summary > Why it matters",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu17": {
+  "question": "What is the SWIFT Code of bank and what is its use?",
+  "fields": {
+   "top_score": -6.435848712921143,
+   "evidence_has_answer": false,
+   "top_section": "iso20022_overview > ISO 20022 overview > Public summary",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu18": {
+  "question": "Do I need a SWIFT code for international transactions that are for direct transfers?",
+  "fields": {
+   "top_score": -9.64748477935791,
+   "evidence_has_answer": false,
+   "top_section": "rbi_authentication_directions_2025 > RBI authentication directions, 2025 > Cross-border card-not-present transactions",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu19": {
+  "question": "How does an e-commerce merchant meet the SAQ A eligibility criteria for scripts?",
+  "fields": {
+   "top_score": -10.835969924926758,
+   "evidence_has_answer": false,
+   "top_section": "rbi_authentication_directions_2025 > RBI authentication directions, 2025 > Exemptions",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu20": {
+  "question": "Do PCI DSS requirements for keyed cryptographic hashing apply to previously hashed PANs?",
+  "fields": {
+   "top_score": -2.4903934001922607,
+   "evidence_has_answer": false,
+   "top_section": "faqs > Payments FAQ starter set > FAQ 4: What is PCI DSS?",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu21": {
+  "question": "Is the PCI DSS Attestation of Compliance intended to be shared?",
+  "fields": {
+   "top_score": 1.2004538774490356,
+   "evidence_has_answer": false,
+   "top_section": "pci_dss_overview > PCI DSS overview > Who decides whether an organisation complies",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu22": {
+  "question": "How does an entity report the results of a PCI DSS assessment for new requirements that are noted in PCI DSS as best practices until a future date?",
+  "fields": {
+   "top_score": -0.4302620589733124,
+   "evidence_has_answer": false,
+   "top_section": "pci_dss_overview > PCI DSS overview > Who decides whether an organisation complies",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu23": {
+  "question": "Where do I direct questions about complying with PCI standards?",
+  "fields": {
+   "top_score": 0.36761465668678284,
+   "evidence_has_answer": false,
+   "top_section": "pci_dss_overview > PCI DSS overview > Who decides whether an organisation complies",
+   "label": "partial",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu24": {
+  "question": "Can SAQ eligibility criteria be used as a guide for determining applicability of PCI DSS requirements for merchant assessments documented in a Report on Compliance?",
+  "fields": {
+   "top_score": -3.786393642425537,
+   "evidence_has_answer": false,
+   "top_section": "pci_dss_overview > PCI DSS overview > Who decides whether an organisation complies",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu25": {
+  "question": "What are acceptable formats for truncation of primary account numbers?",
+  "fields": {
+   "top_score": -10.508934020996094,
+   "evidence_has_answer": false,
+   "top_section": "iso20022_overview > ISO 20022 overview > Why it matters",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu26": {
+  "question": "For PCI DSS, why is storage of sensitive authentication data (SAD) after authorization not permitted even when there are no primary account numbers (PANs) in an environment?",
+  "fields": {
+   "top_score": -0.24689750373363495,
+   "evidence_has_answer": false,
+   "top_section": "pci_dss_overview > PCI DSS overview > Who it applies to",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu27": {
+  "question": "If an organization provides software or functionality that runs on a consumer's device (for example, smartphones, tablets, or laptops) and is used to accept payment account data, can the organization store card verification codes for those consumers?",
+  "fields": {
+   "top_score": -6.976337432861328,
+   "evidence_has_answer": false,
+   "top_section": "rbi_authentication_directions_2025 > RBI authentication directions, 2025 > Two factors of authentication",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu28": {
+  "question": "Are truncated Primary Account Numbers (PAN) required to be protected in accordance with PCI DSS?",
+  "fields": {
+   "top_score": -2.2445173263549805,
+   "evidence_has_answer": false,
+   "top_section": "faqs > Payments FAQ starter set > FAQ 4: What is PCI DSS?",
+   "label": "partial",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu29": {
+  "question": "Are authentication values from a 3DS transaction considered sensitive authentication data for PCI DSS purposes?",
+  "fields": {
+   "top_score": 0.7122712135314941,
+   "evidence_has_answer": false,
+   "top_section": "pci_dss_overview > PCI DSS overview > Terms used on the standard page",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu30": {
+  "question": "Does PCI DSS define which versions of TLS must be used?",
+  "fields": {
+   "top_score": 3.767585039138794,
+   "evidence_has_answer": false,
+   "top_section": "pci_dss_overview > PCI DSS overview > Versions",
+   "label": "partial",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu31": {
+  "question": "Do ASV scans in SAQ A apply to merchants with webpages that redirect to TPSPs or include TPSPs' embedded iframes?",
+  "fields": {
+   "top_score": -9.559625625610352,
+   "evidence_has_answer": false,
+   "top_section": "pci_dss_overview > PCI DSS overview > Who it applies to",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu32": {
+  "question": "Is sampling allowed in PCI DSS v4.x?",
+  "fields": {
+   "top_score": 1.0130915641784668,
+   "evidence_has_answer": false,
+   "top_section": "pci_dss_overview > PCI DSS overview > Versions",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu33": {
+  "question": "Should entities with enterprise or internal service providers, used to provide internal services to other corporate entities, conduct separate PCI DSS assessments of these service providers or include them as part of each corporate entity's PCI DSS assessment?",
+  "fields": {
+   "top_score": -2.2230660915374756,
+   "evidence_has_answer": false,
+   "top_section": "pci_dss_overview > PCI DSS overview > Who it applies to",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu34": {
+  "question": "What is the impact if an entity uses a third-party service provider (TPSP) to meet a PCI DSS requirement(s), when that TPSP's PCI DSS assessment completion date is close to a year ago, as documented in the TPSP's Attestation of Compliance (AOC)?",
+  "fields": {
+   "top_score": -2.7629425525665283,
+   "evidence_has_answer": false,
+   "top_section": "pci_dss_overview > PCI DSS overview > Who it applies to",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ },
+ "iu35": {
+  "question": "Are Approved Scanning Vendors and Qualified Security Assessors considered third-party service providers for PCI DSS Requirements 12.8 and 12.9?",
+  "fields": {
+   "top_score": -3.1372313499450684,
+   "evidence_has_answer": false,
+   "top_section": "pci_dss_overview > PCI DSS overview > Who it applies to",
+   "label": "none",
+   "quote": "",
+   "quote_found": false,
+   "can_answer": false
+  }
+ }
+}

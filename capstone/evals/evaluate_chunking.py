@@ -18,6 +18,7 @@ from pathlib import Path
 from typing import Any
 
 from payments_rag import STRATEGIES, Chunk, Retriever, chunk_document, strip_sections
+from payments_rag.ingestion import META_SECTIONS, SourceDocument, load_registry
 
 HERE = Path(__file__).resolve().parent
 CORPUS = HERE.parent / "docs" / "corpus"
@@ -28,21 +29,21 @@ MAX_SENTENCES = 4
 KS = (1, 3, 5)
 MAX_RANK = 10
 # Sections that only describe the corpus or list sample questions; they are not knowledge.
-META_SECTIONS = ("Practical RAG relevance", "Example questions this helps answer")
 
 
 def normalize(text: str) -> str:
     return " ".join(text.split()).lower()
 
 
-def load_sources() -> list[dict[str, Any]]:
-    sources: list[dict[str, Any]] = json.loads((CORPUS / "sources.json").read_text("utf-8"))
-    return [source for source in sources if source.get("file")]
+def load_sources() -> list[SourceDocument]:
+    """The validated registry (raises RegistryError if sources.json and the files disagree)."""
+    return load_registry(CORPUS)
 
 
 def load_documents() -> dict[str, str]:
+    """Raw text of every registered document, keyed by file stem."""
     return {
-        Path(source["file"]).stem: (CORPUS / source["file"]).read_text(encoding="utf-8")
+        source.doc_id: (CORPUS / source.file).read_text(encoding="utf-8")
         for source in load_sources()
     }
 
@@ -66,7 +67,7 @@ def is_relevant(chunk: Chunk, question: dict[str, Any]) -> bool:
 
 
 def chunk_corpus(documents: dict[str, str], strategy: str) -> list[Chunk]:
-    sources = {Path(source["file"]).stem: source for source in load_sources()}
+    sources = {source.doc_id: source for source in load_sources()}
     chunks: list[Chunk] = []
     for doc_id, text in documents.items():
         source = sources[doc_id]
@@ -75,8 +76,8 @@ def chunk_corpus(documents: dict[str, str], strategy: str) -> list[Chunk]:
                 text,
                 doc_id=doc_id,
                 strategy=strategy,
-                title=source["title"],
-                source_url=source["url"],
+                title=source.title,
+                source_url=source.url,
                 chunk_size=CHUNK_WORDS,
                 overlap=OVERLAP,
                 max_sentences=MAX_SENTENCES,

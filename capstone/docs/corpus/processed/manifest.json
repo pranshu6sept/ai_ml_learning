@@ -1,0 +1,137 @@
+{
+  "corpus_sha256": "75745c313aa8c52ed15c58b2dbf7c655e4160ea0c01f3b1545bd860195283f98",
+  "documents": [
+    {
+      "id": "banking-faq-draft",
+      "file": "faqs.md",
+      "title": "Domain FAQ written from public documentation",
+      "status": "draft",
+      "verification": "author_written_partly_verified",
+      "published": null,
+      "retrieved": "2026-10-03",
+      "words": 277,
+      "sha256_raw": "8e74d54a7157a9694ba06115d41b80757c2c36b071bff20ac535c1f485f259ee",
+      "sha256_text": "8e74d54a7157a9694ba06115d41b80757c2c36b071bff20ac535c1f485f259ee"
+    },
+    {
+      "id": "card-scheme-overview",
+      "file": "raw/card_scheme_public_summary.md",
+      "title": "Card scheme rules and payment lifecycle overview",
+      "status": "available",
+      "verification": "author_written_partly_verified",
+      "published": null,
+      "retrieved": "2026-10-03",
+      "words": 301,
+      "sha256_raw": "d50d825c30b3736c6ea68a7bbddb8de1cb54eb012536febb0dd98b60f87c0891",
+      "sha256_text": "bb4a7ff88b13a132602fde34698d5d917f12f9988532846595878272b6f08102"
+    },
+    {
+      "id": "cfpb-credit-card-disputes",
+      "file": "raw/cfpb_credit_card_disputes.md",
+      "title": "CFPB: How do I dispute a charge on my credit card bill?",
+      "status": "available",
+      "verification": "fetched_and_search_summary",
+      "published": "2024-04-15",
+      "retrieved": "2026-10-02",
+      "words": 301,
+      "sha256_raw": "39179e0c27a3993c6e2c07fc332e5a09ebf487808adbb6104f7ea077143a22fa",
+      "sha256_text": "39179e0c27a3993c6e2c07fc332e5a09ebf487808adbb6104f7ea077143a22fa"
+    },
+    {
+      "id": "iso-20022-overview",
+      "file": "raw/iso20022_overview.md",
+      "title": "ISO 20022 overview and payment message standards",
+      "status": "available",
+      "verification": "author_written_partly_verified",
+      "published": null,
+      "retrieved": "2026-10-03",
+      "words": 272,
+      "sha256_raw": "52deeb54dcf2664a58090e79e1559caffddf1d1fcef5051ae9022abc60bcc4a4",
+      "sha256_text": "9f41a4df0327e186ab1468b64cdc11f83b918b4e03ddd365f2bcde29e54b92a0"
+    },
+    {
+      "id": "iso20022-message-identifiers",
+      "file": "raw/iso20022_message_identifiers.md",
+      "title": "ISO 20022 message definitions and identifiers",
+      "status": "available",
+      "verification": "via_search_summary",
+      "published": null,
+      "retrieved": "2026-10-02",
+      "words": 213,
+      "sha256_raw": "c5aa54fd567c98ce95140c370f8da8790fa2d6deafe9c4d693c1f66e9345bcf0",
+      "sha256_text": "c5aa54fd567c98ce95140c370f8da8790fa2d6deafe9c4d693c1f66e9345bcf0"
+    },
+    {
+      "id": "npci-upi-overview",
+      "file": "raw/upi_overview.md",
+      "title": "NPCI: Unified Payments Interface (UPI) product page",
+      "status": "available",
+      "verification": "via_search_summary",
+      "published": null,
+      "retrieved": "2026-10-02",
+      "words": 242,
+      "sha256_raw": "ba6fe7f730361966f36e8d60997c1741a282d4fc368844ab4daebae912acd2d8",
+      "sha256_text": "ba6fe7f730361966f36e8d60997c1741a282d4fc368844ab4daebae912acd2d8"
+    },
+    {
+      "id": "pci-dss-summary",
+      "file": "raw/pci_dss_overview.md",
+      "title": "PCI Security Standards Council: PCI DSS standard page",
+      "status": "available",
+      "verification": "fetched",
+      "published": null,
+      "retrieved": "2026-10-02",
+      "words": 224,
+      "sha256_raw": "11c41aa6e011b40e4dc4b29640175f2d9567698768488ab2a9ab8e6fefbf1e76",
+      "sha256_text": "11c41aa6e011b40e4dc4b29640175f2d9567698768488ab2a9ab8e6fefbf1e76"
+    },
+    {
+      "id": "psd2-overview",
+      "file": "raw/psd2_overview.md",
+      "title": "PSD2: European Commission payment services page",
+      "status": "available",
+      "verification": "fetched",
+      "published": "2025-11-27",
+      "retrieved": "2026-10-02",
+      "words": 215,
+      "sha256_raw": "e59a0f7268754e5c0f0de674eefc7517bbb4f60109256a7ccc40365395cd0d6a",
+      "sha256_text": "e59a0f7268754e5c0f0de674eefc7517bbb4f60109256a7ccc40365395cd0d6a"
+    },
+    {
+      "id": "rbi-authentication-directions-2025",
+      "file": "raw/rbi_authentication_directions_2025.md",
+      "title": "RBI (Authentication mechanisms for digital payment transactions) Directions, 2025",
+      "status": "available",
+      "verification": "fetched",
+      "published": "2025-09-25",
+      "retrieved": "2026-10-03",
+      "words": 376,
+      "sha256_raw": "83bd0f1373ddcf9c199650c9518bc4784520ee54451e22d81859c240a7965b1b",
+      "sha256_text": "83bd0f1373ddcf9c199650c9518bc4784520ee54451e22d81859c240a7965b1b"
+    },
+    {
+      "id": "rbi-card-not-present",
+      "file": "raw/rbi_card_not_present_afa.md",
+      "title": "RBI circular on card-not-present transactions (additional factor of authentication relaxation)",
+      "status": "repealed",
+      "verification": "fetched",
+      "published": "2016-12-06",
+      "retrieved": "2026-10-02",
+      "words": 327,
+      "sha256_raw": "bcd36cf0b0e8253f169bdea08970cea4dfe5d06f17d22686e15d9931acd31feb",
+      "sha256_text": "bcd36cf0b0e8253f169bdea08970cea4dfe5d06f17d22686e15d9931acd31feb"
+    },
+    {
+      "id": "rbi-payment-systems",
+      "file": "raw/rbi_payment_systems_public_summary.md",
+      "title": "RBI payment systems and public guidance",
+      "status": "available",
+      "verification": "author_written_partly_verified",
+      "published": null,
+      "retrieved": "2026-10-03",
+      "words": 229,
+      "sha256_raw": "ab2a48682b12fc67adb2edeb58dfab2b3d0df8e6da3311d9cacbf47caa44fe8d",
+      "sha256_text": "32ccc5b037894b5205b2acf0aa1c4d1bd635b0fa8cc81d8bafd7b73b8ff15636"
+    }
+  ]
+}

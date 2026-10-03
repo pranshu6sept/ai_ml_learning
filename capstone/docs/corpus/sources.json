@@ -9,8 +9,8 @@
     "status": "available",
     "published": null,
     "retrieved": "2026-10-03",
-    "verification": "via_search_summary",
-    "notes": "Author-written summary. The ISO site returns 403 to automated fetching, so it was checked against search-engine summaries of BIS and Federal Reserve Financial Services pages: it matches 'common language', 'richer, more structured data' and 'straight-through processing'. Not confirmed: the list of users (corporations, regulators) and the concept list. Not read on the ISO site itself.",
+    "verification": "author_written_partly_verified",
+    "notes": "Author-written. Checked: the BIS CPMI report 'Harmonisation of ISO 20022' (fetched, published 2022-09-09) supports 'a messaging standard that most payment systems are adopting' and use by payment system operators. Search-engine summaries of Fed Financial Services and BIS pages describe richer structured data. Not confirmed: users (corporations, regulators), the concept list, the example message content. The ISO site returns 403.",
     "checked_against": [
       "https://www.bis.org/cpmi/publ/d211.pdf",
       "https://www.frbservices.org/financial-services/fednow/instant-payments-education/what-is-iso-20022-why-does-it-matter.html"
@@ -38,9 +38,13 @@
     "file": "raw/rbi_payment_systems_public_summary.md",
     "status": "available",
     "published": null,
-    "retrieved": null,
-    "verification": "author_written_unverified",
-    "notes": "Author-written, generic. Only the authentication and fraud-control and customer-compensation themes are supported by the fetched 2025 Directions; the RBI Payments Vision 2025 page returned a CAPTCHA so the other themes (resilience, risk management) are not verified. Prefer rbi-authentication-directions-2025."
+    "retrieved": "2026-10-03",
+    "verification": "author_written_partly_verified",
+    "notes": "Author-written, generic. Supported by the fetched RBI Master Direction on Digital Payment Security Controls (issued 2021-02-18) and the 2025 Authentication Directions: secure digital payments, authentication and fraud controls, risk management and governance, customer protection. NOT confirmed: system resilience and operational continuity (the 2021 Master Direction's fetched summary reports no mention of business continuity) and the payment infrastructure topic; both bullets are annotated in the document. Prefer rbi-authentication-directions-2025.",
+    "checked_against": [
+      "https://www.rbi.org.in/scripts/BS_ViewMasDirections.aspx?id=12032",
+      "https://www.rbi.org.in/scripts/BS_ViewMasDirections.aspx?id=12898"
+    ]
   },
   {
     "id": "rbi-card-not-present",
@@ -105,11 +109,11 @@
     "status": "available",
     "published": null,
     "retrieved": "2026-10-03",
-    "verification": "via_search_summary",
-    "notes": "Author-written summary. The Mastercard guide returned 403, so the lifecycle (authorization, clearing, settlement) and the issuer and acquirer roles were checked only against search-engine summaries of Mastercard pages: consistent. Visa was not checked. Not read on the Mastercard or Visa pages themselves.",
+    "verification": "author_written_partly_verified",
+    "notes": "Author-written. Checked: the ECB glossary (30 Sep 2008, PDF text read directly) defines card issuer, card scheme, clearing and settlement consistently with this summary; its acquirer definition is looser than 'the bank that handles the merchant's account'. The authorization step is consistent only with search-engine summaries of Mastercard (403 on the guide). Visa not checked for the lifecycle.",
     "checked_against": [
-      "https://www.mastercard.us/content/dam/public/mastercardcom/na/global-site/documents/chargebacks-made-simple-guide.pdf",
-      "https://www.mastercard.com/eea/switching-services/our-technology/transaction.html"
+      "https://www.ecb.europa.eu/press/intro/cons/shared/files/glossarypaymentclearingsettlementsystems.pdf",
+      "https://www.mastercard.us/content/dam/public/mastercardcom/na/global-site/documents/chargebacks-made-simple-guide.pdf"
     ]
   },
   {
@@ -120,10 +124,10 @@
     "url": "https://www.consumerfinance.gov/ask-cfpb/how-do-i-dispute-a-charge-on-my-credit-card-bill-en-61/",
     "file": "raw/cfpb_credit_card_disputes.md",
     "status": "available",
-    "published": null,
+    "published": "2024-04-15",
     "retrieved": "2026-10-02",
     "verification": "fetched_and_search_summary",
-    "notes": "Consumer-law billing error process (Regulation Z, 1026.13), not card-scheme chargeback rules. The rights during an investigation come from a search summary of the same page."
+    "notes": "Consumer-law billing error process (Regulation Z, 1026.13), not card-scheme chargeback rules. The rights during an investigation come from a search summary of the same page. The date is the page's 'last reviewed' date (page last modified 2024-05-03)."
   },
   {
     "id": "npci-upi-overview",
@@ -148,7 +152,12 @@
     "status": "draft",
     "published": null,
     "retrieved": "2026-10-03",
-    "verification": "author_written_cross_checked",
-    "notes": "Author-written. FAQ 1 (authorization and settlement), 2 (ISO 20022, via search summaries), 3 (strong customer authentication) and 4 (PCI DSS) are consistent with the other corpus documents. FAQ 5 lists 'non-receipt' as a dispute reason, which no fetched source states. FAQ 6 is about this RAG system, not payments. 'Cross-checked' means checked against other corpus documents, not an independent source."
+    "verification": "author_written_partly_verified",
+    "notes": "Author-written. FAQ 1 (authorization and settlement) is consistent with the ECB glossary and other corpus documents; FAQ 2 (ISO 20022) partly with the BIS report; FAQ 3 (strong customer authentication) with the PSD2 and RBI documents; FAQ 4 (PCI DSS) with the PCI SSC page; FAQ 5's dispute reasons: 'non-receipt' is supported by a Visa FAQ (April 2020) naming the dispute condition 'Merchandise/Services Not Received', 'billing problems' by CFPB; 'fraud' is not in those two sources. FAQ 6 is about this RAG system, not payments.",
+    "checked_against": [
+      "https://usa.visa.com/dam/VCOM/global/support-legal/documents/faq-apr-disputes.pdf",
+      "https://www.consumerfinance.gov/ask-cfpb/how-do-i-dispute-a-charge-on-my-credit-card-bill-en-61/",
+      "https://www.pcisecuritystandards.org/standards/pci-dss/"
+    ]
   }
 ]

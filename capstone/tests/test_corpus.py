@@ -12,6 +12,7 @@ VERIFICATION = {
     "via_search_summary",
     "author_written_unverified",
     "author_written_cross_checked",
+    "author_written_partly_verified",
 }
 
 
@@ -79,3 +80,19 @@ def test_gold_phrases_in_every_question_file_exist_in_their_documents() -> None:
 
 def _flat(text: str) -> str:
     return " ".join(text.split()).lower()
+
+
+def test_independent_questions_name_their_source_and_ids_are_unique_across_files() -> None:
+    evals = CORPUS.parents[1] / "evals"
+    seen: set[str] = set()
+    for path in sorted(evals.glob("questions*.json")):
+        for question in json.loads(path.read_text(encoding="utf-8")):
+            assert question["id"] not in seen, f"duplicate id {question['id']} in {path.name}"
+            seen.add(question["id"])
+
+    independent = json.loads((evals / "questions_independent.json").read_text(encoding="utf-8"))
+    texts = [q["question"] for q in independent]
+    assert len(texts) == len(set(texts)), "a question appears twice"
+    assert all(str(q["source"]).startswith("https://") for q in independent)
+    assert sum(bool(q["gold"]) for q in independent) >= 5
+    assert sum(not q["gold"] for q in independent) >= 20, "keep the unanswerable ones"
