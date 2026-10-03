@@ -26,3 +26,6 @@ data/raw/
 .vscode/
 .idea/
 .DS_Store
+
+# Evaluation caches (regenerated)
+capstone/evals/*_cache.json

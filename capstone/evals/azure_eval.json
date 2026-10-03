@@ -1,0 +1,433 @@
+{
+  "dev": {
+    "fixed": {
+      "strategy": "fixed",
+      "chunks": 39,
+      "words_min_median_max": [
+        33,
+        80,
+        80
+      ],
+      "tiny_chunks_under_15_words": 0,
+      "gold_phrase_intact": 1.0,
+      "hit@1": 0.4418604651162791,
+      "hit@3": 0.8372093023255814,
+      "hit@5": 1.0,
+      "mrr@10": 0.6616279069767441,
+      "hit@3_direct": 0.8214285714285714,
+      "hit@3_paraphrase": 0.8666666666666667,
+      "mean_top_score_answerable": 0.032969616526781126,
+      "mean_top_score_unanswerable": 0.03290146365761757,
+      "index_build_ms": 0.01,
+      "query_ms_mean": 466.469,
+      "missed_or_below_rank_3": [
+        {
+          "id": "q03",
+          "kind": "direct",
+          "question": "Which details can a single ISO 20022 payment message carry?",
+          "rank_of_first_correct_chunk": 5,
+          "top_chunk_section": "",
+          "top_chunk_doc": "iso20022_message_identifiers",
+          "top_score": 0.033
+        },
+        {
+          "id": "q09",
+          "kind": "direct",
+          "question": "What is an acquirer?",
+          "rank_of_first_correct_chunk": 5,
+          "top_chunk_section": "",
+          "top_chunk_doc": "card_scheme_public_summary",
+          "top_score": 0.033
+        },
+        {
+          "id": "q14",
+          "kind": "direct",
+          "question": "What topics does public RBI guidance cover?",
+          "rank_of_first_correct_chunk": 5,
+          "top_chunk_section": "",
+          "top_chunk_doc": "rbi_payment_systems_public_summary",
+          "top_score": 0.033
+        },
+        {
+          "id": "q18",
+          "kind": "paraphrase",
+          "question": "What if a customer says a purchase on their card was not theirs?",
+          "rank_of_first_correct_chunk": 4,
+          "top_chunk_section": "",
+          "top_chunk_doc": "cfpb_credit_card_disputes",
+          "top_score": 0.033
+        },
+        {
+          "id": "q35",
+          "kind": "direct",
+          "question": "How long do I have to dispute a credit card charge in the US?",
+          "rank_of_first_correct_chunk": 5,
+          "top_chunk_section": "",
+          "top_chunk_doc": "cfpb_credit_card_disputes",
+          "top_score": 0.033
+        },
+        {
+          "id": "q41",
+          "kind": "direct",
+          "question": "What does pacs mean in ISO 20022?",
+          "rank_of_first_correct_chunk": 5,
+          "top_chunk_section": "",
+          "top_chunk_doc": "iso20022_overview",
+          "top_score": 0.033
+        },
+        {
+          "id": "q43",
+          "kind": "paraphrase",
+          "question": "Which ISO 20022 messages deal with reporting account balances and investigations?",
+          "rank_of_first_correct_chunk": 5,
+          "top_chunk_section": "",
+          "top_chunk_doc": "iso20022_overview",
+          "top_score": 0.032
+        }
+      ]
+    },
+    "recursive": {
+      "strategy": "recursive",
+      "chunks": 48,
+      "words_min_median_max": [
+        18,
+        42,
+        84
+      ],
+      "tiny_chunks_under_15_words": 0,
+      "gold_phrase_intact": 1.0,
+      "hit@1": 0.5348837209302325,
+      "hit@3": 0.8604651162790697,
+      "hit@5": 0.9302325581395349,
+      "mrr@10": 0.700830564784053,
+      "hit@3_direct": 0.9285714285714286,
+      "hit@3_paraphrase": 0.7333333333333333,
+      "mean_top_score_answerable": 0.03293860980937647,
+      "mean_top_score_unanswerable": 0.0327527329325676,
+      "index_build_ms": 0.0,
+      "query_ms_mean": 431.542,
+      "missed_or_below_rank_3": [
+        {
+          "id": "q07",
+          "kind": "direct",
+          "question": "Who handles card dispute processing?",
+          "rank_of_first_correct_chunk": 7,
+          "top_chunk_section": "Payments FAQ starter set > FAQ 5: What is a dispute in card payments?",
+          "top_chunk_doc": "faqs",
+          "top_score": 0.033
+        },
+        {
+          "id": "q17",
+          "kind": "paraphrase",
+          "question": "How can I find out where a payment currently stands?",
+          "rank_of_first_correct_chunk": 7,
+          "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > How to dispute",
+          "top_chunk_doc": "cfpb_credit_card_disputes",
+          "top_score": 0.033
+        },
+        {
+          "id": "q22",
+          "kind": "paraphrase",
+          "question": "What do regulators expect banks to do to keep payments working during outages?",
+          "rank_of_first_correct_chunk": 10,
+          "top_chunk_section": "Payments FAQ starter set > FAQ 6: Why do payment systems need good chunking and retrieval?",
+          "top_chunk_doc": "faqs",
+          "top_score": 0.033
+        },
+        {
+          "id": "q33",
+          "kind": "paraphrase",
+          "question": "Do I have to use the simplified online card payment option?",
+          "rank_of_first_correct_chunk": 4,
+          "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+          "top_chunk_doc": "rbi_card_not_present_afa",
+          "top_score": 0.033
+        },
+        {
+          "id": "q41",
+          "kind": "direct",
+          "question": "What does pacs mean in ISO 20022?",
+          "rank_of_first_correct_chunk": 4,
+          "top_chunk_section": "Payments FAQ starter set > FAQ 2: What is ISO 20022?",
+          "top_chunk_doc": "faqs",
+          "top_score": 0.033
+        },
+        {
+          "id": "q43",
+          "kind": "paraphrase",
+          "question": "Which ISO 20022 messages deal with reporting account balances and investigations?",
+          "rank_of_first_correct_chunk": 4,
+          "top_chunk_section": "Payments FAQ starter set > FAQ 2: What is ISO 20022?",
+          "top_chunk_doc": "faqs",
+          "top_score": 0.033
+        }
+      ]
+    },
+    "semantic": {
+      "strategy": "semantic",
+      "chunks": 78,
+      "words_min_median_max": [
+        6,
+        27,
+        76
+      ],
+      "tiny_chunks_under_15_words": 11,
+      "gold_phrase_intact": 1.0,
+      "hit@1": 0.4186046511627907,
+      "hit@3": 0.8604651162790697,
+      "hit@5": 0.9069767441860465,
+      "mrr@10": 0.6210225175341453,
+      "hit@3_direct": 0.9285714285714286,
+      "hit@3_paraphrase": 0.7333333333333333,
+      "mean_top_score_answerable": 0.03276361325799033,
+      "mean_top_score_unanswerable": 0.03255050927400589,
+      "index_build_ms": 0.0,
+      "query_ms_mean": 414.31,
+      "missed_or_below_rank_3": [
+        {
+          "id": "q07",
+          "kind": "direct",
+          "question": "Who handles card dispute processing?",
+          "rank_of_first_correct_chunk": 4,
+          "top_chunk_section": "Payments FAQ starter set > FAQ 5: What is a dispute in card payments?",
+          "top_chunk_doc": "faqs",
+          "top_score": 0.033
+        },
+        {
+          "id": "q17",
+          "kind": "paraphrase",
+          "question": "How can I find out where a payment currently stands?",
+          "rank_of_first_correct_chunk": 9,
+          "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > How to dispute",
+          "top_chunk_doc": "cfpb_credit_card_disputes",
+          "top_score": 0.033
+        },
+        {
+          "id": "q22",
+          "kind": "paraphrase",
+          "question": "What do regulators expect banks to do to keep payments working during outages?",
+          "rank_of_first_correct_chunk": null,
+          "top_chunk_section": "Payments FAQ starter set > FAQ 6: Why do payment systems need good chunking and retrieval?",
+          "top_chunk_doc": "faqs",
+          "top_score": 0.031
+        },
+        {
+          "id": "q33",
+          "kind": "paraphrase",
+          "question": "Do I have to use the simplified online card payment option?",
+          "rank_of_first_correct_chunk": 7,
+          "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > What the card company must do",
+          "top_chunk_doc": "cfpb_credit_card_disputes",
+          "top_score": 0.033
+        },
+        {
+          "id": "q39",
+          "kind": "paraphrase",
+          "question": "Can I send money on a bank holiday in India?",
+          "rank_of_first_correct_chunk": null,
+          "top_chunk_section": "NPCI UPI overview > Interoperability",
+          "top_chunk_doc": "upi_overview",
+          "top_score": 0.033
+        },
+        {
+          "id": "q41",
+          "kind": "direct",
+          "question": "What does pacs mean in ISO 20022?",
+          "rank_of_first_correct_chunk": 5,
+          "top_chunk_section": "Payments FAQ starter set > FAQ 2: What is ISO 20022?",
+          "top_chunk_doc": "faqs",
+          "top_score": 0.033
+        }
+      ]
+    },
+    "structure_aware": {
+      "strategy": "structure_aware",
+      "chunks": 48,
+      "words_min_median_max": [
+        19,
+        46,
+        94
+      ],
+      "tiny_chunks_under_15_words": 0,
+      "gold_phrase_intact": 1.0,
+      "hit@1": 0.7441860465116279,
+      "hit@3": 0.9302325581395349,
+      "hit@5": 0.9302325581395349,
+      "mrr@10": 0.8351052048726466,
+      "hit@3_direct": 0.9642857142857143,
+      "hit@3_paraphrase": 0.8666666666666667,
+      "mean_top_score_answerable": 0.03291261685622293,
+      "mean_top_score_unanswerable": 0.032351591438055036,
+      "index_build_ms": 0.0,
+      "query_ms_mean": 397.723,
+      "missed_or_below_rank_3": [
+        {
+          "id": "q07",
+          "kind": "direct",
+          "question": "Who handles card dispute processing?",
+          "rank_of_first_correct_chunk": 7,
+          "top_chunk_section": "Payments FAQ starter set > FAQ 5: What is a dispute in card payments?",
+          "top_chunk_doc": "faqs",
+          "top_score": 0.033
+        },
+        {
+          "id": "q17",
+          "kind": "paraphrase",
+          "question": "How can I find out where a payment currently stands?",
+          "rank_of_first_correct_chunk": null,
+          "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > How to dispute",
+          "top_chunk_doc": "cfpb_credit_card_disputes",
+          "top_score": 0.033
+        },
+        {
+          "id": "q22",
+          "kind": "paraphrase",
+          "question": "What do regulators expect banks to do to keep payments working during outages?",
+          "rank_of_first_correct_chunk": 10,
+          "top_chunk_section": "Payments FAQ starter set > FAQ 6: Why do payment systems need good chunking and retrieval?",
+          "top_chunk_doc": "faqs",
+          "top_score": 0.033
+        }
+      ]
+    }
+  },
+  "heldout": {
+    "fixed": {
+      "strategy": "fixed",
+      "chunks": 39,
+      "words_min_median_max": [
+        33,
+        80,
+        80
+      ],
+      "tiny_chunks_under_15_words": 0,
+      "gold_phrase_intact": 1.0,
+      "hit@1": 0.5833333333333334,
+      "hit@3": 0.9166666666666666,
+      "hit@5": 1.0,
+      "mrr@10": 0.7388888888888889,
+      "hit@3_direct": 1.0,
+      "hit@3_paraphrase": 0.8888888888888888,
+      "mean_top_score_answerable": 0.032996175810694695,
+      "mean_top_score_unanswerable": 0.03292790427803993,
+      "index_build_ms": 0.0,
+      "query_ms_mean": 391.933,
+      "missed_or_below_rank_3": [
+        {
+          "id": "h02",
+          "kind": "paraphrase",
+          "question": "What kinds of firms did the EU payments directive allow besides banks?",
+          "rank_of_first_correct_chunk": 5,
+          "top_chunk_section": "",
+          "top_chunk_doc": "psd2_overview",
+          "top_score": 0.033
+        }
+      ]
+    },
+    "recursive": {
+      "strategy": "recursive",
+      "chunks": 48,
+      "words_min_median_max": [
+        18,
+        42,
+        84
+      ],
+      "tiny_chunks_under_15_words": 0,
+      "gold_phrase_intact": 1.0,
+      "hit@1": 0.5833333333333334,
+      "hit@3": 0.8333333333333334,
+      "hit@5": 1.0,
+      "mrr@10": 0.7458333333333332,
+      "hit@3_direct": 1.0,
+      "hit@3_paraphrase": 0.7777777777777778,
+      "mean_top_score_answerable": 0.03295617581655582,
+      "mean_top_score_unanswerable": 0.03266769088804722,
+      "index_build_ms": 0.0,
+      "query_ms_mean": 461.536,
+      "missed_or_below_rank_3": [
+        {
+          "id": "h02",
+          "kind": "paraphrase",
+          "question": "What kinds of firms did the EU payments directive allow besides banks?",
+          "rank_of_first_correct_chunk": 5,
+          "top_chunk_section": "ISO 20022 overview > Example use in payments",
+          "top_chunk_doc": "iso20022_overview",
+          "top_score": 0.031
+        },
+        {
+          "id": "h12",
+          "kind": "paraphrase",
+          "question": "Is the cardholder's agreement needed for the simplified online card payment in India?",
+          "rank_of_first_correct_chunk": 4,
+          "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+          "top_chunk_doc": "rbi_card_not_present_afa",
+          "top_score": 0.033
+        }
+      ]
+    },
+    "semantic": {
+      "strategy": "semantic",
+      "chunks": 78,
+      "words_min_median_max": [
+        6,
+        27,
+        76
+      ],
+      "tiny_chunks_under_15_words": 11,
+      "gold_phrase_intact": 1.0,
+      "hit@1": 0.75,
+      "hit@3": 0.9166666666666666,
+      "hit@5": 1.0,
+      "mrr@10": 0.85,
+      "hit@3_direct": 1.0,
+      "hit@3_paraphrase": 0.8888888888888888,
+      "mean_top_score_answerable": 0.03280446461091439,
+      "mean_top_score_unanswerable": 0.03246268816292286,
+      "index_build_ms": 0.0,
+      "query_ms_mean": 371.991,
+      "missed_or_below_rank_3": [
+        {
+          "id": "h02",
+          "kind": "paraphrase",
+          "question": "What kinds of firms did the EU payments directive allow besides banks?",
+          "rank_of_first_correct_chunk": 5,
+          "top_chunk_section": "PSD2 overview > Public summary",
+          "top_chunk_doc": "psd2_overview",
+          "top_score": 0.03
+        }
+      ]
+    },
+    "structure_aware": {
+      "strategy": "structure_aware",
+      "chunks": 48,
+      "words_min_median_max": [
+        19,
+        46,
+        94
+      ],
+      "tiny_chunks_under_15_words": 0,
+      "gold_phrase_intact": 1.0,
+      "hit@1": 0.6666666666666666,
+      "hit@3": 0.9166666666666666,
+      "hit@5": 1.0,
+      "mrr@10": 0.7944444444444444,
+      "hit@3_direct": 1.0,
+      "hit@3_paraphrase": 0.8888888888888888,
+      "mean_top_score_answerable": 0.03317612285415331,
+      "mean_top_score_unanswerable": 0.03279989771544933,
+      "index_build_ms": 0.0,
+      "query_ms_mean": 428.574,
+      "missed_or_below_rank_3": [
+        {
+          "id": "h02",
+          "kind": "paraphrase",
+          "question": "What kinds of firms did the EU payments directive allow besides banks?",
+          "rank_of_first_correct_chunk": 5,
+          "top_chunk_section": "Payments FAQ starter set > FAQ 2: What is ISO 20022?",
+          "top_chunk_doc": "faqs",
+          "top_score": 0.033
+        }
+      ]
+    }
+  }
+}

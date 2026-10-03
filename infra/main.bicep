@@ -1,0 +1,184 @@
+// Azure resources for the payments RAG capstone: Azure OpenAI (chat + embeddings) and Azure AI Search.
+//
+// Design choices (see infra/README.md):
+//  * Keyless: Azure OpenAI has local (key) auth disabled; Azure AI Search accepts Entra ID tokens.
+//    The signed-in user gets the roles needed to call both, so no secrets are stored anywhere.
+//  * Azure OpenAI and Azure AI Search are in different regions on purpose: the model catalogue lists
+//    South India for these models, and AI Search offers its full feature set in Central India.
+//  * Search uses the free tier by default ($0, one per subscription, 3 indexes, 50 MB, may be deleted if idle).
+//  * Model deployments are small (10 = 10,000 tokens per minute) to keep cost and quota needs low.
+
+targetScope = 'resourceGroup'
+
+@description('Short lowercase prefix for resource names.')
+@maxLength(10)
+param namePrefix string = 'payrag'
+
+@description('Region for Azure OpenAI. Check the model region-availability page before changing it.')
+param openAiLocation string = 'southindia'
+
+@description('Region for Azure AI Search.')
+param searchLocation string = 'centralindia'
+
+@description('Object ID of the user or service principal that will call the services (az ad signed-in-user show --query id -o tsv).')
+param principalId string
+
+@description('Principal type for the role assignments.')
+@allowed(['User', 'ServicePrincipal', 'Group'])
+param principalType string = 'User'
+
+@description('Azure AI Search tier. "free" costs nothing but allows one per subscription; "basic" bills hourly.')
+@allowed(['free', 'basic'])
+param searchSku string = 'free'
+
+@description('Chat model to deploy.')
+param chatModel string = 'gpt-4.1-mini'
+param chatModelVersion string = '2025-04-14'
+@description('Chat capacity in thousands of tokens per minute.')
+param chatCapacity int = 10
+
+@description('Embedding model to deploy (1536 dimensions for text-embedding-3-small).')
+param embeddingModel string = 'text-embedding-3-small'
+param embeddingModelVersion string = '1'
+@description('Embedding capacity in thousands of tokens per minute.')
+param embeddingCapacity int = 10
+
+@description('Monthly budget in the subscription currency for this resource group. 0 skips the budget.')
+param budgetAmount int = 0
+@description('Email that receives budget alerts. Required when budgetAmount > 0.')
+param budgetEmail string = ''
+@description('First day of the budget period (must be the first of a month).')
+param budgetStartDate string = utcNow('yyyy-MM-01')
+
+var unique = uniqueString(resourceGroup().id)
+var openAiName = '${namePrefix}-oai-${unique}'
+var searchName = '${namePrefix}-search-${unique}'
+
+// Built-in role definition IDs.
+var roleOpenAiUser = '5e0bd9bd-7b93-4f28-af87-19fc36ad61bd' // Cognitive Services OpenAI User
+var roleSearchServiceContributor = '7ca78c08-252a-4471-8644-bb5ff32d4ba0'
+var roleSearchIndexDataContributor = '8ebe5a00-799e-43f5-93ac-243d3dce84a7'
+var roleSearchIndexDataReader = '1407120a-92aa-4202-b7e9-c0e197c71c8f'
+
+resource openai 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
+  name: openAiName
+  location: openAiLocation
+  kind: 'OpenAI'
+  sku: {
+    name: 'S0'
+  }
+  properties: {
+    customSubDomainName: openAiName // required for Entra ID (token) authentication
+    disableLocalAuth: true // keyless: API keys are turned off
+    publicNetworkAccess: 'Enabled'
+  }
+}
+
+resource embeddingDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
+  parent: openai
+  name: embeddingModel
+  sku: {
+    name: 'GlobalStandard'
+    capacity: embeddingCapacity
+  }
+  properties: {
+    model: {
+      format: 'OpenAI'
+      name: embeddingModel
+      version: embeddingModelVersion
+    }
+  }
+}
+
+// Deployments on one account must be created one at a time.
+resource chatDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
+  parent: openai
+  name: chatModel
+  dependsOn: [embeddingDeployment]
+  sku: {
+    name: 'GlobalStandard'
+    capacity: chatCapacity
+  }
+  properties: {
+    model: {
+      format: 'OpenAI'
+      name: chatModel
+      version: chatModelVersion
+    }
+  }
+}
+
+resource search 'Microsoft.Search/searchServices@2025-05-01' = {
+  name: searchName
+  location: searchLocation
+  sku: {
+    name: searchSku
+  }
+  properties: {
+    replicaCount: 1
+    partitionCount: 1
+    publicNetworkAccess: 'enabled'
+    // Accept Entra ID tokens as well as keys. The default is keys only, which would reject role-based calls.
+    authOptions: {
+      aadOrApiKey: {
+        aadAuthFailureMode: 'http401WithBearerChallenge'
+      }
+    }
+  }
+}
+
+resource openAiUser 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  scope: openai
+  name: guid(openai.id, principalId, roleOpenAiUser)
+  properties: {
+    principalId: principalId
+    principalType: principalType
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', roleOpenAiUser)
+  }
+}
+
+resource searchRoles 'Microsoft.Authorization/roleAssignments@2022-04-01' = [
+  for role in [roleSearchServiceContributor, roleSearchIndexDataContributor, roleSearchIndexDataReader]: {
+    scope: search
+    name: guid(search.id, principalId, role)
+    properties: {
+      principalId: principalId
+      principalType: principalType
+      roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', role)
+    }
+  }
+]
+
+resource budget 'Microsoft.Consumption/budgets@2023-11-01' = if (budgetAmount > 0 && !empty(budgetEmail)) {
+  name: '${namePrefix}-monthly-budget'
+  properties: {
+    category: 'Cost'
+    amount: budgetAmount
+    timeGrain: 'Monthly'
+    timePeriod: {
+      startDate: budgetStartDate
+    }
+    notifications: {
+      actual80: {
+        enabled: true
+        operator: 'GreaterThan'
+        threshold: 80
+        contactEmails: [budgetEmail]
+      }
+      forecast100: {
+        enabled: true
+        operator: 'GreaterThan'
+        threshold: 100
+        thresholdType: 'Forecasted'
+        contactEmails: [budgetEmail]
+      }
+    }
+  }
+}
+
+output openAiEndpoint string = openai.properties.endpoint
+output openAiName string = openai.name
+output embeddingDeployment string = embeddingDeployment.name
+output chatDeployment string = chatDeployment.name
+output searchName string = search.name
+output searchEndpoint string = 'https://${search.name}.search.windows.net'

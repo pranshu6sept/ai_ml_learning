@@ -1,0 +1,20 @@
+[
+  {"id": "a01", "split": "tune", "subtype": "hard", "kind": "unanswerable", "question": "What are the twelve PCI DSS requirements?", "gold": []},
+  {"id": "a02", "split": "tune", "subtype": "hard", "kind": "unanswerable", "question": "How much does it cost to become PCI DSS compliant?", "gold": []},
+  {"id": "a03", "split": "tune", "subtype": "hard", "kind": "unanswerable", "question": "What is the penalty for a bank that does not support open banking under PSD2?", "gold": []},
+  {"id": "a04", "split": "tune", "subtype": "hard", "kind": "unanswerable", "question": "How many days does a card company have to finish investigating a billing dispute?", "gold": []},
+  {"id": "a05", "split": "tune", "subtype": "hard", "kind": "unanswerable", "question": "Which ISO 20022 message type is used for a direct debit?", "gold": []},
+  {"id": "a06", "split": "tune", "subtype": "hard", "kind": "unanswerable", "question": "Is UPI available outside India?", "gold": []},
+  {"id": "a07", "split": "tune", "subtype": "hard", "kind": "unanswerable", "question": "What is the chargeback fee a merchant pays?", "gold": []},
+  {"id": "a08", "split": "tune", "subtype": "off_topic", "kind": "unanswerable", "question": "What is the capital of France?", "gold": []},
+  {"id": "a09", "split": "tune", "subtype": "off_topic", "kind": "unanswerable", "question": "How do I bake sourdough bread?", "gold": []},
+  {"id": "b01", "split": "test", "subtype": "hard", "kind": "unanswerable", "question": "What encryption does PCI DSS require for stored card numbers?", "gold": []},
+  {"id": "b02", "split": "test", "subtype": "hard", "kind": "unanswerable", "question": "Which banks does the European Banking Authority supervise?", "gold": []},
+  {"id": "b03", "split": "test", "subtype": "hard", "kind": "unanswerable", "question": "What is the maximum customer liability amount in the RBI circular?", "gold": []},
+  {"id": "b04", "split": "test", "subtype": "hard", "kind": "unanswerable", "question": "What is the UPI transaction fee for merchants?", "gold": []},
+  {"id": "b05", "split": "test", "subtype": "hard", "kind": "unanswerable", "question": "How does Visa decide which disputes it accepts?", "gold": []},
+  {"id": "b06", "split": "test", "subtype": "hard", "kind": "unanswerable", "question": "What is the interest rate on a typical US credit card?", "gold": []},
+  {"id": "b07", "split": "test", "subtype": "hard", "kind": "unanswerable", "question": "What is the SWIFT code of the Reserve Bank of India?", "gold": []},
+  {"id": "b08", "split": "test", "subtype": "off_topic", "kind": "unanswerable", "question": "Who won the football World Cup in 2018?", "gold": []},
+  {"id": "b09", "split": "test", "subtype": "off_topic", "kind": "unanswerable", "question": "What is the boiling point of water at sea level?", "gold": []}
+]

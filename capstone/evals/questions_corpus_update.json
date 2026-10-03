@@ -1,0 +1,8 @@
+[
+  {"id": "n01", "kind": "direct", "question": "When must payment providers comply with the RBI authentication directions?", "gold": [{"doc": "rbi_authentication_directions_2025", "phrase": "require compliance by 1 April 2026"}]},
+  {"id": "n02", "kind": "paraphrase", "question": "How many different checks does an Indian digital payment need to pass?", "gold": [{"doc": "rbi_authentication_directions_2025", "phrase": "at least two distinct factors of authentication"}]},
+  {"id": "n03", "kind": "paraphrase", "question": "Is the relaxation for small online card payments still in force?", "gold": [{"doc": "rbi_authentication_directions_2025", "phrase": "eight earlier circulars from 2009 to 2016 that the directions repeal"}, {"doc": "rbi_card_not_present_afa", "phrase": "it has since been repealed"}]},
+  {"id": "n04", "kind": "direct", "question": "By when must card issuers validate cross-border card-not-present transactions?", "gold": [{"doc": "rbi_authentication_directions_2025", "phrase": "By 1 October 2026, card issuers must have mechanisms to validate non-recurring cross-border card-not-present transactions"}]},
+  {"id": "n05", "kind": "paraphrase", "question": "Who pays the customer back if the authentication rules were not followed and money was lost?", "gold": [{"doc": "rbi_authentication_directions_2025", "phrase": "compensate the customer in full without demur"}]},
+  {"id": "nu1", "kind": "unanswerable", "question": "What penalty does a bank face for breaching the RBI authentication directions?", "gold": []}
+]

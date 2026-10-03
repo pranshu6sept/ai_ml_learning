@@ -1,0 +1,1593 @@
+{
+  "thresholds": {
+    "bm25": 9.433881719983983,
+    "embedding": 0.7094198763370514,
+    "hybrid": 0.03176604513281536,
+    "reranker": 4.4117045402526855
+  },
+  "questions": [
+    {
+      "id": "q01",
+      "kind": "direct",
+      "question": "What is ISO 20022?",
+      "gold": [
+        {
+          "doc": "iso20022_overview",
+          "phrase": "ISO 20022 is a global standard for financial messaging"
+        },
+        {
+          "doc": "faqs",
+          "phrase": "ISO 20022 is a global messaging standard"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 5.049482453785709,
+        "embedding": 0.7553457021713257,
+        "hybrid": 0.03278688524590164,
+        "reranker": 10.66929817199707
+      },
+      "top_reranked": "Payments FAQ starter set > FAQ 2: What is ISO 20022?"
+    },
+    {
+      "id": "q02",
+      "kind": "direct",
+      "question": "What does ISO 20022 improve compared with proprietary formats?",
+      "gold": [
+        {
+          "doc": "iso20022_overview",
+          "phrase": "improves data quality by using a consistent message structure"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 12.517166917583223,
+        "embedding": 0.6309531927108765,
+        "hybrid": 0.03252247488101534,
+        "reranker": 7.475120544433594
+      },
+      "top_reranked": "ISO 20022 overview > Why it matters"
+    },
+    {
+      "id": "q03",
+      "kind": "direct",
+      "question": "Which details can a single ISO 20022 payment message carry?",
+      "gold": [
+        {
+          "doc": "iso20022_overview",
+          "phrase": "originator, beneficiary, amount, currency, purpose, and payment references"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 9.615699150856633,
+        "embedding": 0.7547776699066162,
+        "hybrid": 0.03252247488101534,
+        "reranker": 7.2615861892700195
+      },
+      "top_reranked": "ISO 20022 overview > Example use in payments"
+    },
+    {
+      "id": "q04",
+      "kind": "direct",
+      "question": "What is remittance information?",
+      "gold": [
+        {
+          "doc": "iso20022_overview",
+          "phrase": "structured details that explain why a payment was sent"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 5.080889556383955,
+        "embedding": 0.4680759310722351,
+        "hybrid": 0.03252247488101534,
+        "reranker": 3.987476348876953
+      },
+      "top_reranked": "ISO 20022 overview > Common concepts"
+    },
+    {
+      "id": "q05",
+      "kind": "direct",
+      "question": "What is settlement in card payments?",
+      "gold": [
+        {
+          "doc": "card_scheme_public_summary",
+          "phrase": "funds move between participating institutions after the transaction is accepted"
+        },
+        {
+          "doc": "faqs",
+          "phrase": "Settlement is the later process where funds move between parties"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 3.6736947374692095,
+        "embedding": 0.6365839242935181,
+        "hybrid": 0.03252247488101534,
+        "reranker": 4.700695037841797
+      },
+      "top_reranked": "Card scheme public summary > Payment lifecycle"
+    },
+    {
+      "id": "q06",
+      "kind": "direct",
+      "question": "What is the difference between authorization and settlement?",
+      "gold": [
+        {
+          "doc": "faqs",
+          "phrase": "Authorization is the approval step that checks whether a payment instrument can be used"
+        },
+        {
+          "doc": "card_scheme_public_summary",
+          "phrase": "the merchant sends a request to verify that the card is valid"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 8.706028930604585,
+        "embedding": 0.8412890434265137,
+        "hybrid": 0.03278688524590164,
+        "reranker": 10.394641876220703
+      },
+      "top_reranked": "Payments FAQ starter set > FAQ 1: What is the difference between authorization and settlement?"
+    },
+    {
+      "id": "q07",
+      "kind": "direct",
+      "question": "Who handles card dispute processing?",
+      "gold": [
+        {
+          "doc": "card_scheme_public_summary",
+          "phrase": "the scheme and the banks may investigate customer disputes"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 6.739048402407904,
+        "embedding": 0.6075000762939453,
+        "hybrid": 0.032266458495966696,
+        "reranker": 0.1972060650587082
+      },
+      "top_reranked": "Payments FAQ starter set > FAQ 5: What is a dispute in card payments?"
+    },
+    {
+      "id": "q08",
+      "kind": "direct",
+      "question": "What happens during a payment dispute?",
+      "gold": [
+        {
+          "doc": "faqs",
+          "phrase": "a cardholder challenges a transaction and asks for investigation, reversal"
+        },
+        {
+          "doc": "card_scheme_public_summary",
+          "phrase": "the scheme and the banks may investigate customer disputes"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 6.562116855116808,
+        "embedding": 0.6560355424880981,
+        "hybrid": 0.03278688524590164,
+        "reranker": 7.334076404571533
+      },
+      "top_reranked": "Payments FAQ starter set > FAQ 5: What is a dispute in card payments?"
+    },
+    {
+      "id": "q09",
+      "kind": "direct",
+      "question": "What is an acquirer?",
+      "gold": [
+        {
+          "doc": "card_scheme_public_summary",
+          "phrase": "the bank that handles the merchant's account"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 2.2097789796429748,
+        "embedding": 0.5319496989250183,
+        "hybrid": 0.03252247488101534,
+        "reranker": 2.736436367034912
+      },
+      "top_reranked": "Card scheme public summary > Core concepts"
+    },
+    {
+      "id": "q10",
+      "kind": "direct",
+      "question": "What does the issuing bank do?",
+      "gold": [
+        {
+          "doc": "card_scheme_public_summary",
+          "phrase": "the bank that issued the card to the customer"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 4.456893846683157,
+        "embedding": 0.5329321622848511,
+        "hybrid": 0.03200204813108039,
+        "reranker": 0.7689497470855713
+      },
+      "top_reranked": "Card scheme public summary > Core concepts"
+    },
+    {
+      "id": "q11",
+      "kind": "direct",
+      "question": "What role does the card network play?",
+      "gold": [
+        {
+          "doc": "card_scheme_public_summary",
+          "phrase": "the scheme or infrastructure connecting the participants"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 4.408137278147489,
+        "embedding": 0.5181707143783569,
+        "hybrid": 0.032266458495966696,
+        "reranker": 2.8875272274017334
+      },
+      "top_reranked": "Card scheme public summary > Public summary"
+    },
+    {
+      "id": "q12",
+      "kind": "direct",
+      "question": "Why is strong customer authentication important?",
+      "gold": [
+        {
+          "doc": "faqs",
+          "phrase": "reduces fraud by adding a second layer of verification"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 11.993916650066287,
+        "embedding": 0.8471719026565552,
+        "hybrid": 0.03278688524590164,
+        "reranker": 10.293061256408691
+      },
+      "top_reranked": "Payments FAQ starter set > FAQ 3: Why is strong customer authentication important?"
+    },
+    {
+      "id": "q13",
+      "kind": "direct",
+      "question": "What is PCI DSS?",
+      "gold": [
+        {
+          "doc": "faqs",
+          "phrase": "PCI DSS is a security standard for protecting payment card data"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 6.360100578547275,
+        "embedding": 0.7095483541488647,
+        "hybrid": 0.03252247488101534,
+        "reranker": 10.630899429321289
+      },
+      "top_reranked": "Payments FAQ starter set > FAQ 4: What is PCI DSS?"
+    },
+    {
+      "id": "q14",
+      "kind": "direct",
+      "question": "What topics does public RBI guidance cover?",
+      "gold": [
+        {
+          "doc": "rbi_payment_systems_public_summary",
+          "phrase": "System resilience and operational continuity"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 8.551769254526242,
+        "embedding": 0.6681543588638306,
+        "hybrid": 0.03252247488101534,
+        "reranker": 7.057596206665039
+      },
+      "top_reranked": "RBI payment systems public summary > Typical topics in public guidance"
+    },
+    {
+      "id": "q15",
+      "kind": "direct",
+      "question": "Why do payment systems need good chunking and retrieval?",
+      "gold": [
+        {
+          "doc": "faqs",
+          "phrase": "Good retrieval depends on preserving section boundaries and technical context"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 17.71365761909002,
+        "embedding": 0.7835500836372375,
+        "hybrid": 0.03278688524590164,
+        "reranker": 9.725570678710938
+      },
+      "top_reranked": "Payments FAQ starter set > FAQ 6: Why do payment systems need good chunking and retrieval?"
+    },
+    {
+      "id": "q16",
+      "kind": "paraphrase",
+      "question": "How do banks agree on a common way to exchange payment data?",
+      "gold": [
+        {
+          "doc": "iso20022_overview",
+          "phrase": "a common, structured way to exchange payment and settlement information"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 10.97002667772532,
+        "embedding": 0.5793359279632568,
+        "hybrid": 0.032018442622950824,
+        "reranker": 2.1887311935424805
+      },
+      "top_reranked": "ISO 20022 overview > Public summary"
+    },
+    {
+      "id": "q17",
+      "kind": "paraphrase",
+      "question": "How can I find out where a payment currently stands?",
+      "gold": [
+        {
+          "doc": "iso20022_overview",
+          "phrase": "participants can track whether a payment is pending, processed, rejected, or settled"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 3.991635569100964,
+        "embedding": 0.39109838008880615,
+        "hybrid": 0.031746031746031744,
+        "reranker": -8.069058418273926
+      },
+      "top_reranked": "ISO 20022 overview > Common concepts"
+    },
+    {
+      "id": "q18",
+      "kind": "paraphrase",
+      "question": "What if a customer says a purchase on their card was not theirs?",
+      "gold": [
+        {
+          "doc": "faqs",
+          "phrase": "due to issues such as fraud, non-receipt, or billing problems"
+        },
+        {
+          "doc": "card_scheme_public_summary",
+          "phrase": "customer disputes, chargebacks, or fraud-related exceptions"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 4.372216116322916,
+        "embedding": 0.5224024057388306,
+        "hybrid": 0.03252247488101534,
+        "reranker": -4.994935989379883
+      },
+      "top_reranked": "RBI card-not-present transactions and additional authentication > Public summary"
+    },
+    {
+      "id": "q19",
+      "kind": "paraphrase",
+      "question": "How does money actually move between banks after a purchase is approved?",
+      "gold": [
+        {
+          "doc": "card_scheme_public_summary",
+          "phrase": "funds move between participating institutions after the transaction is accepted"
+        },
+        {
+          "doc": "faqs",
+          "phrase": "Settlement is the later process where funds move between parties"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 6.116133153740501,
+        "embedding": 0.5019699931144714,
+        "hybrid": 0.03200204813108039,
+        "reranker": 2.07784366607666
+      },
+      "top_reranked": "Card scheme public summary > Payment lifecycle"
+    },
+    {
+      "id": "q20",
+      "kind": "paraphrase",
+      "question": "Which bank looks after the shop's account?",
+      "gold": [
+        {
+          "doc": "card_scheme_public_summary",
+          "phrase": "the bank that handles the merchant's account"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 3.252156382889358,
+        "embedding": 0.383270263671875,
+        "hybrid": 0.03252247488101534,
+        "reranker": -8.429506301879883
+      },
+      "top_reranked": "Card scheme public summary > Core concepts"
+    },
+    {
+      "id": "q21",
+      "kind": "paraphrase",
+      "question": "Do I need a second verification step before a payment goes through?",
+      "gold": [
+        {
+          "doc": "faqs",
+          "phrase": "adding a second layer of verification before a payment or sensitive operation is approved"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 6.792676568592374,
+        "embedding": 0.4499998390674591,
+        "hybrid": 0.03278688524590164,
+        "reranker": 4.420375823974609
+      },
+      "top_reranked": "Payments FAQ starter set > FAQ 3: Why is strong customer authentication important?"
+    },
+    {
+      "id": "q22",
+      "kind": "paraphrase",
+      "question": "What do regulators expect banks to do to keep payments working during outages?",
+      "gold": [
+        {
+          "doc": "rbi_payment_systems_public_summary",
+          "phrase": "System resilience and operational continuity"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 6.749844108751936,
+        "embedding": 0.3865503966808319,
+        "hybrid": 0.031746031746031744,
+        "reranker": -3.090036630630493
+      },
+      "top_reranked": "RBI payment systems public summary > Why it matters"
+    },
+    {
+      "id": "q23",
+      "kind": "paraphrase",
+      "question": "What are the steps a card payment goes through?",
+      "gold": [
+        {
+          "doc": "card_scheme_public_summary",
+          "phrase": "the merchant sends a request to verify that the card is valid"
+        },
+        {
+          "doc": "card_scheme_public_summary",
+          "phrase": "the transaction details are exchanged through the card network"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 4.33819286091229,
+        "embedding": 0.6774481534957886,
+        "hybrid": 0.03200204813108039,
+        "reranker": 2.7767856121063232
+      },
+      "top_reranked": "Card scheme public summary > Payment lifecycle"
+    },
+    {
+      "id": "q24",
+      "kind": "paraphrase",
+      "question": "Why do public regulators publish guidance on digital payments?",
+      "gold": [
+        {
+          "doc": "rbi_payment_systems_public_summary",
+          "phrase": "publish guidance on reducing fraud, improving security, and making digital payments reliable"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 11.938622191166704,
+        "embedding": 0.5935536026954651,
+        "hybrid": 0.03278688524590164,
+        "reranker": 8.04538345336914
+      },
+      "top_reranked": "RBI payment systems public summary > Why it matters"
+    },
+    {
+      "id": "u01",
+      "kind": "unanswerable",
+      "question": "What are the PSD2 strong customer authentication exemption thresholds in euros?",
+      "gold": [],
+      "split": "tune",
+      "subtype": "hard",
+      "answerable": false,
+      "scores": {
+        "bm25": 15.088482971215067,
+        "embedding": 0.6220992803573608,
+        "hybrid": 0.03278688524590164,
+        "reranker": 3.5605432987213135
+      },
+      "top_reranked": "PSD2 overview > Strong customer authentication"
+    },
+    {
+      "id": "u02",
+      "kind": "unanswerable",
+      "question": "What is the interchange fee for a Visa credit card transaction in India?",
+      "gold": [],
+      "split": "tune",
+      "subtype": "hard",
+      "answerable": false,
+      "scores": {
+        "bm25": 10.343693006010247,
+        "embedding": 0.5140947699546814,
+        "hybrid": 0.03225806451612903,
+        "reranker": -4.391350269317627
+      },
+      "top_reranked": "RBI card-not-present transactions and additional authentication > Public summary"
+    },
+    {
+      "id": "u03",
+      "kind": "unanswerable",
+      "question": "Which ISO 20022 message type is used for a customer credit transfer?",
+      "gold": [],
+      "split": "tune",
+      "subtype": "hard",
+      "answerable": false,
+      "scores": {
+        "bm25": 7.834691937227845,
+        "embedding": 0.709291398525238,
+        "hybrid": 0.03252247488101534,
+        "reranker": 4.403033256530762
+      },
+      "top_reranked": "ISO 20022 message definitions and identifiers > Business areas"
+    },
+    {
+      "id": "q25",
+      "kind": "direct",
+      "question": "Who does PCI DSS apply to?",
+      "gold": [
+        {
+          "doc": "pci_dss_overview",
+          "phrase": "stores, processes, or transmits cardholder data"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 9.103271917338649,
+        "embedding": 0.7003174424171448,
+        "hybrid": 0.032266458495966696,
+        "reranker": 7.8867340087890625
+      },
+      "top_reranked": "PCI DSS overview > Who it applies to"
+    },
+    {
+      "id": "q26",
+      "kind": "direct",
+      "question": "What is the purpose of PCI DSS?",
+      "gold": [
+        {
+          "doc": "pci_dss_overview",
+          "phrase": "baseline of technical and operational requirements designed to protect payment account data"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 6.360100578547275,
+        "embedding": 0.6869394779205322,
+        "hybrid": 0.03252247488101534,
+        "reranker": 7.9315972328186035
+      },
+      "top_reranked": "Payments FAQ starter set > FAQ 4: What is PCI DSS?"
+    },
+    {
+      "id": "q27",
+      "kind": "paraphrase",
+      "question": "Which organisations decide whether a company meets the card data security rules?",
+      "gold": [
+        {
+          "doc": "pci_dss_overview",
+          "phrase": "organisations that manage compliance programmes, such as a payment brand, an acquirer or another entity"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 10.037230884062303,
+        "embedding": 0.6175958514213562,
+        "hybrid": 0.03278688524590164,
+        "reranker": 0.816351592540741
+      },
+      "top_reranked": "PCI DSS overview > Public summary"
+    },
+    {
+      "id": "q28",
+      "kind": "direct",
+      "question": "When did strong customer authentication become mandatory under PSD2?",
+      "gold": [
+        {
+          "doc": "psd2_overview",
+          "phrase": "13 September 2019"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 11.33443341828448,
+        "embedding": 0.7670935392379761,
+        "hybrid": 0.03278688524590164,
+        "reranker": 8.331515312194824
+      },
+      "top_reranked": "PSD2 overview > Strong customer authentication"
+    },
+    {
+      "id": "q29",
+      "kind": "direct",
+      "question": "What are the aims of PSD2?",
+      "gold": [
+        {
+          "doc": "psd2_overview",
+          "phrase": "better protect consumers against fraud, abuse and payment problems"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 5.8662919610106385,
+        "embedding": 0.5023049116134644,
+        "hybrid": 0.03278688524590164,
+        "reranker": 8.669668197631836
+      },
+      "top_reranked": "PSD2 overview > Public summary"
+    },
+    {
+      "id": "q30",
+      "kind": "paraphrase",
+      "question": "Can shops charge extra for paying by card in the EU?",
+      "gold": [
+        {
+          "doc": "psd2_overview",
+          "phrase": "bans retailer surcharges for card use"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 7.554625738853075,
+        "embedding": 0.43922144174575806,
+        "hybrid": 0.032018442622950824,
+        "reranker": -7.836145401000977
+      },
+      "top_reranked": "PSD2 overview > Consumer protection and card fees"
+    },
+    {
+      "id": "q31",
+      "kind": "direct",
+      "question": "What is PSD3?",
+      "gold": [
+        {
+          "doc": "psd2_overview",
+          "phrase": "Legislative proposals for PSD3 and PSR were published on 28 June 2023"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 3.8756154167937122,
+        "embedding": 0.485420823097229,
+        "hybrid": 0.03278688524590164,
+        "reranker": 4.659221649169922
+      },
+      "top_reranked": "PSD2 overview > Public summary"
+    },
+    {
+      "id": "q32",
+      "kind": "direct",
+      "question": "Below what value can extra authentication be relaxed for online card payments in India?",
+      "gold": [
+        {
+          "doc": "rbi_card_not_present_afa",
+          "phrase": "up to \u20b92,000"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 10.645196875436545,
+        "embedding": 0.6837279200553894,
+        "hybrid": 0.03252247488101534,
+        "reranker": 5.773063659667969
+      },
+      "top_reranked": "RBI card-not-present transactions and additional authentication > The relaxation"
+    },
+    {
+      "id": "q33",
+      "kind": "paraphrase",
+      "question": "Do I have to use the simplified online card payment option?",
+      "gold": [
+        {
+          "doc": "rbi_card_not_present_afa",
+          "phrase": "optional for card-not-present transactions up to \u20b92,000"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 5.338725308487593,
+        "embedding": 0.460613489151001,
+        "hybrid": 0.032266458495966696,
+        "reranker": -2.8052985668182373
+      },
+      "top_reranked": "RBI card-not-present transactions and additional authentication > The relaxation"
+    },
+    {
+      "id": "q34",
+      "kind": "direct",
+      "question": "Who is liable if there is a security breach of the card authentication solution?",
+      "gold": [
+        {
+          "doc": "rbi_card_not_present_afa",
+          "phrase": "full liability for any security breach or compromise"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 10.562833766713982,
+        "embedding": 0.5555084347724915,
+        "hybrid": 0.03278688524590164,
+        "reranker": 2.6160614490509033
+      },
+      "top_reranked": "RBI card-not-present transactions and additional authentication > Conditions and responsibilities"
+    },
+    {
+      "id": "q35",
+      "kind": "direct",
+      "question": "How long do I have to dispute a credit card charge in the US?",
+      "gold": [
+        {
+          "doc": "cfpb_credit_card_disputes",
+          "phrase": "within 60 calendar days"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 10.256423993077263,
+        "embedding": 0.7468948364257812,
+        "hybrid": 0.032266458495966696,
+        "reranker": 7.982089519500732
+      },
+      "top_reranked": "CFPB guidance: disputing a credit card charge (United States) > What the card company must do"
+    },
+    {
+      "id": "q36",
+      "kind": "paraphrase",
+      "question": "What must the card company do if my billing complaint is right?",
+      "gold": [
+        {
+          "doc": "cfpb_credit_card_disputes",
+          "phrase": "the charge must be removed from your bill"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 9.755121126480653,
+        "embedding": 0.7141456604003906,
+        "hybrid": 0.03278688524590164,
+        "reranker": 5.697524547576904
+      },
+      "top_reranked": "CFPB guidance: disputing a credit card charge (United States) > How to dispute"
+    },
+    {
+      "id": "q37",
+      "kind": "direct",
+      "question": "How long does the card company have to acknowledge a billing dispute?",
+      "gold": [
+        {
+          "doc": "cfpb_credit_card_disputes",
+          "phrase": "30 days to send a letter confirming"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 9.543207227148445,
+        "embedding": 0.7083205580711365,
+        "hybrid": 0.03225806451612903,
+        "reranker": 6.484955310821533
+      },
+      "top_reranked": "CFPB guidance: disputing a credit card charge (United States) > What the card company must do"
+    },
+    {
+      "id": "q38",
+      "kind": "direct",
+      "question": "What is UPI?",
+      "gold": [
+        {
+          "doc": "upi_overview",
+          "phrase": "instant, real-time payment system developed by NPCI"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 3.9975695831743088,
+        "embedding": 0.6019845008850098,
+        "hybrid": 0.03200204813108039,
+        "reranker": 9.073118209838867
+      },
+      "top_reranked": "NPCI UPI overview > Public summary"
+    },
+    {
+      "id": "q39",
+      "kind": "paraphrase",
+      "question": "Can I send money on a bank holiday in India?",
+      "gold": [
+        {
+          "doc": "upi_overview",
+          "phrase": "including Sundays and bank holidays"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 9.59993364479696,
+        "embedding": 0.3892233371734619,
+        "hybrid": 0.03252247488101534,
+        "reranker": -0.6099262833595276
+      },
+      "top_reranked": "NPCI UPI overview > Interoperability"
+    },
+    {
+      "id": "q40",
+      "kind": "direct",
+      "question": "What are the two authentication factors in UPI?",
+      "gold": [
+        {
+          "doc": "upi_overview",
+          "phrase": "the second is the UPI PIN"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 10.58506000169288,
+        "embedding": 0.6755160093307495,
+        "hybrid": 0.03278688524590164,
+        "reranker": 8.175074577331543
+      },
+      "top_reranked": "NPCI UPI overview > Authentication"
+    },
+    {
+      "id": "q41",
+      "kind": "direct",
+      "question": "What does pacs mean in ISO 20022?",
+      "gold": [
+        {
+          "doc": "iso20022_message_identifiers",
+          "phrase": "pacs: payments clearing and settlement"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 5.355285225208989,
+        "embedding": 0.5436496734619141,
+        "hybrid": 0.03252247488101534,
+        "reranker": 7.151906490325928
+      },
+      "top_reranked": "ISO 20022 message definitions and identifiers > Business areas"
+    },
+    {
+      "id": "q42",
+      "kind": "direct",
+      "question": "How is an ISO 20022 message identifier structured?",
+      "gold": [
+        {
+          "doc": "iso20022_message_identifiers",
+          "phrase": "four letters for the business area, three digits for the message definition, three digits for the variant and two digits for the version"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 13.398236378244416,
+        "embedding": 0.80262291431427,
+        "hybrid": 0.03252247488101534,
+        "reranker": 8.379446029663086
+      },
+      "top_reranked": "ISO 20022 message definitions and identifiers > Message identifier structure"
+    },
+    {
+      "id": "q43",
+      "kind": "paraphrase",
+      "question": "Which ISO 20022 messages deal with reporting account balances and investigations?",
+      "gold": [
+        {
+          "doc": "iso20022_message_identifiers",
+          "phrase": "reporting and advising on the cash side"
+        }
+      ],
+      "split": "tune",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 14.299865222699506,
+        "embedding": 0.6242349147796631,
+        "hybrid": 0.03177805800756621,
+        "reranker": 5.935776233673096
+      },
+      "top_reranked": "ISO 20022 message definitions and identifiers > Business areas"
+    },
+    {
+      "id": "u04",
+      "kind": "unanswerable",
+      "question": "What fine does PCI DSS impose on a merchant that fails an audit?",
+      "gold": [],
+      "split": "tune",
+      "subtype": "hard",
+      "answerable": false,
+      "scores": {
+        "bm25": 9.103271917338649,
+        "embedding": 0.6313740015029907,
+        "hybrid": 0.03252247488101534,
+        "reranker": -2.4039037227630615
+      },
+      "top_reranked": "PCI DSS overview > Who decides whether an organisation complies"
+    },
+    {
+      "id": "u05",
+      "kind": "unanswerable",
+      "question": "What is the daily UPI transaction limit per user?",
+      "gold": [],
+      "split": "tune",
+      "subtype": "hard",
+      "answerable": false,
+      "scores": {
+        "bm25": 9.32455621281952,
+        "embedding": 0.37783217430114746,
+        "hybrid": 0.032266458495966696,
+        "reranker": -3.3285586833953857
+      },
+      "top_reranked": "NPCI UPI overview > Public summary"
+    },
+    {
+      "id": "h01",
+      "kind": "paraphrase",
+      "question": "Which regulator issued the circular on online card payments made without a physical card?",
+      "gold": [
+        {
+          "doc": "rbi_card_not_present_afa",
+          "phrase": "Reserve Bank of India circular dated 6 December 2016"
+        }
+      ],
+      "split": "test",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 10.992122039336238,
+        "embedding": 0.5989848375320435,
+        "hybrid": 0.03252247488101534,
+        "reranker": 4.356441497802734
+      },
+      "top_reranked": "RBI card-not-present transactions and additional authentication > Public summary"
+    },
+    {
+      "id": "h02",
+      "kind": "paraphrase",
+      "question": "What kinds of firms did the EU payments directive allow besides banks?",
+      "gold": [
+        {
+          "doc": "psd2_overview",
+          "phrase": "a new category of payment service provider beyond banks"
+        }
+      ],
+      "split": "test",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 5.1856767879899355,
+        "embedding": 0.44120484590530396,
+        "hybrid": 0.031754032258064516,
+        "reranker": -0.9672614932060242
+      },
+      "top_reranked": "PSD2 overview > Public summary"
+    },
+    {
+      "id": "h03",
+      "kind": "direct",
+      "question": "What is the cardholder data environment?",
+      "gold": [
+        {
+          "doc": "pci_dss_overview",
+          "phrase": "the systems and processes that handle that data"
+        }
+      ],
+      "split": "test",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 10.27582744488146,
+        "embedding": 0.667018473148346,
+        "hybrid": 0.03278688524590164,
+        "reranker": 7.194208145141602
+      },
+      "top_reranked": "PCI DSS overview > Terms used on the standard page"
+    },
+    {
+      "id": "h04",
+      "kind": "paraphrase",
+      "question": "Can I still dispute a credit card charge after I have paid the bill?",
+      "gold": [
+        {
+          "doc": "cfpb_credit_card_disputes",
+          "phrase": "You can dispute a charge even if you have already paid it"
+        }
+      ],
+      "split": "test",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 13.410951173781907,
+        "embedding": 0.692974328994751,
+        "hybrid": 0.03278688524590164,
+        "reranker": 5.512258052825928
+      },
+      "top_reranked": "CFPB guidance: disputing a credit card charge (United States) > How to dispute"
+    },
+    {
+      "id": "h05",
+      "kind": "paraphrase",
+      "question": "Which apps let me link several bank accounts for instant transfers in India?",
+      "gold": [
+        {
+          "doc": "upi_overview",
+          "phrase": "BHIM, PhonePe or Google Pay"
+        }
+      ],
+      "split": "test",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 9.500721213843418,
+        "embedding": 0.5536118745803833,
+        "hybrid": 0.03252247488101534,
+        "reranker": 1.3662978410720825
+      },
+      "top_reranked": "NPCI UPI overview > How people use it"
+    },
+    {
+      "id": "h06",
+      "kind": "direct",
+      "question": "What do the digits in an ISO 20022 message identifier stand for?",
+      "gold": [
+        {
+          "doc": "iso20022_message_identifiers",
+          "phrase": "three digits for the variant and two digits for the version"
+        }
+      ],
+      "split": "test",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 15.313882186221655,
+        "embedding": 0.7506232261657715,
+        "hybrid": 0.03278688524590164,
+        "reranker": 7.589056968688965
+      },
+      "top_reranked": "ISO 20022 message definitions and identifiers > Message identifier structure"
+    },
+    {
+      "id": "h07",
+      "kind": "direct",
+      "question": "What is a velocity check?",
+      "gold": [
+        {
+          "doc": "rbi_card_not_present_afa",
+          "phrase": "limits on how often transactions can happen"
+        }
+      ],
+      "split": "test",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 4.449267512884251,
+        "embedding": 0.31442761421203613,
+        "hybrid": 0.03278688524590164,
+        "reranker": 2.239048957824707
+      },
+      "top_reranked": "RBI card-not-present transactions and additional authentication > Conditions and responsibilities"
+    },
+    {
+      "id": "h08",
+      "kind": "paraphrase",
+      "question": "What is strong customer authentication meant to confirm about the person paying?",
+      "gold": [
+        {
+          "doc": "faqs",
+          "phrase": "the person performing the transaction is actually the legitimate account holder"
+        }
+      ],
+      "split": "test",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 11.993916650066287,
+        "embedding": 0.7501338720321655,
+        "hybrid": 0.03278688524590164,
+        "reranker": 6.756355285644531
+      },
+      "top_reranked": "Payments FAQ starter set > FAQ 3: Why is strong customer authentication important?"
+    },
+    {
+      "id": "h09",
+      "kind": "paraphrase",
+      "question": "Does the US dispute guidance deal with chargebacks between the issuing and acquiring banks?",
+      "gold": [
+        {
+          "doc": "cfpb_credit_card_disputes",
+          "phrase": "separate from the card-scheme chargeback rules between issuing and acquiring banks"
+        }
+      ],
+      "split": "test",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 12.202973432421196,
+        "embedding": 0.5645312070846558,
+        "hybrid": 0.03278688524590164,
+        "reranker": 6.849532604217529
+      },
+      "top_reranked": "CFPB guidance: disputing a credit card charge (United States) > Public summary"
+    },
+    {
+      "id": "h10",
+      "kind": "paraphrase",
+      "question": "When was agreement reached on the update to the EU payments directive?",
+      "gold": [
+        {
+          "doc": "psd2_overview",
+          "phrase": "a political agreement on the review was reached on 27 November 2025"
+        }
+      ],
+      "split": "test",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 7.7512308335874245,
+        "embedding": 0.4737914204597473,
+        "hybrid": 0.032266458495966696,
+        "reranker": 2.828526020050049
+      },
+      "top_reranked": "PSD2 overview > Public summary"
+    },
+    {
+      "id": "h11",
+      "kind": "paraphrase",
+      "question": "Do I need to register a payee before sending money by UPI?",
+      "gold": [
+        {
+          "doc": "upi_overview",
+          "phrase": "without first adding the beneficiary or waiting for approval"
+        }
+      ],
+      "split": "test",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 12.598593379475991,
+        "embedding": 0.5762884616851807,
+        "hybrid": 0.03252247488101534,
+        "reranker": 1.2977087497711182
+      },
+      "top_reranked": "NPCI UPI overview > Interoperability"
+    },
+    {
+      "id": "h12",
+      "kind": "paraphrase",
+      "question": "Is the cardholder's agreement needed for the simplified online card payment in India?",
+      "gold": [
+        {
+          "doc": "rbi_card_not_present_afa",
+          "phrase": "The cardholder's consent is required"
+        }
+      ],
+      "split": "test",
+      "subtype": "answerable",
+      "answerable": true,
+      "scores": {
+        "bm25": 8.599117175832909,
+        "embedding": 0.635371208190918,
+        "hybrid": 0.03252247488101534,
+        "reranker": 1.4374606609344482
+      },
+      "top_reranked": "RBI card-not-present transactions and additional authentication > Public summary"
+    },
+    {
+      "id": "hu1",
+      "kind": "unanswerable",
+      "question": "What is the maximum fine for breaking the PSD2 rules?",
+      "gold": [],
+      "split": "test",
+      "subtype": "hard",
+      "answerable": false,
+      "scores": {
+        "bm25": 4.376036597525761,
+        "embedding": 0.5286923050880432,
+        "hybrid": 0.032266458495966696,
+        "reranker": -2.982555627822876
+      },
+      "top_reranked": "PSD2 overview > Consumer protection and card fees"
+    },
+    {
+      "id": "hu2",
+      "kind": "unanswerable",
+      "question": "Which credit cards can be used with UPI AutoPay?",
+      "gold": [],
+      "split": "test",
+      "subtype": "hard",
+      "answerable": false,
+      "scores": {
+        "bm25": 8.57283475962712,
+        "embedding": 0.6503736972808838,
+        "hybrid": 0.03278688524590164,
+        "reranker": 2.8584132194519043
+      },
+      "top_reranked": "NPCI UPI overview > How people use it"
+    },
+    {
+      "id": "a01",
+      "split": "tune",
+      "subtype": "hard",
+      "kind": "unanswerable",
+      "question": "What are the twelve PCI DSS requirements?",
+      "gold": [],
+      "answerable": false,
+      "scores": {
+        "bm25": 8.372612784948553,
+        "embedding": 0.6604969501495361,
+        "hybrid": 0.03278688524590164,
+        "reranker": 3.0957841873168945
+      },
+      "top_reranked": "Payments FAQ starter set > FAQ 4: What is PCI DSS?"
+    },
+    {
+      "id": "a02",
+      "split": "tune",
+      "subtype": "hard",
+      "kind": "unanswerable",
+      "question": "How much does it cost to become PCI DSS compliant?",
+      "gold": [],
+      "answerable": false,
+      "scores": {
+        "bm25": 9.103271917338649,
+        "embedding": 0.5548256635665894,
+        "hybrid": 0.03252247488101534,
+        "reranker": -2.5797290802001953
+      },
+      "top_reranked": "Payments FAQ starter set > FAQ 4: What is PCI DSS?"
+    },
+    {
+      "id": "a03",
+      "split": "tune",
+      "subtype": "hard",
+      "kind": "unanswerable",
+      "question": "What is the penalty for a bank that does not support open banking under PSD2?",
+      "gold": [],
+      "answerable": false,
+      "scores": {
+        "bm25": 7.8972114114322896,
+        "embedding": 0.5332870483398438,
+        "hybrid": 0.03278688524590164,
+        "reranker": -0.8452918529510498
+      },
+      "top_reranked": "PSD2 overview > Open banking and new providers"
+    },
+    {
+      "id": "a04",
+      "split": "tune",
+      "subtype": "hard",
+      "kind": "unanswerable",
+      "question": "How many days does a card company have to finish investigating a billing dispute?",
+      "gold": [],
+      "answerable": false,
+      "scores": {
+        "bm25": 13.100725524903135,
+        "embedding": 0.6696109771728516,
+        "hybrid": 0.03278688524590164,
+        "reranker": 6.568337917327881
+      },
+      "top_reranked": "CFPB guidance: disputing a credit card charge (United States) > What the card company must do"
+    },
+    {
+      "id": "a05",
+      "split": "tune",
+      "subtype": "hard",
+      "kind": "unanswerable",
+      "question": "Which ISO 20022 message type is used for a direct debit?",
+      "gold": [],
+      "answerable": false,
+      "scores": {
+        "bm25": 8.13057725935816,
+        "embedding": 0.7001146078109741,
+        "hybrid": 0.032266458495966696,
+        "reranker": 3.9313392639160156
+      },
+      "top_reranked": "Payments FAQ starter set > FAQ 2: What is ISO 20022?"
+    },
+    {
+      "id": "a06",
+      "split": "tune",
+      "subtype": "hard",
+      "kind": "unanswerable",
+      "question": "Is UPI available outside India?",
+      "gold": [],
+      "answerable": false,
+      "scores": {
+        "bm25": 6.361991353569472,
+        "embedding": 0.5758445262908936,
+        "hybrid": 0.03278688524590164,
+        "reranker": 3.640315294265747
+      },
+      "top_reranked": "NPCI UPI overview > Public summary"
+    },
+    {
+      "id": "a07",
+      "split": "tune",
+      "subtype": "hard",
+      "kind": "unanswerable",
+      "question": "What is the chargeback fee a merchant pays?",
+      "gold": [],
+      "answerable": false,
+      "scores": {
+        "bm25": 5.365432348448465,
+        "embedding": 0.4232946038246155,
+        "hybrid": 0.031754032258064516,
+        "reranker": -3.628082036972046
+      },
+      "top_reranked": "Card scheme public summary > Payment lifecycle"
+    },
+    {
+      "id": "a08",
+      "split": "tune",
+      "subtype": "off_topic",
+      "kind": "unanswerable",
+      "question": "What is the capital of France?",
+      "gold": [],
+      "answerable": false,
+      "scores": {
+        "bm25": 0.0,
+        "embedding": 0.09865690767765045,
+        "hybrid": 0.01639344262295082,
+        "reranker": -11.092247009277344
+      },
+      "top_reranked": "PSD2 overview > Public summary"
+    },
+    {
+      "id": "a09",
+      "split": "tune",
+      "subtype": "off_topic",
+      "kind": "unanswerable",
+      "question": "How do I bake sourdough bread?",
+      "gold": [],
+      "answerable": false,
+      "scores": {
+        "bm25": 0.0,
+        "embedding": 0.07075781375169754,
+        "hybrid": 0.01639344262295082,
+        "reranker": -11.237377166748047
+      },
+      "top_reranked": "ISO 20022 message definitions and identifiers > Public summary"
+    },
+    {
+      "id": "b01",
+      "split": "test",
+      "subtype": "hard",
+      "kind": "unanswerable",
+      "question": "What encryption does PCI DSS require for stored card numbers?",
+      "gold": [],
+      "answerable": false,
+      "scores": {
+        "bm25": 12.614225838538387,
+        "embedding": 0.6777852773666382,
+        "hybrid": 0.03252247488101534,
+        "reranker": 2.7275497913360596
+      },
+      "top_reranked": "Payments FAQ starter set > FAQ 4: What is PCI DSS?"
+    },
+    {
+      "id": "b02",
+      "split": "test",
+      "subtype": "hard",
+      "kind": "unanswerable",
+      "question": "Which banks does the European Banking Authority supervise?",
+      "gold": [],
+      "answerable": false,
+      "scores": {
+        "bm25": 7.315397084840647,
+        "embedding": 0.43878236413002014,
+        "hybrid": 0.03278688524590164,
+        "reranker": 3.196470022201538
+      },
+      "top_reranked": "PSD2 overview > Open banking and new providers"
+    },
+    {
+      "id": "b03",
+      "split": "test",
+      "subtype": "hard",
+      "kind": "unanswerable",
+      "question": "What is the maximum customer liability amount in the RBI circular?",
+      "gold": [],
+      "answerable": false,
+      "scores": {
+        "bm25": 10.432391488352168,
+        "embedding": 0.5422809720039368,
+        "hybrid": 0.03278688524590164,
+        "reranker": 2.8728787899017334
+      },
+      "top_reranked": "RBI card-not-present transactions and additional authentication > Conditions and responsibilities"
+    },
+    {
+      "id": "b04",
+      "split": "test",
+      "subtype": "hard",
+      "kind": "unanswerable",
+      "question": "What is the UPI transaction fee for merchants?",
+      "gold": [],
+      "answerable": false,
+      "scores": {
+        "bm25": 6.719060064799814,
+        "embedding": 0.41263192892074585,
+        "hybrid": 0.03200204813108039,
+        "reranker": 2.0162622928619385
+      },
+      "top_reranked": "NPCI UPI overview > Public summary"
+    },
+    {
+      "id": "b05",
+      "split": "test",
+      "subtype": "hard",
+      "kind": "unanswerable",
+      "question": "How does Visa decide which disputes it accepts?",
+      "gold": [],
+      "answerable": false,
+      "scores": {
+        "bm25": 6.425911901635744,
+        "embedding": 0.4716750979423523,
+        "hybrid": 0.03225806451612903,
+        "reranker": -2.696272134780884
+      },
+      "top_reranked": "Payments FAQ starter set > FAQ 5: What is a dispute in card payments?"
+    },
+    {
+      "id": "b06",
+      "split": "test",
+      "subtype": "hard",
+      "kind": "unanswerable",
+      "question": "What is the interest rate on a typical US credit card?",
+      "gold": [],
+      "answerable": false,
+      "scores": {
+        "bm25": 3.757518477549657,
+        "embedding": 0.3172381520271301,
+        "hybrid": 0.03252247488101534,
+        "reranker": -7.633514404296875
+      },
+      "top_reranked": "CFPB guidance: disputing a credit card charge (United States) > During the investigation"
+    },
+    {
+      "id": "b07",
+      "split": "test",
+      "subtype": "hard",
+      "kind": "unanswerable",
+      "question": "What is the SWIFT code of the Reserve Bank of India?",
+      "gold": [],
+      "answerable": false,
+      "scores": {
+        "bm25": 6.116356675647361,
+        "embedding": 0.5289356708526611,
+        "hybrid": 0.03278688524590164,
+        "reranker": -1.0633429288864136
+      },
+      "top_reranked": "RBI card-not-present transactions and additional authentication > Public summary"
+    },
+    {
+      "id": "b08",
+      "split": "test",
+      "subtype": "off_topic",
+      "kind": "unanswerable",
+      "question": "Who won the football World Cup in 2018?",
+      "gold": [],
+      "answerable": false,
+      "scores": {
+        "bm25": 3.0390975734158125,
+        "embedding": 0.10614053905010223,
+        "hybrid": 0.01639344262295082,
+        "reranker": -10.841575622558594
+      },
+      "top_reranked": "PSD2 overview > Public summary"
+    },
+    {
+      "id": "b09",
+      "split": "test",
+      "subtype": "off_topic",
+      "kind": "unanswerable",
+      "question": "What is the boiling point of water at sea level?",
+      "gold": [],
+      "answerable": false,
+      "scores": {
+        "bm25": 0.0,
+        "embedding": 0.08141323924064636,
+        "hybrid": 0.01639344262295082,
+        "reranker": -11.14031982421875
+      },
+      "top_reranked": "PCI DSS overview > Public summary"
+    }
+  ]
+}

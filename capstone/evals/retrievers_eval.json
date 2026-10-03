@@ -1,0 +1,2810 @@
+{
+  "dev": {
+    "tfidf": {
+      "fixed": {
+        "strategy": "fixed",
+        "chunks": 39,
+        "words_min_median_max": [
+          33,
+          80,
+          80
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.4418604651162791,
+        "hit@3": 0.7209302325581395,
+        "hit@5": 0.8837209302325582,
+        "mrr@10": 0.6153654485049833,
+        "hit@3_direct": 0.7142857142857143,
+        "hit@3_paraphrase": 0.7333333333333333,
+        "mean_top_score_answerable": 0.3231223142010879,
+        "mean_top_score_unanswerable": 0.33677576432441575,
+        "index_build_ms": 16.02,
+        "query_ms_mean": 0.93,
+        "missed_or_below_rank_3": [
+          {
+            "id": "q03",
+            "kind": "direct",
+            "question": "Which details can a single ISO 20022 payment message carry?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "",
+            "top_chunk_doc": "iso20022_message_identifiers",
+            "top_score": 0.404
+          },
+          {
+            "id": "q05",
+            "kind": "direct",
+            "question": "What is settlement in card payments?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.255
+          },
+          {
+            "id": "q11",
+            "kind": "direct",
+            "question": "What role does the card network play?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.27
+          },
+          {
+            "id": "q14",
+            "kind": "direct",
+            "question": "What topics does public RBI guidance cover?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "",
+            "top_chunk_doc": "rbi_payment_systems_public_summary",
+            "top_score": 0.356
+          },
+          {
+            "id": "q19",
+            "kind": "paraphrase",
+            "question": "How does money actually move between banks after a purchase is approved?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.174
+          },
+          {
+            "id": "q25",
+            "kind": "direct",
+            "question": "Who does PCI DSS apply to?",
+            "rank_of_first_correct_chunk": 8,
+            "top_chunk_section": "",
+            "top_chunk_doc": "pci_dss_overview",
+            "top_score": 0.269
+          },
+          {
+            "id": "q30",
+            "kind": "paraphrase",
+            "question": "Can shops charge extra for paying by card in the EU?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.381
+          },
+          {
+            "id": "q33",
+            "kind": "paraphrase",
+            "question": "Do I have to use the simplified online card payment option?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.315
+          },
+          {
+            "id": "q34",
+            "kind": "direct",
+            "question": "Who is liable if there is a security breach of the card authentication solution?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.229
+          },
+          {
+            "id": "q35",
+            "kind": "direct",
+            "question": "How long do I have to dispute a credit card charge in the US?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.496
+          },
+          {
+            "id": "q36",
+            "kind": "paraphrase",
+            "question": "What must the card company do if my billing complaint is right?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.419
+          },
+          {
+            "id": "q41",
+            "kind": "direct",
+            "question": "What does pacs mean in ISO 20022?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.227
+          }
+        ]
+      },
+      "recursive": {
+        "strategy": "recursive",
+        "chunks": 48,
+        "words_min_median_max": [
+          18,
+          42,
+          84
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.4186046511627907,
+        "hit@3": 0.6511627906976745,
+        "hit@5": 0.7906976744186046,
+        "mrr@10": 0.5708194905869324,
+        "hit@3_direct": 0.7142857142857143,
+        "hit@3_paraphrase": 0.5333333333333333,
+        "mean_top_score_answerable": 0.35010002901743054,
+        "mean_top_score_unanswerable": 0.37069454557036713,
+        "index_build_ms": 2.33,
+        "query_ms_mean": 0.931,
+        "missed_or_below_rank_3": [
+          {
+            "id": "q03",
+            "kind": "direct",
+            "question": "Which details can a single ISO 20022 payment message carry?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 2: What is ISO 20022?",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.4
+          },
+          {
+            "id": "q07",
+            "kind": "direct",
+            "question": "Who handles card dispute processing?",
+            "rank_of_first_correct_chunk": 10,
+            "top_chunk_section": "Card scheme public summary > Core concepts",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 0.199
+          },
+          {
+            "id": "q10",
+            "kind": "direct",
+            "question": "What does the issuing bank do?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.199
+          },
+          {
+            "id": "q18",
+            "kind": "paraphrase",
+            "question": "What if a customer says a purchase on their card was not theirs?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > What the card company must do",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.19
+          },
+          {
+            "id": "q19",
+            "kind": "paraphrase",
+            "question": "How does money actually move between banks after a purchase is approved?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 3: Why is strong customer authentication important?",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.218
+          },
+          {
+            "id": "q22",
+            "kind": "paraphrase",
+            "question": "What do regulators expect banks to do to keep payments working during outages?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "ISO 20022 overview > Public summary",
+            "top_chunk_doc": "iso20022_overview",
+            "top_score": 0.27
+          },
+          {
+            "id": "q23",
+            "kind": "paraphrase",
+            "question": "What are the steps a card payment goes through?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.35
+          },
+          {
+            "id": "q25",
+            "kind": "direct",
+            "question": "Who does PCI DSS apply to?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 4: What is PCI DSS?",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.409
+          },
+          {
+            "id": "q27",
+            "kind": "paraphrase",
+            "question": "Which organisations decide whether a company meets the card data security rules?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "PCI DSS overview > Public summary",
+            "top_chunk_doc": "pci_dss_overview",
+            "top_score": 0.438
+          },
+          {
+            "id": "q30",
+            "kind": "paraphrase",
+            "question": "Can shops charge extra for paying by card in the EU?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > How to dispute",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.309
+          },
+          {
+            "id": "q33",
+            "kind": "paraphrase",
+            "question": "Do I have to use the simplified online card payment option?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.248
+          },
+          {
+            "id": "q35",
+            "kind": "direct",
+            "question": "How long do I have to dispute a credit card charge in the US?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > During the investigation",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.374
+          },
+          {
+            "id": "q37",
+            "kind": "direct",
+            "question": "How long does the card company have to acknowledge a billing dispute?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > Public summary",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.362
+          },
+          {
+            "id": "q38",
+            "kind": "direct",
+            "question": "What is UPI?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "NPCI UPI overview > Authentication",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 0.392
+          },
+          {
+            "id": "q41",
+            "kind": "direct",
+            "question": "What does pacs mean in ISO 20022?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 2: What is ISO 20022?",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.379
+          }
+        ]
+      },
+      "semantic": {
+        "strategy": "semantic",
+        "chunks": 78,
+        "words_min_median_max": [
+          6,
+          27,
+          76
+        ],
+        "tiny_chunks_under_15_words": 11,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.3023255813953488,
+        "hit@3": 0.5813953488372093,
+        "hit@5": 0.6976744186046512,
+        "mrr@10": 0.4716961978589885,
+        "hit@3_direct": 0.6071428571428571,
+        "hit@3_paraphrase": 0.5333333333333333,
+        "mean_top_score_answerable": 0.393950088046837,
+        "mean_top_score_unanswerable": 0.42007675811053946,
+        "index_build_ms": 2.33,
+        "query_ms_mean": 0.922,
+        "missed_or_below_rank_3": [
+          {
+            "id": "q03",
+            "kind": "direct",
+            "question": "Which details can a single ISO 20022 payment message carry?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 2: What is ISO 20022?",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.409
+          },
+          {
+            "id": "q07",
+            "kind": "direct",
+            "question": "Who handles card dispute processing?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > How to dispute",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.256
+          },
+          {
+            "id": "q10",
+            "kind": "direct",
+            "question": "What does the issuing bank do?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > Public summary",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.222
+          },
+          {
+            "id": "q11",
+            "kind": "direct",
+            "question": "What role does the card network play?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.27
+          },
+          {
+            "id": "q18",
+            "kind": "paraphrase",
+            "question": "What if a customer says a purchase on their card was not theirs?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > What the card company must do",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.339
+          },
+          {
+            "id": "q19",
+            "kind": "paraphrase",
+            "question": "How does money actually move between banks after a purchase is approved?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 3: Why is strong customer authentication important?",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.214
+          },
+          {
+            "id": "q22",
+            "kind": "paraphrase",
+            "question": "What do regulators expect banks to do to keep payments working during outages?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "ISO 20022 overview > Public summary",
+            "top_chunk_doc": "iso20022_overview",
+            "top_score": 0.268
+          },
+          {
+            "id": "q25",
+            "kind": "direct",
+            "question": "Who does PCI DSS apply to?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 4: What is PCI DSS?",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.52
+          },
+          {
+            "id": "q26",
+            "kind": "direct",
+            "question": "What is the purpose of PCI DSS?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 4: What is PCI DSS?",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.588
+          },
+          {
+            "id": "q27",
+            "kind": "paraphrase",
+            "question": "Which organisations decide whether a company meets the card data security rules?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "PCI DSS overview > Public summary",
+            "top_chunk_doc": "pci_dss_overview",
+            "top_score": 0.445
+          },
+          {
+            "id": "q30",
+            "kind": "paraphrase",
+            "question": "Can shops charge extra for paying by card in the EU?",
+            "rank_of_first_correct_chunk": 8,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > What the card company must do",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.526
+          },
+          {
+            "id": "q33",
+            "kind": "paraphrase",
+            "question": "Do I have to use the simplified online card payment option?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.297
+          },
+          {
+            "id": "q35",
+            "kind": "direct",
+            "question": "How long do I have to dispute a credit card charge in the US?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > How to dispute",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.458
+          },
+          {
+            "id": "q37",
+            "kind": "direct",
+            "question": "How long does the card company have to acknowledge a billing dispute?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > How to dispute",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.416
+          },
+          {
+            "id": "q38",
+            "kind": "direct",
+            "question": "What is UPI?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "NPCI UPI overview > Authentication",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 0.373
+          },
+          {
+            "id": "q39",
+            "kind": "paraphrase",
+            "question": "Can I send money on a bank holiday in India?",
+            "rank_of_first_correct_chunk": 9,
+            "top_chunk_section": "NPCI UPI overview > Interoperability",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 0.315
+          },
+          {
+            "id": "q41",
+            "kind": "direct",
+            "question": "What does pacs mean in ISO 20022?",
+            "rank_of_first_correct_chunk": 9,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 2: What is ISO 20022?",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.382
+          },
+          {
+            "id": "q42",
+            "kind": "direct",
+            "question": "How is an ISO 20022 message identifier structured?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "ISO 20022 message definitions and identifiers > Public summary",
+            "top_chunk_doc": "iso20022_message_identifiers",
+            "top_score": 0.46
+          }
+        ]
+      },
+      "structure_aware": {
+        "strategy": "structure_aware",
+        "chunks": 48,
+        "words_min_median_max": [
+          19,
+          46,
+          94
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.4883720930232558,
+        "hit@3": 0.7209302325581395,
+        "hit@5": 0.8604651162790697,
+        "mrr@10": 0.6289313399778514,
+        "hit@3_direct": 0.8214285714285714,
+        "hit@3_paraphrase": 0.5333333333333333,
+        "mean_top_score_answerable": 0.3479500849880568,
+        "mean_top_score_unanswerable": 0.3982444710194859,
+        "index_build_ms": 2.42,
+        "query_ms_mean": 0.914,
+        "missed_or_below_rank_3": [
+          {
+            "id": "q07",
+            "kind": "direct",
+            "question": "Who handles card dispute processing?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "Card scheme public summary > Core concepts",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 0.209
+          },
+          {
+            "id": "q10",
+            "kind": "direct",
+            "question": "What does the issuing bank do?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.186
+          },
+          {
+            "id": "q18",
+            "kind": "paraphrase",
+            "question": "What if a customer says a purchase on their card was not theirs?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > What the card company must do",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.197
+          },
+          {
+            "id": "q19",
+            "kind": "paraphrase",
+            "question": "How does money actually move between banks after a purchase is approved?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 3: Why is strong customer authentication important?",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.207
+          },
+          {
+            "id": "q22",
+            "kind": "paraphrase",
+            "question": "What do regulators expect banks to do to keep payments working during outages?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "ISO 20022 overview > Public summary",
+            "top_chunk_doc": "iso20022_overview",
+            "top_score": 0.259
+          },
+          {
+            "id": "q23",
+            "kind": "paraphrase",
+            "question": "What are the steps a card payment goes through?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.337
+          },
+          {
+            "id": "q25",
+            "kind": "direct",
+            "question": "Who does PCI DSS apply to?",
+            "rank_of_first_correct_chunk": 8,
+            "top_chunk_section": "PCI DSS overview > Versions",
+            "top_chunk_doc": "pci_dss_overview",
+            "top_score": 0.362
+          },
+          {
+            "id": "q27",
+            "kind": "paraphrase",
+            "question": "Which organisations decide whether a company meets the card data security rules?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "PCI DSS overview > Public summary",
+            "top_chunk_doc": "pci_dss_overview",
+            "top_score": 0.429
+          },
+          {
+            "id": "q30",
+            "kind": "paraphrase",
+            "question": "Can shops charge extra for paying by card in the EU?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > During the investigation",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.41
+          },
+          {
+            "id": "q33",
+            "kind": "paraphrase",
+            "question": "Do I have to use the simplified online card payment option?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.229
+          },
+          {
+            "id": "q38",
+            "kind": "direct",
+            "question": "What is UPI?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "NPCI UPI overview > Authentication",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 0.534
+          },
+          {
+            "id": "q41",
+            "kind": "direct",
+            "question": "What does pacs mean in ISO 20022?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "ISO 20022 overview > Public summary",
+            "top_chunk_doc": "iso20022_overview",
+            "top_score": 0.254
+          }
+        ]
+      }
+    },
+    "tfidf+stem": {
+      "fixed": {
+        "strategy": "fixed",
+        "chunks": 39,
+        "words_min_median_max": [
+          33,
+          80,
+          80
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.3953488372093023,
+        "hit@3": 0.7441860465116279,
+        "hit@5": 0.8837209302325582,
+        "mrr@10": 0.6013565891472867,
+        "hit@3_direct": 0.7142857142857143,
+        "hit@3_paraphrase": 0.8,
+        "mean_top_score_answerable": 0.3412045869132675,
+        "mean_top_score_unanswerable": 0.3481597887732039,
+        "index_build_ms": 18.75,
+        "query_ms_mean": 0.956,
+        "missed_or_below_rank_3": [
+          {
+            "id": "q03",
+            "kind": "direct",
+            "question": "Which details can a single ISO 20022 payment message carry?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "",
+            "top_chunk_doc": "iso20022_message_identifiers",
+            "top_score": 0.394
+          },
+          {
+            "id": "q11",
+            "kind": "direct",
+            "question": "What role does the card network play?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.256
+          },
+          {
+            "id": "q14",
+            "kind": "direct",
+            "question": "What topics does public RBI guidance cover?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "",
+            "top_chunk_doc": "rbi_payment_systems_public_summary",
+            "top_score": 0.379
+          },
+          {
+            "id": "q19",
+            "kind": "paraphrase",
+            "question": "How does money actually move between banks after a purchase is approved?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 0.164
+          },
+          {
+            "id": "q25",
+            "kind": "direct",
+            "question": "Who does PCI DSS apply to?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "",
+            "top_chunk_doc": "pci_dss_overview",
+            "top_score": 0.361
+          },
+          {
+            "id": "q30",
+            "kind": "paraphrase",
+            "question": "Can shops charge extra for paying by card in the EU?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.374
+          },
+          {
+            "id": "q34",
+            "kind": "direct",
+            "question": "Who is liable if there is a security breach of the card authentication solution?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.24
+          },
+          {
+            "id": "q35",
+            "kind": "direct",
+            "question": "How long do I have to dispute a credit card charge in the US?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.55
+          },
+          {
+            "id": "q36",
+            "kind": "paraphrase",
+            "question": "What must the card company do if my billing complaint is right?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.497
+          },
+          {
+            "id": "q37",
+            "kind": "direct",
+            "question": "How long does the card company have to acknowledge a billing dispute?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.42
+          },
+          {
+            "id": "q41",
+            "kind": "direct",
+            "question": "What does pacs mean in ISO 20022?",
+            "rank_of_first_correct_chunk": 8,
+            "top_chunk_section": "",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.206
+          }
+        ]
+      },
+      "recursive": {
+        "strategy": "recursive",
+        "chunks": 48,
+        "words_min_median_max": [
+          18,
+          42,
+          84
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.4883720930232558,
+        "hit@3": 0.7674418604651163,
+        "hit@5": 0.8837209302325582,
+        "mrr@10": 0.6591638981173864,
+        "hit@3_direct": 0.75,
+        "hit@3_paraphrase": 0.8,
+        "mean_top_score_answerable": 0.3719529742781184,
+        "mean_top_score_unanswerable": 0.46272057876190936,
+        "index_build_ms": 18.18,
+        "query_ms_mean": 0.965,
+        "missed_or_below_rank_3": [
+          {
+            "id": "q03",
+            "kind": "direct",
+            "question": "Which details can a single ISO 20022 payment message carry?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 2: What is ISO 20022?",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.541
+          },
+          {
+            "id": "q11",
+            "kind": "direct",
+            "question": "What role does the card network play?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > Conditions and responsibilities",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.221
+          },
+          {
+            "id": "q18",
+            "kind": "paraphrase",
+            "question": "What if a customer says a purchase on their card was not theirs?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > What the card company must do",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.188
+          },
+          {
+            "id": "q23",
+            "kind": "paraphrase",
+            "question": "What are the steps a card payment goes through?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 1: What is the difference between authorization and settlement?",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.215
+          },
+          {
+            "id": "q25",
+            "kind": "direct",
+            "question": "Who does PCI DSS apply to?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 4: What is PCI DSS?",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.445
+          },
+          {
+            "id": "q30",
+            "kind": "paraphrase",
+            "question": "Can shops charge extra for paying by card in the EU?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > During the investigation",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.341
+          },
+          {
+            "id": "q35",
+            "kind": "direct",
+            "question": "How long do I have to dispute a credit card charge in the US?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > During the investigation",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.495
+          },
+          {
+            "id": "q37",
+            "kind": "direct",
+            "question": "How long does the card company have to acknowledge a billing dispute?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > Public summary",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.374
+          },
+          {
+            "id": "q38",
+            "kind": "direct",
+            "question": "What is UPI?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "NPCI UPI overview > Authentication",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 0.403
+          },
+          {
+            "id": "q41",
+            "kind": "direct",
+            "question": "What does pacs mean in ISO 20022?",
+            "rank_of_first_correct_chunk": 8,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 2: What is ISO 20022?",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.336
+          }
+        ]
+      },
+      "semantic": {
+        "strategy": "semantic",
+        "chunks": 78,
+        "words_min_median_max": [
+          6,
+          27,
+          76
+        ],
+        "tiny_chunks_under_15_words": 11,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.37209302325581395,
+        "hit@3": 0.6976744186046512,
+        "hit@5": 0.7674418604651163,
+        "mrr@10": 0.5512827611664821,
+        "hit@3_direct": 0.7142857142857143,
+        "hit@3_paraphrase": 0.6666666666666666,
+        "mean_top_score_answerable": 0.411215277340367,
+        "mean_top_score_unanswerable": 0.46293117455274446,
+        "index_build_ms": 18.29,
+        "query_ms_mean": 0.958,
+        "missed_or_below_rank_3": [
+          {
+            "id": "q03",
+            "kind": "direct",
+            "question": "Which details can a single ISO 20022 payment message carry?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 2: What is ISO 20022?",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.55
+          },
+          {
+            "id": "q11",
+            "kind": "direct",
+            "question": "What role does the card network play?",
+            "rank_of_first_correct_chunk": 8,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.251
+          },
+          {
+            "id": "q18",
+            "kind": "paraphrase",
+            "question": "What if a customer says a purchase on their card was not theirs?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > What the card company must do",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.344
+          },
+          {
+            "id": "q19",
+            "kind": "paraphrase",
+            "question": "How does money actually move between banks after a purchase is approved?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "NPCI UPI overview > How people use it",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 0.241
+          },
+          {
+            "id": "q22",
+            "kind": "paraphrase",
+            "question": "What do regulators expect banks to do to keep payments working during outages?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "NPCI UPI overview > Public summary",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 0.311
+          },
+          {
+            "id": "q23",
+            "kind": "paraphrase",
+            "question": "What are the steps a card payment goes through?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.219
+          },
+          {
+            "id": "q25",
+            "kind": "direct",
+            "question": "Who does PCI DSS apply to?",
+            "rank_of_first_correct_chunk": 10,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 4: What is PCI DSS?",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.571
+          },
+          {
+            "id": "q26",
+            "kind": "direct",
+            "question": "What is the purpose of PCI DSS?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 4: What is PCI DSS?",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.615
+          },
+          {
+            "id": "q30",
+            "kind": "paraphrase",
+            "question": "Can shops charge extra for paying by card in the EU?",
+            "rank_of_first_correct_chunk": 9,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > What the card company must do",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.362
+          },
+          {
+            "id": "q35",
+            "kind": "direct",
+            "question": "How long do I have to dispute a credit card charge in the US?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > During the investigation",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.507
+          },
+          {
+            "id": "q37",
+            "kind": "direct",
+            "question": "How long does the card company have to acknowledge a billing dispute?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > How to dispute",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.407
+          },
+          {
+            "id": "q38",
+            "kind": "direct",
+            "question": "What is UPI?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "NPCI UPI overview > Authentication",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 0.382
+          },
+          {
+            "id": "q41",
+            "kind": "direct",
+            "question": "What does pacs mean in ISO 20022?",
+            "rank_of_first_correct_chunk": 10,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 2: What is ISO 20022?",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.338
+          }
+        ]
+      },
+      "structure_aware": {
+        "strategy": "structure_aware",
+        "chunks": 48,
+        "words_min_median_max": [
+          19,
+          46,
+          94
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.5813953488372093,
+        "hit@3": 0.7906976744186046,
+        "hit@5": 0.9767441860465116,
+        "mrr@10": 0.7189922480620153,
+        "hit@3_direct": 0.7857142857142857,
+        "hit@3_paraphrase": 0.8,
+        "mean_top_score_answerable": 0.36301173015641547,
+        "mean_top_score_unanswerable": 0.4458153905238965,
+        "index_build_ms": 18.29,
+        "query_ms_mean": 0.963,
+        "missed_or_below_rank_3": [
+          {
+            "id": "q11",
+            "kind": "direct",
+            "question": "What role does the card network play?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.2
+          },
+          {
+            "id": "q18",
+            "kind": "paraphrase",
+            "question": "What if a customer says a purchase on their card was not theirs?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > What the card company must do",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.192
+          },
+          {
+            "id": "q23",
+            "kind": "paraphrase",
+            "question": "What are the steps a card payment goes through?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 1: What is the difference between authorization and settlement?",
+            "top_chunk_doc": "faqs",
+            "top_score": 0.23
+          },
+          {
+            "id": "q25",
+            "kind": "direct",
+            "question": "Who does PCI DSS apply to?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "PCI DSS overview > Versions",
+            "top_chunk_doc": "pci_dss_overview",
+            "top_score": 0.393
+          },
+          {
+            "id": "q30",
+            "kind": "paraphrase",
+            "question": "Can shops charge extra for paying by card in the EU?",
+            "rank_of_first_correct_chunk": 10,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > During the investigation",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.397
+          },
+          {
+            "id": "q35",
+            "kind": "direct",
+            "question": "How long do I have to dispute a credit card charge in the US?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > During the investigation",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.651
+          },
+          {
+            "id": "q37",
+            "kind": "direct",
+            "question": "How long does the card company have to acknowledge a billing dispute?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > Public summary",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 0.383
+          },
+          {
+            "id": "q38",
+            "kind": "direct",
+            "question": "What is UPI?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "NPCI UPI overview > Authentication",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 0.546
+          },
+          {
+            "id": "q41",
+            "kind": "direct",
+            "question": "What does pacs mean in ISO 20022?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "ISO 20022 overview > Public summary",
+            "top_chunk_doc": "iso20022_overview",
+            "top_score": 0.221
+          }
+        ]
+      }
+    },
+    "bm25": {
+      "fixed": {
+        "strategy": "fixed",
+        "chunks": 39,
+        "words_min_median_max": [
+          33,
+          80,
+          80
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.3953488372093023,
+        "hit@3": 0.7674418604651163,
+        "hit@5": 0.8604651162790697,
+        "mrr@10": 0.594767441860465,
+        "hit@3_direct": 0.7857142857142857,
+        "hit@3_paraphrase": 0.7333333333333333,
+        "mean_top_score_answerable": 7.308821798502424,
+        "mean_top_score_unanswerable": 8.03650053642255,
+        "index_build_ms": 2.26,
+        "query_ms_mean": 0.323,
+        "missed_or_below_rank_3": [
+          {
+            "id": "q03",
+            "kind": "direct",
+            "question": "Which details can a single ISO 20022 payment message carry?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "",
+            "top_chunk_doc": "iso20022_message_identifiers",
+            "top_score": 9.406
+          },
+          {
+            "id": "q11",
+            "kind": "direct",
+            "question": "What role does the card network play?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 5.015
+          },
+          {
+            "id": "q14",
+            "kind": "direct",
+            "question": "What topics does public RBI guidance cover?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "",
+            "top_chunk_doc": "rbi_payment_systems_public_summary",
+            "top_score": 10.396
+          },
+          {
+            "id": "q19",
+            "kind": "paraphrase",
+            "question": "How does money actually move between banks after a purchase is approved?",
+            "rank_of_first_correct_chunk": 10,
+            "top_chunk_section": "",
+            "top_chunk_doc": "faqs",
+            "top_score": 6.183
+          },
+          {
+            "id": "q25",
+            "kind": "direct",
+            "question": "Who does PCI DSS apply to?",
+            "rank_of_first_correct_chunk": 8,
+            "top_chunk_section": "",
+            "top_chunk_doc": "pci_dss_overview",
+            "top_score": 7.682
+          },
+          {
+            "id": "q27",
+            "kind": "paraphrase",
+            "question": "Which organisations decide whether a company meets the card data security rules?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "",
+            "top_chunk_doc": "pci_dss_overview",
+            "top_score": 9.797
+          },
+          {
+            "id": "q30",
+            "kind": "paraphrase",
+            "question": "Can shops charge extra for paying by card in the EU?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 4.537
+          },
+          {
+            "id": "q35",
+            "kind": "direct",
+            "question": "How long do I have to dispute a credit card charge in the US?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 9.682
+          },
+          {
+            "id": "q36",
+            "kind": "paraphrase",
+            "question": "What must the card company do if my billing complaint is right?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 11.065
+          },
+          {
+            "id": "q41",
+            "kind": "direct",
+            "question": "What does pacs mean in ISO 20022?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "",
+            "top_chunk_doc": "iso20022_message_identifiers",
+            "top_score": 5.55
+          }
+        ]
+      },
+      "recursive": {
+        "strategy": "recursive",
+        "chunks": 48,
+        "words_min_median_max": [
+          18,
+          42,
+          84
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.3953488372093023,
+        "hit@3": 0.6744186046511628,
+        "hit@5": 0.8372093023255814,
+        "mrr@10": 0.5656976744186046,
+        "hit@3_direct": 0.7142857142857143,
+        "hit@3_paraphrase": 0.6,
+        "mean_top_score_answerable": 7.540914549237892,
+        "mean_top_score_unanswerable": 7.927573975092061,
+        "index_build_ms": 2.03,
+        "query_ms_mean": 0.307,
+        "missed_or_below_rank_3": [
+          {
+            "id": "q03",
+            "kind": "direct",
+            "question": "Which details can a single ISO 20022 payment message carry?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "ISO 20022 message definitions and identifiers > Public summary",
+            "top_chunk_doc": "iso20022_message_identifiers",
+            "top_score": 8.542
+          },
+          {
+            "id": "q05",
+            "kind": "direct",
+            "question": "What is settlement in card payments?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "ISO 20022 message definitions and identifiers > Business areas",
+            "top_chunk_doc": "iso20022_message_identifiers",
+            "top_score": 3.922
+          },
+          {
+            "id": "q07",
+            "kind": "direct",
+            "question": "Who handles card dispute processing?",
+            "rank_of_first_correct_chunk": 8,
+            "top_chunk_section": "Card scheme public summary > Core concepts",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 5.142
+          },
+          {
+            "id": "q10",
+            "kind": "direct",
+            "question": "What does the issuing bank do?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 4.393
+          },
+          {
+            "id": "q19",
+            "kind": "paraphrase",
+            "question": "How does money actually move between banks after a purchase is approved?",
+            "rank_of_first_correct_chunk": 10,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 3: Why is strong customer authentication important?",
+            "top_chunk_doc": "faqs",
+            "top_score": 6.956
+          },
+          {
+            "id": "q22",
+            "kind": "paraphrase",
+            "question": "What do regulators expect banks to do to keep payments working during outages?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "ISO 20022 overview > Public summary",
+            "top_chunk_doc": "iso20022_overview",
+            "top_score": 5.025
+          },
+          {
+            "id": "q23",
+            "kind": "paraphrase",
+            "question": "What are the steps a card payment goes through?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 2.642
+          },
+          {
+            "id": "q25",
+            "kind": "direct",
+            "question": "Who does PCI DSS apply to?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "PCI DSS overview > Versions",
+            "top_chunk_doc": "pci_dss_overview",
+            "top_score": 8.597
+          },
+          {
+            "id": "q27",
+            "kind": "paraphrase",
+            "question": "Which organisations decide whether a company meets the card data security rules?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "PCI DSS overview > Public summary",
+            "top_chunk_doc": "pci_dss_overview",
+            "top_score": 10.086
+          },
+          {
+            "id": "q30",
+            "kind": "paraphrase",
+            "question": "Can shops charge extra for paying by card in the EU?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > How to dispute",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 4.252
+          },
+          {
+            "id": "q33",
+            "kind": "paraphrase",
+            "question": "Do I have to use the simplified online card payment option?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 4.894
+          },
+          {
+            "id": "q37",
+            "kind": "direct",
+            "question": "How long does the card company have to acknowledge a billing dispute?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > Public summary",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 9.398
+          },
+          {
+            "id": "q38",
+            "kind": "direct",
+            "question": "What is UPI?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "NPCI UPI overview > Authentication",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 3.542
+          },
+          {
+            "id": "q41",
+            "kind": "direct",
+            "question": "What does pacs mean in ISO 20022?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 2: What is ISO 20022?",
+            "top_chunk_doc": "faqs",
+            "top_score": 7.432
+          }
+        ]
+      },
+      "semantic": {
+        "strategy": "semantic",
+        "chunks": 78,
+        "words_min_median_max": [
+          6,
+          27,
+          76
+        ],
+        "tiny_chunks_under_15_words": 11,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.3023255813953488,
+        "hit@3": 0.627906976744186,
+        "hit@5": 0.7441860465116279,
+        "mrr@10": 0.48568660022148397,
+        "hit@3_direct": 0.6785714285714286,
+        "hit@3_paraphrase": 0.5333333333333333,
+        "mean_top_score_answerable": 7.86709936119097,
+        "mean_top_score_unanswerable": 8.719816625657337,
+        "index_build_ms": 2.2,
+        "query_ms_mean": 0.302,
+        "missed_or_below_rank_3": [
+          {
+            "id": "q03",
+            "kind": "direct",
+            "question": "Which details can a single ISO 20022 payment message carry?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "ISO 20022 message definitions and identifiers > Source note",
+            "top_chunk_doc": "iso20022_message_identifiers",
+            "top_score": 10.484
+          },
+          {
+            "id": "q07",
+            "kind": "direct",
+            "question": "Who handles card dispute processing?",
+            "rank_of_first_correct_chunk": 10,
+            "top_chunk_section": "PCI DSS overview > Who it applies to",
+            "top_chunk_doc": "pci_dss_overview",
+            "top_score": 5.2
+          },
+          {
+            "id": "q10",
+            "kind": "direct",
+            "question": "What does the issuing bank do?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > Public summary",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 4.578
+          },
+          {
+            "id": "q19",
+            "kind": "paraphrase",
+            "question": "How does money actually move between banks after a purchase is approved?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 3: Why is strong customer authentication important?",
+            "top_chunk_doc": "faqs",
+            "top_score": 6.319
+          },
+          {
+            "id": "q22",
+            "kind": "paraphrase",
+            "question": "What do regulators expect banks to do to keep payments working during outages?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "ISO 20022 overview > Public summary",
+            "top_chunk_doc": "iso20022_overview",
+            "top_score": 4.786
+          },
+          {
+            "id": "q23",
+            "kind": "paraphrase",
+            "question": "What are the steps a card payment goes through?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 3.252
+          },
+          {
+            "id": "q25",
+            "kind": "direct",
+            "question": "Who does PCI DSS apply to?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 4: What is PCI DSS?",
+            "top_chunk_doc": "faqs",
+            "top_score": 9.265
+          },
+          {
+            "id": "q26",
+            "kind": "direct",
+            "question": "What is the purpose of PCI DSS?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 4: What is PCI DSS?",
+            "top_chunk_doc": "faqs",
+            "top_score": 9.265
+          },
+          {
+            "id": "q27",
+            "kind": "paraphrase",
+            "question": "Which organisations decide whether a company meets the card data security rules?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "PCI DSS overview > Public summary",
+            "top_chunk_doc": "pci_dss_overview",
+            "top_score": 9.964
+          },
+          {
+            "id": "q30",
+            "kind": "paraphrase",
+            "question": "Can shops charge extra for paying by card in the EU?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > What the card company must do",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 6.131
+          },
+          {
+            "id": "q33",
+            "kind": "paraphrase",
+            "question": "Do I have to use the simplified online card payment option?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 5.35
+          },
+          {
+            "id": "q35",
+            "kind": "direct",
+            "question": "How long do I have to dispute a credit card charge in the US?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > During the investigation",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 8.798
+          },
+          {
+            "id": "q38",
+            "kind": "direct",
+            "question": "What is UPI?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "NPCI UPI overview > Authentication",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 3.379
+          },
+          {
+            "id": "q39",
+            "kind": "paraphrase",
+            "question": "Can I send money on a bank holiday in India?",
+            "rank_of_first_correct_chunk": 10,
+            "top_chunk_section": "NPCI UPI overview > Interoperability",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 8.702
+          },
+          {
+            "id": "q41",
+            "kind": "direct",
+            "question": "What does pacs mean in ISO 20022?",
+            "rank_of_first_correct_chunk": 8,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 2: What is ISO 20022?",
+            "top_chunk_doc": "faqs",
+            "top_score": 7.787
+          },
+          {
+            "id": "q42",
+            "kind": "direct",
+            "question": "How is an ISO 20022 message identifier structured?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "ISO 20022 message definitions and identifiers > Public summary",
+            "top_chunk_doc": "iso20022_message_identifiers",
+            "top_score": 11.506
+          }
+        ]
+      },
+      "structure_aware": {
+        "strategy": "structure_aware",
+        "chunks": 48,
+        "words_min_median_max": [
+          19,
+          46,
+          94
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.4883720930232558,
+        "hit@3": 0.7441860465116279,
+        "hit@5": 0.8604651162790697,
+        "mrr@10": 0.6333610188261349,
+        "hit@3_direct": 0.8214285714285714,
+        "hit@3_paraphrase": 0.6,
+        "mean_top_score_answerable": 7.642184471560251,
+        "mean_top_score_unanswerable": 8.443519521579068,
+        "index_build_ms": 1.89,
+        "query_ms_mean": 0.302,
+        "missed_or_below_rank_3": [
+          {
+            "id": "q07",
+            "kind": "direct",
+            "question": "Who handles card dispute processing?",
+            "rank_of_first_correct_chunk": 10,
+            "top_chunk_section": "Card scheme public summary > Core concepts",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 5.14
+          },
+          {
+            "id": "q10",
+            "kind": "direct",
+            "question": "What does the issuing bank do?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 4.431
+          },
+          {
+            "id": "q18",
+            "kind": "paraphrase",
+            "question": "What if a customer says a purchase on their card was not theirs?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > What the card company must do",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 4.372
+          },
+          {
+            "id": "q19",
+            "kind": "paraphrase",
+            "question": "How does money actually move between banks after a purchase is approved?",
+            "rank_of_first_correct_chunk": 10,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 3: Why is strong customer authentication important?",
+            "top_chunk_doc": "faqs",
+            "top_score": 6.962
+          },
+          {
+            "id": "q22",
+            "kind": "paraphrase",
+            "question": "What do regulators expect banks to do to keep payments working during outages?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "ISO 20022 overview > Public summary",
+            "top_chunk_doc": "iso20022_overview",
+            "top_score": 5.05
+          },
+          {
+            "id": "q25",
+            "kind": "direct",
+            "question": "Who does PCI DSS apply to?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "PCI DSS overview > Versions",
+            "top_chunk_doc": "pci_dss_overview",
+            "top_score": 9.103
+          },
+          {
+            "id": "q27",
+            "kind": "paraphrase",
+            "question": "Which organisations decide whether a company meets the card data security rules?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "PCI DSS overview > Public summary",
+            "top_chunk_doc": "pci_dss_overview",
+            "top_score": 10.31
+          },
+          {
+            "id": "q30",
+            "kind": "paraphrase",
+            "question": "Can shops charge extra for paying by card in the EU?",
+            "rank_of_first_correct_chunk": 8,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > During the investigation",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 4.4
+          },
+          {
+            "id": "q33",
+            "kind": "paraphrase",
+            "question": "Do I have to use the simplified online card payment option?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 4.533
+          },
+          {
+            "id": "q37",
+            "kind": "direct",
+            "question": "How long does the card company have to acknowledge a billing dispute?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > Public summary",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 9.056
+          },
+          {
+            "id": "q38",
+            "kind": "direct",
+            "question": "What is UPI?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "NPCI UPI overview > Authentication",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 3.998
+          }
+        ]
+      }
+    },
+    "bm25+stem": {
+      "fixed": {
+        "strategy": "fixed",
+        "chunks": 39,
+        "words_min_median_max": [
+          33,
+          80,
+          80
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.3953488372093023,
+        "hit@3": 0.7441860465116279,
+        "hit@5": 0.8372093023255814,
+        "mrr@10": 0.5859080841638981,
+        "hit@3_direct": 0.75,
+        "hit@3_paraphrase": 0.7333333333333333,
+        "mean_top_score_answerable": 7.484991916146678,
+        "mean_top_score_unanswerable": 9.228510313641713,
+        "index_build_ms": 17.87,
+        "query_ms_mean": 0.361,
+        "missed_or_below_rank_3": [
+          {
+            "id": "q03",
+            "kind": "direct",
+            "question": "Which details can a single ISO 20022 payment message carry?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "",
+            "top_chunk_doc": "iso20022_message_identifiers",
+            "top_score": 9.09
+          },
+          {
+            "id": "q09",
+            "kind": "direct",
+            "question": "What is an acquirer?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 2.56
+          },
+          {
+            "id": "q11",
+            "kind": "direct",
+            "question": "What role does the card network play?",
+            "rank_of_first_correct_chunk": 8,
+            "top_chunk_section": "",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 4.497
+          },
+          {
+            "id": "q14",
+            "kind": "direct",
+            "question": "What topics does public RBI guidance cover?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "",
+            "top_chunk_doc": "rbi_payment_systems_public_summary",
+            "top_score": 10.396
+          },
+          {
+            "id": "q19",
+            "kind": "paraphrase",
+            "question": "How does money actually move between banks after a purchase is approved?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 5.299
+          },
+          {
+            "id": "q20",
+            "kind": "paraphrase",
+            "question": "Which bank looks after the shop's account?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 2.29
+          },
+          {
+            "id": "q25",
+            "kind": "direct",
+            "question": "Who does PCI DSS apply to?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "",
+            "top_chunk_doc": "pci_dss_overview",
+            "top_score": 8.884
+          },
+          {
+            "id": "q30",
+            "kind": "paraphrase",
+            "question": "Can shops charge extra for paying by card in the EU?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 6.877
+          },
+          {
+            "id": "q35",
+            "kind": "direct",
+            "question": "How long do I have to dispute a credit card charge in the US?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 9.877
+          },
+          {
+            "id": "q36",
+            "kind": "paraphrase",
+            "question": "What must the card company do if my billing complaint is right?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 11.26
+          },
+          {
+            "id": "q41",
+            "kind": "direct",
+            "question": "What does pacs mean in ISO 20022?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "",
+            "top_chunk_doc": "iso20022_message_identifiers",
+            "top_score": 5.55
+          }
+        ]
+      },
+      "recursive": {
+        "strategy": "recursive",
+        "chunks": 48,
+        "words_min_median_max": [
+          18,
+          42,
+          84
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.46511627906976744,
+        "hit@3": 0.7674418604651163,
+        "hit@5": 0.8837209302325582,
+        "mrr@10": 0.635908084163898,
+        "hit@3_direct": 0.7857142857142857,
+        "hit@3_paraphrase": 0.7333333333333333,
+        "mean_top_score_answerable": 7.764752062037666,
+        "mean_top_score_unanswerable": 10.340635755739134,
+        "index_build_ms": 17.34,
+        "query_ms_mean": 0.35,
+        "missed_or_below_rank_3": [
+          {
+            "id": "q03",
+            "kind": "direct",
+            "question": "Which details can a single ISO 20022 payment message carry?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 2: What is ISO 20022?",
+            "top_chunk_doc": "faqs",
+            "top_score": 10.723
+          },
+          {
+            "id": "q11",
+            "kind": "direct",
+            "question": "What role does the card network play?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > Conditions and responsibilities",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 5.362
+          },
+          {
+            "id": "q17",
+            "kind": "paraphrase",
+            "question": "How can I find out where a payment currently stands?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > Authority, scope and date",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 4.089
+          },
+          {
+            "id": "q19",
+            "kind": "paraphrase",
+            "question": "How does money actually move between banks after a purchase is approved?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 3: Why is strong customer authentication important?",
+            "top_chunk_doc": "faqs",
+            "top_score": 6.11
+          },
+          {
+            "id": "q23",
+            "kind": "paraphrase",
+            "question": "What are the steps a card payment goes through?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 1: What is the difference between authorization and settlement?",
+            "top_chunk_doc": "faqs",
+            "top_score": 4.159
+          },
+          {
+            "id": "q25",
+            "kind": "direct",
+            "question": "Who does PCI DSS apply to?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "PCI DSS overview > Versions",
+            "top_chunk_doc": "pci_dss_overview",
+            "top_score": 8.597
+          },
+          {
+            "id": "q30",
+            "kind": "paraphrase",
+            "question": "Can shops charge extra for paying by card in the EU?",
+            "rank_of_first_correct_chunk": 8,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > During the investigation",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 6.612
+          },
+          {
+            "id": "q37",
+            "kind": "direct",
+            "question": "How long does the card company have to acknowledge a billing dispute?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > Public summary",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 9.199
+          },
+          {
+            "id": "q38",
+            "kind": "direct",
+            "question": "What is UPI?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "NPCI UPI overview > Authentication",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 3.542
+          },
+          {
+            "id": "q41",
+            "kind": "direct",
+            "question": "What does pacs mean in ISO 20022?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 2: What is ISO 20022?",
+            "top_chunk_doc": "faqs",
+            "top_score": 7.432
+          }
+        ]
+      },
+      "semantic": {
+        "strategy": "semantic",
+        "chunks": 78,
+        "words_min_median_max": [
+          6,
+          27,
+          76
+        ],
+        "tiny_chunks_under_15_words": 11,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.3953488372093023,
+        "hit@3": 0.7209302325581395,
+        "hit@5": 0.8372093023255814,
+        "mrr@10": 0.5799649317091177,
+        "hit@3_direct": 0.75,
+        "hit@3_paraphrase": 0.6666666666666666,
+        "mean_top_score_answerable": 8.157208851944267,
+        "mean_top_score_unanswerable": 10.329663214138353,
+        "index_build_ms": 17.64,
+        "query_ms_mean": 0.353,
+        "missed_or_below_rank_3": [
+          {
+            "id": "q03",
+            "kind": "direct",
+            "question": "Which details can a single ISO 20022 payment message carry?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 2: What is ISO 20022?",
+            "top_chunk_doc": "faqs",
+            "top_score": 11.714
+          },
+          {
+            "id": "q11",
+            "kind": "direct",
+            "question": "What role does the card network play?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 4.926
+          },
+          {
+            "id": "q17",
+            "kind": "paraphrase",
+            "question": "How can I find out where a payment currently stands?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > Authority, scope and date",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 4.014
+          },
+          {
+            "id": "q19",
+            "kind": "paraphrase",
+            "question": "How does money actually move between banks after a purchase is approved?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "NPCI UPI overview > How people use it",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 6.621
+          },
+          {
+            "id": "q22",
+            "kind": "paraphrase",
+            "question": "What do regulators expect banks to do to keep payments working during outages?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "NPCI UPI overview > Public summary",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 6.984
+          },
+          {
+            "id": "q23",
+            "kind": "paraphrase",
+            "question": "What are the steps a card payment goes through?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 1: What is the difference between authorization and settlement?",
+            "top_chunk_doc": "faqs",
+            "top_score": 4.026
+          },
+          {
+            "id": "q25",
+            "kind": "direct",
+            "question": "Who does PCI DSS apply to?",
+            "rank_of_first_correct_chunk": 10,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 4: What is PCI DSS?",
+            "top_chunk_doc": "faqs",
+            "top_score": 9.265
+          },
+          {
+            "id": "q26",
+            "kind": "direct",
+            "question": "What is the purpose of PCI DSS?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 4: What is PCI DSS?",
+            "top_chunk_doc": "faqs",
+            "top_score": 9.265
+          },
+          {
+            "id": "q30",
+            "kind": "paraphrase",
+            "question": "Can shops charge extra for paying by card in the EU?",
+            "rank_of_first_correct_chunk": 8,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > During the investigation",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 6.757
+          },
+          {
+            "id": "q35",
+            "kind": "direct",
+            "question": "How long do I have to dispute a credit card charge in the US?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > During the investigation",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 9.715
+          },
+          {
+            "id": "q38",
+            "kind": "direct",
+            "question": "What is UPI?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "NPCI UPI overview > Authentication",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 3.379
+          },
+          {
+            "id": "q41",
+            "kind": "direct",
+            "question": "What does pacs mean in ISO 20022?",
+            "rank_of_first_correct_chunk": 9,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 2: What is ISO 20022?",
+            "top_chunk_doc": "faqs",
+            "top_score": 7.787
+          }
+        ]
+      },
+      "structure_aware": {
+        "strategy": "structure_aware",
+        "chunks": 48,
+        "words_min_median_max": [
+          19,
+          46,
+          94
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.5348837209302325,
+        "hit@3": 0.813953488372093,
+        "hit@5": 0.9534883720930233,
+        "mrr@10": 0.692894056847545,
+        "hit@3_direct": 0.8928571428571429,
+        "hit@3_paraphrase": 0.6666666666666666,
+        "mean_top_score_answerable": 7.898346816468967,
+        "mean_top_score_unanswerable": 10.338939208922264,
+        "index_build_ms": 17.62,
+        "query_ms_mean": 0.35,
+        "missed_or_below_rank_3": [
+          {
+            "id": "q17",
+            "kind": "paraphrase",
+            "question": "How can I find out where a payment currently stands?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > Authority, scope and date",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 3.992
+          },
+          {
+            "id": "q18",
+            "kind": "paraphrase",
+            "question": "What if a customer says a purchase on their card was not theirs?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > What the card company must do",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 4.372
+          },
+          {
+            "id": "q19",
+            "kind": "paraphrase",
+            "question": "How does money actually move between banks after a purchase is approved?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 3: Why is strong customer authentication important?",
+            "top_chunk_doc": "faqs",
+            "top_score": 6.116
+          },
+          {
+            "id": "q23",
+            "kind": "paraphrase",
+            "question": "What are the steps a card payment goes through?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "Payments FAQ starter set > FAQ 1: What is the difference between authorization and settlement?",
+            "top_chunk_doc": "faqs",
+            "top_score": 4.338
+          },
+          {
+            "id": "q30",
+            "kind": "paraphrase",
+            "question": "Can shops charge extra for paying by card in the EU?",
+            "rank_of_first_correct_chunk": 9,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > During the investigation",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 7.555
+          },
+          {
+            "id": "q35",
+            "kind": "direct",
+            "question": "How long do I have to dispute a credit card charge in the US?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > During the investigation",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 10.256
+          },
+          {
+            "id": "q37",
+            "kind": "direct",
+            "question": "How long does the card company have to acknowledge a billing dispute?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "CFPB guidance: disputing a credit card charge (United States) > Public summary",
+            "top_chunk_doc": "cfpb_credit_card_disputes",
+            "top_score": 9.543
+          },
+          {
+            "id": "q38",
+            "kind": "direct",
+            "question": "What is UPI?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "NPCI UPI overview > Authentication",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 3.998
+          }
+        ]
+      }
+    }
+  },
+  "heldout": {
+    "tfidf": {
+      "fixed": {
+        "strategy": "fixed",
+        "chunks": 39,
+        "words_min_median_max": [
+          33,
+          80,
+          80
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.5,
+        "hit@3": 0.8333333333333334,
+        "hit@5": 0.8333333333333334,
+        "mrr@10": 0.6472222222222221,
+        "hit@3_direct": 1.0,
+        "hit@3_paraphrase": 0.7777777777777778,
+        "mean_top_score_answerable": 0.32196747639166784,
+        "mean_top_score_unanswerable": 0.23007899001189333,
+        "index_build_ms": 2.48,
+        "query_ms_mean": 0.934,
+        "missed_or_below_rank_3": [
+          {
+            "id": "h02",
+            "kind": "paraphrase",
+            "question": "What kinds of firms did the EU payments directive allow besides banks?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 0.157
+          },
+          {
+            "id": "h12",
+            "kind": "paraphrase",
+            "question": "Is the cardholder's agreement needed for the simplified online card payment in India?",
+            "rank_of_first_correct_chunk": 10,
+            "top_chunk_section": "",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.24
+          }
+        ]
+      },
+      "recursive": {
+        "strategy": "recursive",
+        "chunks": 48,
+        "words_min_median_max": [
+          18,
+          42,
+          84
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.6666666666666666,
+        "hit@3": 0.8333333333333334,
+        "hit@5": 0.8333333333333334,
+        "mrr@10": 0.7361111111111112,
+        "hit@3_direct": 1.0,
+        "hit@3_paraphrase": 0.7777777777777778,
+        "mean_top_score_answerable": 0.3661016427973019,
+        "mean_top_score_unanswerable": 0.207863821680725,
+        "index_build_ms": 2.32,
+        "query_ms_mean": 0.935,
+        "missed_or_below_rank_3": [
+          {
+            "id": "h02",
+            "kind": "paraphrase",
+            "question": "What kinds of firms did the EU payments directive allow besides banks?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "Card scheme public summary > Public summary",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 0.24
+          },
+          {
+            "id": "h12",
+            "kind": "paraphrase",
+            "question": "Is the cardholder's agreement needed for the simplified online card payment in India?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > Public summary",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.207
+          }
+        ]
+      },
+      "semantic": {
+        "strategy": "semantic",
+        "chunks": 78,
+        "words_min_median_max": [
+          6,
+          27,
+          76
+        ],
+        "tiny_chunks_under_15_words": 11,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.75,
+        "hit@3": 0.8333333333333334,
+        "hit@5": 0.9166666666666666,
+        "mrr@10": 0.8083333333333332,
+        "hit@3_direct": 1.0,
+        "hit@3_paraphrase": 0.7777777777777778,
+        "mean_top_score_answerable": 0.3985581664669822,
+        "mean_top_score_unanswerable": 0.30986664152865007,
+        "index_build_ms": 2.34,
+        "query_ms_mean": 0.926,
+        "missed_or_below_rank_3": [
+          {
+            "id": "h02",
+            "kind": "paraphrase",
+            "question": "What kinds of firms did the EU payments directive allow besides banks?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "Card scheme public summary > Public summary",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 0.244
+          },
+          {
+            "id": "h12",
+            "kind": "paraphrase",
+            "question": "Is the cardholder's agreement needed for the simplified online card payment in India?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.223
+          }
+        ]
+      },
+      "structure_aware": {
+        "strategy": "structure_aware",
+        "chunks": 48,
+        "words_min_median_max": [
+          19,
+          46,
+          94
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.6666666666666666,
+        "hit@3": 0.8333333333333334,
+        "hit@5": 0.8333333333333334,
+        "mrr@10": 0.7361111111111112,
+        "hit@3_direct": 1.0,
+        "hit@3_paraphrase": 0.7777777777777778,
+        "mean_top_score_answerable": 0.3769767536061677,
+        "mean_top_score_unanswerable": 0.25890593550544355,
+        "index_build_ms": 2.44,
+        "query_ms_mean": 0.906,
+        "missed_or_below_rank_3": [
+          {
+            "id": "h02",
+            "kind": "paraphrase",
+            "question": "What kinds of firms did the EU payments directive allow besides banks?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "Card scheme public summary > Public summary",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 0.217
+          },
+          {
+            "id": "h12",
+            "kind": "paraphrase",
+            "question": "Is the cardholder's agreement needed for the simplified online card payment in India?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > Public summary",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.188
+          }
+        ]
+      }
+    },
+    "tfidf+stem": {
+      "fixed": {
+        "strategy": "fixed",
+        "chunks": 39,
+        "words_min_median_max": [
+          33,
+          80,
+          80
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.4166666666666667,
+        "hit@3": 0.75,
+        "hit@5": 0.8333333333333334,
+        "mrr@10": 0.5847222222222221,
+        "hit@3_direct": 1.0,
+        "hit@3_paraphrase": 0.6666666666666666,
+        "mean_top_score_answerable": 0.34631243043907695,
+        "mean_top_score_unanswerable": 0.24144434835723416,
+        "index_build_ms": 18.51,
+        "query_ms_mean": 1.003,
+        "missed_or_below_rank_3": [
+          {
+            "id": "h02",
+            "kind": "paraphrase",
+            "question": "What kinds of firms did the EU payments directive allow besides banks?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 0.14
+          },
+          {
+            "id": "h05",
+            "kind": "paraphrase",
+            "question": "Which apps let me link several bank accounts for instant transfers in India?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 0.28
+          },
+          {
+            "id": "h12",
+            "kind": "paraphrase",
+            "question": "Is the cardholder's agreement needed for the simplified online card payment in India?",
+            "rank_of_first_correct_chunk": 10,
+            "top_chunk_section": "",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.284
+          }
+        ]
+      },
+      "recursive": {
+        "strategy": "recursive",
+        "chunks": 48,
+        "words_min_median_max": [
+          18,
+          42,
+          84
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.5833333333333334,
+        "hit@3": 0.75,
+        "hit@5": 0.8333333333333334,
+        "mrr@10": 0.6979166666666666,
+        "hit@3_direct": 1.0,
+        "hit@3_paraphrase": 0.6666666666666666,
+        "mean_top_score_answerable": 0.3867760877704061,
+        "mean_top_score_unanswerable": 0.22228467469770716,
+        "index_build_ms": 18.03,
+        "query_ms_mean": 0.994,
+        "missed_or_below_rank_3": [
+          {
+            "id": "h02",
+            "kind": "paraphrase",
+            "question": "What kinds of firms did the EU payments directive allow besides banks?",
+            "rank_of_first_correct_chunk": 8,
+            "top_chunk_section": "Card scheme public summary > Public summary",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 0.203
+          },
+          {
+            "id": "h05",
+            "kind": "paraphrase",
+            "question": "Which apps let me link several bank accounts for instant transfers in India?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "NPCI UPI overview > Interoperability",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 0.389
+          },
+          {
+            "id": "h12",
+            "kind": "paraphrase",
+            "question": "Is the cardholder's agreement needed for the simplified online card payment in India?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > Public summary",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.278
+          }
+        ]
+      },
+      "semantic": {
+        "strategy": "semantic",
+        "chunks": 78,
+        "words_min_median_max": [
+          6,
+          27,
+          76
+        ],
+        "tiny_chunks_under_15_words": 11,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.6666666666666666,
+        "hit@3": 0.8333333333333334,
+        "hit@5": 0.8333333333333334,
+        "mrr@10": 0.75,
+        "hit@3_direct": 1.0,
+        "hit@3_paraphrase": 0.7777777777777778,
+        "mean_top_score_answerable": 0.42256022704092494,
+        "mean_top_score_unanswerable": 0.2924110008916716,
+        "index_build_ms": 18.9,
+        "query_ms_mean": 0.993,
+        "missed_or_below_rank_3": [
+          {
+            "id": "h02",
+            "kind": "paraphrase",
+            "question": "What kinds of firms did the EU payments directive allow besides banks?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "Card scheme public summary > Public summary",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 0.207
+          },
+          {
+            "id": "h12",
+            "kind": "paraphrase",
+            "question": "Is the cardholder's agreement needed for the simplified online card payment in India?",
+            "rank_of_first_correct_chunk": 6,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > Public summary",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.284
+          }
+        ]
+      },
+      "structure_aware": {
+        "strategy": "structure_aware",
+        "chunks": 48,
+        "words_min_median_max": [
+          19,
+          46,
+          94
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.5833333333333334,
+        "hit@3": 0.75,
+        "hit@5": 0.8333333333333334,
+        "mrr@10": 0.6994047619047619,
+        "hit@3_direct": 1.0,
+        "hit@3_paraphrase": 0.6666666666666666,
+        "mean_top_score_answerable": 0.39980169863751064,
+        "mean_top_score_unanswerable": 0.26914479306757855,
+        "index_build_ms": 18.31,
+        "query_ms_mean": 0.974,
+        "missed_or_below_rank_3": [
+          {
+            "id": "h02",
+            "kind": "paraphrase",
+            "question": "What kinds of firms did the EU payments directive allow besides banks?",
+            "rank_of_first_correct_chunk": 7,
+            "top_chunk_section": "Card scheme public summary > Public summary",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 0.187
+          },
+          {
+            "id": "h05",
+            "kind": "paraphrase",
+            "question": "Which apps let me link several bank accounts for instant transfers in India?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "NPCI UPI overview > Interoperability",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 0.367
+          },
+          {
+            "id": "h12",
+            "kind": "paraphrase",
+            "question": "Is the cardholder's agreement needed for the simplified online card payment in India?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > Public summary",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 0.252
+          }
+        ]
+      }
+    },
+    "bm25": {
+      "fixed": {
+        "strategy": "fixed",
+        "chunks": 39,
+        "words_min_median_max": [
+          33,
+          80,
+          80
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.5,
+        "hit@3": 0.8333333333333334,
+        "hit@5": 0.8333333333333334,
+        "mrr@10": 0.6481481481481481,
+        "hit@3_direct": 1.0,
+        "hit@3_paraphrase": 0.7777777777777778,
+        "mean_top_score_answerable": 8.758246680078338,
+        "mean_top_score_unanswerable": 6.252754472666828,
+        "index_build_ms": 2.01,
+        "query_ms_mean": 0.357,
+        "missed_or_below_rank_3": [
+          {
+            "id": "h02",
+            "kind": "paraphrase",
+            "question": "What kinds of firms did the EU payments directive allow besides banks?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 5.099
+          },
+          {
+            "id": "h12",
+            "kind": "paraphrase",
+            "question": "Is the cardholder's agreement needed for the simplified online card payment in India?",
+            "rank_of_first_correct_chunk": 9,
+            "top_chunk_section": "",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 7.801
+          }
+        ]
+      },
+      "recursive": {
+        "strategy": "recursive",
+        "chunks": 48,
+        "words_min_median_max": [
+          18,
+          42,
+          84
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.5833333333333334,
+        "hit@3": 0.8333333333333334,
+        "hit@5": 0.8333333333333334,
+        "mrr@10": 0.7027777777777778,
+        "hit@3_direct": 1.0,
+        "hit@3_paraphrase": 0.7777777777777778,
+        "mean_top_score_answerable": 9.102400775824757,
+        "mean_top_score_unanswerable": 5.476436799636227,
+        "index_build_ms": 1.72,
+        "query_ms_mean": 0.365,
+        "missed_or_below_rank_3": [
+          {
+            "id": "h02",
+            "kind": "paraphrase",
+            "question": "What kinds of firms did the EU payments directive allow besides banks?",
+            "rank_of_first_correct_chunk": 10,
+            "top_chunk_section": "Card scheme public summary > Public summary",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 6.4
+          },
+          {
+            "id": "h12",
+            "kind": "paraphrase",
+            "question": "Is the cardholder's agreement needed for the simplified online card payment in India?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > Public summary",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 6.692
+          }
+        ]
+      },
+      "semantic": {
+        "strategy": "semantic",
+        "chunks": 78,
+        "words_min_median_max": [
+          6,
+          27,
+          76
+        ],
+        "tiny_chunks_under_15_words": 11,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.75,
+        "hit@3": 0.8333333333333334,
+        "hit@5": 0.9166666666666666,
+        "mrr@10": 0.8083333333333332,
+        "hit@3_direct": 1.0,
+        "hit@3_paraphrase": 0.7777777777777778,
+        "mean_top_score_answerable": 9.30017953996206,
+        "mean_top_score_unanswerable": 6.670491475321807,
+        "index_build_ms": 1.91,
+        "query_ms_mean": 0.362,
+        "missed_or_below_rank_3": [
+          {
+            "id": "h02",
+            "kind": "paraphrase",
+            "question": "What kinds of firms did the EU payments directive allow besides banks?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "Card scheme public summary > Public summary",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 5.944
+          },
+          {
+            "id": "h12",
+            "kind": "paraphrase",
+            "question": "Is the cardholder's agreement needed for the simplified online card payment in India?",
+            "rank_of_first_correct_chunk": 5,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > The relaxation",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 6.704
+          }
+        ]
+      },
+      "structure_aware": {
+        "strategy": "structure_aware",
+        "chunks": 48,
+        "words_min_median_max": [
+          19,
+          46,
+          94
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.6666666666666666,
+        "hit@3": 0.8333333333333334,
+        "hit@5": 0.8333333333333334,
+        "mrr@10": 0.7453703703703703,
+        "hit@3_direct": 1.0,
+        "hit@3_paraphrase": 0.7777777777777778,
+        "mean_top_score_answerable": 9.479532670425039,
+        "mean_top_score_unanswerable": 6.6242720258857695,
+        "index_build_ms": 1.81,
+        "query_ms_mean": 0.377,
+        "missed_or_below_rank_3": [
+          {
+            "id": "h02",
+            "kind": "paraphrase",
+            "question": "What kinds of firms did the EU payments directive allow besides banks?",
+            "rank_of_first_correct_chunk": 9,
+            "top_chunk_section": "Card scheme public summary > Public summary",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 6.092
+          },
+          {
+            "id": "h12",
+            "kind": "paraphrase",
+            "question": "Is the cardholder's agreement needed for the simplified online card payment in India?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > Public summary",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 6.349
+          }
+        ]
+      }
+    },
+    "bm25+stem": {
+      "fixed": {
+        "strategy": "fixed",
+        "chunks": 39,
+        "words_min_median_max": [
+          33,
+          80,
+          80
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.5,
+        "hit@3": 0.75,
+        "hit@5": 0.8333333333333334,
+        "mrr@10": 0.6273148148148148,
+        "hit@3_direct": 1.0,
+        "hit@3_paraphrase": 0.6666666666666666,
+        "mean_top_score_answerable": 9.35201663570695,
+        "mean_top_score_unanswerable": 5.827007799216183,
+        "index_build_ms": 17.78,
+        "query_ms_mean": 0.492,
+        "missed_or_below_rank_3": [
+          {
+            "id": "h02",
+            "kind": "paraphrase",
+            "question": "What kinds of firms did the EU payments directive allow besides banks?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 4.205
+          },
+          {
+            "id": "h11",
+            "kind": "paraphrase",
+            "question": "Do I need to register a payee before sending money by UPI?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "",
+            "top_chunk_doc": "upi_overview",
+            "top_score": 10.001
+          },
+          {
+            "id": "h12",
+            "kind": "paraphrase",
+            "question": "Is the cardholder's agreement needed for the simplified online card payment in India?",
+            "rank_of_first_correct_chunk": 9,
+            "top_chunk_section": "",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 9.967
+          }
+        ]
+      },
+      "recursive": {
+        "strategy": "recursive",
+        "chunks": 48,
+        "words_min_median_max": [
+          18,
+          42,
+          84
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.5833333333333334,
+        "hit@3": 0.8333333333333334,
+        "hit@5": 0.8333333333333334,
+        "mrr@10": 0.7048611111111112,
+        "hit@3_direct": 1.0,
+        "hit@3_paraphrase": 0.7777777777777778,
+        "mean_top_score_answerable": 9.754911558987839,
+        "mean_top_score_unanswerable": 5.41598871781364,
+        "index_build_ms": 17.55,
+        "query_ms_mean": 0.508,
+        "missed_or_below_rank_3": [
+          {
+            "id": "h02",
+            "kind": "paraphrase",
+            "question": "What kinds of firms did the EU payments directive allow besides banks?",
+            "rank_of_first_correct_chunk": 8,
+            "top_chunk_section": "Card scheme public summary > Public summary",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 5.181
+          },
+          {
+            "id": "h12",
+            "kind": "paraphrase",
+            "question": "Is the cardholder's agreement needed for the simplified online card payment in India?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > Public summary",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 8.937
+          }
+        ]
+      },
+      "semantic": {
+        "strategy": "semantic",
+        "chunks": 78,
+        "words_min_median_max": [
+          6,
+          27,
+          76
+        ],
+        "tiny_chunks_under_15_words": 11,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.6666666666666666,
+        "hit@3": 0.8333333333333334,
+        "hit@5": 0.9166666666666666,
+        "mrr@10": 0.78125,
+        "hit@3_direct": 1.0,
+        "hit@3_paraphrase": 0.7777777777777778,
+        "mean_top_score_answerable": 10.35860438396999,
+        "mean_top_score_unanswerable": 6.579300381155865,
+        "index_build_ms": 17.09,
+        "query_ms_mean": 0.479,
+        "missed_or_below_rank_3": [
+          {
+            "id": "h02",
+            "kind": "paraphrase",
+            "question": "What kinds of firms did the EU payments directive allow besides banks?",
+            "rank_of_first_correct_chunk": 8,
+            "top_chunk_section": "Card scheme public summary > Public summary",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 5.094
+          },
+          {
+            "id": "h12",
+            "kind": "paraphrase",
+            "question": "Is the cardholder's agreement needed for the simplified online card payment in India?",
+            "rank_of_first_correct_chunk": 4,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > Public summary",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 8.572
+          }
+        ]
+      },
+      "structure_aware": {
+        "strategy": "structure_aware",
+        "chunks": 48,
+        "words_min_median_max": [
+          19,
+          46,
+          94
+        ],
+        "tiny_chunks_under_15_words": 0,
+        "gold_phrase_intact": 1.0,
+        "hit@1": 0.5833333333333334,
+        "hit@3": 0.8333333333333334,
+        "hit@5": 0.8333333333333334,
+        "mrr@10": 0.7048611111111112,
+        "hit@3_direct": 1.0,
+        "hit@3_paraphrase": 0.7777777777777778,
+        "mean_top_score_answerable": 10.189523319193555,
+        "mean_top_score_unanswerable": 6.474435678576441,
+        "index_build_ms": 17.76,
+        "query_ms_mean": 0.504,
+        "missed_or_below_rank_3": [
+          {
+            "id": "h02",
+            "kind": "paraphrase",
+            "question": "What kinds of firms did the EU payments directive allow besides banks?",
+            "rank_of_first_correct_chunk": 8,
+            "top_chunk_section": "Card scheme public summary > Public summary",
+            "top_chunk_doc": "card_scheme_public_summary",
+            "top_score": 5.186
+          },
+          {
+            "id": "h12",
+            "kind": "paraphrase",
+            "question": "Is the cardholder's agreement needed for the simplified online card payment in India?",
+            "rank_of_first_correct_chunk": null,
+            "top_chunk_section": "RBI card-not-present transactions and additional authentication > Public summary",
+            "top_chunk_doc": "rbi_card_not_present_afa",
+            "top_score": 8.599
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "fixed": {
+    "chunk_count": 4,
+    "avg_words_per_chunk": 8.0,
+    "max_words_per_chunk": 8,
+    "min_words_per_chunk": 8
+  },
+  "recursive": {
+    "chunk_count": 3,
+    "avg_words_per_chunk": 8.666666666666666,
+    "max_words_per_chunk": 11,
+    "min_words_per_chunk": 5
+  },
+  "semantic": {
+    "chunk_count": 3,
+    "avg_words_per_chunk": 8.666666666666666,
+    "max_words_per_chunk": 11,
+    "min_words_per_chunk": 5
+  },
+  "structure_aware": {
+    "chunk_count": 5,
+    "avg_words_per_chunk": 5.6,
+    "max_words_per_chunk": 10,
+    "min_words_per_chunk": 2
+  }
+}
