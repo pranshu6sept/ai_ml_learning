@@ -29,14 +29,19 @@ from payments_rag import (
     strip_sections,
 )
 
-SPLITS = {"dev": HERE / "questions.json", "heldout": HERE / "questions_heldout.json"}
+SPLITS = {
+    "dev": HERE / "questions.json",
+    "heldout": HERE / "questions_heldout.json",
+    "corpus_update": HERE
+    / "questions_corpus_update.json",  # the 2025 RBI document: only 5 answerable
+}
 
 
 def main() -> None:
     settings = AzureSettings.from_env()
     embedder = AzureOpenAIEmbedder(settings)
     store = AzureSearchStore(settings)
-    store.ensure_index()
+    store.recreate_index()  # clean rebuild: upserts would leave stale chunks of changed documents
 
     docs = {n: strip_sections(t, META_SECTIONS) for n, t in load_documents().items()}
     for strategy in STRATEGIES:

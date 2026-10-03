@@ -9,6 +9,7 @@ been run against a live Azure service. ``capstone/evals/azure_smoke_test.py`` is
 
 from __future__ import annotations
 
+import contextlib
 import os
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
@@ -214,6 +215,18 @@ class AzureSearchStore:
             )
         self._index_client = index_client
         self._search_client = search_client
+
+    def recreate_index(self, dimensions: int = EMBEDDING_DIMENSIONS) -> None:
+        """Delete the index (if it exists) and create it empty, so no stale chunks survive.
+
+        Uploading is an upsert: chunks whose text changed or that no longer exist would otherwise
+        stay in the index. Use this before re-uploading a corpus that has changed.
+        """
+        from azure.core.exceptions import ResourceNotFoundError
+
+        with contextlib.suppress(ResourceNotFoundError):  # nothing to delete on a first run
+            self._index_client.delete_index(self._settings.search_index)
+        self.ensure_index(dimensions)
 
     def ensure_index(self, dimensions: int = EMBEDDING_DIMENSIONS) -> None:
         """Create the index, or update it if it exists (safe to repeat)."""

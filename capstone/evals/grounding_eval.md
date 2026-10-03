@@ -19,7 +19,7 @@ Judged answers: 55 (judge errors: 0).
 | Citations point to the passage that states the claim (judge) | 54/55 (98%) |
 | Answer has at least one [n] citation | 55/55 (100%) |
 | Every [n] is a valid passage number | 55/55 (100%) |
-| Sentences carrying a citation | 76/98 (78%) |
+| Sentences carrying a citation | 76/99 (77%) |
 
 ## 3. Is a wrong answer a retrieval problem or a generation problem? (answerable, answered)
 
@@ -38,7 +38,7 @@ Judged answers: 55 (judge errors: 0).
 
 ## 5. Time per question (this laptop to Azure)
 
-Retrieve (embed + search, two regions) 630 ms; rerank (local CPU) 120 ms; generate 7755 ms.
+Retrieve (embed + search, two regions) 574 ms; rerank (local CPU) 120 ms; generate 1138 ms.
 
 ## 6. Answers to read (judge says unsupported or incorrect, or a refusal that should not have happened)
 
@@ -48,9 +48,9 @@ Retrieve (embed + search, two regions) 630 ms; rerank (local CPU) 120 ms; genera
 - **q31** (answerable; evidence has answer: True; score 4.66): What is PSD3?
   - Reply: PSD3 is a revision of the Payment Services Directive (PSD2). Legislative proposals for PSD3 and PSR were published on 28 June 2023, and a political agreement on the review was reached on 27 November 2025 [2].
   - Judge: supported=False, correct=True, claims=['PSD3 is a revision of the Payment Services Directive (PSD2).', 'a political agreement on the review was reached on 27 November 2025']
-- **q22** (answerable; evidence has answer: True; score -3.09): What do regulators expect banks to do to keep payments working during outages?
+- **q18** (answerable; evidence has answer: True; score -4.52): What if a customer says a purchase on their card was not theirs?
   - Reply: I don't know based on the provided documents.
   - Judge: supported=None, correct=None, claims=None
-- **q33** (answerable; evidence has answer: False; score -2.81): Do I have to use the simplified online card payment option?
+- **q33** (answerable; evidence has answer: False; score -2.96): Do I have to use the simplified online card payment option?
   - Reply: I don't know based on the provided documents.
   - Judge: supported=None, correct=None, claims=None

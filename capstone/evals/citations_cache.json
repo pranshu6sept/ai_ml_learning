@@ -1,0 +1,2279 @@
+{
+ "q01": {
+  "id": "q01",
+  "question": "What is ISO 20022?",
+  "answerable": true,
+  "baseline_reply": "ISO 20022 is a global messaging standard for payment and financial data that standardizes the format of messages so institutions can exchange structured payment information more consistently [1]. It is a global standard for financial messaging that provides a common, structured way to exchange payment and settlement information across banks, payment service providers, corporations, and regulators [2].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "ISO 20022 is a global messaging standard for payment and financial data [1]. It standardizes the format of messages so institutions can exchange structured payment information more consistently [1]. ISO 20022 provides a common, structured way to exchange payment and settlement information across banks, payment service providers, corporations, and regulators [2].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "enforced_reply": "ISO 20022 is a global messaging standard for payment and financial data [1]. It standardizes the format of messages so institutions can exchange structured payment information more consistently [1]. ISO 20022 provides a common, structured way to exchange payment and settlement information across banks, payment service providers, corporations, and regulators [2].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q02": {
+  "id": "q02",
+  "question": "What does ISO 20022 improve compared with proprietary formats?",
+  "answerable": true,
+  "baseline_reply": "ISO 20022 improves data quality by using a consistent message structure instead of fragmented, proprietary formats. This allows institutions to exchange richer details such as reference information, remittance data, party identification, and payment status updates in a more standard way [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "ISO 20022 improves data quality by using a consistent message structure instead of fragmented, proprietary formats [1]. It helps institutions exchange richer details such as reference information, remittance data, party identification, and payment status updates in a more standard way [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "enforced_reply": "ISO 20022 improves data quality by using a consistent message structure instead of fragmented, proprietary formats [1]. It helps institutions exchange richer details such as reference information, remittance data, party identification, and payment status updates in a more standard way [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q03": {
+  "id": "q03",
+  "question": "Which details can a single ISO 20022 payment message carry?",
+  "answerable": true,
+  "baseline_reply": "A single ISO 20022 payment message can carry structured information about the originator, beneficiary, amount, currency, purpose, and payment references [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "A single ISO 20022 payment message can include structured information about the originator, beneficiary, amount, currency, purpose, and payment references [1]. It also carries remittance information that explains why a payment was sent [2]. Additionally, it can include status reporting to track whether a payment is pending, processed, rejected, or settled [2]. The message uses a standard structure with defined fields [2].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 4,
+   "sentences_cited": 4
+  },
+  "enforced_reply": "A single ISO 20022 payment message can include structured information about the originator, beneficiary, amount, currency, purpose, and payment references [1]. It also carries remittance information that explains why a payment was sent [2]. Additionally, it can include status reporting to track whether a payment is pending, processed, rejected, or settled [2]. The message uses a standard structure with defined fields [2].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 4,
+   "sentences_cited": 4
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q04": {
+  "id": "q04",
+  "question": "What is remittance information?",
+  "answerable": true,
+  "baseline_reply": "Remittance information is structured details that explain why a payment was sent [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Remittance information is structured details that explain why a payment was sent [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "Remittance information is structured details that explain why a payment was sent [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q05": {
+  "id": "q05",
+  "question": "What is settlement in card payments?",
+  "answerable": true,
+  "baseline_reply": "Settlement in card payments is the process where funds move between participating institutions after the transaction is accepted and processed [1]. It occurs after the authorization step and involves the actual transfer of money between parties [2].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Settlement is the process where funds move between participating institutions after the transaction is accepted and processed [1]. Settlement occurs after authorization and clearing steps [1]. Settlement involves the actual movement of money between parties [2].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "enforced_reply": "Settlement is the process where funds move between participating institutions after the transaction is accepted and processed [1]. Settlement occurs after authorization and clearing steps [1]. Settlement involves the actual movement of money between parties [2].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q06": {
+  "id": "q06",
+  "question": "What is the difference between authorization and settlement?",
+  "answerable": true,
+  "baseline_reply": "Authorization is the approval step that checks whether a payment instrument can be used and whether the account has sufficient funds or approval for the transaction [1]. It involves the merchant sending a request to verify that the card is valid and the account can support the transaction [2]. Settlement, on the other hand, is the later process where funds move between parties after the transaction is accepted and processed [1]. It occurs after clearing, where transaction details are exchanged, and involves the movement of funds between participating institutions [2].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 4,
+   "sentences_cited": 4
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Authorization is the approval step that checks whether a payment instrument can be used and whether the account has sufficient funds or approval for the transaction [1]. Authorization involves the merchant sending a request to verify that the card is valid and the account can support the transaction [2]. Settlement is the later process where funds move between parties after the transaction is accepted and processed [1]. Settlement occurs after clearing, where transaction details are exchanged through the card network and acquiring/issuing banks for reconciliation [2].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 4,
+   "sentences_cited": 4
+  },
+  "enforced_reply": "Authorization is the approval step that checks whether a payment instrument can be used and whether the account has sufficient funds or approval for the transaction [1]. Authorization involves the merchant sending a request to verify that the card is valid and the account can support the transaction [2]. Settlement is the later process where funds move between parties after the transaction is accepted and processed [1]. Settlement occurs after clearing, where transaction details are exchanged through the card network and acquiring/issuing banks for reconciliation [2].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 4,
+   "sentences_cited": 4
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q07": {
+  "id": "q07",
+  "question": "Who handles card dispute processing?",
+  "answerable": true,
+  "baseline_reply": "Card dispute processing is handled by the card scheme and the banks, who may investigate customer disputes, chargebacks, or fraud-related exceptions [2].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Card dispute processing is handled by the card scheme and the banks involved in the transaction [2]. The card scheme and banks investigate customer disputes, chargebacks, or fraud-related exceptions [2]. The cardholder disputes a charge with the card company as a consumer-law process, which is separate from the card-scheme chargeback rules [3].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "enforced_reply": "Card dispute processing is handled by the card scheme and the banks involved in the transaction [2]. The card scheme and banks investigate customer disputes, chargebacks, or fraud-related exceptions [2]. The cardholder disputes a charge with the card company as a consumer-law process, which is separate from the card-scheme chargeback rules [3].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q08": {
+  "id": "q08",
+  "question": "What happens during a payment dispute?",
+  "answerable": true,
+  "baseline_reply": "During a payment dispute, a cardholder challenges a transaction and requests an investigation, reversal, or customer protection due to issues such as fraud, non-receipt, or billing problems [1]. While the dispute is open, the company may not report the payment as late to a credit reporting company if the undisputed amount is paid on time, may charge interest on the disputed amount, or require payment of the disputed charge [2]. Additionally, the card scheme and banks may investigate customer disputes, chargebacks, or fraud-related exceptions as part of dispute handling [3].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "A dispute happens when a cardholder challenges a transaction and asks for investigation, reversal, or customer protection due to issues such as fraud, non-receipt, or billing problems [1]. During the investigation, the company may not report the payment as late to a credit reporting company if you paid the undisputed amount on time, charge interest on the disputed amount, or make you pay the disputed charge [2]. The scheme and the banks may investigate customer disputes, chargebacks, or fraud-related exceptions during dispute handling [3].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "enforced_reply": "A dispute happens when a cardholder challenges a transaction and asks for investigation, reversal, or customer protection due to issues such as fraud, non-receipt, or billing problems [1]. During the investigation, the company may not report the payment as late to a credit reporting company if you paid the undisputed amount on time, charge interest on the disputed amount, or make you pay the disputed charge [2]. The scheme and the banks may investigate customer disputes, chargebacks, or fraud-related exceptions during dispute handling [3].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q09": {
+  "id": "q09",
+  "question": "What is an acquirer?",
+  "answerable": true,
+  "baseline_reply": "An acquirer is the bank that handles the merchant's account [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "An acquirer is the bank that handles the merchant's account [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "An acquirer is the bank that handles the merchant's account [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q10": {
+  "id": "q10",
+  "question": "What does the issuing bank do?",
+  "answerable": true,
+  "baseline_reply": "The issuing bank is the bank that issued the card to the customer [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "The issuing bank is the bank that issued the card to the customer [1]. The issuing bank participates in verifying that the card is valid and the account can support the transaction during authorization [2]. The issuing bank is involved in exchanging transaction details during clearing [2]. The issuing bank is involved in moving funds during settlement [2]. The issuing bank participates in investigating customer disputes, chargebacks, or fraud-related exceptions [2]. The issuing bank completes additional factor authentication (AFA) with the cardholder during online card-not-present transactions [3].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 6,
+   "sentences_cited": 6
+  },
+  "enforced_reply": "The issuing bank is the bank that issued the card to the customer [1]. The issuing bank participates in verifying that the card is valid and the account can support the transaction during authorization [2]. The issuing bank is involved in exchanging transaction details during clearing [2]. The issuing bank is involved in moving funds during settlement [2]. The issuing bank participates in investigating customer disputes, chargebacks, or fraud-related exceptions [2]. The issuing bank completes additional factor authentication (AFA) with the cardholder during online card-not-present transactions [3].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 6,
+   "sentences_cited": 6
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q11": {
+  "id": "q11",
+  "question": "What role does the card network play?",
+  "answerable": true,
+  "baseline_reply": "The card network operates the rules and infrastructure that allow card payments to be authorized, cleared, and settled across banks and merchants [1]. It connects the participants involved in the payment process, including issuers, acquirers, and merchants [3]. Additionally, the card network facilitates the exchange of transaction details during clearing and supports dispute handling processes [2].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "The card network operates the rules and infrastructure that allow card payments to be authorized, cleared, and settled across banks and merchants [1]. The network connects the participants involved in the payment process [3]. The network facilitates the exchange of transaction details during clearing [2].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "enforced_reply": "The card network operates the rules and infrastructure that allow card payments to be authorized, cleared, and settled across banks and merchants [1]. The network connects the participants involved in the payment process [3]. The network facilitates the exchange of transaction details during clearing [2].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q12": {
+  "id": "q12",
+  "question": "Why is strong customer authentication important?",
+  "answerable": true,
+  "baseline_reply": "Strong customer authentication is important because it reduces fraud by adding a second layer of verification before a payment or sensitive operation is approved. This helps ensure the person performing the transaction is actually the legitimate account holder [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Strong customer authentication reduces fraud by adding a second layer of verification before a payment or sensitive operation is approved [1]. It helps ensure the person performing the transaction is actually the legitimate account holder [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "enforced_reply": "Strong customer authentication reduces fraud by adding a second layer of verification before a payment or sensitive operation is approved [1]. It helps ensure the person performing the transaction is actually the legitimate account holder [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q13": {
+  "id": "q13",
+  "question": "What is PCI DSS?",
+  "answerable": true,
+  "baseline_reply": "PCI DSS is a security standard for protecting payment card data. It provides requirements for storing, transmitting, and processing cardholder data securely [1]. It is the Payment Card Industry Data Security Standard, published by the PCI Security Standards Council, developed to encourage and enhance payment card account data security and to help organizations around the world adopt consistent data security measures. It sets a baseline of technical and operational requirements designed to protect payment account data [2].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 4,
+   "sentences_cited": 2
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "PCI DSS is a security standard for protecting payment card data [1]. It provides requirements for storing, transmitting, and processing cardholder data securely [1]. PCI DSS is published by the PCI Security Standards Council [2]. It was developed to encourage and enhance payment card account data security [2]. It helps organisations adopt consistent data security measures worldwide [2]. It sets a baseline of technical and operational requirements designed to protect payment account data [2].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 6,
+   "sentences_cited": 6
+  },
+  "enforced_reply": "PCI DSS is a security standard for protecting payment card data [1]. It provides requirements for storing, transmitting, and processing cardholder data securely [1]. PCI DSS is published by the PCI Security Standards Council [2]. It was developed to encourage and enhance payment card account data security [2]. It helps organisations adopt consistent data security measures worldwide [2]. It sets a baseline of technical and operational requirements designed to protect payment account data [2].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 6,
+   "sentences_cited": 6
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q14": {
+  "id": "q14",
+  "question": "What topics does public RBI guidance cover?",
+  "answerable": true,
+  "baseline_reply": "Public RBI guidance covers safe and secure digital payments, customer authentication and fraud controls, payment infrastructure and processing ecosystem, system resilience and operational continuity, and risk management and compliance expectations [1]. It also includes directions on payment systems, consumer protection, digital payments, and risk management in the Indian context [2].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Public RBI guidance covers safe and secure digital payments [1]. It includes customer authentication and fraud controls [1]. It addresses payment infrastructure and processing ecosystem [1]. It covers system resilience and operational continuity [1]. It also includes risk management and compliance expectations [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 5,
+   "sentences_cited": 5
+  },
+  "enforced_reply": "Public RBI guidance covers safe and secure digital payments [1]. It includes customer authentication and fraud controls [1]. It addresses payment infrastructure and processing ecosystem [1]. It covers system resilience and operational continuity [1]. It also includes risk management and compliance expectations [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 5,
+   "sentences_cited": 5
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q15": {
+  "id": "q15",
+  "question": "Why do payment systems need good chunking and retrieval?",
+  "answerable": true,
+  "baseline_reply": "Payment systems need good chunking and retrieval because payment documentation is dense, structured, and often spread across standards, rules, and guidance. Good retrieval depends on preserving section boundaries and technical context so the system can answer questions grounded in the correct policy or rule [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Payment systems need good chunking and retrieval because payment documentation is dense, structured, and often spread across standards, rules, and guidance [1]. Good retrieval depends on preserving section boundaries and technical context so the system can answer questions grounded in the correct policy or rule [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "enforced_reply": "Payment systems need good chunking and retrieval because payment documentation is dense, structured, and often spread across standards, rules, and guidance [1]. Good retrieval depends on preserving section boundaries and technical context so the system can answer questions grounded in the correct policy or rule [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q16": {
+  "id": "q16",
+  "question": "How do banks agree on a common way to exchange payment data?",
+  "answerable": true,
+  "baseline_reply": "Banks agree on a common way to exchange payment data by using ISO 20022, which is a global standard for financial messaging. It provides a common, structured way to exchange payment and settlement information across banks, payment service providers, corporations, and regulators [1]. Additionally, ISO 20022 defines message standards where each payment message has a standard structure and defined fields, ensuring consistency in communication [3].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 2
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Banks agree on a common way to exchange payment data by using ISO 20022, which is a global standard for financial messaging [1]. ISO 20022 provides a common, structured way to exchange payment and settlement information across banks, payment service providers, corporations, and regulators [1]. Each payment message under ISO 20022 has a standard structure and defined fields [3].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "enforced_reply": "Banks agree on a common way to exchange payment data by using ISO 20022, which is a global standard for financial messaging [1]. ISO 20022 provides a common, structured way to exchange payment and settlement information across banks, payment service providers, corporations, and regulators [1]. Each payment message under ISO 20022 has a standard structure and defined fields [3].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q17": {
+  "id": "q17",
+  "question": "How can I find out where a payment currently stands?",
+  "answerable": true,
+  "baseline_reply": "To find out where a payment currently stands, you need to understand the stages in the payment lifecycle, which include authorization, clearing, settlement, and dispute handling [2]. Authorization confirms if the payment instrument is valid and funds are available, clearing exchanges transaction details for reconciliation, settlement moves the funds between institutions, and dispute handling addresses any issues or exceptions [2]. Knowing which stage the payment is in will tell you where it currently stands.",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 2
+  },
+  "baseline_judgement": {
+   "supported": false,
+   "citations_correct": true,
+   "correct": false,
+   "unsupported_claims": [
+    "Knowing which stage the payment is in will tell you where it currently stands."
+   ]
+  },
+  "strict_reply": "You can find out where a payment currently stands by understanding the payment lifecycle stages: authorization, clearing, settlement, and dispute handling [2]. Authorization shows if the card is valid and the account can support the transaction [2]. Clearing involves exchanging transaction details for reconciliation [2]. Settlement is when funds move between institutions after acceptance [2]. Dispute handling occurs if there are customer disputes or fraud investigations [2]. Knowing these stages helps identify the current status of a payment [2].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 6,
+   "sentences_cited": 6
+  },
+  "enforced_reply": "You can find out where a payment currently stands by understanding the payment lifecycle stages: authorization, clearing, settlement, and dispute handling [2]. Authorization shows if the card is valid and the account can support the transaction [2]. Clearing involves exchanging transaction details for reconciliation [2]. Settlement is when funds move between institutions after acceptance [2]. Dispute handling occurs if there are customer disputes or fraud investigations [2]. Knowing these stages helps identify the current status of a payment [2].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 6,
+   "sentences_cited": 6
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": false,
+   "unsupported_claims": []
+  }
+ },
+ "q19": {
+  "id": "q19",
+  "question": "How does money actually move between banks after a purchase is approved?",
+  "answerable": true,
+  "baseline_reply": "Money actually moves between banks after a purchase is approved during the settlement process. Settlement is the stage where funds move between participating institutions after the transaction is accepted and processed [1]. This is further clarified as the later process where funds move between parties after the transaction is accepted and processed [2].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 2
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Money moves between participating institutions during the settlement process after the transaction is accepted and processed [1]. Settlement is the later process where funds move between parties after the transaction is accepted and processed [2].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "enforced_reply": "Money moves between participating institutions during the settlement process after the transaction is accepted and processed [1]. Settlement is the later process where funds move between parties after the transaction is accepted and processed [2].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q20": {
+  "id": "q20",
+  "question": "Which bank looks after the shop's account?",
+  "answerable": true,
+  "baseline_reply": "The bank that looks after the shop's account is the Acquirer [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "The acquirer is the bank that handles the merchant's account [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "The acquirer is the bank that handles the merchant's account [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q21": {
+  "id": "q21",
+  "question": "Do I need a second verification step before a payment goes through?",
+  "answerable": true,
+  "baseline_reply": "Yes, a second verification step, known as strong customer authentication, is important before a payment goes through because it reduces fraud by adding an additional layer of verification to ensure the person performing the transaction is the legitimate account holder [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Yes, a second verification step, called strong customer authentication, is important before a payment goes through [1]. It adds a second layer of verification to reduce fraud [1]. This step helps ensure the person performing the transaction is the legitimate account holder [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "enforced_reply": "Yes, a second verification step, called strong customer authentication, is important before a payment goes through [1]. It adds a second layer of verification to reduce fraud [1]. This step helps ensure the person performing the transaction is the legitimate account holder [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q22": {
+  "id": "q22",
+  "question": "What do regulators expect banks to do to keep payments working during outages?",
+  "answerable": true,
+  "baseline_reply": "Regulators expect banks to ensure system resilience and operational continuity to keep payments working during outages [2].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Regulators expect banks to ensure system resilience and operational continuity to keep payments working during outages [2].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "Regulators expect banks to ensure system resilience and operational continuity to keep payments working during outages [2].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q23": {
+  "id": "q23",
+  "question": "What are the steps a card payment goes through?",
+  "answerable": true,
+  "baseline_reply": "The steps a card payment goes through are:\n\n1. Authorization: the merchant sends a request to verify that the card is valid and the account can support the transaction [1].  \n2. Clearing: the transaction details are exchanged through the card network and acquiring/issuing banks so the payment can be reconciled [1].  \n3. Settlement: funds move between participating institutions after the transaction is accepted and processed [1].  \n4. Dispute handling: the scheme and the banks may investigate customer disputes, chargebacks, or fraud-related exceptions [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 8,
+   "sentences_cited": 4
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "The steps a card payment goes through are authorization, clearing, settlement, and dispute handling [1]. Authorization is when the merchant sends a request to verify the card and account [1]. Clearing is when transaction details are exchanged through the card network and banks [1]. Settlement is when funds move between participating institutions after the transaction is accepted and processed [1]. Dispute handling involves investigating customer disputes, chargebacks, or fraud-related exceptions [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 5,
+   "sentences_cited": 5
+  },
+  "enforced_reply": "The steps a card payment goes through are authorization, clearing, settlement, and dispute handling [1]. Authorization is when the merchant sends a request to verify the card and account [1]. Clearing is when transaction details are exchanged through the card network and banks [1]. Settlement is when funds move between participating institutions after the transaction is accepted and processed [1]. Dispute handling involves investigating customer disputes, chargebacks, or fraud-related exceptions [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 5,
+   "sentences_cited": 5
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q24": {
+  "id": "q24",
+  "question": "Why do public regulators publish guidance on digital payments?",
+  "answerable": true,
+  "baseline_reply": "Public regulators publish guidance on digital payments to reduce fraud, improve security, and make digital payments reliable for both consumers and financial institutions [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Public regulators publish guidance on digital payments to reduce fraud [1]. They also aim to improve security [1]. Another reason is to make digital payments reliable for consumers and financial institutions [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "enforced_reply": "Public regulators publish guidance on digital payments to reduce fraud [1]. They also aim to improve security [1]. Another reason is to make digital payments reliable for consumers and financial institutions [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "u03": {
+  "id": "u03",
+  "question": "Which ISO 20022 message type is used for a customer credit transfer?",
+  "answerable": false,
+  "baseline_reply": "The ISO 20022 message type used for a customer credit transfer is \"pain,\" which covers payments initiation messages that support starting a payment from the ordering customer to a financial institution servicing a cash account [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": null,
+   "unsupported_claims": []
+  },
+  "strict_reply": "The ISO 20022 message type used for a customer credit transfer is \"pain\" [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "The ISO 20022 message type used for a customer credit transfer is \"pain\" [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": false,
+   "citations_correct": false,
+   "correct": null,
+   "unsupported_claims": [
+    "The ISO 20022 message type used for a customer credit transfer is \"pain\""
+   ]
+  }
+ },
+ "q25": {
+  "id": "q25",
+  "question": "Who does PCI DSS apply to?",
+  "answerable": true,
+  "baseline_reply": "PCI DSS applies to any entity that stores, processes, or transmits cardholder data (CHD) or sensitive authentication data (SAD) and any entity that could affect the security of the cardholder data environment (CDE). This includes every kind of participant in card processing: merchants, processors, acquirers, issuers, and service providers [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "PCI DSS applies to any entity that stores, processes, or transmits cardholder data (CHD) or sensitive authentication data (SAD) [1]. It also applies to any entity that could affect the security of the cardholder data environment (CDE) [1]. This includes every kind of participant in card processing: merchants, processors, acquirers, issuers, and service providers [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "enforced_reply": "PCI DSS applies to any entity that stores, processes, or transmits cardholder data (CHD) or sensitive authentication data (SAD) [1]. It also applies to any entity that could affect the security of the cardholder data environment (CDE) [1]. This includes every kind of participant in card processing: merchants, processors, acquirers, issuers, and service providers [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q26": {
+  "id": "q26",
+  "question": "What is the purpose of PCI DSS?",
+  "answerable": true,
+  "baseline_reply": "The purpose of PCI DSS is to protect payment card data by providing requirements for storing, transmitting, and processing cardholder data securely [1]. It was developed to encourage and enhance payment card account data security and to help organizations around the world adopt consistent data security measures [2]. It sets a baseline of technical and operational requirements designed to protect payment account data [2].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "PCI DSS is a security standard for protecting payment card data [1]. It provides requirements for storing, transmitting, and processing cardholder data securely [1]. It was developed to encourage and enhance payment card account data security [2]. It helps organisations around the world adopt consistent data security measures [2]. It sets a baseline of technical and operational requirements designed to protect payment account data [2].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 5,
+   "sentences_cited": 5
+  },
+  "enforced_reply": "PCI DSS is a security standard for protecting payment card data [1]. It provides requirements for storing, transmitting, and processing cardholder data securely [1]. It was developed to encourage and enhance payment card account data security [2]. It helps organisations around the world adopt consistent data security measures [2]. It sets a baseline of technical and operational requirements designed to protect payment account data [2].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 5,
+   "sentences_cited": 5
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q27": {
+  "id": "q27",
+  "question": "Which organisations decide whether a company meets the card data security rules?",
+  "answerable": true,
+  "baseline_reply": "Organisations that manage compliance programmes, such as a payment brand, an acquirer, or another entity, decide whether a company meets the card data security rules [3].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Organisations that manage compliance programmes decide whether a company meets the card data security rules [3]. These include a payment brand, an acquirer, or another entity [3].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "enforced_reply": "Organisations that manage compliance programmes decide whether a company meets the card data security rules [3]. These include a payment brand, an acquirer, or another entity [3].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q28": {
+  "id": "q28",
+  "question": "When did strong customer authentication become mandatory under PSD2?",
+  "answerable": true,
+  "baseline_reply": "Strong customer authentication became mandatory under PSD2 on 13 September 2019 [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Strong customer authentication became mandatory on 13 September 2019 [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "Strong customer authentication became mandatory on 13 September 2019 [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q29": {
+  "id": "q29",
+  "question": "What are the aims of PSD2?",
+  "answerable": true,
+  "baseline_reply": "The aims of PSD2 are to make internet payment services easier and safer, to better protect consumers against fraud, abuse and payment problems, to promote innovative mobile and internet payment services, and to strengthen consumer rights [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "PSD2 aims to make internet payment services easier and safer [1]. It aims to better protect consumers against fraud, abuse, and payment problems [1]. It aims to promote innovative mobile and internet payment services [1]. It aims to strengthen consumer rights [1]. PSD2 also aims to increase competition and choice for consumers by introducing new payment service providers beyond banks [2]. It aims to strengthen the role of the European Banking Authority (EBA) [2]. PSD2 aims to limit fees for consumer debit and credit card transactions [3]. It bans retailer surcharges for card use [3].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 8,
+   "sentences_cited": 8
+  },
+  "enforced_reply": "PSD2 aims to make internet payment services easier and safer [1]. It aims to better protect consumers against fraud, abuse, and payment problems [1]. It aims to promote innovative mobile and internet payment services [1]. It aims to strengthen consumer rights [1]. PSD2 also aims to increase competition and choice for consumers by introducing new payment service providers beyond banks [2]. It aims to strengthen the role of the European Banking Authority (EBA) [2]. PSD2 aims to limit fees for consumer debit and credit card transactions [3]. It bans retailer surcharges for card use [3].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 8,
+   "sentences_cited": 8
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q30": {
+  "id": "q30",
+  "question": "Can shops charge extra for paying by card in the EU?",
+  "answerable": true,
+  "baseline_reply": "No, shops cannot charge extra for paying by card in the EU. The directive bans retailer surcharges for card use [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "No, shops cannot charge extra for paying by card in the EU. The directive bans retailer surcharges for card use [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "The directive bans retailer surcharges for card use [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [
+   "No, shops cannot charge extra for paying by card in the EU."
+  ],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q31": {
+  "id": "q31",
+  "question": "What is PSD3?",
+  "answerable": true,
+  "baseline_reply": "PSD3 is a revision of the Payment Services Directive (PSD2). Legislative proposals for PSD3 and PSR were published on 28 June 2023, and a political agreement on the review was reached on 27 November 2025 [2].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": false,
+   "citations_correct": false,
+   "correct": true,
+   "unsupported_claims": [
+    "PSD3 is a revision of the Payment Services Directive (PSD2).",
+    "a political agreement on the review was reached on 27 November 2025"
+   ]
+  },
+  "strict_reply": "PSD3 is a revision of PSD2. It is part of legislative proposals published on 28 June 2023. A political agreement on the review was reached on 27 November 2025 [2].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "A political agreement on the review was reached on 27 November 2025 [2].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [
+   "PSD3 is a revision of PSD2.",
+   "It is part of legislative proposals published on 28 June 2023."
+  ],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": false,
+   "citations_correct": true,
+   "correct": false,
+   "unsupported_claims": [
+    "A political agreement on the review was reached on 27 November 2025"
+   ]
+  }
+ },
+ "q32": {
+  "id": "q32",
+  "question": "Below what value can extra authentication be relaxed for online card payments in India?",
+  "answerable": true,
+  "baseline_reply": "Extra authentication can be relaxed for online card payments in India for transactions up to \u20b92,000 [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Extra authentication can be relaxed for online card payments in India up to \u20b92,000 [1][3].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "Extra authentication can be relaxed for online card payments in India up to \u20b92,000 [1][3].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q34": {
+  "id": "q34",
+  "question": "Who is liable if there is a security breach of the card authentication solution?",
+  "answerable": true,
+  "baseline_reply": "Banks and networks are listed as bearing full liability for any security breach or compromise [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Banks and networks bear full liability for any security breach or compromise of the card authentication solution [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "Banks and networks bear full liability for any security breach or compromise of the card authentication solution [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q35": {
+  "id": "q35",
+  "question": "How long do I have to dispute a credit card charge in the US?",
+  "answerable": true,
+  "baseline_reply": "You must send a written billing error notice to the card company within 60 calendar days after the charge appeared on your statement [2].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "You must send a written billing error notice to the card company within 60 calendar days after the charge appeared on your statement [2].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "You must send a written billing error notice to the card company within 60 calendar days after the charge appeared on your statement [2].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q36": {
+  "id": "q36",
+  "question": "What must the card company do if my billing complaint is right?",
+  "answerable": true,
+  "baseline_reply": "If your billing complaint is right, the card company must remove the charge from your bill [2].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "If your billing complaint is right, the card company must remove the charge from your bill [2].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "If your billing complaint is right, the card company must remove the charge from your bill [2].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q37": {
+  "id": "q37",
+  "question": "How long does the card company have to acknowledge a billing dispute?",
+  "answerable": true,
+  "baseline_reply": "The card company has 30 days to send a letter confirming that it received the dispute after receiving the notice, unless it has already finished the resolution process within that time [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "The card company has 30 days to send a letter confirming that it received the dispute after receiving the notice [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "The card company has 30 days to send a letter confirming that it received the dispute after receiving the notice [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q38": {
+  "id": "q38",
+  "question": "What is UPI?",
+  "answerable": true,
+  "baseline_reply": "UPI, or Unified Payments Interface, is an instant, real-time payment system developed by NPCI, the National Payments Corporation of India, which is regulated by the RBI. It enables inter-bank transactions through mobile phones, allowing money to move directly from one bank account to another without the need for wallet top-up. Payments can be made at any time, including Sundays and bank holidays [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "UPI is an instant, real-time payment system developed by NPCI, the National Payments Corporation of India [1]. It enables inter-bank transactions through mobile phones [1]. Money moves directly from one bank account to another without needing a wallet top-up [1]. Payments work 24/7, including Sundays and bank holidays [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 4,
+   "sentences_cited": 4
+  },
+  "enforced_reply": "UPI is an instant, real-time payment system developed by NPCI, the National Payments Corporation of India [1]. It enables inter-bank transactions through mobile phones [1]. Money moves directly from one bank account to another without needing a wallet top-up [1]. Payments work 24/7, including Sundays and bank holidays [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 4,
+   "sentences_cited": 4
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q39": {
+  "id": "q39",
+  "question": "Can I send money on a bank holiday in India?",
+  "answerable": true,
+  "baseline_reply": "Yes, you can send money on a bank holiday in India. Payments through UPI work around the clock, including Sundays and bank holidays [2].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Yes, you can send money on a bank holiday in India. Payments work around the clock, including Sundays and bank holidays [2].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "Payments work around the clock, including Sundays and bank holidays [2].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [
+   "Yes, you can send money on a bank holiday in India."
+  ],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q40": {
+  "id": "q40",
+  "question": "What are the two authentication factors in UPI?",
+  "answerable": true,
+  "baseline_reply": "The two authentication factors in UPI are the mobile number linked to the user's bank account and the UPI PIN [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "The two authentication factors in UPI are the mobile number linked to the user's bank account and the UPI PIN [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "The two authentication factors in UPI are the mobile number linked to the user's bank account and the UPI PIN [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q41": {
+  "id": "q41",
+  "question": "What does pacs mean in ISO 20022?",
+  "answerable": true,
+  "baseline_reply": "In ISO 20022, \"pacs\" refers to payments clearing and settlement, which are messages that support clearing and settlement between financial institutions [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Pacs in ISO 20022 means payments clearing and settlement [1]. It refers to messages that support clearing and settlement between financial institutions [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "enforced_reply": "Pacs in ISO 20022 means payments clearing and settlement [1]. It refers to messages that support clearing and settlement between financial institutions [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q42": {
+  "id": "q42",
+  "question": "How is an ISO 20022 message identifier structured?",
+  "answerable": true,
+  "baseline_reply": "An ISO 20022 message identifier is structured with four parts: four letters for the business area, three digits for the message definition, three digits for the variant, and two digits for the version [1]. The four-letter code representing the business area is at the start of every message identifier [2].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "An ISO 20022 message identifier has four parts [1]. The first part is four letters for the business area [1]. The second part is three digits for the message definition [1]. The third part is three digits for the variant [1]. The fourth part is two digits for the version [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 5,
+   "sentences_cited": 5
+  },
+  "enforced_reply": "An ISO 20022 message identifier has four parts [1]. The first part is four letters for the business area [1]. The second part is three digits for the message definition [1]. The third part is three digits for the variant [1]. The fourth part is two digits for the version [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 5,
+   "sentences_cited": 5
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "q43": {
+  "id": "q43",
+  "question": "Which ISO 20022 messages deal with reporting account balances and investigations?",
+  "answerable": true,
+  "baseline_reply": "The ISO 20022 messages that deal with reporting account balances and investigations are the camt messages, which support reporting and advising on the cash side of financial transactions, including cash movements, balances, and exceptions and investigations [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "The ISO 20022 messages that deal with reporting account balances and investigations are camt messages [1]. Camt messages support reporting and advising on the cash side of financial transactions, including cash movements, balances, and exceptions and investigations [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "enforced_reply": "The ISO 20022 messages that deal with reporting account balances and investigations are camt messages [1]. Camt messages support reporting and advising on the cash side of financial transactions, including cash movements, balances, and exceptions and investigations [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "h01": {
+  "id": "h01",
+  "question": "Which regulator issued the circular on online card payments made without a physical card?",
+  "answerable": true,
+  "baseline_reply": "The Reserve Bank of India (RBI) issued the circular on online card payments made without a physical card [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "The Reserve Bank of India issued the circular on online card payments made without a physical card [1][2][3].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "The Reserve Bank of India issued the circular on online card payments made without a physical card [1][2][3].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "h02": {
+  "id": "h02",
+  "question": "What kinds of firms did the EU payments directive allow besides banks?",
+  "answerable": true,
+  "baseline_reply": "The EU payments directive, PSD2, introduced a new category of payment service provider beyond banks, which increases competition and choice for consumers [2].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "The EU payments directive allowed a new category of payment service provider beyond banks. This increased competition and choice for consumers [2].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "This increased competition and choice for consumers [2].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [
+   "The EU payments directive allowed a new category of payment service provider beyond banks."
+  ],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": false,
+   "citations_correct": false,
+   "correct": false,
+   "unsupported_claims": [
+    "This increased competition and choice for consumers"
+   ]
+  }
+ },
+ "h03": {
+  "id": "h03",
+  "question": "What is the cardholder data environment?",
+  "answerable": true,
+  "baseline_reply": "The cardholder data environment (CDE) is the systems and processes that handle cardholder data (CHD) [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "The cardholder data environment (CDE) is the systems and processes that handle cardholder data (CHD) [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "The cardholder data environment (CDE) is the systems and processes that handle cardholder data (CHD) [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "h04": {
+  "id": "h04",
+  "question": "Can I still dispute a credit card charge after I have paid the bill?",
+  "answerable": true,
+  "baseline_reply": "Yes, you can dispute a charge even if you have already paid it, although reimbursement may take longer [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "You can dispute a charge even if you have already paid it [1]. Reimbursement may take longer if you have paid the bill [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "enforced_reply": "You can dispute a charge even if you have already paid it [1]. Reimbursement may take longer if you have paid the bill [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "h05": {
+  "id": "h05",
+  "question": "Which apps let me link several bank accounts for instant transfers in India?",
+  "answerable": true,
+  "baseline_reply": "Several bank accounts can be linked in one UPI app, such as BHIM, PhonePe or Google Pay [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Apps like BHIM, PhonePe, and Google Pay let you link several bank accounts for instant transfers in India [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "Apps like BHIM, PhonePe, and Google Pay let you link several bank accounts for instant transfers in India [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "h06": {
+  "id": "h06",
+  "question": "What do the digits in an ISO 20022 message identifier stand for?",
+  "answerable": true,
+  "baseline_reply": "The digits in an ISO 20022 message identifier stand for the message definition, the variant, and the version. Specifically, there are three digits for the message definition, three digits for the variant, and two digits for the version [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "The three digits after the four letters stand for the message definition [1]. The next three digits represent the variant [1]. The last two digits indicate the version [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "enforced_reply": "The three digits after the four letters stand for the message definition [1]. The next three digits represent the variant [1]. The last two digits indicate the version [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "h07": {
+  "id": "h07",
+  "question": "What is a velocity check?",
+  "answerable": true,
+  "baseline_reply": "A velocity check refers to limits on how often transactions can happen [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "A velocity check is a limit on how often transactions can happen [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "A velocity check is a limit on how often transactions can happen [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "h08": {
+  "id": "h08",
+  "question": "What is strong customer authentication meant to confirm about the person paying?",
+  "answerable": true,
+  "baseline_reply": "Strong customer authentication is meant to confirm that the person performing the transaction is actually the legitimate account holder [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Strong customer authentication is meant to confirm that the person performing the transaction is actually the legitimate account holder [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "Strong customer authentication is meant to confirm that the person performing the transaction is actually the legitimate account holder [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "h09": {
+  "id": "h09",
+  "question": "Does the US dispute guidance deal with chargebacks between the issuing and acquiring banks?",
+  "answerable": true,
+  "baseline_reply": "No, the US dispute guidance does not deal with chargebacks between the issuing and acquiring banks. It is a consumer-law process between the cardholder and the card company and is separate from the card-scheme chargeback rules between issuing and acquiring banks [1].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "The US dispute guidance does not cover chargebacks between the issuing and acquiring banks [1]. It is a consumer-law process between the cardholder and the card company [1]. Chargebacks between banks are part of the card-scheme rules, which this guidance does not address [1].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "enforced_reply": "The US dispute guidance does not cover chargebacks between the issuing and acquiring banks [1]. It is a consumer-law process between the cardholder and the card company [1]. Chargebacks between banks are part of the card-scheme rules, which this guidance does not address [1].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 3
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "h10": {
+  "id": "h10",
+  "question": "When was agreement reached on the update to the EU payments directive?",
+  "answerable": true,
+  "baseline_reply": "Agreement on the update to the EU payments directive was reached on 27 November 2025 [2].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Agreement on the update to the EU payments directive was reached on 27 November 2025 [2].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "enforced_reply": "Agreement on the update to the EU payments directive was reached on 27 November 2025 [2].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "h11": {
+  "id": "h11",
+  "question": "Do I need to register a payee before sending money by UPI?",
+  "answerable": true,
+  "baseline_reply": "No, you do not need to register a payee before sending money by UPI. A user can send money to a UPI ID, a mobile number, or a QR code without first adding the beneficiary or waiting for approval [2].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "No, you do not need to register a payee before sending money by UPI[2]. You can send money to a UPI ID, a mobile number, or a QR code without first adding the beneficiary or waiting for approval[2].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "enforced_reply": "No, you do not need to register a payee before sending money by UPI[2]. You can send money to a UPI ID, a mobile number, or a QR code without first adding the beneficiary or waiting for approval[2].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "h12": {
+  "id": "h12",
+  "question": "Is the cardholder's agreement needed for the simplified online card payment in India?",
+  "answerable": true,
+  "baseline_reply": "Yes, the cardholder's consent is required for the simplified online card payment in India for card-not-present transactions up to \u20b92,000 using the relaxed authentication solution [3].",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 1,
+   "sentences_cited": 1
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  },
+  "strict_reply": "Yes, the cardholder's consent is required for the simplified online card payment in India [3]. The solution is optional and needs the cardholder's agreement for card-not-present transactions up to \u20b92,000 [3].",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "enforced_reply": "Yes, the cardholder's consent is required for the simplified online card payment in India [3]. The solution is optional and needs the cardholder's agreement for card-not-present transactions up to \u20b92,000 [3].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "dropped": [],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": true,
+   "unsupported_claims": []
+  }
+ },
+ "b03": {
+  "id": "b03",
+  "question": "What is the maximum customer liability amount in the RBI circular?",
+  "answerable": false,
+  "baseline_reply": "The passages do not specify the exact maximum customer liability amount in the RBI circular. Passage [1] mentions that banks should disclose the maximum customer liability at enrolment but does not state the amount. Passage [3] confirms the circular has been repealed, and passage [2] references the repeal but does not provide the liability amount.\n\nI don't know based on the provided documents.",
+  "baseline_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 4,
+   "sentences_cited": 2
+  },
+  "baseline_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": null,
+   "unsupported_claims": []
+  },
+  "strict_reply": "The maximum customer liability amount is disclosed at enrolment by banks, but the exact amount is not specified in the passages [1]. The 2016 circular allowed card-not-present transactions up to \u20b92,000 without additional authentication, but this does not specify customer liability [1][2]. Therefore, the exact maximum customer liability amount is not provided in the passages.",
+  "strict_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 3,
+   "sentences_cited": 2
+  },
+  "enforced_reply": "The maximum customer liability amount is disclosed at enrolment by banks, but the exact amount is not specified in the passages [1]. The 2016 circular allowed card-not-present transactions up to \u20b92,000 without additional authentication, but this does not specify customer liability [1][2].",
+  "enforced_stats": {
+   "has_citation": true,
+   "valid_indexes": true,
+   "sentences": 2,
+   "sentences_cited": 2
+  },
+  "dropped": [
+   "Therefore, the exact maximum customer liability amount is not provided in the passages."
+  ],
+  "invalid_markers": 0,
+  "became_refusal": false,
+  "enforced_judgement": {
+   "supported": true,
+   "citations_correct": true,
+   "correct": null,
+   "unsupported_claims": []
+  }
+ }
+}

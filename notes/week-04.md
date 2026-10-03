@@ -372,9 +372,10 @@ What it shows, and what it doesn't:
 5. **22% of sentences have no citation.** The prompt says to cite every claim, but the model often cites only the last
    sentence, or leaves a restating opening sentence uncited. The judge rated citations 98% correct, but it is lenient on
    missing ones. Citation coverage needs enforcing (a stricter prompt, or code that drops uncited sentences).
-6. **Timing (this laptop to Azure):** retrieval median 0.62 s (an embedding call and a search in two regions), rerank 0.12 s
-   on the CPU, generation median 4.9 s. The mean (7.8 s), p90 (29 s) and max (82 s) are inflated: the latest run hit the
-   deployment's rate limit 19 times and each retry adds waiting, so only the median is close to model speed.
+6. **Timing (this laptop to Azure), corrected on the rerun:** retrieval median 0.49 s (an embedding call and a search in two
+   regions), rerank 0.12 s on the CPU, and generation **median 1.0 s (p90 1.6 s, max 4.7 s)**, measured in a run with no
+   rate-limit waits. The earlier figures (median 4.9 s, mean 7.8 s, max 82 s) were inflated by retry waits: I had called the
+   median "close to model speed", and it was not.
 
 **Caveats:** my 80 questions, results from one complete run (a second run's judge verdicts differed), and a judge that is
 the same model as the generator and demonstrably missed real errors. The model's own refusal and the gate were not tested against questions written by other people.
@@ -410,10 +411,42 @@ it (a test enforces the field and the date format). Known: RBI 2016-12-06, RBI 2
 The other eight are `null`.
 
 **Checks and what they did not cover:** local TF-IDF retrieval on the original questions barely moved with the extra
-document (fixed-size Hit@3 0.72 to 0.77, the others unchanged), so it is not adding much confusion. **The live Azure
-index has not been refreshed:** it still holds the old, unlabelled 2016 text and lacks the new document, so Azure answers
-about the ₹2,000 limit would state a repealed rule. Every Azure number above was measured on that old index. Rebuilding
-the index (a clean delete and re-upload, since upserts leave stale chunks) is open.
+document (fixed-size Hit@3 0.72 to 0.77, the others unchanged), so it is not adding much confusion.
+
+**Azure index rebuilt (3 Oct 2026).** The live index had kept the old, unlabelled 2016 text and lacked the new document, so
+Azure would have stated the repealed ₹2,000 rule as current. I added `AzureSearchStore.recreate_index()` (delete, then
+create empty, because an upload is an upsert and leaves stale chunks) and re-uploaded the 11-document corpus. Results:
+
+- **The fix works where it matters.** Asked "Can I use the simplified online card payment option for amounts up to 2,000
+  rupees?", the system now answers no, because the circular that allowed it was repealed, citing the repealed document and the
+  2025 Directions. (It says "repealed in 2025"; the corpus only says the 25 Sep 2025 Directions repeal it with compliance by
+  1 Apr 2026, so the effective date is looser than that answer implies.)
+- **The old questions moved a little,** mostly by one or two questions, which is the noise level: structure-aware dev Hit@3
+  0.93 to 0.88, Hit@1 0.74 to 0.70, held-out Hit@3 0.92 to 0.83 (one question of 12). A plausible cause is the extra RBI
+  document, which overlaps in topic with the 2016 one. I did not test that.
+- **The new questions retrieve poorly: 2 of 5 in the top 3 on every strategy** (fixed-size and structure-aware reach 3 of 5
+  by rank 5). The two direct ones are found; the three **paraphrased** ones are not, because the 2016 circular, which covers
+  the same topic, outranks the 2025 directions. Five questions can't support more than that, and I wrote them together with
+  the document.
+- **Reran grounding, citations and answerability on the rebuilt index** (cleared caches, same 80 questions; the 6 new RBI
+  questions are not in these runs). The outcomes held:
+
+| | Before the rebuild | After the rebuild |
+|---|---|---|
+| Grounding: tuned gate threshold | 4.41 | 4.41 |
+| Model answered / correct (answerable) | 53 of 55 / 52 | 53 of 55 / 52 |
+| Unanswerable refused by the model itself | 23 of 25 | 23 of 25 |
+| Wrong answers shipped by gate and model | 0 | 0 |
+| Sentences carrying a citation (default prompt) | 76 of 98 (78%) | 76 of 99 (77%) |
+| Strict prompt, before enforcement | 137 of 140 (98%) | 135 of 141 (96%) |
+| Sentences enforcement dropped | 3 in 3 answers | 6 in 5 answers |
+| Answerability check: answerable answered | 44 of 55 | 45 of 55 |
+| Answerability check: unanswerable shipped / fabricated quotes | 0 of 25 / 0 | 0 of 25 / 0 |
+| Answerability AUROC: reranker / label / quote-verified | 0.79 / 0.96 / 0.90 | 0.79 / 0.97 / 0.91 |
+
+  The evidence changed for 12 or more questions and two questions swapped between answered and refused (q18, q22, one each
+  way), but the totals did not move. Only 2 of 80 answerability labels changed (h07 partial to full, hu2 partial to none), and
+  one gate decision (h07). So the answerability check is stable across runs and across a changed index.
 
 ### Enforcing citations on every sentence (`capstone/evals/evaluate_citations.py`)
 
@@ -445,10 +478,20 @@ What it shows, and what it doesn't:
    fix was tested with a scripted fake model; only the first version was run on Azure.
 4. **Presence is not correctness.** A sentence can cite a passage that does not support it. Enforcement guarantees the
    marker exists and points at a passage that exists; it does not check support.
-5. **The judge disagreed with itself again.** On the enforced answers it called u03 unsupported (last run: supported) and
-   flagged q31 as incorrect (a false alarm, as before). Its "51 of 53 correct" against the baseline's 52 is noise, not a
-   quality loss. By my reading the only real failure among the answerable questions is still q17 (the passages lacked the
-   answer and the model answered anyway).
+5. **The judge disagreed with itself again.** On the first run it called u03 unsupported (the run before: supported) and
+   flagged q31 as incorrect (a false alarm, as before). Its "51 of 53 correct" against the baseline's 52 was noise there.
+6. **The rerun showed enforcement can really break an answer.** It dropped 6 sentences in 5 answers, and 4 of the 6 were again
+   the answer's first sentence (7 of 9 across the two runs). For h02 ("What kinds of firms did the EU payments directive allow
+   besides banks?") it dropped the only sentence that answered the question ("allowed a new category of payment service
+   provider beyond banks") and kept the follow-on remark ("This increased competition and choice for consumers [2]"). The
+   judge's new "incorrect" flag on h02 is right, so this run's 50 of 53 includes one real regression caused by enforcement.
+   The rewrite retry was designed for exactly this case, but I have not measured it across all questions on Azure.
+7. **A dropped hedge is not always a loss.** For b03 enforcement dropped "the exact maximum customer liability amount is not
+   provided in the passages", but the answer's first sentence already said the amount "is not specified in the passages". It
+   also shows a metric flaw: the grounding table counts only an exact "I don't know" as a refusal, so a correct hedge like
+   this one is scored as the model answering an unanswerable question.
+8. By my reading the only real failure among the answerable questions in the baseline is still q17 (the passages lacked the
+   answer and the model answered anyway); with enforcement, h02 is a second, caused by dropping.
 
 ### A better abstain signal: ask for a quote, then check it (`capstone/evals/evaluate_answerability.py`)
 
@@ -543,7 +586,8 @@ can show a gap that disappears at scale, and a retrieval score can't tell me whe
 
 - [x] Checked the author-written and search-summary documents against real sources as far as the sites allow (one rule
       turned out to be repealed; see above). Still open: the ISO and Mastercard pages return 403, the NPCI page has no text,
-      the RBI summary and FAQ 5 are unverified, and the live Azure index must be rebuilt (clean delete and re-upload).
+      the RBI summary and FAQ 5 are unverified. (The live Azure index has been rebuilt and the grounding, citation and
+      answerability runs repeated on it.)
 - [ ] Grow the corpus further (dozens of documents, longer ones), so chunk boundaries finally matter. Publication dates
       exist as a field but are `null` for 8 of 11 documents.
 - [x] Cheap retrieval fixes: stemming and BM25 tried (dev gains, not confirmed on held-out questions).

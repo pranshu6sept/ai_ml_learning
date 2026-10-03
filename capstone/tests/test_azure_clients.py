@@ -228,3 +228,40 @@ def test_complete_requests_json_only_when_asked() -> None:
     assert "response_format" not in chat.messages[0]
     assert chat.messages[1]["response_format"] == {"type": "json_object"}
     assert chat.messages[1]["messages"][0]["content"] == "as json"
+
+
+class RecordingIndexClient(FakeIndexClient):
+    def __init__(self, *, missing: bool = False) -> None:
+        super().__init__()
+        self.calls: list[str] = []
+        self.missing = missing
+
+    def delete_index(self, name: str) -> None:
+        from azure.core.exceptions import ResourceNotFoundError
+
+        self.calls.append(f"delete {name}")
+        if self.missing:
+            raise ResourceNotFoundError("no such index")
+
+    def create_or_update_index(self, index: Any) -> None:
+        self.calls.append("create")
+        super().create_or_update_index(index)
+
+
+def test_recreate_deletes_the_old_index_before_creating_the_new_one() -> None:
+    index = RecordingIndexClient()
+    store = AzureSearchStore(SETTINGS, index_client=index, search_client=FakeSearchClient())
+
+    store.recreate_index()
+
+    assert index.calls == ["delete payments-rag", "create"]
+
+
+def test_recreate_works_on_a_first_run_when_there_is_no_index_to_delete() -> None:
+    index = RecordingIndexClient(missing=True)
+    store = AzureSearchStore(SETTINGS, index_client=index, search_client=FakeSearchClient())
+
+    store.recreate_index()
+
+    assert index.calls == ["delete payments-rag", "create"]
+    assert index.index is not None

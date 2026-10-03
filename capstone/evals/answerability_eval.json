@@ -294,7 +294,7 @@
     "question": "What if a customer says a purchase on their card was not theirs?",
     "split": "tune",
     "answerable": true,
-    "top_score": -4.994935989379883,
+    "top_score": -4.516276836395264,
     "evidence_has_answer": true,
     "label": "partial",
     "quote": "",
@@ -302,7 +302,7 @@
     "can_answer": false,
     "label_score": 1.0,
     "verified_score": 0.0,
-    "combined_score": -4.994935989379883,
+    "combined_score": -4.516276836395264,
     "reranker_gate": false
   },
   {
@@ -430,7 +430,7 @@
     "question": "What is the interchange fee for a Visa credit card transaction in India?",
     "split": "tune",
     "answerable": false,
-    "top_score": -4.391350269317627,
+    "top_score": -4.178903579711914,
     "evidence_has_answer": false,
     "label": "none",
     "quote": "",
@@ -438,7 +438,7 @@
     "can_answer": false,
     "label_score": 0.0,
     "verified_score": 0.0,
-    "combined_score": -4.391350269317627,
+    "combined_score": -4.178903579711914,
     "reranker_gate": false
   },
   {
@@ -583,7 +583,7 @@
     "question": "Below what value can extra authentication be relaxed for online card payments in India?",
     "split": "tune",
     "answerable": true,
-    "top_score": 5.773063659667969,
+    "top_score": 5.825886249542236,
     "evidence_has_answer": true,
     "label": "full",
     "quote": "The AFA requirement is relaxed for online card-not-present transactions up to \u20b92,000, when the payment is made through a payment authentication solution provided by an authorised card network together with participating issuing and acquiring banks.",
@@ -591,7 +591,7 @@
     "can_answer": true,
     "label_score": 2.0,
     "verified_score": 1.0,
-    "combined_score": 105.77306365966797,
+    "combined_score": 105.82588624954224,
     "reranker_gate": true
   },
   {
@@ -600,7 +600,7 @@
     "question": "Do I have to use the simplified online card payment option?",
     "split": "tune",
     "answerable": true,
-    "top_score": -2.8052985668182373,
+    "top_score": -2.95950984954834,
     "evidence_has_answer": false,
     "label": "partial",
     "quote": "",
@@ -608,7 +608,7 @@
     "can_answer": false,
     "label_score": 1.0,
     "verified_score": 0.0,
-    "combined_score": -2.8052985668182373,
+    "combined_score": -2.95950984954834,
     "reranker_gate": false
   },
   {
@@ -617,7 +617,7 @@
     "question": "Who is liable if there is a security breach of the card authentication solution?",
     "split": "tune",
     "answerable": true,
-    "top_score": 2.6160614490509033,
+    "top_score": 2.4535531997680664,
     "evidence_has_answer": true,
     "label": "full",
     "quote": "Banks and networks are listed as bearing full liability for any security breach or compromise.",
@@ -625,7 +625,7 @@
     "can_answer": true,
     "label_score": 2.0,
     "verified_score": 1.0,
-    "combined_score": 102.6160614490509,
+    "combined_score": 102.45355319976807,
     "reranker_gate": false
   },
   {
@@ -821,7 +821,7 @@
     "question": "Which regulator issued the circular on online card payments made without a physical card?",
     "split": "test",
     "answerable": true,
-    "top_score": 4.356441497802734,
+    "top_score": 4.285724639892578,
     "evidence_has_answer": true,
     "label": "full",
     "quote": "This is a Reserve Bank of India circular dated 6 December 2016 (reference RBI/2016-17/172) on card-not-present (CNP) transactions.",
@@ -829,7 +829,7 @@
     "can_answer": true,
     "label_score": 2.0,
     "verified_score": 1.0,
-    "combined_score": 104.35644149780273,
+    "combined_score": 104.28572463989258,
     "reranker_gate": false
   },
   {
@@ -923,15 +923,15 @@
     "question": "What is a velocity check?",
     "split": "test",
     "answerable": true,
-    "top_score": 2.239048957824707,
+    "top_score": 1.9219849109649658,
     "evidence_has_answer": true,
-    "label": "partial",
-    "quote": "",
-    "quote_found": false,
-    "can_answer": false,
-    "label_score": 1.0,
-    "verified_score": 0.0,
-    "combined_score": 2.239048957824707,
+    "label": "full",
+    "quote": "Velocity checks, meaning limits on how often transactions can happen, are recommended.",
+    "quote_found": true,
+    "can_answer": true,
+    "label_score": 2.0,
+    "verified_score": 1.0,
+    "combined_score": 101.92198491096497,
     "reranker_gate": false
   },
   {
@@ -1008,7 +1008,7 @@
     "question": "Is the cardholder's agreement needed for the simplified online card payment in India?",
     "split": "test",
     "answerable": true,
-    "top_score": 1.4374606609344482,
+    "top_score": 1.1764060258865356,
     "evidence_has_answer": true,
     "label": "full",
     "quote": "The cardholder's consent is required, and the solution is optional for card-not-present transactions up to \u20b92,000.",
@@ -1016,7 +1016,7 @@
     "can_answer": true,
     "label_score": 2.0,
     "verified_score": 1.0,
-    "combined_score": 101.43746066093445,
+    "combined_score": 101.17640602588654,
     "reranker_gate": false
   },
   {
@@ -1044,11 +1044,11 @@
     "answerable": false,
     "top_score": 2.8584132194519043,
     "evidence_has_answer": false,
-    "label": "partial",
+    "label": "none",
     "quote": "",
     "quote_found": false,
     "can_answer": false,
-    "label_score": 1.0,
+    "label_score": 0.0,
     "verified_score": 0.0,
     "combined_score": 2.8584132194519043,
     "reranker_gate": false
@@ -1186,7 +1186,7 @@
     "kind": "unanswerable",
     "question": "What is the capital of France?",
     "answerable": false,
-    "top_score": -11.211509704589844,
+    "top_score": -11.142154693603516,
     "evidence_has_answer": false,
     "label": "none",
     "quote": "",
@@ -1194,7 +1194,7 @@
     "can_answer": false,
     "label_score": 0.0,
     "verified_score": 0.0,
-    "combined_score": -11.211509704589844,
+    "combined_score": -11.142154693603516,
     "reranker_gate": false
   },
   {
@@ -1258,7 +1258,7 @@
     "kind": "unanswerable",
     "question": "What is the maximum customer liability amount in the RBI circular?",
     "answerable": false,
-    "top_score": 2.8728787899017334,
+    "top_score": 2.6580591201782227,
     "evidence_has_answer": false,
     "label": "partial",
     "quote": "",
@@ -1266,7 +1266,7 @@
     "can_answer": false,
     "label_score": 1.0,
     "verified_score": 0.0,
-    "combined_score": 2.8728787899017334,
+    "combined_score": 2.6580591201782227,
     "reranker_gate": false
   },
   {
@@ -1330,7 +1330,7 @@
     "kind": "unanswerable",
     "question": "What is the SWIFT code of the Reserve Bank of India?",
     "answerable": false,
-    "top_score": -1.0633429288864136,
+    "top_score": 1.54599928855896,
     "evidence_has_answer": false,
     "label": "none",
     "quote": "",
@@ -1338,7 +1338,7 @@
     "can_answer": false,
     "label_score": 0.0,
     "verified_score": 0.0,
-    "combined_score": -1.0633429288864136,
+    "combined_score": 1.54599928855896,
     "reranker_gate": false
   },
   {
@@ -1366,7 +1366,7 @@
     "kind": "unanswerable",
     "question": "What is the boiling point of water at sea level?",
     "answerable": false,
-    "top_score": -11.14031982421875,
+    "top_score": -11.196418762207031,
     "evidence_has_answer": false,
     "label": "none",
     "quote": "",
@@ -1374,7 +1374,7 @@
     "can_answer": false,
     "label_score": 0.0,
     "verified_score": 0.0,
-    "combined_score": -11.14031982421875,
+    "combined_score": -11.196418762207031,
     "reranker_gate": false
   }
 ]
