@@ -19,6 +19,9 @@ STRICT_CITATION_RULE = (
 )
 _CITATION = re.compile(r"\[(\d+)\]")
 _TRAILING_CITATION = re.compile(r"([.!?])\s*((?:\[\d+\]\s*)+)(?=\s|$)")
+# An inline numbered list ("steps: 1. A. 2. B [1].") is kept as ONE sentence, so a
+# single citation at its end covers the list. Items on separate lines are still separate sentences.
+_LIST_MARKER = re.compile(r"(?:^|(?<=\n)|(?<=[:;.!?] ))(\d{1,2})\.(?=\s+[A-Z])")
 _ONLY_CITATIONS = re.compile(r"^\s*(?:\[\d+\]\s*)+[.!?]?\s*$")
 
 
@@ -118,8 +121,10 @@ def split_sentences(text: str) -> list[str]:
     ``"X is true. [1] Y follows [2]."`` becomes ``["X is true [1].", "Y follows [2]."]``, so a
     citation placed after the punctuation still belongs to the sentence it follows.
     """
+    text = _LIST_MARKER.sub(lambda m: m.group(1) + "\x00", text)  # protect list numbers
     text = _TRAILING_CITATION.sub(r" \2\1", text)
-    parts = [p.strip() for p in re.split(r"(?<=[.!?])\s+(?=[A-Z0-9\[])|\n+", text) if p.strip()]
+    pieces = re.split(r"(?<=[.!?])\s+(?=[A-Z0-9\[])(?!\d{1,2}\x00)|\n+", text)
+    parts = [p.strip().replace("\x00", ".") for p in pieces if p.strip()]
     merged: list[str] = []
     for part in parts:
         if merged and _ONLY_CITATIONS.match(part):  # a citation alone on its own line

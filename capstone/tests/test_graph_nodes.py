@@ -80,7 +80,6 @@ def test_rewrite_changes_the_query_and_counts_the_attempt() -> None:
     ("state", "review", "expected"),
     [
         ({"can_answer": True}, False, "generate"),
-        ({"can_answer": False, "attempts": 0}, False, "rewrite"),
         ({"can_answer": False, "attempts": 1, "grade": "none"}, False, "refuse"),
         ({"can_answer": False, "attempts": 1, "grade": "partial"}, False, "refuse"),
         ({"can_answer": False, "attempts": 1, "grade": "partial"}, True, "human_review"),
@@ -165,3 +164,11 @@ def test_state_survives_a_round_trip_through_plain_data() -> None:
     restored = nodes.to_hits(rows)
 
     assert restored[0].chunk.text == hit().chunk.text and restored[0].chunk.doc_id == "iso"
+
+
+def test_the_search_rewrite_is_off_by_default_and_opt_in() -> None:
+    weak = {"can_answer": False, "attempts": 0, "grade": "none"}
+
+    assert nodes.MAX_REWRITES == 0
+    assert nodes.after_grade(weak, review=False) == "refuse"  # type: ignore[arg-type]
+    assert nodes.after_grade(weak, review=False, max_rewrites=1) == "rewrite"  # type: ignore[arg-type]

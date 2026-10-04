@@ -69,3 +69,15 @@ def test_through_the_graph_two_partly_cited_drafts_end_in_a_repaired_answer() ->
     assert result.answer.text == "pacs.008 moves a credit transfer [1]."
     assert any(step.startswith("validate:repaired") for step in result.trace)
     assert chat.calls.count("draft") == 2  # still bounded: one regeneration, then repair
+
+
+def test_when_most_sentences_would_be_dropped_the_answer_is_refused_not_repaired() -> None:
+    mostly_uncited = CitedAnswer(
+        answer="It is fast. It is cheap. It is safe. It moves a transfer [1].",
+        citations=[1],
+        confidence="low",
+    )
+
+    update = nodes.validate(_state(mostly_uncited, regenerations=1))
+
+    assert update["valid"] is False

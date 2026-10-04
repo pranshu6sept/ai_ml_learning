@@ -59,7 +59,7 @@ def test_weak_evidence_triggers_one_rewrite_then_succeeds() -> None:
     chat = FakeChat(grades=[NONE, FULL], rewrites=[QueryRewrite(query="customer credit transfer")])
     search = FakeSearch([hit("Unrelated.")], [hit()])
 
-    result = run_graph(_graph(chat, search), "What moves money?")
+    result = run_graph(_graph(chat, search, max_rewrites=1), "What moves money?")
 
     assert search.queries == ["What moves money?", "customer credit transfer"]
     assert not result.answer.refused
@@ -73,7 +73,7 @@ def test_the_rewrite_is_bounded_to_one_then_the_graph_refuses() -> None:
     chat = FakeChat(grades=[NONE, NONE, NONE])
     search = FakeSearch([hit("Unrelated.")])
 
-    result = run_graph(_graph(chat, search), "What is the penalty?")
+    result = run_graph(_graph(chat, search, max_rewrites=1), "What is the penalty?")
 
     assert result.answer.refused and result.answer.text == NO_ANSWER
     assert len(search.queries) == 2  # the original query and one rewrite, never a third
@@ -151,3 +151,13 @@ def test_review_only_triggers_for_partial_evidence_not_for_none() -> None:
     result = run_graph(graph, "What is pacs.008?", thread_id="t3")
 
     assert result.interrupted is None and result.answer.refused
+
+
+def test_by_default_weak_evidence_is_refused_without_a_rewrite() -> None:
+    chat = FakeChat(grades=[NONE])
+    search = FakeSearch([hit("Unrelated.")])
+
+    result = run_graph(_graph(chat, search), "What is the penalty?")
+
+    assert result.answer.refused and "rewrite" not in result.trace
+    assert len(search.queries) == 1 and "rewrite" not in chat.calls

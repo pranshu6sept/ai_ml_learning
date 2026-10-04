@@ -5,7 +5,7 @@
   "expected": "answer",
   "question": "What is ISO 20022?",
   "reference_answer": "ISO 20022 is a global standard for financial messaging, used for payment and financial data.",
-  "reply": "ISO 20022 is a global standard for financial messaging that provides a common, structured way to exchange payment and settlement information across banks, payment service providers, corporations, and regulators [1]. ISO 20022 is a global messaging standard for payment and financial data that standardizes the format of messages so institutions can exchange structured payment information more consistently [2]. It is a messaging standard that most payment systems are adopting and that payment system operators use, enabling richer and more structured data [3].",
+  "reply": "ISO 20022 is a global standard for financial messaging that provides a common, structured way to exchange payment and settlement information across banks, payment service providers, corporations, and regulators [1]. ISO 20022 standardizes the format of messages so institutions can exchange structured payment information more consistently [2]. It is a messaging standard that most payment systems are adopting and that payment system operators use [3].",
   "refused": false,
   "reason": "validated; model confidence high",
   "sources": [
@@ -38,12 +38,12 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 10.12,
+  "seconds": 11.42,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
-    "supported": 6,
-    "total": 6,
+    "supported": 4,
+    "total": 4,
     "unsupported": []
    },
    "relevance": {
@@ -95,7 +95,7 @@
    "validate:repaired (1 uncited dropped)"
   ],
   "llm_calls": 4,
-  "seconds": 4.53,
+  "seconds": 5.16,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -150,7 +150,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.19,
+  "seconds": 3.45,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -205,7 +205,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.2,
+  "seconds": 3.25,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -229,7 +229,7 @@
   "expected": "answer",
   "question": "What is settlement in card payments?",
   "reference_answer": "Settlement is the later process where funds move between the participating institutions after the transaction has been accepted and processed.",
-  "reply": "Settlement in card payments is the process where funds move between participating institutions after the transaction is accepted and processed [1]. It occurs later than authorization and involves the actual movement of funds between parties [2].",
+  "reply": "Settlement in card payments is the process where funds move between participating institutions after the transaction is accepted and processed [1]. It occurs after authorization and clearing steps in the payment lifecycle [1]. Settlement involves the actual movement of funds between parties [2].",
   "refused": false,
   "reason": "validated; model confidence high",
   "sources": [
@@ -261,7 +261,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.67,
+  "seconds": 3.92,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -317,7 +317,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 4.17,
+  "seconds": 4.87,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -352,9 +352,9 @@
     "text": "# Card scheme public summary\n## Payment lifecycle\n1. Authorization: the merchant sends a request to verify that the card is valid and the account can\nsupport the transaction.\n2. Clearing: the transaction details are exchanged through the card network and acquiring/issuing\nbanks so the payment can be reconciled.\n3. Settlement: funds move between participating institutions after the transaction is accepted and\nprocessed.\n4. Dispute handling: the scheme and the banks may investigate customer disputes, chargebacks, or\nfraud-related exceptions."
    },
    {
-    "doc_id": "cfpb_credit_card_disputes",
-    "section": "CFPB guidance: disputing a credit card charge (United States) > Public summary",
-    "text": "# CFPB guidance: disputing a credit card charge (United States)\n## Public summary\nThe US Consumer Financial Protection Bureau explains how a cardholder can dispute a charge on a credit card\nbill. This is a consumer-law process between the cardholder and the card company. It is separate from the\ncard-scheme chargeback rules between issuing and acquiring banks, which this guidance does not cover. The\nrelated rule is Regulation Z, section 1026.13, billing error resolution."
+    "doc_id": "faqs",
+    "section": "Payments FAQ starter set > FAQ 5: What is a dispute in card payments?",
+    "text": "# Payments FAQ starter set\n## FAQ 5: What is a dispute in card payments?\nA dispute happens when a cardholder challenges a transaction and asks for investigation, reversal, or\ncustomer protection due to issues such as fraud, non-receipt, or billing problems."
    },
    {
     "doc_id": "cfpb_credit_card_disputes",
@@ -366,10 +366,13 @@
    "route:in_scope",
    "retrieve:3",
    "grade:partial",
+   "rewrite",
+   "retrieve:3",
+   "grade:partial",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 1.99,
+  "llm_calls": 4,
+  "seconds": 4.61,
   "judgements": null
  },
  "q08": {
@@ -411,7 +414,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.86,
+  "seconds": 3.81,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -467,7 +470,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.3,
+  "seconds": 4.52,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -497,29 +500,32 @@
   "sources": [],
   "evidence": [
    {
-    "doc_id": "card_scheme_public_summary",
-    "section": "Card scheme public summary > Core concepts",
-    "text": "# Card scheme public summary\n## Core concepts\n- Issuer: the bank that issued the card to the customer.\n- Acquirer: the bank that handles the merchant's account.\n- Merchant: the business receiving payment.\n- Network: the scheme or infrastructure connecting the participants."
-   },
-   {
     "doc_id": "rbi_card_not_present_afa",
-    "section": "RBI card-not-present transactions and additional authentication (2016, repealed) > The relaxation",
-    "text": "# RBI card-not-present transactions and additional authentication (2016, repealed)\n## The relaxation\nThe AFA requirement is relaxed for online card-not-present transactions up to ₹2,000, when the payment is made\nthrough a payment authentication solution provided by an authorised card network together with participating\nissuing and acquiring banks. The cardholder registers once, giving the card details and completing AFA with\nthe issuing bank. Afterwards the registered card details act as the first factor and the login credentials of\nthe card network act as the second factor. Above ₹2,000, AFA remains mandatory."
+    "section": "RBI card-not-present transactions and additional authentication (2016, repealed) > Conditions and responsibilities",
+    "text": "# RBI card-not-present transactions and additional authentication (2016, repealed)\n## Conditions and responsibilities\n- The cardholder's consent is required, and the solution is optional for card-not-present transactions up to ₹2,000.\n- Banks should educate customers about how to use the solution, its risks and how to raise grievances, and\nshould disclose the maximum customer liability at enrolment.\n- Velocity checks, meaning limits on how often transactions can happen, are recommended.\n- Banks and networks are listed as bearing full liability for any security breach or compromise."
    },
    {
     "doc_id": "card_scheme_public_summary",
     "section": "Card scheme public summary > Payment lifecycle",
     "text": "# Card scheme public summary\n## Payment lifecycle\n1. Authorization: the merchant sends a request to verify that the card is valid and the account can\nsupport the transaction.\n2. Clearing: the transaction details are exchanged through the card network and acquiring/issuing\nbanks so the payment can be reconciled.\n3. Settlement: funds move between participating institutions after the transaction is accepted and\nprocessed.\n4. Dispute handling: the scheme and the banks may investigate customer disputes, chargebacks, or\nfraud-related exceptions."
+   },
+   {
+    "doc_id": "rbi_authentication_directions_2025",
+    "section": "RBI authentication directions, 2025 > Issuer responsibilities",
+    "text": "# RBI authentication directions, 2025\n## Issuer responsibilities\nIssuers must ensure the robustness and integrity of the authentication mechanism before deployment. They must\ncompensate the customer in full without demur for a loss that arises from non-compliance with the directions. They\nmust also comply with the Digital Personal Data Protection Act, 2023."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:partial",
+   "rewrite",
+   "retrieve:3",
+   "grade:partial",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.0,
+  "llm_calls": 4,
+  "seconds": 4.58,
   "judgements": null
  },
  "q11": {
@@ -528,7 +534,7 @@
   "expected": "answer",
   "question": "What role does the card network play?",
   "reference_answer": "The network is the scheme or infrastructure that connects the participants.",
-  "reply": "The card network operates the rules and infrastructure that allow card payments to be authorized, cleared, and settled across banks and merchants [1]. The network is the scheme or infrastructure connecting the participants [2]. During the payment lifecycle, the network facilitates the exchange of transaction details through the card network and acquiring/issuing banks so the payment can be reconciled [3]. The scheme and the banks may also investigate customer disputes, chargebacks, or fraud-related exceptions [3].",
+  "reply": "The card network operates the rules and infrastructure that allow card payments to be authorized, cleared, and settled across banks and merchants [1]. The network is the scheme or infrastructure connecting the participants, including the issuer, acquirer, and merchant [2]. During the payment lifecycle, the network facilitates the exchange of transaction details through the card network and acquiring/issuing banks so the payment can be reconciled [3]. The scheme and the banks may also investigate customer disputes, chargebacks, or fraud-related exceptions [3].",
   "refused": false,
   "reason": "validated; model confidence high",
   "sources": [
@@ -561,7 +567,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.98,
+  "seconds": 4.53,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -618,7 +624,7 @@
    "validate:repaired (1 uncited dropped)"
   ],
   "llm_calls": 4,
-  "seconds": 4.48,
+  "seconds": 4.8,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -642,10 +648,13 @@
   "expected": "answer",
   "question": "What is PCI DSS?",
   "reference_answer": "PCI DSS is a security standard for protecting payment card data.",
-  "reply": "I don't know based on the provided documents.",
-  "refused": true,
-  "reason": "the answer failed validation: 3 sentence(s) have no valid citation",
-  "sources": [],
+  "reply": "It provides requirements for storing, transmitting, and processing cardholder data securely [1]. It sets a baseline of technical and operational requirements designed to protect payment account data [2].",
+  "refused": false,
+  "reason": "validated after dropping 3 uncited sentence(s)",
+  "sources": [
+   "[1] faqs > Payments FAQ starter set > FAQ 4: What is PCI DSS? (internal_draft)",
+   "[2] pci_dss_overview > PCI DSS overview > Public summary (https://www.pcisecuritystandards.org/standards/pci-dss/)"
+  ],
   "evidence": [
    {
     "doc_id": "faqs",
@@ -670,12 +679,26 @@
    "generate",
    "validate:fail (3 sentence(s) have no valid citation)",
    "regenerate",
-   "validate:fail (3 sentence(s) have no valid citation)",
-   "refuse"
+   "validate:repaired (3 uncited dropped)"
   ],
   "llm_calls": 4,
-  "seconds": 4.89,
-  "judgements": null
+  "seconds": 5.02,
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 2,
+    "total": 2,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
  },
  "q14": {
   "id": "q14",
@@ -716,7 +739,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.25,
+  "seconds": 4.86,
   "judgements": {
    "faithfulness": {
     "score": 0.8333333333333334,
@@ -776,7 +799,7 @@
    "validate:repaired (1 uncited dropped)"
   ],
   "llm_calls": 4,
-  "seconds": 4.58,
+  "seconds": 5.16,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -811,24 +834,27 @@
     "text": "# ISO 20022 overview\n## Public summary\nISO 20022 is a global standard for financial messaging. It provides a common, structured way to\nexchange payment and settlement information across banks, payment service providers, corporations,\nand regulators."
    },
    {
-    "doc_id": "card_scheme_public_summary",
-    "section": "Card scheme public summary > Payment lifecycle",
-    "text": "# Card scheme public summary\n## Payment lifecycle\n1. Authorization: the merchant sends a request to verify that the card is valid and the account can\nsupport the transaction.\n2. Clearing: the transaction details are exchanged through the card network and acquiring/issuing\nbanks so the payment can be reconciled.\n3. Settlement: funds move between participating institutions after the transaction is accepted and\nprocessed.\n4. Dispute handling: the scheme and the banks may investigate customer disputes, chargebacks, or\nfraud-related exceptions."
-   },
-   {
     "doc_id": "faqs",
     "section": "Payments FAQ starter set > FAQ 2: What is ISO 20022?",
     "text": "# Payments FAQ starter set\n## FAQ 2: What is ISO 20022?\nISO 20022 is a global messaging standard for payment and financial data. It standardizes the format\nof messages so institutions can exchange structured payment information more consistently."
+   },
+   {
+    "doc_id": "iso20022_overview",
+    "section": "ISO 20022 overview > Why it matters",
+    "text": "# ISO 20022 overview\n## Why it matters\nThe standard improves data quality by using a consistent message structure instead of fragmented,\nproprietary formats. This helps institutions exchange richer details such as reference information,\nremittance data, party identification, and payment status updates in a more standard way."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:partial",
+   "rewrite",
+   "retrieve:3",
+   "grade:partial",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.19,
+  "llm_calls": 4,
+  "seconds": 6.39,
   "judgements": null
  },
  "q17": {
@@ -853,19 +879,22 @@
     "text": "# ISO 20022 overview\n## Why it matters\nThe standard improves data quality by using a consistent message structure instead of fragmented,\nproprietary formats. This helps institutions exchange richer details such as reference information,\nremittance data, party identification, and payment status updates in a more standard way."
    },
    {
-    "doc_id": "card_scheme_public_summary",
-    "section": "Card scheme public summary > Public summary",
-    "text": "# Card scheme public summary\n## Public summary\nCard networks such as Visa and Mastercard operate the rules and infrastructure that allow card\npayments to be authorized, cleared, and settled across banks and merchants. Public summaries generally\nexplain the payment lifecycle without exposing confidential operating details."
+    "doc_id": "iso20022_message_identifiers",
+    "section": "ISO 20022 message definitions and identifiers > Business areas",
+    "text": "# ISO 20022 message definitions and identifiers\n## Business areas\n- pain: payments initiation, messages that support starting a payment from the ordering customer to a financial\ninstitution that services a cash account, and reporting its status.\n- pacs: payments clearing and settlement, messages that support clearing and settlement between financial\ninstitutions.\n- camt: cash management, messages that support reporting and advising on the cash side of financial\ntransactions, including cash movements, balances, and exceptions and investigations."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:partial",
+   "rewrite",
+   "retrieve:3",
+   "grade:partial",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.14,
+  "llm_calls": 4,
+  "seconds": 4.67,
   "judgements": null
  },
  "q18": {
@@ -880,29 +909,32 @@
   "sources": [],
   "evidence": [
    {
-    "doc_id": "rbi_card_not_present_afa",
-    "section": "RBI card-not-present transactions and additional authentication (2016, repealed) > Conditions and responsibilities",
-    "text": "# RBI card-not-present transactions and additional authentication (2016, repealed)\n## Conditions and responsibilities\n- The cardholder's consent is required, and the solution is optional for card-not-present transactions up to ₹2,000.\n- Banks should educate customers about how to use the solution, its risks and how to raise grievances, and\nshould disclose the maximum customer liability at enrolment.\n- Velocity checks, meaning limits on how often transactions can happen, are recommended.\n- Banks and networks are listed as bearing full liability for any security breach or compromise."
-   },
-   {
-    "doc_id": "rbi_card_not_present_afa",
-    "section": "RBI card-not-present transactions and additional authentication (2016, repealed) > Conditions and responsibilities",
-    "text": "# RBI card-not-present transactions and additional authentication (2016, repealed)\n## Conditions and responsibilities\n- The existing chargeback process does not change."
-   },
-   {
     "doc_id": "faqs",
     "section": "Payments FAQ starter set > FAQ 5: What is a dispute in card payments?",
     "text": "# Payments FAQ starter set\n## FAQ 5: What is a dispute in card payments?\nA dispute happens when a cardholder challenges a transaction and asks for investigation, reversal, or\ncustomer protection due to issues such as fraud, non-receipt, or billing problems."
+   },
+   {
+    "doc_id": "card_scheme_public_summary",
+    "section": "Card scheme public summary > Payment lifecycle",
+    "text": "# Card scheme public summary\n## Payment lifecycle\n1. Authorization: the merchant sends a request to verify that the card is valid and the account can\nsupport the transaction.\n2. Clearing: the transaction details are exchanged through the card network and acquiring/issuing\nbanks so the payment can be reconciled.\n3. Settlement: funds move between participating institutions after the transaction is accepted and\nprocessed.\n4. Dispute handling: the scheme and the banks may investigate customer disputes, chargebacks, or\nfraud-related exceptions."
+   },
+   {
+    "doc_id": "cfpb_credit_card_disputes",
+    "section": "CFPB guidance: disputing a credit card charge (United States) > How to dispute",
+    "text": "# CFPB guidance: disputing a credit card charge (United States)\n## How to dispute\nCall the card company about the problem right away. To protect your rights, you must also send a written billing error notice to the card company within 60 calendar days after the charge appeared on your statement. The notice should give your name, address and account number and clearly explain what you think is wrong and why. Keep copies of all correspondence and a record of the dates of follow-up calls. You can dispute a charge even if you have"
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:partial",
+   "rewrite",
+   "retrieve:3",
+   "grade:partial",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.47,
+  "llm_calls": 4,
+  "seconds": 4.58,
   "judgements": null
  },
  "q19": {
@@ -936,10 +968,13 @@
    "route:in_scope",
    "retrieve:3",
    "grade:partial",
+   "rewrite",
+   "retrieve:3",
+   "grade:partial",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.53,
+  "llm_calls": 4,
+  "seconds": 4.41,
   "judgements": null
  },
  "q20": {
@@ -979,7 +1014,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.16,
+  "seconds": 2.74,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -1035,7 +1070,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.97,
+  "seconds": 4.91,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -1065,11 +1100,6 @@
   "sources": [],
   "evidence": [
    {
-    "doc_id": "rbi_card_not_present_afa",
-    "section": "RBI card-not-present transactions and additional authentication (2016, repealed) > Conditions and responsibilities",
-    "text": "# RBI card-not-present transactions and additional authentication (2016, repealed)\n## Conditions and responsibilities\n- The cardholder's consent is required, and the solution is optional for card-not-present transactions up to ₹2,000.\n- Banks should educate customers about how to use the solution, its risks and how to raise grievances, and\nshould disclose the maximum customer liability at enrolment.\n- Velocity checks, meaning limits on how often transactions can happen, are recommended.\n- Banks and networks are listed as bearing full liability for any security breach or compromise."
-   },
-   {
     "doc_id": "rbi_payment_systems_public_summary",
     "section": "RBI payment systems public summary > Typical topics in public guidance",
     "text": "# RBI payment systems public summary\n## Typical topics in public guidance\n- Safe and secure digital payments\n- Customer authentication and fraud controls\n- Payment infrastructure and processing ecosystem (not confirmed in the sources checked)\n- System resilience and operational continuity (not confirmed in the sources checked)\n- Risk management and compliance expectations"
@@ -1078,16 +1108,24 @@
     "doc_id": "rbi_payment_systems_public_summary",
     "section": "RBI payment systems public summary > Why it matters",
     "text": "# RBI payment systems public summary\n## Why it matters\nPayment systems depend on trust. Public regulators publish guidance on reducing fraud, improving\nsecurity, and making digital payments reliable for both consumers and financial institutions."
+   },
+   {
+    "doc_id": "rbi_payment_systems_public_summary",
+    "section": "RBI payment systems public summary > Public summary",
+    "text": "# RBI payment systems public summary\n## Public summary\nPublic guidance from the Reserve Bank of India (RBI) explains the direction of payment systems,\nconsumer protection, digital payments, and risk management in the Indian context. It is useful for\nunderstanding how digital transactions are monitored and regulated in public policy discussions."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:partial",
+   "rewrite",
+   "retrieve:3",
+   "grade:partial",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.19,
+  "llm_calls": 4,
+  "seconds": 6.06,
   "judgements": null
  },
  "q23": {
@@ -1096,9 +1134,9 @@
   "expected": "answer",
   "question": "What are the steps a card payment goes through?",
   "reference_answer": "Authorization (the merchant requests verification that the card is valid and the account can support the transaction), then clearing (details are exchanged through the card network and the acquiring and issuing banks so the payment can be reconciled), then settlement (funds move between the institutions).",
-  "reply": "A card payment goes through the following steps: 1. Authorization, where the merchant sends a request to verify that the card is valid and the account can support the transaction. 2. Clearing, where the transaction details are exchanged through the card network and acquiring/issuing banks so the payment can be reconciled. 3. Settlement, where funds move between participating institutions after the transaction is accepted and processed. 4. Dispute handling, where the scheme and the banks may investigate customer disputes, chargebacks, or fraud-related exceptions [1].",
+  "reply": "Dispute handling, where the scheme and the banks may investigate customer disputes, chargebacks, or fraud-related exceptions [1].",
   "refused": false,
-  "reason": "validated; model confidence high",
+  "reason": "validated after dropping 7 uncited sentence(s)",
   "sources": [
    "[1] card_scheme_public_summary > Card scheme public summary > Payment lifecycle (https://www.visa.co.in/; https://www.mastercard.us/)"
   ],
@@ -1124,24 +1162,26 @@
    "retrieve:3",
    "grade:full",
    "generate",
-   "validate:ok"
+   "validate:fail (7 sentence(s) have no valid citation)",
+   "regenerate",
+   "validate:repaired (7 uncited dropped)"
   ],
-  "llm_calls": 3,
-  "seconds": 4.16,
+  "llm_calls": 4,
+  "seconds": 9.97,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
-    "supported": 5,
-    "total": 5,
+    "supported": 1,
+    "total": 1,
     "unsupported": []
    },
    "relevance": {
-    "verdict": "direct",
-    "score": 1.0
+    "verdict": "partial",
+    "score": 0.5
    },
    "correctness": {
-    "verdict": "correct",
-    "score": 1.0
+    "verdict": "incorrect",
+    "score": 0.0
    }
   }
  },
@@ -1182,7 +1222,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.06,
+  "seconds": 3.28,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -1231,10 +1271,13 @@
    "route:in_scope",
    "retrieve:3",
    "grade:partial",
+   "rewrite",
+   "retrieve:3",
+   "grade:partial",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.64,
+  "llm_calls": 4,
+  "seconds": 5.17,
   "judgements": null
  },
  "u02": {
@@ -1268,10 +1311,13 @@
    "route:in_scope",
    "retrieve:3",
    "grade:none",
+   "rewrite",
+   "retrieve:3",
+   "grade:none",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.49,
+  "llm_calls": 4,
+  "seconds": 4.36,
   "judgements": null
  },
  "u03": {
@@ -1305,10 +1351,13 @@
    "route:in_scope",
    "retrieve:3",
    "grade:none",
+   "rewrite",
+   "retrieve:3",
+   "grade:none",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.67,
+  "llm_calls": 4,
+  "seconds": 4.3,
   "judgements": null
  },
  "q25": {
@@ -1348,7 +1397,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.62,
+  "seconds": 4.06,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -1404,7 +1453,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.48,
+  "seconds": 4.34,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -1514,7 +1563,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 4.14,
+  "seconds": 6.94,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -1569,7 +1618,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.8,
+  "seconds": 4.62,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -1624,7 +1673,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.09,
+  "seconds": 4.52,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -1650,33 +1699,36 @@
   "reference_answer": "PSD3 is part of the review of PSD2. Legislative proposals for PSD3 and the PSR were published on 28 June 2023, and a political agreement on the review was reached on 27 November 2025.",
   "reply": "I don't know based on the provided documents.",
   "refused": true,
-  "reason": "the passages were judged 'partial'",
+  "reason": "the passages were judged 'none'",
   "sources": [],
   "evidence": [
    {
-    "doc_id": "psd2_overview",
-    "section": "PSD2 overview > Revision",
-    "text": "# PSD2 overview\n## Revision\nPSD2 is being revised. Legislative proposals for PSD3 and PSR were published on 28 June 2023, and a political\nagreement on the review was reached on 27 November 2025, the date shown on the Commission page."
+    "doc_id": "pci_dss_overview",
+    "section": "PCI DSS overview > Who it applies to",
+    "text": "# PCI DSS overview\n## Who it applies to\n- Any entity that stores, processes, or transmits cardholder data (CHD) or sensitive authentication data (SAD).\n- Any entity that could affect the security of the cardholder data environment (CDE).\n- In practice this covers every kind of participant in card processing: merchants, processors, acquirers,\nissuers and service providers."
    },
    {
-    "doc_id": "psd2_overview",
-    "section": "PSD2 overview > Public summary",
-    "text": "# PSD2 overview\n## Public summary\nThe revised Payment Services Directive, PSD2, is European Union legislation on payment services. It became\napplicable in January 2018. The directive aims to make internet payment services easier and safer, to better\nprotect consumers against fraud, abuse and payment problems, to promote innovative mobile and internet\npayment services, and to strengthen consumer rights."
+    "doc_id": "pci_dss_overview",
+    "section": "PCI DSS overview > Who decides whether an organisation complies",
+    "text": "# PCI DSS overview\n## Who decides whether an organisation complies\nThe standard page does not set out penalties or a single enforcement body. Compliance requirements are\ndetermined by organisations that manage compliance programmes, such as a payment brand, an acquirer or\nanother entity."
    },
    {
-    "doc_id": "psd2_overview",
-    "section": "PSD2 overview > Open banking and new providers",
-    "text": "# PSD2 overview\n## Open banking and new providers\nPSD2 introduced a new category of payment service provider beyond banks, which increases competition and\nchoice for consumers. It also strengthened the role of the European Banking Authority (EBA), which\ncoordinates supervisory authorities and drafts technical standards."
+    "doc_id": "rbi_payment_systems_public_summary",
+    "section": "RBI payment systems public summary > Source note",
+    "text": "# RBI payment systems public summary\n## Source note\nThis is an author-written summary. I checked it on 3 October 2026 against two RBI documents: the Master Direction on Digital Payment Security Controls (issued 18 February 2021, RBI/2020-21/74) and the Authentication mechanisms for digital payment transactions Directions, 2025. They support the topics of secure digital payments, customer authentication and fraud controls, and risk management, governance and customer protection. Neither fetched summary mentions business continuity or resilience, so \"system resilience and operational continuity\" is not confirmed, and \"payment infrastructure and"
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:partial",
+   "rewrite",
+   "retrieve:3",
+   "grade:none",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.03,
+  "llm_calls": 4,
+  "seconds": 5.81,
   "judgements": null
  },
  "q32": {
@@ -1716,7 +1768,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.61,
+  "seconds": 4.27,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -1742,33 +1794,36 @@
   "reference_answer": "No. The solution is optional for card-not-present transactions up to 2,000 rupees, and the cardholder's consent is required.",
   "reply": "I don't know based on the provided documents.",
   "refused": true,
-  "reason": "the passages were judged 'none'",
+  "reason": "the passages were judged 'partial'",
   "sources": [],
   "evidence": [
+   {
+    "doc_id": "rbi_card_not_present_afa",
+    "section": "RBI card-not-present transactions and additional authentication (2016, repealed) > The relaxation",
+    "text": "# RBI card-not-present transactions and additional authentication (2016, repealed)\n## The relaxation\nThe AFA requirement is relaxed for online card-not-present transactions up to ₹2,000, when the payment is made\nthrough a payment authentication solution provided by an authorised card network together with participating\nissuing and acquiring banks. The cardholder registers once, giving the card details and completing AFA with\nthe issuing bank. Afterwards the registered card details act as the first factor and the login credentials of\nthe card network act as the second factor. Above ₹2,000, AFA remains mandatory."
+   },
    {
     "doc_id": "rbi_authentication_directions_2025",
     "section": "RBI authentication directions, 2025 > Exemptions",
     "text": "# RBI authentication directions, 2025\n## Exemptions\nAnnexure 1 lists seven exempt categories: small-value contactless card transactions, recurring e-mandate\ntransactions after the first, certain prepaid instruments, NETC transactions, small-value offline digital payments,\ntravel bookings made with corporate or commercial cards, and tap-and-pay UPI at NFC-enabled point-of-sale machines."
    },
    {
-    "doc_id": "upi_overview",
-    "section": "NPCI UPI overview > Public summary",
-    "text": "# NPCI UPI overview\n## Public summary\nThe Unified Payments Interface, UPI, is an instant, real-time payment system developed by NPCI, the National\nPayments Corporation of India, an RBI-regulated entity. It is designed to enable inter-bank transactions\nthrough mobile phones. Money moves directly from one bank account to another, so no wallet top-up is needed.\nPayments work around the clock, including Sundays and bank holidays."
-   },
-   {
-    "doc_id": "upi_overview",
-    "section": "NPCI UPI overview > How people use it",
-    "text": "# NPCI UPI overview\n## How people use it\n- A user can send money to a UPI ID, a mobile number or a QR code without first adding the beneficiary or\nwaiting for approval.\n- Several bank accounts can be linked in one UPI app, such as BHIM, PhonePe or Google Pay.\n- UPI is used for bill payments, mobile recharges, loan instalments, insurance premiums and subscriptions.\n- An AutoPay feature supports recurring payments within limits that the user sets."
+    "doc_id": "rbi_card_not_present_afa",
+    "section": "RBI card-not-present transactions and additional authentication (2016, repealed) > Public summary",
+    "text": "# RBI card-not-present transactions and additional authentication (2016, repealed)\n## Public summary\nThis is a Reserve Bank of India circular dated 6 December 2016 (reference RBI/2016-17/172) on card-not-present\n(CNP) transactions. A card-not-present transaction is an online payment where the physical card is not\npresented. Normally such a transaction needs an additional factor of authentication (AFA) beyond the card\ndetails. The circular relaxes that requirement for small payments under conditions."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:none",
+   "rewrite",
+   "retrieve:3",
+   "grade:partial",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.09,
+  "llm_calls": 4,
+  "seconds": 4.52,
   "judgements": null
  },
  "q34": {
@@ -1808,7 +1863,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.34,
+  "seconds": 3.88,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -1863,7 +1918,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.84,
+  "seconds": 4.86,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -1918,7 +1973,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 4.66,
+  "seconds": 3.84,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -1942,7 +1997,7 @@
   "expected": "answer",
   "question": "How long does the card company have to acknowledge a billing dispute?",
   "reference_answer": "30 days to send a letter confirming it received the dispute, unless it has already finished resolving it within that time.",
-  "reply": "After receiving the notice, the card company has 30 days to send a letter confirming that it received the dispute, unless it has already finished the resolution process within that time [1].",
+  "reply": "The card company has 30 days to send a letter confirming that it received the dispute after receiving the notice, unless it has already finished the resolution process within that time [1].",
   "refused": false,
   "reason": "validated; model confidence high",
   "sources": [
@@ -1973,7 +2028,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.47,
+  "seconds": 3.91,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -2028,7 +2083,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.52,
+  "seconds": 4.41,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -2083,7 +2138,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.23,
+  "seconds": 4.25,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -2138,7 +2193,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 4.03,
+  "seconds": 3.56,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -2193,7 +2248,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.78,
+  "seconds": 4.09,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -2217,7 +2272,7 @@
   "expected": "answer",
   "question": "How is an ISO 20022 message identifier structured?",
   "reference_answer": "Four parts: four letters for the business area, three digits for the message definition, three digits for the variant and two digits for the version.",
-  "reply": "An ISO 20022 message identifier has four parts: four letters for the business area, three digits for the message definition, three digits for the variant, and two digits for the version [1]. The four letters for the business area correspond to a four-letter code assigned to each business area, which is the start of every message identifier [2].",
+  "reply": "An ISO 20022 message identifier has four parts: four letters for the business area, three digits for the message definition, three digits for the variant, and two digits for the version [1]. The ISO 20022 repository groups its message definitions into business areas, each with a four-letter code that starts every message identifier [2].",
   "refused": false,
   "reason": "validated; model confidence high",
   "sources": [
@@ -2249,7 +2304,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 4.23,
+  "seconds": 3.56,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -2304,7 +2359,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 4.27,
+  "seconds": 4.48,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -2334,29 +2389,32 @@
   "sources": [],
   "evidence": [
    {
+    "doc_id": "pci_dss_overview",
+    "section": "PCI DSS overview > Who decides whether an organisation complies",
+    "text": "# PCI DSS overview\n## Who decides whether an organisation complies\nThe standard page does not set out penalties or a single enforcement body. Compliance requirements are\ndetermined by organisations that manage compliance programmes, such as a payment brand, an acquirer or\nanother entity."
+   },
+   {
     "doc_id": "faqs",
     "section": "Payments FAQ starter set > FAQ 4: What is PCI DSS?",
     "text": "# Payments FAQ starter set\n## FAQ 4: What is PCI DSS?\nPCI DSS is a security standard for protecting payment card data. It provides requirements for storing,\ntransmitting, and processing cardholder data securely."
    },
    {
     "doc_id": "pci_dss_overview",
-    "section": "PCI DSS overview > Who it applies to",
-    "text": "# PCI DSS overview\n## Who it applies to\n- Any entity that stores, processes, or transmits cardholder data (CHD) or sensitive authentication data (SAD).\n- Any entity that could affect the security of the cardholder data environment (CDE).\n- In practice this covers every kind of participant in card processing: merchants, processors, acquirers,\nissuers and service providers."
-   },
-   {
-    "doc_id": "pci_dss_overview",
-    "section": "PCI DSS overview > Who decides whether an organisation complies",
-    "text": "# PCI DSS overview\n## Who decides whether an organisation complies\nThe standard page does not set out penalties or a single enforcement body. Compliance requirements are\ndetermined by organisations that manage compliance programmes, such as a payment brand, an acquirer or\nanother entity."
+    "section": "PCI DSS overview > Public summary",
+    "text": "# PCI DSS overview\n## Public summary\nPCI DSS, the Payment Card Industry Data Security Standard, is published by the PCI Security Standards\nCouncil. According to the Council's standard page, it was developed to encourage and enhance payment card\naccount data security and to help organisations around the world adopt consistent data security measures.\nIt sets a baseline of technical and operational requirements designed to protect payment account data."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:partial",
+   "rewrite",
+   "retrieve:3",
+   "grade:partial",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 5.25,
+  "llm_calls": 4,
+  "seconds": 4.67,
   "judgements": null
  },
  "u05": {
@@ -2381,19 +2439,22 @@
     "text": "# NPCI UPI overview\n## Public summary\nThe Unified Payments Interface, UPI, is an instant, real-time payment system developed by NPCI, the National\nPayments Corporation of India, an RBI-regulated entity. It is designed to enable inter-bank transactions\nthrough mobile phones. Money moves directly from one bank account to another, so no wallet top-up is needed.\nPayments work around the clock, including Sundays and bank holidays."
    },
    {
-    "doc_id": "rbi_card_not_present_afa",
-    "section": "RBI card-not-present transactions and additional authentication (2016, repealed) > Conditions and responsibilities",
-    "text": "# RBI card-not-present transactions and additional authentication (2016, repealed)\n## Conditions and responsibilities\n- The cardholder's consent is required, and the solution is optional for card-not-present transactions up to ₹2,000.\n- Banks should educate customers about how to use the solution, its risks and how to raise grievances, and\nshould disclose the maximum customer liability at enrolment.\n- Velocity checks, meaning limits on how often transactions can happen, are recommended.\n- Banks and networks are listed as bearing full liability for any security breach or compromise."
+    "doc_id": "rbi_authentication_directions_2025",
+    "section": "RBI authentication directions, 2025 > Exemptions",
+    "text": "# RBI authentication directions, 2025\n## Exemptions\nAnnexure 1 lists seven exempt categories: small-value contactless card transactions, recurring e-mandate\ntransactions after the first, certain prepaid instruments, NETC transactions, small-value offline digital payments,\ntravel bookings made with corporate or commercial cards, and tap-and-pay UPI at NFC-enabled point-of-sale machines."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:none",
+   "rewrite",
+   "retrieve:3",
+   "grade:none",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.99,
+  "llm_calls": 4,
+  "seconds": 5.17,
   "judgements": null
  },
  "h01": {
@@ -2433,7 +2494,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.61,
+  "seconds": 3.84,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -2457,10 +2518,12 @@
   "expected": "answer",
   "question": "What kinds of firms did the EU payments directive allow besides banks?",
   "reference_answer": "PSD2 introduced a new category of payment service provider beyond banks, which increases competition and choice for consumers.",
-  "reply": "I don't know based on the provided documents.",
-  "refused": true,
-  "reason": "the passages were judged 'partial'",
-  "sources": [],
+  "reply": "The EU payments directive PSD2 introduced a new category of payment service provider beyond banks, which increases competition and choice for consumers [1].",
+  "refused": false,
+  "reason": "validated; model confidence high",
+  "sources": [
+   "[1] psd2_overview > PSD2 overview > Open banking and new providers (https://finance.ec.europa.eu/consumer-finance-and-payments/payment-services/payment-services_en)"
+  ],
   "evidence": [
    {
     "doc_id": "psd2_overview",
@@ -2468,9 +2531,9 @@
     "text": "# PSD2 overview\n## Open banking and new providers\nPSD2 introduced a new category of payment service provider beyond banks, which increases competition and\nchoice for consumers. It also strengthened the role of the European Banking Authority (EBA), which\ncoordinates supervisory authorities and drafts technical standards."
    },
    {
-    "doc_id": "iso20022_overview",
-    "section": "ISO 20022 overview > Public summary",
-    "text": "# ISO 20022 overview\n## Public summary\nISO 20022 is a global standard for financial messaging. It provides a common, structured way to\nexchange payment and settlement information across banks, payment service providers, corporations,\nand regulators."
+    "doc_id": "card_scheme_public_summary",
+    "section": "Card scheme public summary > Source note",
+    "text": "# Card scheme public summary\n## Source note\nThis is an author-written summary, partly checked on 3 October 2026. The European Central Bank's Glossary of terms related to payment, clearing and settlement systems (30 September 2008) defines card issuer, card scheme, clearing and settlement in terms consistent with this summary. It describes the acquirer as the entity to which the merchant sends the information needed to process the card payment, which is looser than \"the bank that handles the merchant's account\" above. The authorization step as described here"
    },
    {
     "doc_id": "psd2_overview",
@@ -2482,11 +2545,30 @@
    "route:in_scope",
    "retrieve:3",
    "grade:partial",
-   "refuse"
+   "rewrite",
+   "retrieve:3",
+   "grade:full",
+   "generate",
+   "validate:ok"
   ],
-  "llm_calls": 2,
-  "seconds": 5.19,
-  "judgements": null
+  "llm_calls": 5,
+  "seconds": 7.33,
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 2,
+    "total": 2,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "partial",
+    "score": 0.5
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
  },
  "h03": {
   "id": "h03",
@@ -2494,7 +2576,7 @@
   "expected": "answer",
   "question": "What is the cardholder data environment?",
   "reference_answer": "The cardholder data environment (CDE) is the systems and processes that handle cardholder data.",
-  "reply": "The cardholder data environment (CDE) is the systems and processes that handle cardholder data (CHD) and sensitive authentication data (SAD) [1].",
+  "reply": "The cardholder data environment (CDE) is defined as the systems and processes that handle cardholder data (CHD) [1].",
   "refused": false,
   "reason": "validated; model confidence high",
   "sources": [
@@ -2525,23 +2607,21 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.78,
+  "seconds": 3.41,
   "judgements": {
    "faithfulness": {
-    "score": 0.0,
-    "supported": 0,
+    "score": 1.0,
+    "supported": 1,
     "total": 1,
-    "unsupported": [
-     "The cardholder data environment (CDE) is the systems and processes that handle cardholder data (CHD) and sensitive authentication data (SAD)"
-    ]
+    "unsupported": []
    },
    "relevance": {
     "verdict": "direct",
     "score": 1.0
    },
    "correctness": {
-    "verdict": "partial",
-    "score": 0.5
+    "verdict": "correct",
+    "score": 1.0
    }
   }
  },
@@ -2551,11 +2631,12 @@
   "expected": "answer",
   "question": "Can I still dispute a credit card charge after I have paid the bill?",
   "reference_answer": "Yes. You can dispute a charge even if you have already paid it, although reimbursement may take longer.",
-  "reply": "You can dispute a charge even if you have already paid it, although reimbursement may take longer [1].",
+  "reply": "You can dispute a charge even if you have already paid it, although reimbursement may take longer [1]. You can dispute a charge even if you have paid the bill [2].",
   "refused": false,
   "reason": "validated; model confidence high",
   "sources": [
-   "[1] cfpb_credit_card_disputes > CFPB guidance: disputing a credit card charge (United States) > How to dispute (https://www.consumerfinance.gov/ask-cfpb/how-do-i-dispute-a-charge-on-my-credit-card-bill-en-61/)"
+   "[1] cfpb_credit_card_disputes > CFPB guidance: disputing a credit card charge (United States) > How to dispute (https://www.consumerfinance.gov/ask-cfpb/how-do-i-dispute-a-charge-on-my-credit-card-bill-en-61/)",
+   "[2] cfpb_credit_card_disputes > CFPB guidance: disputing a credit card charge (United States) > How to dispute (https://www.consumerfinance.gov/ask-cfpb/how-do-i-dispute-a-charge-on-my-credit-card-bill-en-61/)"
   ],
   "evidence": [
    {
@@ -2582,12 +2663,12 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.38,
+  "seconds": 3.86,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
-    "supported": 2,
-    "total": 2,
+    "supported": 1,
+    "total": 1,
     "unsupported": []
    },
    "relevance": {
@@ -2606,7 +2687,7 @@
   "expected": "answer",
   "question": "Which apps let me link several bank accounts for instant transfers in India?",
   "reference_answer": "Several bank accounts can be linked in one UPI app, such as BHIM, PhonePe or Google Pay.",
-  "reply": "Several bank accounts can be linked in one UPI app, such as BHIM, PhonePe or Google Pay [1].",
+  "reply": "Several bank accounts can be linked in one UPI app, such as BHIM, PhonePe or Google Pay for instant transfers in India [1].",
   "refused": false,
   "reason": "validated; model confidence high",
   "sources": [
@@ -2637,13 +2718,15 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 4.72,
+  "seconds": 3.7,
   "judgements": {
    "faithfulness": {
-    "score": 1.0,
+    "score": 0.5,
     "supported": 1,
-    "total": 1,
-    "unsupported": []
+    "total": 2,
+    "unsupported": [
+     "for instant transfers in India"
+    ]
    },
    "relevance": {
     "verdict": "direct",
@@ -2661,9 +2744,9 @@
   "expected": "answer",
   "question": "What do the digits in an ISO 20022 message identifier stand for?",
   "reference_answer": "A message identifier has four parts: four letters for the business area, three digits for the message definition, three digits for the variant and two digits for the version.",
-  "reply": "Specifically, there are three digits for the message definition, three digits for the variant, and two digits for the version [1].",
+  "reply": "The digits in an ISO 20022 message identifier consist of three digits for the message definition, three digits for the variant, and two digits for the version [1].",
   "refused": false,
-  "reason": "validated after dropping 1 uncited sentence(s)",
+  "reason": "validated; model confidence high",
   "sources": [
    "[1] iso20022_message_identifiers > ISO 20022 message definitions and identifiers > Message identifier structure (https://www.iso20022.org/iso-20022-message-definitions)"
   ],
@@ -2689,12 +2772,10 @@
    "retrieve:3",
    "grade:full",
    "generate",
-   "validate:fail (1 sentence(s) have no valid citation)",
-   "regenerate",
-   "validate:repaired (1 uncited dropped)"
+   "validate:ok"
   ],
-  "llm_calls": 4,
-  "seconds": 5.95,
+  "llm_calls": 3,
+  "seconds": 4.95,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -2749,7 +2830,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 4.3,
+  "seconds": 3.16,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -2804,7 +2885,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 6.31,
+  "seconds": 3.08,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -2828,7 +2909,7 @@
   "expected": "answer",
   "question": "Does the US dispute guidance deal with chargebacks between the issuing and acquiring banks?",
   "reference_answer": "No. The US dispute guidance is separate from the card-scheme chargeback rules between issuing and acquiring banks, which it does not cover.",
-  "reply": "The US Consumer Financial Protection Bureau guidance on disputing a credit card charge is a consumer-law process between the cardholder and the card company and is separate from the card-scheme chargeback rules between issuing and acquiring banks, which this guidance does not cover [1].",
+  "reply": "The US dispute guidance does not cover the card-scheme chargeback rules between issuing and acquiring banks, as it is a consumer-law process between the cardholder and the card company separate from those chargeback rules [1].",
   "refused": false,
   "reason": "validated; model confidence high",
   "sources": [
@@ -2841,25 +2922,28 @@
     "text": "# CFPB guidance: disputing a credit card charge (United States)\n## Public summary\nThe US Consumer Financial Protection Bureau explains how a cardholder can dispute a charge on a credit card\nbill. This is a consumer-law process between the cardholder and the card company. It is separate from the\ncard-scheme chargeback rules between issuing and acquiring banks, which this guidance does not cover. The\nrelated rule is Regulation Z, section 1026.13, billing error resolution."
    },
    {
-    "doc_id": "card_scheme_public_summary",
-    "section": "Card scheme public summary > Payment lifecycle",
-    "text": "# Card scheme public summary\n## Payment lifecycle\n1. Authorization: the merchant sends a request to verify that the card is valid and the account can\nsupport the transaction.\n2. Clearing: the transaction details are exchanged through the card network and acquiring/issuing\nbanks so the payment can be reconciled.\n3. Settlement: funds move between participating institutions after the transaction is accepted and\nprocessed.\n4. Dispute handling: the scheme and the banks may investigate customer disputes, chargebacks, or\nfraud-related exceptions."
+    "doc_id": "cfpb_credit_card_disputes",
+    "section": "CFPB guidance: disputing a credit card charge (United States) > What the card company must do",
+    "text": "# CFPB guidance: disputing a credit card charge (United States)\n## What the card company must do\nAfter receiving the notice, the company has 30 days to send a letter confirming that it received the dispute,\nunless it has already finished the resolution process within that time. If you are correct, the charge must be\nremoved from your bill. If the company says the bill is correct, it must explain why in writing and state the\namount owed and the payment due date."
    },
    {
     "doc_id": "cfpb_credit_card_disputes",
     "section": "CFPB guidance: disputing a credit card charge (United States) > How to dispute",
-    "text": "# CFPB guidance: disputing a credit card charge (United States)\n## How to dispute\nCall the card company about the problem right away. To protect your rights, you must also send a written billing error notice to the card company within 60 calendar days after the charge appeared on your statement. The notice should give your name, address and account number and clearly explain what you think is wrong and why. Keep copies of all correspondence and a record of the dates of follow-up calls. You can dispute a charge even if you have"
+    "text": "# CFPB guidance: disputing a credit card charge (United States)\n## How to dispute\nall correspondence and a record of the dates of follow-up calls. You can dispute a charge even if you have already paid it, although reimbursement may take longer."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:full",
+   "rewrite",
+   "retrieve:3",
+   "grade:full",
    "generate",
    "validate:ok"
   ],
-  "llm_calls": 3,
-  "seconds": 5.77,
+  "llm_calls": 5,
+  "seconds": 7.73,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -2914,7 +2998,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 4.94,
+  "seconds": 3.83,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -2969,7 +3053,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 6.91,
+  "seconds": 4.58,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -3024,7 +3108,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 5.05,
+  "seconds": 3.66,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -3055,28 +3139,31 @@
   "evidence": [
    {
     "doc_id": "psd2_overview",
-    "section": "PSD2 overview > Consumer protection and card fees",
-    "text": "# PSD2 overview\n## Consumer protection and card fees\nThe directive strengthens consumer rights and is part of a legislative package that limits fees for consumer\ndebit and credit card transactions. It bans retailer surcharges for card use."
-   },
-   {
-    "doc_id": "psd2_overview",
     "section": "PSD2 overview > Public summary",
     "text": "# PSD2 overview\n## Public summary\nThe revised Payment Services Directive, PSD2, is European Union legislation on payment services. It became\napplicable in January 2018. The directive aims to make internet payment services easier and safer, to better\nprotect consumers against fraud, abuse and payment problems, to promote innovative mobile and internet\npayment services, and to strengthen consumer rights."
    },
    {
+    "doc_id": "pci_dss_overview",
+    "section": "PCI DSS overview > Who decides whether an organisation complies",
+    "text": "# PCI DSS overview\n## Who decides whether an organisation complies\nThe standard page does not set out penalties or a single enforcement body. Compliance requirements are\ndetermined by organisations that manage compliance programmes, such as a payment brand, an acquirer or\nanother entity."
+   },
+   {
     "doc_id": "psd2_overview",
-    "section": "PSD2 overview > Strong customer authentication",
-    "text": "# PSD2 overview\n## Strong customer authentication\nThe strong customer authentication (SCA) requirement came into force on 13 September 2019. The European\nCommission page gives the date but not the detailed rules or exemptions, so those must be checked in the\ntechnical standards."
+    "section": "PSD2 overview > Consumer protection and card fees",
+    "text": "# PSD2 overview\n## Consumer protection and card fees\nThe directive strengthens consumer rights and is part of a legislative package that limits fees for consumer\ndebit and credit card transactions. It bans retailer surcharges for card use."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:none",
+   "rewrite",
+   "retrieve:3",
+   "grade:none",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.42,
+  "llm_calls": 4,
+  "seconds": 4.47,
   "judgements": null
  },
  "hu2": {
@@ -3087,7 +3174,7 @@
   "reference_answer": null,
   "reply": "I don't know based on the provided documents.",
   "refused": true,
-  "reason": "the passages were judged 'none'",
+  "reason": "the passages were judged 'partial'",
   "sources": [],
   "evidence": [
    {
@@ -3096,24 +3183,27 @@
     "text": "# NPCI UPI overview\n## How people use it\n- A user can send money to a UPI ID, a mobile number or a QR code without first adding the beneficiary or\nwaiting for approval.\n- Several bank accounts can be linked in one UPI app, such as BHIM, PhonePe or Google Pay.\n- UPI is used for bill payments, mobile recharges, loan instalments, insurance premiums and subscriptions.\n- An AutoPay feature supports recurring payments within limits that the user sets."
    },
    {
-    "doc_id": "rbi_authentication_directions_2025",
-    "section": "RBI authentication directions, 2025 > Exemptions",
-    "text": "# RBI authentication directions, 2025\n## Exemptions\nAnnexure 1 lists seven exempt categories: small-value contactless card transactions, recurring e-mandate\ntransactions after the first, certain prepaid instruments, NETC transactions, small-value offline digital payments,\ntravel bookings made with corporate or commercial cards, and tap-and-pay UPI at NFC-enabled point-of-sale machines."
-   },
-   {
     "doc_id": "upi_overview",
     "section": "NPCI UPI overview > Public summary",
     "text": "# NPCI UPI overview\n## Public summary\nThe Unified Payments Interface, UPI, is an instant, real-time payment system developed by NPCI, the National\nPayments Corporation of India, an RBI-regulated entity. It is designed to enable inter-bank transactions\nthrough mobile phones. Money moves directly from one bank account to another, so no wallet top-up is needed.\nPayments work around the clock, including Sundays and bank holidays."
+   },
+   {
+    "doc_id": "card_scheme_public_summary",
+    "section": "Card scheme public summary > Public summary",
+    "text": "# Card scheme public summary\n## Public summary\nCard networks such as Visa and Mastercard operate the rules and infrastructure that allow card\npayments to be authorized, cleared, and settled across banks and merchants. Public summaries generally\nexplain the payment lifecycle without exposing confidential operating details."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:none",
+   "rewrite",
+   "retrieve:3",
+   "grade:partial",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.78,
+  "llm_calls": 4,
+  "seconds": 4.95,
   "judgements": null
  },
  "n01": {
@@ -3153,7 +3243,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.94,
+  "seconds": 3.09,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -3177,9 +3267,9 @@
   "expected": "answer",
   "question": "How many different checks does an Indian digital payment need to pass?",
   "reference_answer": "At least two distinct factors of authentication, unless the transaction is exempted.",
-  "reply": "A factor of authentication can be something the user has, knows, or is, such as a password, an SMS one-time password, a PIN, a card, a software token, a fingerprint, or another form of biometrics [1].",
+  "reply": "All digital payment transactions must be authenticated by at least two distinct factors of authentication unless they are exempted [1].",
   "refused": false,
-  "reason": "validated after dropping 1 uncited sentence(s)",
+  "reason": "validated; model confidence high",
   "sources": [
    "[1] rbi_authentication_directions_2025 > RBI authentication directions, 2025 > Two factors of authentication (https://www.rbi.org.in/scripts/BS_ViewMasDirections.aspx?id=12898)"
   ],
@@ -3205,17 +3295,15 @@
    "retrieve:3",
    "grade:full",
    "generate",
-   "validate:fail (1 sentence(s) have no valid citation)",
-   "regenerate",
-   "validate:repaired (1 uncited dropped)"
+   "validate:ok"
   ],
-  "llm_calls": 4,
-  "seconds": 5.94,
+  "llm_calls": 3,
+  "seconds": 3.61,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
-    "supported": 2,
-    "total": 2,
+    "supported": 1,
+    "total": 1,
     "unsupported": []
    },
    "relevance": {
@@ -3223,8 +3311,8 @@
     "score": 0.5
    },
    "correctness": {
-    "verdict": "partial",
-    "score": 0.5
+    "verdict": "correct",
+    "score": 1.0
    }
   }
  },
@@ -3234,7 +3322,7 @@
   "expected": "answer",
   "question": "Is the relaxation for small online card payments still in force?",
   "reference_answer": "No. The 2016 relaxation has been repealed: the RBI Directions of 25 September 2025 list it among the repealed circulars, so its rules and limits no longer apply.",
-  "reply": "The relaxation for small online card payments up to ₹2,000, which allowed card-not-present transactions without additional factor authentication under certain conditions, was introduced by a Reserve Bank of India circular dated 6 December 2016 [1][2]. However, this circular was repealed by the RBI authentication directions in 2025, as stated in Annexure 2, which lists the 6 December 2016 circular among those repealed [3]. Therefore, the relaxation for small online card payments is no longer in force [3].",
+  "reply": "The relaxation for small online card payments up to ₹2,000, which allowed card-not-present transactions without additional factor authentication under certain conditions, was introduced by a Reserve Bank of India circular dated 6 December 2016 [1][2]. However, this circular was repealed by the RBI authentication directions in 2025, which lists the 6 December 2016 circular among those repealed [3]. Therefore, the relaxation for small online card payments is no longer in force [3].",
   "refused": false,
   "reason": "validated; model confidence high",
   "sources": [
@@ -3267,7 +3355,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 4.83,
+  "seconds": 4.52,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -3291,7 +3379,7 @@
   "expected": "answer",
   "question": "By when must card issuers validate cross-border card-not-present transactions?",
   "reference_answer": "By 1 October 2026, card issuers must have mechanisms to validate non-recurring cross-border card-not-present transactions, and they must apply risk-based handling to all such transactions.",
-  "reply": "Card issuers must have mechanisms to validate non-recurring cross-border card-not-present transactions by 1 October 2026 [1].",
+  "reply": "By 1 October 2026, card issuers must have mechanisms to validate non-recurring cross-border card-not-present transactions, and they must apply risk-based handling to all such transactions [1].",
   "refused": false,
   "reason": "validated; model confidence high",
   "sources": [
@@ -3322,12 +3410,12 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 5.55,
+  "seconds": 4.8,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
-    "supported": 1,
-    "total": 1,
+    "supported": 2,
+    "total": 2,
     "unsupported": []
    },
    "relevance": {
@@ -3335,8 +3423,8 @@
     "score": 1.0
    },
    "correctness": {
-    "verdict": "partial",
-    "score": 0.5
+    "verdict": "correct",
+    "score": 1.0
    }
   }
  },
@@ -3377,7 +3465,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 4.33,
+  "seconds": 3.86,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -3432,7 +3520,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 5.12,
+  "seconds": 4.0,
   "judgements": {
    "faithfulness": {
     "score": 0.5,
@@ -3486,7 +3574,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 4.5,
+  "seconds": 4.86,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -3510,10 +3598,13 @@
   "expected": "answer",
   "question": "How does a credit or debit card transaction actually work behind the scenes?",
   "reference_answer": "The payment goes through authorization (the merchant requests verification that the card is valid and the account can support the transaction), clearing (details are exchanged through the card network and the banks so the payment can be reconciled) and settlement (funds move between the institutions).",
-  "reply": "I don't know based on the provided documents.",
-  "refused": true,
-  "reason": "the answer failed validation: 4 sentence(s) have no valid citation",
-  "sources": [],
+  "reply": "Finally, dispute handling may occur where the scheme and the banks investigate customer disputes, chargebacks, or fraud-related exceptions [1]. Card networks such as Visa and Mastercard operate the rules and infrastructure that allow card payments to be authorized, cleared, and settled across banks and merchants [2].",
+  "refused": false,
+  "reason": "validated after dropping 4 uncited sentence(s)",
+  "sources": [
+   "[1] card_scheme_public_summary > Card scheme public summary > Payment lifecycle (https://www.visa.co.in/; https://www.mastercard.us/)",
+   "[2] card_scheme_public_summary > Card scheme public summary > Public summary (https://www.visa.co.in/; https://www.mastercard.us/)"
+  ],
   "evidence": [
    {
     "doc_id": "card_scheme_public_summary",
@@ -3538,12 +3629,26 @@
    "generate",
    "validate:fail (4 sentence(s) have no valid citation)",
    "regenerate",
-   "validate:fail (4 sentence(s) have no valid citation)",
-   "refuse"
+   "validate:repaired (4 uncited dropped)"
   ],
   "llm_calls": 4,
-  "seconds": 7.09,
-  "judgements": null
+  "seconds": 8.75,
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 2,
+    "total": 2,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "partial",
+    "score": 0.5
+   },
+   "correctness": {
+    "verdict": "partial",
+    "score": 0.5
+   }
+  }
  },
  "i03": {
   "id": "i03",
@@ -3576,10 +3681,13 @@
    "route:in_scope",
    "retrieve:3",
    "grade:partial",
+   "rewrite",
+   "retrieve:3",
+   "grade:partial",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 3.38,
+  "llm_calls": 4,
+  "seconds": 5.09,
   "judgements": null
  },
  "i04": {
@@ -3588,9 +3696,9 @@
   "expected": "answer",
   "question": "What are all the steps to complete a credit card transaction?",
   "reference_answer": "Authorization (the merchant requests verification that the card is valid and the account can support the transaction), clearing (details are exchanged through the card network and the banks so the payment can be reconciled), then settlement (funds move between the institutions).",
-  "reply": "The steps to complete a credit card transaction are: 1. Authorization, where the merchant sends a request to verify that the card is valid and the account can support the transaction. 2. Clearing, where the transaction details are exchanged through the card network and acquiring/issuing banks so the payment can be reconciled. 3. Settlement, where funds move between participating institutions after the transaction is accepted and processed. 4. Dispute handling, where the scheme and the banks may investigate customer disputes, chargebacks, or fraud-related exceptions [1].",
+  "reply": "Dispute handling, where the scheme and the banks may investigate customer disputes, chargebacks, or fraud-related exceptions [1].",
   "refused": false,
-  "reason": "validated; model confidence high",
+  "reason": "validated after dropping 7 uncited sentence(s)",
   "sources": [
    "[1] card_scheme_public_summary > Card scheme public summary > Payment lifecycle (https://www.visa.co.in/; https://www.mastercard.us/)"
   ],
@@ -3616,24 +3724,26 @@
    "retrieve:3",
    "grade:full",
    "generate",
-   "validate:ok"
+   "validate:fail (7 sentence(s) have no valid citation)",
+   "regenerate",
+   "validate:repaired (7 uncited dropped)"
   ],
-  "llm_calls": 3,
-  "seconds": 4.91,
+  "llm_calls": 4,
+  "seconds": 6.27,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
-    "supported": 5,
-    "total": 5,
+    "supported": 1,
+    "total": 1,
     "unsupported": []
    },
    "relevance": {
-    "verdict": "direct",
-    "score": 1.0
+    "verdict": "off_topic",
+    "score": 0.0
    },
    "correctness": {
-    "verdict": "partial",
-    "score": 0.5
+    "verdict": "incorrect",
+    "score": 0.0
    }
   }
  },
@@ -3654,24 +3764,27 @@
     "text": "# NPCI UPI overview\n## Interoperability\nA UPI ID created on one app can send money to an ID registered on a different app, so payments work across the\nmajor banks and apps in India."
    },
    {
-    "doc_id": "upi_overview",
-    "section": "NPCI UPI overview > Public summary",
-    "text": "# NPCI UPI overview\n## Public summary\nThe Unified Payments Interface, UPI, is an instant, real-time payment system developed by NPCI, the National\nPayments Corporation of India, an RBI-regulated entity. It is designed to enable inter-bank transactions\nthrough mobile phones. Money moves directly from one bank account to another, so no wallet top-up is needed.\nPayments work around the clock, including Sundays and bank holidays."
+    "doc_id": "rbi_payment_systems_public_summary",
+    "section": "RBI payment systems public summary > Source note",
+    "text": "# RBI payment systems public summary\n## Source note\nThis is an author-written summary. I checked it on 3 October 2026 against two RBI documents: the Master Direction on Digital Payment Security Controls (issued 18 February 2021, RBI/2020-21/74) and the Authentication mechanisms for digital payment transactions Directions, 2025. They support the topics of secure digital payments, customer authentication and fraud controls, and risk management, governance and customer protection. Neither fetched summary mentions business continuity or resilience, so \"system resilience and operational continuity\" is not confirmed, and \"payment infrastructure and"
    },
    {
-    "doc_id": "upi_overview",
-    "section": "NPCI UPI overview > Authentication",
-    "text": "# NPCI UPI overview\n## Authentication\nUPI follows the RBI's two-factor authentication rule: the first factor is the mobile number linked to the\nuser's bank account, and the second is the UPI PIN."
+    "doc_id": "rbi_authentication_directions_2025",
+    "section": "RBI authentication directions, 2025 > Two factors of authentication",
+    "text": "# RBI authentication directions, 2025\n## Two factors of authentication\nAll digital payment transactions must be authenticated by at least two distinct factors of authentication unless\nthey are exempted. A factor of authentication is a credential of the customer that is used for authentication. It\ncan be something the user has, something the user knows or something the user is, for example a password, an SMS\none-time password, a PIN, a card, a software token, a fingerprint or another form of biometrics."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:partial",
+   "rewrite",
+   "retrieve:3",
+   "grade:partial",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 3.64,
+  "llm_calls": 4,
+  "seconds": 5.58,
   "judgements": null
  },
  "i06": {
@@ -3711,7 +3824,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.47,
+  "seconds": 3.11,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -3735,54 +3848,39 @@
   "expected": "answer",
   "question": "How secure are UPI transactions? What measures are in place to protect user data?",
   "reference_answer": "UPI follows the RBI's two-factor authentication rule: the mobile number linked to the user's bank account, and the UPI PIN. The corpus does not describe other data-protection measures.",
-  "reply": "UPI transactions follow the RBI's two-factor authentication rule, where the first factor is the mobile number linked to the user's bank account, and the second is the UPI PIN [1].",
-  "refused": false,
-  "reason": "validated; model confidence medium",
-  "sources": [
-   "[1] upi_overview > NPCI UPI overview > Authentication (https://www.npci.org.in/product/upi)"
-  ],
+  "reply": "I don't know based on the provided documents.",
+  "refused": true,
+  "reason": "the passages were judged 'partial'",
+  "sources": [],
   "evidence": [
    {
-    "doc_id": "upi_overview",
-    "section": "NPCI UPI overview > Authentication",
-    "text": "# NPCI UPI overview\n## Authentication\nUPI follows the RBI's two-factor authentication rule: the first factor is the mobile number linked to the\nuser's bank account, and the second is the UPI PIN."
+    "doc_id": "pci_dss_overview",
+    "section": "PCI DSS overview > Public summary",
+    "text": "# PCI DSS overview\n## Public summary\nPCI DSS, the Payment Card Industry Data Security Standard, is published by the PCI Security Standards\nCouncil. According to the Council's standard page, it was developed to encourage and enhance payment card\naccount data security and to help organisations around the world adopt consistent data security measures.\nIt sets a baseline of technical and operational requirements designed to protect payment account data."
    },
    {
-    "doc_id": "upi_overview",
-    "section": "NPCI UPI overview > How people use it",
-    "text": "# NPCI UPI overview\n## How people use it\n- A user can send money to a UPI ID, a mobile number or a QR code without first adding the beneficiary or\nwaiting for approval.\n- Several bank accounts can be linked in one UPI app, such as BHIM, PhonePe or Google Pay.\n- UPI is used for bill payments, mobile recharges, loan instalments, insurance premiums and subscriptions.\n- An AutoPay feature supports recurring payments within limits that the user sets."
+    "doc_id": "rbi_payment_systems_public_summary",
+    "section": "RBI payment systems public summary > Source note",
+    "text": "# RBI payment systems public summary\n## Source note\nThis is an author-written summary. I checked it on 3 October 2026 against two RBI documents: the Master Direction on Digital Payment Security Controls (issued 18 February 2021, RBI/2020-21/74) and the Authentication mechanisms for digital payment transactions Directions, 2025. They support the topics of secure digital payments, customer authentication and fraud controls, and risk management, governance and customer protection. Neither fetched summary mentions business continuity or resilience, so \"system resilience and operational continuity\" is not confirmed, and \"payment infrastructure and"
    },
    {
-    "doc_id": "upi_overview",
-    "section": "NPCI UPI overview > Public summary",
-    "text": "# NPCI UPI overview\n## Public summary\nThe Unified Payments Interface, UPI, is an instant, real-time payment system developed by NPCI, the National\nPayments Corporation of India, an RBI-regulated entity. It is designed to enable inter-bank transactions\nthrough mobile phones. Money moves directly from one bank account to another, so no wallet top-up is needed.\nPayments work around the clock, including Sundays and bank holidays."
+    "doc_id": "rbi_payment_systems_public_summary",
+    "section": "RBI payment systems public summary > Typical topics in public guidance",
+    "text": "# RBI payment systems public summary\n## Typical topics in public guidance\n- Safe and secure digital payments\n- Customer authentication and fraud controls\n- Payment infrastructure and processing ecosystem (not confirmed in the sources checked)\n- System resilience and operational continuity (not confirmed in the sources checked)\n- Risk management and compliance expectations"
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
-   "grade:full",
-   "generate",
-   "validate:ok"
+   "grade:partial",
+   "rewrite",
+   "retrieve:3",
+   "grade:partial",
+   "refuse"
   ],
-  "llm_calls": 3,
-  "seconds": 3.86,
-  "judgements": {
-   "faithfulness": {
-    "score": 1.0,
-    "supported": 3,
-    "total": 3,
-    "unsupported": []
-   },
-   "relevance": {
-    "verdict": "partial",
-    "score": 0.5
-   },
-   "correctness": {
-    "verdict": "correct",
-    "score": 1.0
-   }
-  }
+  "llm_calls": 4,
+  "seconds": 5.31,
+  "judgements": null
  },
  "i08": {
   "id": "i08",
@@ -3823,7 +3921,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 4.56,
+  "seconds": 6.36,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -3878,7 +3976,7 @@
    "validate:ok"
   ],
   "llm_calls": 3,
-  "seconds": 3.94,
+  "seconds": 4.09,
   "judgements": {
    "faithfulness": {
     "score": 1.0,
@@ -3904,33 +4002,36 @@
   "reference_answer": null,
   "reply": "I don't know based on the provided documents.",
   "refused": true,
-  "reason": "the passages were judged 'none'",
+  "reason": "the passages were judged 'partial'",
   "sources": [],
   "evidence": [
    {
     "doc_id": "pci_dss_overview",
-    "section": "PCI DSS overview > Who it applies to",
-    "text": "# PCI DSS overview\n## Who it applies to\n- Any entity that stores, processes, or transmits cardholder data (CHD) or sensitive authentication data (SAD).\n- Any entity that could affect the security of the cardholder data environment (CDE).\n- In practice this covers every kind of participant in card processing: merchants, processors, acquirers,\nissuers and service providers."
-   },
-   {
-    "doc_id": "pci_dss_overview",
-    "section": "PCI DSS overview > Terms used on the standard page",
-    "text": "# PCI DSS overview\n## Terms used on the standard page\n- CHD: cardholder data.\n- SAD: sensitive authentication data.\n- CDE: cardholder data environment, the systems and processes that handle that data."
-   },
-   {
-    "doc_id": "pci_dss_overview",
     "section": "PCI DSS overview > Public summary",
     "text": "# PCI DSS overview\n## Public summary\nPCI DSS, the Payment Card Industry Data Security Standard, is published by the PCI Security Standards\nCouncil. According to the Council's standard page, it was developed to encourage and enhance payment card\naccount data security and to help organisations around the world adopt consistent data security measures.\nIt sets a baseline of technical and operational requirements designed to protect payment account data."
+   },
+   {
+    "doc_id": "faqs",
+    "section": "Payments FAQ starter set > FAQ 4: What is PCI DSS?",
+    "text": "# Payments FAQ starter set\n## FAQ 4: What is PCI DSS?\nPCI DSS is a security standard for protecting payment card data. It provides requirements for storing,\ntransmitting, and processing cardholder data securely."
+   },
+   {
+    "doc_id": "psd2_overview",
+    "section": "PSD2 overview > Strong customer authentication",
+    "text": "# PSD2 overview\n## Strong customer authentication\nThe strong customer authentication (SCA) requirement came into force on 13 September 2019. The European\nCommission page gives the date but not the detailed rules or exemptions, so those must be checked in the\ntechnical standards."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:none",
+   "rewrite",
+   "retrieve:3",
+   "grade:partial",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.02,
+  "llm_calls": 4,
+  "seconds": 4.02,
   "judgements": null
  },
  "a02": {
@@ -3941,7 +4042,7 @@
   "reference_answer": null,
   "reply": "I don't know based on the provided documents.",
   "refused": true,
-  "reason": "the passages were judged 'partial'",
+  "reason": "the passages were judged 'none'",
   "sources": [],
   "evidence": [
    {
@@ -3955,19 +4056,22 @@
     "text": "# RBI authentication directions, 2025\n## Earlier circulars repealed\nAnnexure 2 lists eight earlier circulars from 2009 to 2016 that the directions repeal. They include the circular\nof 6 December 2016 that relaxed additional-factor authentication for card-not-present payments up to ₹2,000\n(DPSS.CO.PD No. 1431/02.14.003/2016-17)."
    },
    {
-    "doc_id": "faqs",
-    "section": "Payments FAQ starter set > FAQ 4: What is PCI DSS?",
-    "text": "# Payments FAQ starter set\n## FAQ 4: What is PCI DSS?\nPCI DSS is a security standard for protecting payment card data. It provides requirements for storing,\ntransmitting, and processing cardholder data securely."
+    "doc_id": "pci_dss_overview",
+    "section": "PCI DSS overview > Who decides whether an organisation complies",
+    "text": "# PCI DSS overview\n## Who decides whether an organisation complies\nThe standard page does not set out penalties or a single enforcement body. Compliance requirements are\ndetermined by organisations that manage compliance programmes, such as a payment brand, an acquirer or\nanother entity."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
-   "grade:partial",
+   "grade:none",
+   "rewrite",
+   "retrieve:3",
+   "grade:none",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 1.97,
+  "llm_calls": 4,
+  "seconds": 4.3,
   "judgements": null
  },
  "a03": {
@@ -3978,33 +4082,36 @@
   "reference_answer": null,
   "reply": "I don't know based on the provided documents.",
   "refused": true,
-  "reason": "the passages were judged 'none'",
+  "reason": "the passages were judged 'partial'",
   "sources": [],
   "evidence": [
    {
-    "doc_id": "psd2_overview",
-    "section": "PSD2 overview > Consumer protection and card fees",
-    "text": "# PSD2 overview\n## Consumer protection and card fees\nThe directive strengthens consumer rights and is part of a legislative package that limits fees for consumer\ndebit and credit card transactions. It bans retailer surcharges for card use."
-   },
-   {
-    "doc_id": "psd2_overview",
-    "section": "PSD2 overview > Open banking and new providers",
-    "text": "# PSD2 overview\n## Open banking and new providers\nPSD2 introduced a new category of payment service provider beyond banks, which increases competition and\nchoice for consumers. It also strengthened the role of the European Banking Authority (EBA), which\ncoordinates supervisory authorities and drafts technical standards."
+    "doc_id": "pci_dss_overview",
+    "section": "PCI DSS overview > Who decides whether an organisation complies",
+    "text": "# PCI DSS overview\n## Who decides whether an organisation complies\nThe standard page does not set out penalties or a single enforcement body. Compliance requirements are\ndetermined by organisations that manage compliance programmes, such as a payment brand, an acquirer or\nanother entity."
    },
    {
     "doc_id": "psd2_overview",
     "section": "PSD2 overview > Public summary",
     "text": "# PSD2 overview\n## Public summary\nThe revised Payment Services Directive, PSD2, is European Union legislation on payment services. It became\napplicable in January 2018. The directive aims to make internet payment services easier and safer, to better\nprotect consumers against fraud, abuse and payment problems, to promote innovative mobile and internet\npayment services, and to strengthen consumer rights."
+   },
+   {
+    "doc_id": "psd2_overview",
+    "section": "PSD2 overview > Consumer protection and card fees",
+    "text": "# PSD2 overview\n## Consumer protection and card fees\nThe directive strengthens consumer rights and is part of a legislative package that limits fees for consumer\ndebit and credit card transactions. It bans retailer surcharges for card use."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:none",
+   "rewrite",
+   "retrieve:3",
+   "grade:partial",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 3.38,
+  "llm_calls": 4,
+  "seconds": 4.64,
   "judgements": null
  },
  "a04": {
@@ -4013,20 +4120,22 @@
   "expected": "refuse",
   "question": "How many days does a card company have to finish investigating a billing dispute?",
   "reference_answer": null,
-  "reply": "I don't know based on the provided documents.",
-  "refused": true,
-  "reason": "the passages were judged 'partial'",
-  "sources": [],
+  "reply": "The card company has 30 days to send a letter confirming that it received the dispute, unless it has already finished the resolution process within that time [2].",
+  "refused": false,
+  "reason": "validated; model confidence high",
+  "sources": [
+   "[2] cfpb_credit_card_disputes > CFPB guidance: disputing a credit card charge (United States) > What the card company must do (https://www.consumerfinance.gov/ask-cfpb/how-do-i-dispute-a-charge-on-my-credit-card-bill-en-61/)"
+  ],
   "evidence": [
-   {
-    "doc_id": "cfpb_credit_card_disputes",
-    "section": "CFPB guidance: disputing a credit card charge (United States) > What the card company must do",
-    "text": "# CFPB guidance: disputing a credit card charge (United States)\n## What the card company must do\nAfter receiving the notice, the company has 30 days to send a letter confirming that it received the dispute,\nunless it has already finished the resolution process within that time. If you are correct, the charge must be\nremoved from your bill. If the company says the bill is correct, it must explain why in writing and state the\namount owed and the payment due date."
-   },
    {
     "doc_id": "cfpb_credit_card_disputes",
     "section": "CFPB guidance: disputing a credit card charge (United States) > How to dispute",
     "text": "# CFPB guidance: disputing a credit card charge (United States)\n## How to dispute\nCall the card company about the problem right away. To protect your rights, you must also send a written billing error notice to the card company within 60 calendar days after the charge appeared on your statement. The notice should give your name, address and account number and clearly explain what you think is wrong and why. Keep copies of all correspondence and a record of the dates of follow-up calls. You can dispute a charge even if you have"
+   },
+   {
+    "doc_id": "cfpb_credit_card_disputes",
+    "section": "CFPB guidance: disputing a credit card charge (United States) > What the card company must do",
+    "text": "# CFPB guidance: disputing a credit card charge (United States)\n## What the card company must do\nAfter receiving the notice, the company has 30 days to send a letter confirming that it received the dispute,\nunless it has already finished the resolution process within that time. If you are correct, the charge must be\nremoved from your bill. If the company says the bill is correct, it must explain why in writing and state the\namount owed and the payment due date."
    },
    {
     "doc_id": "cfpb_credit_card_disputes",
@@ -4038,11 +4147,26 @@
    "route:in_scope",
    "retrieve:3",
    "grade:partial",
-   "refuse"
+   "rewrite",
+   "retrieve:3",
+   "grade:full",
+   "generate",
+   "validate:ok"
   ],
-  "llm_calls": 2,
-  "seconds": 2.55,
-  "judgements": null
+  "llm_calls": 5,
+  "seconds": 6.12,
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 1,
+    "total": 1,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "partial",
+    "score": 0.5
+   }
+  }
  },
  "a05": {
   "id": "a05",
@@ -4052,7 +4176,7 @@
   "reference_answer": null,
   "reply": "I don't know based on the provided documents.",
   "refused": true,
-  "reason": "the passages were judged 'partial'",
+  "reason": "the passages were judged 'none'",
   "sources": [],
   "evidence": [
    {
@@ -4067,18 +4191,21 @@
    },
    {
     "doc_id": "iso20022_message_identifiers",
-    "section": "ISO 20022 message definitions and identifiers > Business areas",
-    "text": "# ISO 20022 message definitions and identifiers\n## Business areas\n- pain: payments initiation, messages that support starting a payment from the ordering customer to a financial\ninstitution that services a cash account, and reporting its status.\n- pacs: payments clearing and settlement, messages that support clearing and settlement between financial\ninstitutions.\n- camt: cash management, messages that support reporting and advising on the cash side of financial\ntransactions, including cash movements, balances, and exceptions and investigations."
+    "section": "ISO 20022 message definitions and identifiers > Public summary",
+    "text": "# ISO 20022 message definitions and identifiers\n## Public summary\nThe ISO 20022 repository groups its message definitions into business areas. Each business area has a\nfour-letter code, and that code is the start of every message identifier. Each message is described in a message\ndefinition, which is also converted into a syntax message scheme such as an XML schema."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:partial",
+   "rewrite",
+   "retrieve:3",
+   "grade:none",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.89,
+  "llm_calls": 4,
+  "seconds": 5.52,
   "judgements": null
  },
  "a06": {
@@ -4104,18 +4231,21 @@
    },
    {
     "doc_id": "upi_overview",
-    "section": "NPCI UPI overview > Authentication",
-    "text": "# NPCI UPI overview\n## Authentication\nUPI follows the RBI's two-factor authentication rule: the first factor is the mobile number linked to the\nuser's bank account, and the second is the UPI PIN."
+    "section": "NPCI UPI overview > How people use it",
+    "text": "# NPCI UPI overview\n## How people use it\n- A user can send money to a UPI ID, a mobile number or a QR code without first adding the beneficiary or\nwaiting for approval.\n- Several bank accounts can be linked in one UPI app, such as BHIM, PhonePe or Google Pay.\n- UPI is used for bill payments, mobile recharges, loan instalments, insurance premiums and subscriptions.\n- An AutoPay feature supports recurring payments within limits that the user sets."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:partial",
+   "rewrite",
+   "retrieve:3",
+   "grade:partial",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 1.78,
+  "llm_calls": 4,
+  "seconds": 3.39,
   "judgements": null
  },
  "a07": {
@@ -4135,24 +4265,27 @@
     "text": "# Card scheme public summary\n## Payment lifecycle\n1. Authorization: the merchant sends a request to verify that the card is valid and the account can\nsupport the transaction.\n2. Clearing: the transaction details are exchanged through the card network and acquiring/issuing\nbanks so the payment can be reconciled.\n3. Settlement: funds move between participating institutions after the transaction is accepted and\nprocessed.\n4. Dispute handling: the scheme and the banks may investigate customer disputes, chargebacks, or\nfraud-related exceptions."
    },
    {
-    "doc_id": "cfpb_credit_card_disputes",
-    "section": "CFPB guidance: disputing a credit card charge (United States) > Public summary",
-    "text": "# CFPB guidance: disputing a credit card charge (United States)\n## Public summary\nThe US Consumer Financial Protection Bureau explains how a cardholder can dispute a charge on a credit card\nbill. This is a consumer-law process between the cardholder and the card company. It is separate from the\ncard-scheme chargeback rules between issuing and acquiring banks, which this guidance does not cover. The\nrelated rule is Regulation Z, section 1026.13, billing error resolution."
-   },
-   {
     "doc_id": "psd2_overview",
     "section": "PSD2 overview > Consumer protection and card fees",
     "text": "# PSD2 overview\n## Consumer protection and card fees\nThe directive strengthens consumer rights and is part of a legislative package that limits fees for consumer\ndebit and credit card transactions. It bans retailer surcharges for card use."
+   },
+   {
+    "doc_id": "rbi_card_not_present_afa",
+    "section": "RBI card-not-present transactions and additional authentication (2016, repealed) > Conditions and responsibilities",
+    "text": "# RBI card-not-present transactions and additional authentication (2016, repealed)\n## Conditions and responsibilities\n- The existing chargeback process does not change."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:none",
+   "rewrite",
+   "retrieve:3",
+   "grade:none",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.53,
+  "llm_calls": 4,
+  "seconds": 4.59,
   "judgements": null
  },
  "a08": {
@@ -4171,7 +4304,7 @@
    "decline"
   ],
   "llm_calls": 1,
-  "seconds": 0.56,
+  "seconds": 0.53,
   "judgements": null
  },
  "a09": {
@@ -4211,23 +4344,26 @@
    },
    {
     "doc_id": "pci_dss_overview",
-    "section": "PCI DSS overview > Who it applies to",
-    "text": "# PCI DSS overview\n## Who it applies to\n- Any entity that stores, processes, or transmits cardholder data (CHD) or sensitive authentication data (SAD).\n- Any entity that could affect the security of the cardholder data environment (CDE).\n- In practice this covers every kind of participant in card processing: merchants, processors, acquirers,\nissuers and service providers."
+    "section": "PCI DSS overview > Public summary",
+    "text": "# PCI DSS overview\n## Public summary\nPCI DSS, the Payment Card Industry Data Security Standard, is published by the PCI Security Standards\nCouncil. According to the Council's standard page, it was developed to encourage and enhance payment card\naccount data security and to help organisations around the world adopt consistent data security measures.\nIt sets a baseline of technical and operational requirements designed to protect payment account data."
    },
    {
     "doc_id": "pci_dss_overview",
-    "section": "PCI DSS overview > Public summary",
-    "text": "# PCI DSS overview\n## Public summary\nPCI DSS, the Payment Card Industry Data Security Standard, is published by the PCI Security Standards\nCouncil. According to the Council's standard page, it was developed to encourage and enhance payment card\naccount data security and to help organisations around the world adopt consistent data security measures.\nIt sets a baseline of technical and operational requirements designed to protect payment account data."
+    "section": "PCI DSS overview > Who it applies to",
+    "text": "# PCI DSS overview\n## Who it applies to\n- Any entity that stores, processes, or transmits cardholder data (CHD) or sensitive authentication data (SAD).\n- Any entity that could affect the security of the cardholder data environment (CDE).\n- In practice this covers every kind of participant in card processing: merchants, processors, acquirers,\nissuers and service providers."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:partial",
+   "rewrite",
+   "retrieve:3",
+   "grade:partial",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.17,
+  "llm_calls": 4,
+  "seconds": 5.14,
   "judgements": null
  },
  "b02": {
@@ -4236,35 +4372,17 @@
   "expected": "refuse",
   "question": "Which banks does the European Banking Authority supervise?",
   "reference_answer": null,
-  "reply": "I don't know based on the provided documents.",
+  "reply": "That is outside what I can help with. I answer questions about banking and payments (ISO 20022, card payments and disputes, PCI DSS, PSD2, RBI and UPI rules).",
   "refused": true,
-  "reason": "the passages were judged 'partial'",
+  "reason": "the question is outside the payments scope",
   "sources": [],
-  "evidence": [
-   {
-    "doc_id": "psd2_overview",
-    "section": "PSD2 overview > Open banking and new providers",
-    "text": "# PSD2 overview\n## Open banking and new providers\nPSD2 introduced a new category of payment service provider beyond banks, which increases competition and\nchoice for consumers. It also strengthened the role of the European Banking Authority (EBA), which\ncoordinates supervisory authorities and drafts technical standards."
-   },
-   {
-    "doc_id": "card_scheme_public_summary",
-    "section": "Card scheme public summary > Public summary",
-    "text": "# Card scheme public summary\n## Public summary\nCard networks such as Visa and Mastercard operate the rules and infrastructure that allow card\npayments to be authorized, cleared, and settled across banks and merchants. Public summaries generally\nexplain the payment lifecycle without exposing confidential operating details."
-   },
-   {
-    "doc_id": "card_scheme_public_summary",
-    "section": "Card scheme public summary > Source note",
-    "text": "# Card scheme public summary\n## Source note\nThis is an author-written summary, partly checked on 3 October 2026. The European Central Bank's Glossary of terms related to payment, clearing and settlement systems (30 September 2008) defines card issuer, card scheme, clearing and settlement in terms consistent with this summary. It describes the acquirer as the entity to which the merchant sends the information needed to process the card payment, which is looser than \"the bank that handles the merchant's account\" above. The authorization step as described here"
-   }
-  ],
+  "evidence": [],
   "trace": [
-   "route:in_scope",
-   "retrieve:3",
-   "grade:partial",
-   "refuse"
+   "route:out_of_scope",
+   "decline"
   ],
-  "llm_calls": 2,
-  "seconds": 2.27,
+  "llm_calls": 1,
+  "seconds": 0.66,
   "judgements": null
  },
  "b03": {
@@ -4289,19 +4407,22 @@
     "text": "# RBI card-not-present transactions and additional authentication (2016, repealed)\n## The relaxation\nThe AFA requirement is relaxed for online card-not-present transactions up to ₹2,000, when the payment is made\nthrough a payment authentication solution provided by an authorised card network together with participating\nissuing and acquiring banks. The cardholder registers once, giving the card details and completing AFA with\nthe issuing bank. Afterwards the registered card details act as the first factor and the login credentials of\nthe card network act as the second factor. Above ₹2,000, AFA remains mandatory."
    },
    {
-    "doc_id": "rbi_card_not_present_afa",
-    "section": "RBI card-not-present transactions and additional authentication (2016, repealed) > Authority, scope and date",
-    "text": "# RBI card-not-present transactions and additional authentication (2016, repealed)\n## Authority, scope and date\nThe circular was issued under the Payment and Settlement Systems Act 2007 (sections 10(2) and 18). It is a 2016\ndocument and it has since been repealed: the Reserve Bank of India Directions of 25 September 2025 list it in\nAnnexure 2 among the circulars they repeal, so the rules and limits described here no longer apply."
+    "doc_id": "rbi_payment_systems_public_summary",
+    "section": "RBI payment systems public summary > Public summary",
+    "text": "# RBI payment systems public summary\n## Public summary\nPublic guidance from the Reserve Bank of India (RBI) explains the direction of payment systems,\nconsumer protection, digital payments, and risk management in the Indian context. It is useful for\nunderstanding how digital transactions are monitored and regulated in public policy discussions."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:partial",
+   "rewrite",
+   "retrieve:3",
+   "grade:partial",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 1.94,
+  "llm_calls": 4,
+  "seconds": 4.33,
   "judgements": null
  },
  "b04": {
@@ -4312,7 +4433,7 @@
   "reference_answer": null,
   "reply": "I don't know based on the provided documents.",
   "refused": true,
-  "reason": "the passages were judged 'none'",
+  "reason": "the passages were judged 'partial'",
   "sources": [],
   "evidence": [
    {
@@ -4321,24 +4442,27 @@
     "text": "# NPCI UPI overview\n## Public summary\nThe Unified Payments Interface, UPI, is an instant, real-time payment system developed by NPCI, the National\nPayments Corporation of India, an RBI-regulated entity. It is designed to enable inter-bank transactions\nthrough mobile phones. Money moves directly from one bank account to another, so no wallet top-up is needed.\nPayments work around the clock, including Sundays and bank holidays."
    },
    {
+    "doc_id": "psd2_overview",
+    "section": "PSD2 overview > Consumer protection and card fees",
+    "text": "# PSD2 overview\n## Consumer protection and card fees\nThe directive strengthens consumer rights and is part of a legislative package that limits fees for consumer\ndebit and credit card transactions. It bans retailer surcharges for card use."
+   },
+   {
     "doc_id": "upi_overview",
     "section": "NPCI UPI overview > How people use it",
     "text": "# NPCI UPI overview\n## How people use it\n- A user can send money to a UPI ID, a mobile number or a QR code without first adding the beneficiary or\nwaiting for approval.\n- Several bank accounts can be linked in one UPI app, such as BHIM, PhonePe or Google Pay.\n- UPI is used for bill payments, mobile recharges, loan instalments, insurance premiums and subscriptions.\n- An AutoPay feature supports recurring payments within limits that the user sets."
-   },
-   {
-    "doc_id": "rbi_authentication_directions_2025",
-    "section": "RBI authentication directions, 2025 > Exemptions",
-    "text": "# RBI authentication directions, 2025\n## Exemptions\nAnnexure 1 lists seven exempt categories: small-value contactless card transactions, recurring e-mandate\ntransactions after the first, certain prepaid instruments, NETC transactions, small-value offline digital payments,\ntravel bookings made with corporate or commercial cards, and tap-and-pay UPI at NFC-enabled point-of-sale machines."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:none",
+   "rewrite",
+   "retrieve:3",
+   "grade:partial",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.25,
+  "llm_calls": 4,
+  "seconds": 4.41,
   "judgements": null
  },
  "b05": {
@@ -4353,9 +4477,9 @@
   "sources": [],
   "evidence": [
    {
-    "doc_id": "faqs",
-    "section": "Payments FAQ starter set > FAQ 5: What is a dispute in card payments?",
-    "text": "# Payments FAQ starter set\n## FAQ 5: What is a dispute in card payments?\nA dispute happens when a cardholder challenges a transaction and asks for investigation, reversal, or\ncustomer protection due to issues such as fraud, non-receipt, or billing problems."
+    "doc_id": "cfpb_credit_card_disputes",
+    "section": "CFPB guidance: disputing a credit card charge (United States) > Public summary",
+    "text": "# CFPB guidance: disputing a credit card charge (United States)\n## Public summary\nThe US Consumer Financial Protection Bureau explains how a cardholder can dispute a charge on a credit card\nbill. This is a consumer-law process between the cardholder and the card company. It is separate from the\ncard-scheme chargeback rules between issuing and acquiring banks, which this guidance does not cover. The\nrelated rule is Regulation Z, section 1026.13, billing error resolution."
    },
    {
     "doc_id": "card_scheme_public_summary",
@@ -4363,19 +4487,22 @@
     "text": "# Card scheme public summary\n## Payment lifecycle\n1. Authorization: the merchant sends a request to verify that the card is valid and the account can\nsupport the transaction.\n2. Clearing: the transaction details are exchanged through the card network and acquiring/issuing\nbanks so the payment can be reconciled.\n3. Settlement: funds move between participating institutions after the transaction is accepted and\nprocessed.\n4. Dispute handling: the scheme and the banks may investigate customer disputes, chargebacks, or\nfraud-related exceptions."
    },
    {
-    "doc_id": "cfpb_credit_card_disputes",
-    "section": "CFPB guidance: disputing a credit card charge (United States) > What the card company must do",
-    "text": "# CFPB guidance: disputing a credit card charge (United States)\n## What the card company must do\nAfter receiving the notice, the company has 30 days to send a letter confirming that it received the dispute,\nunless it has already finished the resolution process within that time. If you are correct, the charge must be\nremoved from your bill. If the company says the bill is correct, it must explain why in writing and state the\namount owed and the payment due date."
+    "doc_id": "faqs",
+    "section": "Payments FAQ starter set > FAQ 5: What is a dispute in card payments?",
+    "text": "# Payments FAQ starter set\n## FAQ 5: What is a dispute in card payments?\nA dispute happens when a cardholder challenges a transaction and asks for investigation, reversal, or\ncustomer protection due to issues such as fraud, non-receipt, or billing problems."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
+   "grade:partial",
+   "rewrite",
+   "retrieve:3",
    "grade:none",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.22,
+  "llm_calls": 4,
+  "seconds": 6.77,
   "judgements": null
  },
  "b06": {
@@ -4390,29 +4517,32 @@
   "sources": [],
   "evidence": [
    {
+    "doc_id": "psd2_overview",
+    "section": "PSD2 overview > Consumer protection and card fees",
+    "text": "# PSD2 overview\n## Consumer protection and card fees\nThe directive strengthens consumer rights and is part of a legislative package that limits fees for consumer\ndebit and credit card transactions. It bans retailer surcharges for card use."
+   },
+   {
     "doc_id": "card_scheme_public_summary",
     "section": "Card scheme public summary > Source note",
     "text": "# Card scheme public summary\n## Source note\ncard payment, which is looser than \"the bank that handles the merchant's account\" above. The authorization step as described here is consistent only with search-engine summaries of Mastercard pages (the Mastercard guide returned 403). Visa was not checked for the lifecycle."
    },
    {
-    "doc_id": "cfpb_credit_card_disputes",
-    "section": "CFPB guidance: disputing a credit card charge (United States) > During the investigation",
-    "text": "# CFPB guidance: disputing a credit card charge (United States)\n## During the investigation\nWhile a dispute is open, the company may not report the payment as late to a credit reporting company if you\npaid the undisputed amount on time, charge interest on the disputed amount, or make you pay the disputed charge."
-   },
-   {
-    "doc_id": "psd2_overview",
-    "section": "PSD2 overview > Consumer protection and card fees",
-    "text": "# PSD2 overview\n## Consumer protection and card fees\nThe directive strengthens consumer rights and is part of a legislative package that limits fees for consumer\ndebit and credit card transactions. It bans retailer surcharges for card use."
+    "doc_id": "card_scheme_public_summary",
+    "section": "Card scheme public summary > Public summary",
+    "text": "# Card scheme public summary\n## Public summary\nCard networks such as Visa and Mastercard operate the rules and infrastructure that allow card\npayments to be authorized, cleared, and settled across banks and merchants. Public summaries generally\nexplain the payment lifecycle without exposing confidential operating details."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:none",
+   "rewrite",
+   "retrieve:3",
+   "grade:none",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.23,
+  "llm_calls": 4,
+  "seconds": 4.23,
   "judgements": null
  },
  "b07": {
@@ -4433,23 +4563,26 @@
    },
    {
     "doc_id": "rbi_authentication_directions_2025",
-    "section": "RBI authentication directions, 2025 > Source note",
-    "text": "# RBI authentication directions, 2025\n## Source note\nThis is a summary in my own words of the Reserve Bank of India's Master Directions page. The details come from an\nautomated fetch of that page, so check exact wording, exemptions and dates against the page before relying on them."
+    "section": "RBI authentication directions, 2025 > Public summary",
+    "text": "# RBI authentication directions, 2025\n## Public summary\nThe Reserve Bank of India (Authentication mechanisms for digital payment transactions) Directions, 2025 were\nissued on 25 September 2025. They apply to payment system providers and payment system participants, which include\nbanks and non-bank entities, for domestic digital payment transactions. The directions require compliance by 1 April\n2026 unless a provision says otherwise."
    },
    {
     "doc_id": "rbi_authentication_directions_2025",
-    "section": "RBI authentication directions, 2025 > Public summary",
-    "text": "# RBI authentication directions, 2025\n## Public summary\nThe Reserve Bank of India (Authentication mechanisms for digital payment transactions) Directions, 2025 were\nissued on 25 September 2025. They apply to payment system providers and payment system participants, which include\nbanks and non-bank entities, for domestic digital payment transactions. The directions require compliance by 1 April\n2026 unless a provision says otherwise."
+    "section": "RBI authentication directions, 2025 > Cross-border card-not-present transactions",
+    "text": "# RBI authentication directions, 2025\n## Cross-border card-not-present transactions\nBy 1 October 2026, card issuers must have mechanisms to validate non-recurring cross-border card-not-present\ntransactions, and they must apply risk-based handling to all such transactions."
    }
   ],
   "trace": [
    "route:in_scope",
    "retrieve:3",
    "grade:none",
+   "rewrite",
+   "retrieve:3",
+   "grade:none",
    "refuse"
   ],
-  "llm_calls": 2,
-  "seconds": 2.16,
+  "llm_calls": 4,
+  "seconds": 11.31,
   "judgements": null
  },
  "b08": {
@@ -4468,7 +4601,7 @@
    "decline"
   ],
   "llm_calls": 1,
-  "seconds": 0.53,
+  "seconds": 0.58,
   "judgements": null
  },
  "b09": {
@@ -4487,7 +4620,7 @@
    "decline"
   ],
   "llm_calls": 1,
-  "seconds": 0.58,
+  "seconds": 0.5,
   "judgements": null
  }
 }

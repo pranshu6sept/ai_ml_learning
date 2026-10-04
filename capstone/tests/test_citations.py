@@ -156,3 +156,28 @@ def test_a_retry_that_drops_as_many_sentences_as_the_first_attempt_is_ignored() 
 
     assert result.text == "The directive bans surcharges [1]."  # the first attempt, kept
     assert len(model.prompts) == 2
+
+
+def test_an_inline_numbered_list_with_one_closing_citation_is_one_cited_sentence() -> None:
+    reply = "Steps: 1. Authorization, where X. 2. Clearing, where Y. 3. Settlement, where Z [1]."
+
+    assert len(split_sentences(reply)) == 1
+    result = enforce_citations(reply, 1)
+    assert not result.refused and result.dropped == ()
+
+
+def test_a_number_that_ends_an_ordinary_sentence_still_splits() -> None:
+    assert split_sentences("It uses version 2. It is fast [1].") == [
+        "It uses version 2.",
+        "It is fast [1].",
+    ]
+
+
+def test_list_items_on_separate_lines_each_need_their_own_citation() -> None:
+    result = enforce_citations("1. First thing [1]\n2. Second thing", 1)
+
+    assert result.dropped == ("2. Second thing",)
+
+
+def test_an_uncited_numbered_list_is_still_refused() -> None:
+    assert enforce_citations("Steps: 1. A thing. 2. Another thing.", 1).refused

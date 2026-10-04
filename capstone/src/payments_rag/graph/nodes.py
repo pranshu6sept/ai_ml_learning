@@ -21,13 +21,13 @@ from dataclasses import dataclass
 from typing import Annotated, Any, Protocol, TypedDict
 
 from ..chunking import Chunk
-from ..grounding import NO_ANSWER, Answerability, enforce_citations
+from ..grounding import NO_ANSWER, Answerability, enforce_citations, split_sentences
 from ..retrieval import Hit
 from ..search_filters import SearchFilter
 from ..structured import CitedAnswer, ModelT, QueryRewrite, Route
 from ..tools import SearchCorpus, to_filter
 
-MAX_REWRITES = 1  # one bounded retry of the search with a rewritten query
+MAX_REWRITES = 0  # search rewrite is off by default: 1 rescue in 34 on the golden set (week-06.md)
 MAX_REGENERATIONS = 1  # one bounded retry of the answer when validation fails
 TOP_K = 3
 
@@ -282,9 +282,12 @@ def validate(state: GraphState) -> dict[str, Any]:
         problems.append("the answer carries no usable citation")
     only_uncited = problems == [f"{len(cited.dropped)} sentence(s) have no valid citation"]
     final_attempt = state.get("regenerations", 0) >= MAX_REGENERATIONS
-    if only_uncited and final_attempt and not cited.refused:
+    mostly_kept = len(cited.dropped) <= len(split_sentences(cited.text))
+    if only_uncited and final_attempt and not cited.refused and mostly_kept:
         # The one regeneration is spent and the answer is otherwise sound: keep the cited
-        # sentences and drop the uncited ones, rather than refusing the whole answer.
+        # sentences and drop the uncited ones, rather than refusing the whole answer. If more
+        # sentences would be dropped than kept, the format was not followed and what is left
+        # may be a fragment, so that case is refused instead.
         used = sorted({int(m) for m in re.findall(r"\[(\d+)\]", cited.text)})
         return {
             "valid": True,

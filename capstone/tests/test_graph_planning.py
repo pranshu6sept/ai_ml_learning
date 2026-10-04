@@ -49,7 +49,7 @@ def test_when_a_filtered_search_finds_nothing_good_the_retry_searches_without_fi
         grades=[NONE, FULL],
         rewrites=[QueryRewrite(query="authentication rules")],
     )
-    graph = build_graph(Deps(search, chat), plan_filters=True, retry_wait=0.0)
+    graph = build_graph(Deps(search, chat), plan_filters=True, max_rewrites=1, retry_wait=0.0)
 
     result = run_graph(graph, "What does RBI require?")
 
