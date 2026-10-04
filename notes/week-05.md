@@ -126,7 +126,7 @@ in the script) because the package needs pandas below 3 and would downgrade this
   score is n04 (3.0), one of my partial cases (it omitted the risk-based-handling part); h06, q37, q23 and i04 scored 4.
 - **What this adds up to.** Three graders (the answering model, a different model, and Foundry's evaluators) agree that none of the 57 answers
   is badly wrong or ungrounded, and they disagree about the one or two borderline answers. The checks cannot settle those; a human read can.
-  All three judges are OpenAI models.
+  All three judges are OpenAI models. (Week 7 added a fourth, Meta Llama 3.3 70B, which reached the same overall picture: see `week-07.md`.)
 
 ## Checklist
 

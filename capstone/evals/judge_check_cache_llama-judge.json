@@ -1,0 +1,1163 @@
+{
+ "q01": {
+  "reply": "ISO 20022 is a global standard for financial messaging [1]. It provides a common, structured way to exchange payment and settlement information across banks, payment service providers, corporations, and regulators [1]. ISO 20022 standardizes the format of messages so institutions can exchange structured payment information more consistently [2]. It is a messaging standard that most payment systems are adopting and that payment system operators use [3].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 0.75,
+    "supported": 3,
+    "total": 4,
+    "unsupported": [
+     "It provides a common, structured way to exchange payment and settlement information across banks, payment service providers, corporations, and regulators"
+    ]
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q02": {
+  "reply": "ISO 20022 improves data quality by using a consistent message structure instead of fragmented, proprietary formats [1]. It helps institutions exchange richer details such as reference information, remittance data, party identification, and payment status updates in a more standard way [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 2,
+    "total": 2,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q03": {
+  "reply": "A single ISO 20022 payment message can include structured information about the originator, beneficiary, amount, currency, purpose, and payment references [1]. It also carries remittance information that explains why a payment was sent [2]. Additionally, it can include status reporting details to track whether a payment is pending, processed, rejected, or settled [2].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 3,
+    "total": 3,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q04": {
+  "reply": "Remittance information is structured details that explain why a payment was sent [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 1,
+    "total": 1,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q05": {
+  "reply": "Settlement is the process where funds move between participating institutions after the transaction is accepted and processed [1]. Settlement occurs after authorization and clearing steps [1]. Settlement involves the actual transfer of money between parties [2].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 3,
+    "total": 3,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q06": {
+  "reply": "Authorization is the approval step that checks whether a payment instrument can be used and whether the account has sufficient funds or approval for the transaction [1]. Authorization involves the merchant sending a request to verify that the card is valid and the account can support the transaction [2]. Settlement is the later process where funds move between parties after the transaction is accepted and processed [1]. Settlement occurs after clearing, where transaction details are exchanged through the card network and acquiring/issuing banks for reconciliation [2]. Settlement involves the actual movement of funds between participating institutions [2].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 5,
+    "total": 5,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q08": {
+  "reply": "A dispute happens when a cardholder challenges a transaction and asks for investigation, reversal, or customer protection due to issues such as fraud, non-receipt, or billing problems [1]. During the investigation, the company may not report the payment as late to a credit reporting company if you paid the undisputed amount on time, charge interest on the disputed amount, or make you pay the disputed charge [2]. The scheme and the banks may investigate customer disputes, chargebacks, or fraud-related exceptions during dispute handling [3].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 3,
+    "total": 3,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q09": {
+  "reply": "An acquirer is the bank that handles the merchant's account [1]. The acquirer is also described as the entity to which the merchant sends the information needed to process the card payment [2].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 2,
+    "total": 2,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q11": {
+  "reply": "The card network operates the rules and infrastructure that allow card payments to be authorized, cleared, and settled across banks and merchants [1]. The network connects the participants, including issuers, acquirers, and merchants [2]. The network facilitates the exchange of transaction details during clearing and supports the overall payment lifecycle [3].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 3,
+    "total": 3,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q12": {
+  "reply": "Strong customer authentication reduces fraud by adding a second layer of verification before a payment or sensitive operation is approved [1]. It helps ensure the person performing the transaction is actually the legitimate account holder [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 2,
+    "total": 2,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q13": {
+  "reply": "PCI DSS is a security standard for protecting payment card data [1]. It provides requirements for storing, transmitting, and processing cardholder data securely [1]. PCI DSS is published by the PCI Security Standards Council [2]. It was developed to encourage and enhance payment card account data security [2]. It helps organisations adopt consistent data security measures worldwide [2]. It sets a baseline of technical and operational requirements designed to protect payment account data [2].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 6,
+    "total": 6,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q14": {
+  "reply": "Public RBI guidance covers safe and secure digital payments [1]. It includes customer authentication and fraud controls [1]. It addresses payment infrastructure and processing ecosystem (not confirmed) [1]. It mentions system resilience and operational continuity (not confirmed) [1]. It covers risk management and compliance expectations [1]. It explains the direction of payment systems, consumer protection, digital payments, and risk management in the Indian context [2]. It focuses on reducing fraud, improving security, and making digital payments reliable [3].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 0.7142857142857143,
+    "supported": 5,
+    "total": 7,
+    "unsupported": [
+     "It addresses payment infrastructure and processing ecosystem",
+     "It mentions system resilience and operational continuity"
+    ]
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q15": {
+  "reply": "Payment systems need good chunking and retrieval because payment documentation is dense, structured, and often spread across standards, rules, and guidance [1]. Good retrieval depends on preserving section boundaries and technical context so the system can answer questions grounded in the correct policy or rule [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 2,
+    "total": 2,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q20": {
+  "reply": "The bank that handles the merchant's account is called the Acquirer [2].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 1,
+    "total": 1,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "partial",
+    "score": 0.5
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q21": {
+  "reply": "Strong customer authentication adds a second layer of verification before a payment is approved to reduce fraud and ensure the person performing the transaction is the legitimate account holder [1]. For online card-not-present transactions up to ₹2,000, a second verification step may be relaxed if using a payment authentication solution provided by an authorised card network with participating banks [3]. Above ₹2,000, a second verification step (AFA) remains mandatory [3].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 3,
+    "total": 3,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q23": {
+  "reply": "The steps a card payment goes through are: Authorization, Clearing, Settlement, and Dispute handling [1]. Authorization is when the merchant sends a request to verify that the card is valid and the account can support the transaction [1]. Clearing is when the transaction details are exchanged through the card network and acquiring/issuing banks so the payment can be reconciled [1]. Settlement is when funds move between participating institutions after the transaction is accepted and processed [1]. Dispute handling is when the scheme and the banks may investigate customer disputes, chargebacks, or fraud-related exceptions [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 5,
+    "total": 5,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "partial",
+    "score": 0.5
+   }
+  }
+ },
+ "q24": {
+  "reply": "Public regulators publish guidance on digital payments to reduce fraud [1]. They also aim to improve security [1]. Another reason is to make digital payments reliable for consumers and financial institutions [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 3,
+    "total": 3,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q25": {
+  "reply": "PCI DSS applies to any entity that stores, processes, or transmits cardholder data (CHD) or sensitive authentication data (SAD) [1]. It also applies to any entity that could affect the security of the cardholder data environment (CDE) [1]. This includes every kind of participant in card processing: merchants, processors, acquirers, issuers, and service providers [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 3,
+    "total": 3,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q26": {
+  "reply": "PCI DSS is a security standard for protecting payment card data [1]. It was developed to encourage and enhance payment card account data security [2]. It helps organisations around the world adopt consistent data security measures [2]. It sets a baseline of technical and operational requirements designed to protect payment account data [2].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 4,
+    "total": 4,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q27": {
+  "reply": "Organisations that manage compliance programmes decide whether a company meets the card data security rules [1]. These organisations include a payment brand, an acquirer, or another entity [1]. The PCI Security Standards Council publishes the PCI DSS but does not enforce compliance [1][2].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 4,
+    "total": 4,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q28": {
+  "reply": "Strong customer authentication (SCA) became mandatory on 13 September 2019 under PSD2 [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 2,
+    "total": 2,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q29": {
+  "reply": "PSD2 aims to make internet payment services easier and safer [1]. It aims to better protect consumers against fraud, abuse, and payment problems [1]. It aims to promote innovative mobile and internet payment services [1]. It aims to strengthen consumer rights [1]. PSD2 also aims to increase competition and choice for consumers by introducing new payment service providers beyond banks [2]. It aims to strengthen the role of the European Banking Authority (EBA) [2]. It aims to limit fees for consumer debit and credit card transactions [3]. It bans retailer surcharges for card use [3].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 8,
+    "total": 8,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "partial",
+    "score": 0.5
+   }
+  }
+ },
+ "q30": {
+  "reply": "Shops cannot charge extra fees for paying by card in the EU [1]. The directive bans retailer surcharges for card use [1]. This is part of consumer protection measures under PSD2 [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 3,
+    "total": 3,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q32": {
+  "reply": "Extra authentication can be relaxed for online card payments in India up to ₹2,000 [1][3].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 2,
+    "total": 2,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "partial",
+    "score": 0.5
+   }
+  }
+ },
+ "q34": {
+  "reply": "Banks and networks bear full liability for any security breach or compromise of the card authentication solution [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 1,
+    "total": 1,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q35": {
+  "reply": "You must send a written billing error notice to the card company within 60 calendar days after the charge appeared on your statement [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 1,
+    "total": 1,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q36": {
+  "reply": "If your billing complaint is right, the card company must remove the charge from your bill [2].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 1,
+    "total": 1,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q37": {
+  "reply": "The card company has 30 days to send a letter confirming that it received the dispute after receiving the notice [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 1,
+    "total": 1,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q38": {
+  "reply": "UPI is an instant, real-time payment system developed by NPCI, the National Payments Corporation of India [1]. It enables inter-bank transactions through mobile phones [1]. Money moves directly from one bank account to another without needing a wallet top-up [1]. Payments work 24/7, including Sundays and bank holidays [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 4,
+    "total": 4,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q39": {
+  "reply": "Payments work around the clock, including Sundays and bank holidays [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 1,
+    "total": 1,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q40": {
+  "reply": "The two authentication factors in UPI are the mobile number linked to the user's bank account and the UPI PIN [1]. These follow the RBI's two-factor authentication rule [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 2,
+    "total": 2,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q41": {
+  "reply": "Pacs means payments clearing and settlement in ISO 20022 [1]. It includes messages that support clearing and settlement between financial institutions [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 2,
+    "total": 2,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q42": {
+  "reply": "An ISO 20022 message identifier has four parts: four letters for the business area, three digits for the message definition, three digits for the variant, and two digits for the version [1]. The four-letter code represents the business area and is the start of every message identifier [2].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 4,
+    "total": 4,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "q43": {
+  "reply": "The ISO 20022 messages that deal with reporting account balances and investigations are camt messages [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 1,
+    "total": 1,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "h01": {
+  "reply": "The Reserve Bank of India issued the circular on online card payments made without a physical card [1][3].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 1,
+    "total": 1,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "h03": {
+  "reply": "The cardholder data environment (CDE) is the systems and processes that handle cardholder data (CHD) [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 1,
+    "total": 1,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "h04": {
+  "reply": "You can dispute a charge even if you have already paid it [1][2]. Reimbursement may take longer if you have paid the bill [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 2,
+    "total": 2,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "h05": {
+  "reply": "Apps like BHIM, PhonePe, and Google Pay let you link several bank accounts for instant transfers in India [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 2,
+    "total": 2,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "h06": {
+  "reply": "The three digits after the four letters represent the message definition [1]. The next three digits represent the variant [1]. The last two digits represent the version [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 3,
+    "total": 3,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "h07": {
+  "reply": "A velocity check means limits on how often transactions can happen [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 1,
+    "total": 1,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "partial",
+    "score": 0.5
+   }
+  }
+ },
+ "h08": {
+  "reply": "Strong customer authentication is meant to confirm that the person performing the transaction is actually the legitimate account holder [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 1,
+    "total": 1,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "h09": {
+  "reply": "The US dispute guidance does not cover chargebacks between the issuing and acquiring banks [1]. It is a consumer-law process between the cardholder and the card company [1]. Chargebacks between banks are part of the card-scheme rules, which this guidance does not address [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 3,
+    "total": 3,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "h10": {
+  "reply": "Agreement on the update to the EU payments directive was reached on 27 November 2025 [2].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 1,
+    "total": 1,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "h11": {
+  "reply": "No, a user can send money to a UPI ID, a mobile number or a QR code without first adding the beneficiary or waiting for approval [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 1,
+    "total": 1,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "h12": {
+  "reply": "Yes, the cardholder's consent is required for card-not-present transactions up to ₹2,000 under the simplified solution [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 1,
+    "total": 1,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "n01": {
+  "reply": "Payment system providers must comply with the RBI authentication directions by 1 April 2026 unless a provision says otherwise [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 2,
+    "total": 2,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "n02": {
+  "reply": "An Indian digital payment must pass at least two distinct factors of authentication [1]. These factors can be something the user has, knows, or is, such as a password, OTP, PIN, card, software token, or biometric [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 2,
+    "total": 2,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "partial",
+    "score": 0.5
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "n03": {
+  "reply": "The relaxation for small online card payments up to ₹2,000 was introduced in 2016 [1][2]. This circular was repealed by the RBI authentication directions in 2025 [3]. Therefore, the relaxation is no longer in force [3].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 3,
+    "total": 3,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "n04": {
+  "reply": "Card issuers must validate cross-border card-not-present transactions by 1 October 2026 [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 1,
+    "total": 1,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "n05": {
+  "reply": "The issuer must compensate the customer in full without demur for a loss that arises from non-compliance with the directions [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 1,
+    "total": 1,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "nu1": {
+  "reply": "The bank must compensate the customer in full without demur for a loss that arises from non-compliance with the directions [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 1,
+    "total": 1,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   }
+  }
+ },
+ "i01": {
+  "reply": "Authorization is the approval step that checks whether a payment instrument can be used and whether the account has sufficient funds or approval for the transaction [1]. Authorization involves the merchant sending a request to verify that the card is valid and the account can support the transaction [2]. Settlement is the later process where funds move between parties after the transaction is accepted and processed [1]. Settlement occurs after clearing, where transaction details are exchanged through the card network and acquiring/issuing banks for reconciliation [2]. Settlement involves the actual movement of funds between participating institutions [2].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 5,
+    "total": 5,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "i02": {
+  "reply": "A credit or debit card transaction starts with authorization, where the merchant sends a request to verify the card's validity and account support for the transaction [1]. Next, clearing occurs, during which transaction details are exchanged through the card network and acquiring/issuing banks for payment reconciliation [1]. Then, settlement happens, where funds move between participating institutions after the transaction is accepted and processed [1]. Finally, dispute handling may take place, involving investigation of customer disputes, chargebacks, or fraud-related exceptions by the scheme and banks [1]. Card networks like Visa and Mastercard operate the rules and infrastructure that enable these steps across banks and merchants [2].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 9,
+    "total": 9,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "i04": {
+  "reply": "The steps to complete a credit card transaction are four in total [1]. First, Authorization: the merchant sends a request to verify that the card is valid and the account can support the transaction [1]. Second, Clearing: the transaction details are exchanged through the card network and acquiring/issuing banks so the payment can be reconciled [1]. Third, Settlement: funds move between participating institutions after the transaction is accepted and processed [1]. Fourth, Dispute handling: the scheme and the banks may investigate customer disputes, chargebacks, or fraud-related exceptions [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 5,
+    "total": 5,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "partial",
+    "score": 0.5
+   }
+  }
+ },
+ "i06": {
+  "reply": "The full name of UPI is Unified Payments Interface [1].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 1,
+    "total": 1,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "i07": {
+  "reply": "UPI transactions are secured by RBI's two-factor authentication rule [1]. The first factor is the mobile number linked to the user's bank account [1]. The second factor is the UPI PIN [1]. No other specific data protection measures are mentioned in the provided documents [1][2][3].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 4,
+    "total": 4,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "partial",
+    "score": 0.5
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "i08": {
+  "reply": "UPI is an instant, real-time payment system developed by NPCI, the National Payments Corporation of India, regulated by RBI [1]. It enables inter-bank transactions through mobile phones [1]. Money moves directly from one bank account to another without needing a wallet top-up [1]. Payments can be made 24/7, including Sundays and bank holidays [1]. Users can send money to a UPI ID, mobile number, or QR code without adding the beneficiary first or waiting for approval [2]. Multiple bank accounts can be linked in one UPI app like BHIM, PhonePe, or Google Pay [2]. UPI is used for bill payments, mobile recharges, loan instalments, insurance premiums, and subscriptions [2]. It supports recurring payments via an AutoPay feature within user-set limits [2]. UPI follows RBI's two-factor authentication: the mobile number linked to the bank account and the UPI PIN [3].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 9,
+    "total": 9,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ },
+ "i09": {
+  "reply": "You have 60 calendar days to send a written billing error notice to the card company after the charge appeared on your statement [2].",
+  "judge": "llama-judge",
+  "judgements": {
+   "faithfulness": {
+    "score": 1.0,
+    "supported": 1,
+    "total": 1,
+    "unsupported": []
+   },
+   "relevance": {
+    "verdict": "direct",
+    "score": 1.0
+   },
+   "correctness": {
+    "verdict": "correct",
+    "score": 1.0
+   }
+  }
+ }
+}

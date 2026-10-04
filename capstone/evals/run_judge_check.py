@@ -19,6 +19,7 @@ Calls are paced for the judge deployment's token limit.
 from __future__ import annotations
 
 import argparse
+import dataclasses
 import json
 import math
 import sys
@@ -31,16 +32,18 @@ from run_generation import judge
 from run_retrieval import RESULTS
 
 from payments_rag import AzureChatGenerator, AzureSettings, agreement
+from payments_rag.azure_clients import read_dotenv
 
 GENERATION_CACHE = HERE / "generation_cache.json"
-CACHE = HERE / "judge_check_cache.json"
 TPM_BUDGET = 20000  # the judge deployment allows 30,000 tokens per minute; reasoning needs headroom
 MAX_REQUESTS_PER_MINUTE = 40
 
 
 class PacedJudge(AzureChatGenerator):
-    def __init__(self, settings: AzureSettings, pacer: Pacer) -> None:
-        super().__init__(settings, temperature=None, deployment=settings.judge_deployment)
+    def __init__(
+        self, settings: AzureSettings, pacer: Pacer, temperature: float | None = None
+    ) -> None:
+        super().__init__(settings, temperature=temperature, deployment=settings.judge_deployment)
         self._pacer = pacer
         self.waited = 0.0
 
@@ -76,6 +79,11 @@ def fmt(value: float) -> str:
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--limit", type=int, help="only the first N answered questions")
+    parser.add_argument(
+        "--foundry-deployment",
+        help="judge with this deployment on the Foundry resource (a non-OpenAI model), "
+        "read from AZURE_W7_FOUNDRY_ENDPOINT in .env",
+    )
     args = parser.parse_args(argv)
     sys.stdout.reconfigure(encoding="utf-8")  # type: ignore[union-attr]
 
@@ -85,10 +93,25 @@ def main(argv: list[str] | None = None) -> None:
     if args.limit:
         records = records[: args.limit]
     settings = AzureSettings.from_env()
+    suffix = ""
+    if args.foundry_deployment:
+        endpoint = read_dotenv(HERE.parents[1] / ".env")["AZURE_W7_FOUNDRY_ENDPOINT"]
+        settings = dataclasses.replace(
+            settings, openai_endpoint=endpoint, judge_deployment=args.foundry_deployment
+        )
+        suffix = f"_{args.foundry_deployment}"
+        pacer = Pacer(
+            12000, 15
+        )  # the Foundry deployments allow 20 requests and 20K tokens a minute
+        temperature: float | None = 0.0  # not a reasoning model: temperature 0 is accepted
+    else:
+        pacer = Pacer(TPM_BUDGET, MAX_REQUESTS_PER_MINUTE)
+        temperature = None
     if not settings.judge_deployment:
         raise SystemExit("AZURE_OPENAI_JUDGE_DEPLOYMENT is not set (see .env.example)")
-    judge_chat = PacedJudge(settings, Pacer(TPM_BUDGET, MAX_REQUESTS_PER_MINUTE))
-    cache: dict[str, Any] = json.loads(CACHE.read_text("utf-8")) if CACHE.exists() else {}
+    judge_chat = PacedJudge(settings, pacer, temperature)
+    cache_path = HERE / f"judge_check_cache{suffix}.json"
+    cache: dict[str, Any] = json.loads(cache_path.read_text("utf-8")) if cache_path.exists() else {}
 
     second: dict[str, dict[str, Any]] = {}
     for n, r in enumerate(records, 1):
@@ -107,7 +130,7 @@ def main(argv: list[str] | None = None) -> None:
             "judge": settings.judge_deployment,
             "judgements": judgements,
         }
-        CACHE.write_text(json.dumps(cache, indent=1, ensure_ascii=False), encoding="utf-8")
+        cache_path.write_text(json.dumps(cache, indent=1, ensure_ascii=False), encoding="utf-8")
         second[key] = judgements
         print(f"[{n}/{len(records)}] {key} judged", flush=True)
 
@@ -178,8 +201,8 @@ def main(argv: list[str] | None = None) -> None:
         lines.append("none")
     text = "\n".join(lines) + "\n"
     RESULTS.mkdir(exist_ok=True)
-    (RESULTS / "judge_check.md").write_text(text, encoding="utf-8")
-    (RESULTS / "judge_check.json").write_text(
+    (RESULTS / f"judge_check{suffix}.md").write_text(text, encoding="utf-8")
+    (RESULTS / f"judge_check{suffix}.json").write_text(
         json.dumps(
             {
                 "judge": settings.judge_deployment,

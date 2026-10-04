@@ -138,6 +138,31 @@ resource userFoundryUser 'Microsoft.Authorization/roleAssignments@2022-04-01' = 
   }
 }
 
+// --- A non-OpenAI judge model on the Foundry resource -------------------------------------------------
+// Used to re-grade answers with a model from a different vendor than the one that wrote them.
+// Pay per token; 20 = 20,000 tokens and 20 requests per minute, which is the quota this subscription holds.
+
+@description('Deployment name for a Meta Llama judge model on the Foundry resource. Empty skips it.')
+param llamaJudgeName string = 'llama-judge'
+param llamaJudgeCapacity int = 20
+
+resource llamaJudge 'Microsoft.CognitiveServices/accounts/deployments@2025-06-01' = if (!empty(llamaJudgeName)) {
+  parent: foundry
+  name: llamaJudgeName
+  dependsOn: [project]
+  sku: {
+    name: 'GlobalStandard'
+    capacity: llamaJudgeCapacity
+  }
+  properties: {
+    model: {
+      format: 'Meta'
+      name: 'Llama-3.3-70B-Instruct'
+      version: '5'
+    }
+  }
+}
+
 // --- Optional: Basic Azure AI Search with a managed identity, for indexers ---------------------------
 
 resource indexerSearch 'Microsoft.Search/searchServices@2025-05-01' = if (deployIndexerSearch) {
@@ -201,5 +226,7 @@ output storageBlobEndpoint string = storage.properties.primaryEndpoints.blob
 output corpusContainer string = corpusContainer.name
 output foundryAccountName string = foundry.name
 output foundryProjectName string = project.name
+output foundryOpenAiEndpoint string = 'https://${foundryName}.openai.azure.com/'
+output llamaJudgeDeployment string = empty(llamaJudgeName) ? '' : llamaJudgeName
 output indexerSearchName string = deployIndexerSearch ? indexerSearch!.name : ''
 output indexerSearchEndpoint string = deployIndexerSearch ? 'https://${indexerSearchName}.search.windows.net' : ''
