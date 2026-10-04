@@ -44,6 +44,11 @@ param judgeModelVersion string = '2025-08-07'
 @description('Judge capacity in thousands of tokens per minute (a reasoning model spends many tokens thinking).')
 param judgeCapacity int = 30
 
+@description('Name of a second chat deployment of the same model that uses the stricter content filter policy below. Empty skips it.')
+param strictDeploymentName string = 'gpt-4.1-mini-strict'
+@description('Capacity of the strict deployment in thousands of tokens per minute.')
+param strictCapacity int = 10
+
 @description('Embedding model to deploy (1536 dimensions for text-embedding-3-small).')
 param embeddingModel string = 'text-embedding-3-small'
 param embeddingModelVersion string = '1'
@@ -112,6 +117,51 @@ resource chatDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-1
       name: chatModel
       version: chatModelVersion
     }
+  }
+}
+
+// A stricter content filter policy for the payments assistant. It starts from Microsoft's default and
+// lowers the harm thresholds from Medium to Low, and turns on the shield for instructions hidden in
+// documents (indirect attacks), which the default policy does not include.
+resource strictPolicy 'Microsoft.CognitiveServices/accounts/raiPolicies@2024-10-01' = {
+  parent: openai
+  name: 'payments-strict'
+  dependsOn: [judgeDeployment] // child operations on one account must run one at a time
+  properties: {
+    mode: 'Blocking'
+    basePolicyName: 'Microsoft.DefaultV2'
+    contentFilters: [
+      { name: 'Hate', severityThreshold: 'Low', blocking: true, enabled: true, source: 'Prompt' }
+      { name: 'Hate', severityThreshold: 'Low', blocking: true, enabled: true, source: 'Completion' }
+      { name: 'Sexual', severityThreshold: 'Low', blocking: true, enabled: true, source: 'Prompt' }
+      { name: 'Sexual', severityThreshold: 'Low', blocking: true, enabled: true, source: 'Completion' }
+      { name: 'Violence', severityThreshold: 'Low', blocking: true, enabled: true, source: 'Prompt' }
+      { name: 'Violence', severityThreshold: 'Low', blocking: true, enabled: true, source: 'Completion' }
+      { name: 'Selfharm', severityThreshold: 'Low', blocking: true, enabled: true, source: 'Prompt' }
+      { name: 'Selfharm', severityThreshold: 'Low', blocking: true, enabled: true, source: 'Completion' }
+      { name: 'Jailbreak', blocking: true, enabled: true, source: 'Prompt' }
+      { name: 'Indirect Attack', blocking: true, enabled: true, source: 'Prompt' }
+      { name: 'Protected Material Text', blocking: true, enabled: true, source: 'Completion' }
+      { name: 'Protected Material Code', blocking: false, enabled: true, source: 'Completion' }
+    ]
+  }
+}
+
+resource strictDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = if (!empty(strictDeploymentName)) {
+  parent: openai
+  name: strictDeploymentName
+  dependsOn: [judgeDeployment]
+  sku: {
+    name: 'GlobalStandard'
+    capacity: strictCapacity
+  }
+  properties: {
+    model: {
+      format: 'OpenAI'
+      name: chatModel
+      version: chatModelVersion
+    }
+    raiPolicyName: strictPolicy.name
   }
 }
 
