@@ -1,5 +1,16 @@
 """Capstone: RAG assistant over a banking/payments knowledge base on Azure (from Week 4)."""
 
+from .answer_eval import (
+    CORRECTNESS_SCORES,
+    RELEVANCE_SCORES,
+    Faithfulness,
+    agreement,
+    correctness_prompt,
+    faithfulness_prompt,
+    parse_faithfulness,
+    parse_verdict,
+    relevance_prompt,
+)
 from .azure_clients import (
     AzureChatGenerator,
     AzureHybridRetriever,
@@ -39,6 +50,15 @@ from .search_filters import SearchFilter, build_odata
 __version__ = "0.1.0"
 
 __all__ = [
+    "CORRECTNESS_SCORES",
+    "RELEVANCE_SCORES",
+    "Faithfulness",
+    "agreement",
+    "correctness_prompt",
+    "faithfulness_prompt",
+    "parse_faithfulness",
+    "parse_verdict",
+    "relevance_prompt",
     "NO_ANSWER",
     "METHODS",
     "STRATEGIES",

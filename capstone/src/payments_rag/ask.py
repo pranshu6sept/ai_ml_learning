@@ -44,6 +44,7 @@ class Answer:
     sources: tuple[str, ...]
     refused: bool
     reason: str
+    evidence: tuple[Hit, ...] = ()  # the passages retrieved, also when the answer refused
 
 
 def ask(
@@ -58,7 +59,7 @@ def ask(
         reason = f"the passages were judged '{verdict.label}'" + (
             "" if verdict.quote_found or verdict.label != "full" else " but its quote was not found"
         )
-        return Answer(question, NO_ANSWER, (), True, reason)
+        return Answer(question, NO_ANSWER, (), True, reason, hits)
     grounded = GroundedAnswer(question, False, hits, "passages judged to answer the question")
     reply = generator.generate_cited(grounded)
     if reply.refused:
@@ -69,7 +70,7 @@ def ask(
     sources = tuple(
         label for n, label in enumerate(grounded.citations(), 1) if n in cited
     )  # only passages the answer actually cites
-    return Answer(question, reply.text, sources, False, grounded.reason)
+    return Answer(question, reply.text, sources, False, grounded.reason, hits)
 
 
 def _known(

@@ -54,11 +54,11 @@
 
 | Roadmap item | Status |
 |---|---|
-| Golden set of 50 to 100 questions with expected source chunks and reference answers | 130 questions with expected documents and gold phrases; **no reference answers** |
-| Retrieval metrics: recall@k, MRR, nDCG | Hit@k (recall@k when there is one expected chunk) and MRR done; **nDCG not done** |
-| Generation metrics: faithfulness/groundedness, answer relevance (RAGAS or Azure AI Foundry evaluators) | Groundedness measured with my own judge model, which is unreliable; **answer relevance not measured; RAGAS and Foundry evaluators not used** |
+| Golden set of 50 to 100 questions with expected source chunks and reference answers | **Done in Week 5:** 95 questions with gold passages and reference answers (`golden_set.jsonl`); see `week-05.md` |
+| Retrieval metrics: recall@k, MRR, nDCG | **Done in Week 5:** all three, in `results/retrieval.md` |
+| Generation metrics: faithfulness/groundedness, answer relevance (RAGAS or Azure AI Foundry evaluators) | **Done with my own judge, not RAGAS/Foundry:** faithfulness, relevance, correctness vs reference (`results/generation.md`); see `week-05.md` |
 | Compare the 4 chunking strategies with a results table | Done for retrieval; answer-level only for structure-aware chunks |
-| Deliverable: `evals/` runnable with one command, results committed | Results committed; **many scripts, no single command** |
+| Deliverable: `evals/` runnable with one command, results committed | **Done:** `run_all.py` (offline) and `run_all.py --azure` |
 | Write-up + push | Partly: written up here, not as a separate Week 5 write-up |
 
 ### The question

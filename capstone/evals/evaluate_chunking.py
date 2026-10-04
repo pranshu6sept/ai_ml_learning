@@ -20,6 +20,7 @@ from typing import Any
 from payments_rag import STRATEGIES, Chunk, Retriever, chunk_document, strip_sections
 from payments_rag.indexing import CHUNK_WORDS, MAX_SENTENCES, OVERLAP
 from payments_rag.ingestion import META_SECTIONS, SourceDocument, load_registry
+from payments_rag.metrics import ndcg_at_k, recall_at_k
 
 HERE = Path(__file__).resolve().parent
 CORPUS = HERE.parent / "docs" / "corpus"
@@ -84,6 +85,12 @@ def chunk_corpus(documents: dict[str, str], strategy: str) -> list[Chunk]:
     return chunks
 
 
+def _mean(values: list[float]) -> float:
+    """Mean that skips undefined (nan) entries, e.g. a gold passage cut out of every chunk."""
+    defined = [v for v in values if v == v]
+    return sum(defined) / len(defined) if defined else float("nan")
+
+
 def evaluate(
     strategy: str,
     documents: dict[str, str],
@@ -104,6 +111,8 @@ def evaluate(
 
     hits = {k: 0 for k in KS}
     reciprocal_ranks: list[float] = []
+    recalls: dict[int, list[float]] = {k: [] for k in KS}
+    ndcgs: dict[int, list[float]] = {k: [] for k in KS}
     intact = 0
     top_scores: list[float] = []
     misses: list[dict[str, Any]] = []
@@ -118,6 +127,19 @@ def evaluate(
         top_scores.append(results[0].score if results else 0.0)
         rank = next((i for i, hit in enumerate(results, 1) if is_relevant(hit.chunk, question)), 0)
         reciprocal_ranks.append(1 / rank if rank else 0.0)
+        flags = [is_relevant(hit.chunk, question) for hit in results]
+        total_relevant = sum(is_relevant(chunk, question) for chunk in chunks)
+        for k in KS:
+            covered = [
+                any(
+                    hit.chunk.doc_id == gold["doc"]
+                    and normalize(gold["phrase"]) in normalize(hit.chunk.text)
+                    for hit in results[:k]
+                )
+                for gold in question["gold"]
+            ]
+            recalls[k].append(recall_at_k(covered, k))
+            ndcgs[k].append(ndcg_at_k(flags, total_relevant, k))
         for k in KS:
             hits[k] += int(0 < rank <= k)
         if not rank or rank > 3:
@@ -157,10 +179,16 @@ def evaluate(
         "gold_phrase_intact": intact / n,
         **{f"hit@{k}": hits[k] / n for k in KS},
         "mrr@10": sum(reciprocal_ranks) / n,
+        **{f"recall@{k}": _mean(recalls[k]) for k in KS},
+        **{f"ndcg@{k}": _mean(ndcgs[k]) for k in KS},
         "hit@3_direct": by_kind("direct"),
         "hit@3_paraphrase": by_kind("paraphrase"),
         "mean_top_score_answerable": sum(top_scores) / n,
-        "mean_top_score_unanswerable": sum(unanswerable_scores) / len(unanswerable_scores),
+        "mean_top_score_unanswerable": (
+            sum(unanswerable_scores) / len(unanswerable_scores)
+            if unanswerable_scores
+            else float("nan")  # a set with no unanswerable question
+        ),
         "index_build_ms": round(build_ms, 2),
         "query_ms_mean": round(sum(latencies) / len(latencies), 3),
         "missed_or_below_rank_3": misses,

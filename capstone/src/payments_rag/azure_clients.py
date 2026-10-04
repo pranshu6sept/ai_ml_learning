@@ -56,6 +56,7 @@ class AzureSettings:
     search_endpoint: str
     search_index: str = "payments-rag"
     openai_api_version: str = OPENAI_API_VERSION
+    judge_deployment: str = ""  # a different model that grades answers; empty if none is deployed
 
     @classmethod
     def from_env(
@@ -74,6 +75,7 @@ class AzureSettings:
             **{field: values[name] for name, field in _REQUIRED.items()},
             search_index=values.get("AZURE_SEARCH_INDEX", "payments-rag"),
             openai_api_version=values.get("AZURE_OPENAI_API_VERSION", OPENAI_API_VERSION),
+            judge_deployment=values.get("AZURE_OPENAI_JUDGE_DEPLOYMENT", ""),
         )
 
 
@@ -131,18 +133,26 @@ class AzureChatGenerator:
     """Writes the grounded answer. It never calls the model when the grounding rule abstained."""
 
     def __init__(
-        self, settings: AzureSettings, *, client: Any | None = None, temperature: float = 0.0
+        self,
+        settings: AzureSettings,
+        *,
+        client: Any | None = None,
+        temperature: float | None = 0.0,
+        deployment: str | None = None,
     ) -> None:
-        self._deployment = settings.chat_deployment
+        """``temperature=None`` leaves it out of the request (reasoning models such as gpt-5-mini
+        accept only their default). ``deployment`` picks another deployment than the chat one."""
+        self._deployment = deployment or settings.chat_deployment
         self._client = client if client is not None else _openai_client(settings)
         self._temperature = temperature
 
     def complete(self, prompt: str, *, json_mode: bool = False) -> str:
         """Send one user message and return the reply text. ``json_mode`` asks for a JSON object."""
         options: dict[str, Any] = {"response_format": {"type": "json_object"}} if json_mode else {}
+        if self._temperature is not None:
+            options["temperature"] = self._temperature
         response = self._client.chat.completions.create(
             model=self._deployment,
-            temperature=self._temperature,
             messages=[{"role": "user", "content": prompt}],
             **options,
         )

@@ -231,6 +231,37 @@ def test_complete_requests_json_only_when_asked() -> None:
     assert chat.messages[1]["messages"][0]["content"] == "as json"
 
 
+def test_the_default_generator_sends_temperature_zero_to_the_chat_deployment() -> None:
+    chat = FakeChat()
+
+    AzureChatGenerator(SETTINGS, client=SimpleNamespace(chat=chat)).complete("x")
+
+    assert chat.messages[0]["temperature"] == 0.0
+    assert chat.messages[0]["model"] == "gpt-4.1-mini"
+
+
+def test_a_judge_generator_uses_its_own_deployment_and_sends_no_temperature() -> None:
+    chat = FakeChat()
+    judge = AzureChatGenerator(
+        SETTINGS, client=SimpleNamespace(chat=chat), temperature=None, deployment="gpt-5-mini"
+    )
+
+    judge.complete("grade this", json_mode=True)
+
+    assert chat.messages[0]["model"] == "gpt-5-mini"
+    assert "temperature" not in chat.messages[0]
+
+
+def test_the_judge_deployment_is_optional_and_read_from_the_environment() -> None:
+    assert SETTINGS.judge_deployment == ""
+
+    with_judge = AzureSettings.from_env(
+        {**ENV, "AZURE_OPENAI_JUDGE_DEPLOYMENT": "gpt-5-mini"}, None
+    )
+
+    assert with_judge.judge_deployment == "gpt-5-mini"
+
+
 class RecordingIndexClient(FakeIndexClient):
     def __init__(self, *, missing: bool = False) -> None:
         super().__init__()

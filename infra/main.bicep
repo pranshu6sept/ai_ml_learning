@@ -37,6 +37,12 @@ param chatModelVersion string = '2025-04-14'
 @description('Chat capacity in thousands of tokens per minute.')
 param chatCapacity int = 10
 
+@description('Second chat model, used only as the judge in evaluations so that the model that wrote an answer is not the one that grades it. Empty skips it.')
+param judgeModel string = 'gpt-5-mini'
+param judgeModelVersion string = '2025-08-07'
+@description('Judge capacity in thousands of tokens per minute (a reasoning model spends many tokens thinking).')
+param judgeCapacity int = 30
+
 @description('Embedding model to deploy (1536 dimensions for text-embedding-3-small).')
 param embeddingModel string = 'text-embedding-3-small'
 param embeddingModelVersion string = '1'
@@ -104,6 +110,23 @@ resource chatDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-1
       format: 'OpenAI'
       name: chatModel
       version: chatModelVersion
+    }
+  }
+}
+
+resource judgeDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = if (!empty(judgeModel)) {
+  parent: openai
+  name: judgeModel
+  dependsOn: [chatDeployment]
+  sku: {
+    name: 'GlobalStandard'
+    capacity: judgeCapacity
+  }
+  properties: {
+    model: {
+      format: 'OpenAI'
+      name: judgeModel
+      version: judgeModelVersion
     }
   }
 }
@@ -183,5 +206,6 @@ output openAiEndpoint string = openai.properties.endpoint
 output openAiName string = openai.name
 output embeddingDeployment string = embeddingDeployment.name
 output chatDeployment string = chatDeployment.name
+output judgeDeployment string = empty(judgeModel) ? '' : judgeModel
 output searchName string = search.name
 output searchEndpoint string = 'https://${search.name}.search.windows.net'

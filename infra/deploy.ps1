@@ -59,6 +59,7 @@ $envPath = Join-Path $repoRoot ".env"
     "AZURE_OPENAI_ENDPOINT=$($o.openAiEndpoint.value)"
     "AZURE_OPENAI_EMBEDDING_DEPLOYMENT=$($o.embeddingDeployment.value)"
     "AZURE_OPENAI_CHAT_DEPLOYMENT=$($o.chatDeployment.value)"
+    "AZURE_OPENAI_JUDGE_DEPLOYMENT=$($o.judgeDeployment.value)"
     "AZURE_SEARCH_ENDPOINT=$($o.searchEndpoint.value)"
     "AZURE_SEARCH_INDEX=payments-rag"
 ) | Set-Content -Path $envPath -Encoding utf8
