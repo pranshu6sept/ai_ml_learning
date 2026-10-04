@@ -26,6 +26,7 @@ from typing import Any
 
 from evaluate_chunking import HERE
 from evaluate_grounding import Pacer, call_with_retries, estimate_tokens
+from pydantic import BaseModel
 from run_generation import judge
 from run_retrieval import RESULTS
 
@@ -43,10 +44,12 @@ class PacedJudge(AzureChatGenerator):
         self._pacer = pacer
         self.waited = 0.0
 
-    def complete(self, prompt: str, *, json_mode: bool = False) -> str:
+    def complete(
+        self, prompt: str, *, json_mode: bool = False, schema: type[BaseModel] | None = None
+    ) -> str:
         self._pacer.wait(estimate_tokens(prompt) * 3)  # allow for the model's hidden reasoning
         return call_with_retries(
-            lambda: super(PacedJudge, self).complete(prompt, json_mode=json_mode)
+            lambda: super(PacedJudge, self).complete(prompt, json_mode=json_mode, schema=schema)
         )
 
 

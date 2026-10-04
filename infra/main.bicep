@@ -6,7 +6,8 @@
 //  * Azure OpenAI and Azure AI Search are in different regions on purpose: the model catalogue lists
 //    South India for these models, and AI Search offers its full feature set in Central India.
 //  * Search uses the free tier by default ($0, one per subscription, 3 indexes, 50 MB, may be deleted if idle).
-//  * Model deployments are small (10 = 10,000 tokens per minute) to keep cost and quota needs low.
+//  * Model deployments are small to keep quota needs low: embeddings 10 (10,000 tokens per minute), chat 50
+//    (raised from 10 so the 95-question evaluations finish in minutes; capacity caps speed, not cost).
 
 targetScope = 'resourceGroup'
 
@@ -35,7 +36,7 @@ param searchSku string = 'free'
 param chatModel string = 'gpt-4.1-mini'
 param chatModelVersion string = '2025-04-14'
 @description('Chat capacity in thousands of tokens per minute.')
-param chatCapacity int = 10
+param chatCapacity int = 50
 
 @description('Second chat model, used only as the judge in evaluations so that the model that wrote an answer is not the one that grades it. Empty skips it.')
 param judgeModel string = 'gpt-5-mini'

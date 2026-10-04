@@ -1,0 +1,1163 @@
+{
+ "labelled": [
+  {
+   "id": "p01",
+   "question": "What does the RBI require for two-factor authentication of digital payments?",
+   "expected_regions": [
+    "India"
+   ],
+   "chosen_regions": [
+    "India"
+   ],
+   "expected_date": false,
+   "chosen_date": false,
+   "published_from": null,
+   "published_to": null,
+   "query": "RBI two-factor authentication digital payments",
+   "regions_ok": true,
+   "date_ok": true
+  },
+  {
+   "id": "p02",
+   "question": "Under PSD2, when did strong customer authentication become mandatory?",
+   "expected_regions": [
+    "EU"
+   ],
+   "chosen_regions": [
+    "EU"
+   ],
+   "expected_date": false,
+   "chosen_date": false,
+   "published_from": null,
+   "published_to": null,
+   "query": "strong customer authentication mandatory date under PSD2",
+   "regions_ok": true,
+   "date_ok": true
+  },
+  {
+   "id": "p03",
+   "question": "How long do I have to dispute a credit card charge in the US?",
+   "expected_regions": [
+    "US"
+   ],
+   "chosen_regions": [
+    "US"
+   ],
+   "expected_date": false,
+   "chosen_date": false,
+   "published_from": null,
+   "published_to": null,
+   "query": "credit card charge dispute period",
+   "regions_ok": true,
+   "date_ok": true
+  },
+  {
+   "id": "p04",
+   "question": "What is ISO 20022?",
+   "expected_regions": [],
+   "chosen_regions": [],
+   "expected_date": false,
+   "chosen_date": false,
+   "published_from": null,
+   "published_to": null,
+   "query": "ISO 20022",
+   "regions_ok": true,
+   "date_ok": true
+  },
+  {
+   "id": "p05",
+   "question": "What is UPI and who runs it?",
+   "expected_regions": [
+    "India"
+   ],
+   "chosen_regions": [
+    "India"
+   ],
+   "expected_date": false,
+   "chosen_date": false,
+   "published_from": null,
+   "published_to": null,
+   "query": "UPI",
+   "regions_ok": true,
+   "date_ok": true
+  },
+  {
+   "id": "p06",
+   "question": "What are the latest RBI authentication directions?",
+   "expected_regions": [
+    "India"
+   ],
+   "chosen_regions": [
+    "India"
+   ],
+   "expected_date": true,
+   "chosen_date": true,
+   "published_from": "2023-01-01",
+   "published_to": null,
+   "query": "latest RBI authentication directions",
+   "regions_ok": true,
+   "date_ok": true
+  },
+  {
+   "id": "p07",
+   "question": "What changed in 2025 for digital payment authentication in India?",
+   "expected_regions": [
+    "India"
+   ],
+   "chosen_regions": [
+    "India"
+   ],
+   "expected_date": true,
+   "chosen_date": true,
+   "published_from": "2025-01-01",
+   "published_to": "2025-12-31",
+   "query": "digital payment authentication changes 2025 India",
+   "regions_ok": true,
+   "date_ok": true
+  },
+  {
+   "id": "p08",
+   "question": "Explain card-not-present chargebacks.",
+   "expected_regions": [],
+   "chosen_regions": [],
+   "expected_date": false,
+   "chosen_date": false,
+   "published_from": null,
+   "published_to": null,
+   "query": "card-not-present chargebacks",
+   "regions_ok": true,
+   "date_ok": true
+  },
+  {
+   "id": "p09",
+   "question": "What does the CFPB say about billing errors on credit cards?",
+   "expected_regions": [
+    "US"
+   ],
+   "chosen_regions": [
+    "US"
+   ],
+   "expected_date": false,
+   "chosen_date": false,
+   "published_from": null,
+   "published_to": null,
+   "query": "CFPB billing errors credit cards",
+   "regions_ok": true,
+   "date_ok": true
+  },
+  {
+   "id": "p10",
+   "question": "How are retailer surcharges handled for card payments in the EU?",
+   "expected_regions": [
+    "EU"
+   ],
+   "chosen_regions": [
+    "EU"
+   ],
+   "expected_date": false,
+   "chosen_date": false,
+   "published_from": null,
+   "published_to": null,
+   "query": "retailer surcharges card payments EU",
+   "regions_ok": true,
+   "date_ok": true
+  },
+  {
+   "id": "p11",
+   "question": "What is PCI DSS?",
+   "expected_regions": [],
+   "chosen_regions": [],
+   "expected_date": false,
+   "chosen_date": false,
+   "published_from": null,
+   "published_to": null,
+   "query": "PCI DSS",
+   "regions_ok": true,
+   "date_ok": true
+  },
+  {
+   "id": "p12",
+   "question": "What is remittance information?",
+   "expected_regions": [],
+   "chosen_regions": [],
+   "expected_date": false,
+   "chosen_date": false,
+   "published_from": null,
+   "published_to": null,
+   "query": "remittance information",
+   "regions_ok": true,
+   "date_ok": true
+  },
+  {
+   "id": "p13",
+   "question": "What does the pacs message family do?",
+   "expected_regions": [],
+   "chosen_regions": [],
+   "expected_date": false,
+   "chosen_date": false,
+   "published_from": null,
+   "published_to": null,
+   "query": "pacs message family",
+   "regions_ok": true,
+   "date_ok": true
+  },
+  {
+   "id": "p14",
+   "question": "Which documents published before 2020 discuss card payments in India?",
+   "expected_regions": [
+    "India"
+   ],
+   "chosen_regions": [
+    "India"
+   ],
+   "expected_date": true,
+   "chosen_date": true,
+   "published_from": null,
+   "published_to": "2019-12-31",
+   "query": "card payments",
+   "regions_ok": true,
+   "date_ok": true
+  },
+  {
+   "id": "p15",
+   "question": "How does settlement work after authorization?",
+   "expected_regions": [],
+   "chosen_regions": [],
+   "expected_date": false,
+   "chosen_date": false,
+   "published_from": null,
+   "published_to": null,
+   "query": "settlement after authorization",
+   "regions_ok": true,
+   "date_ok": true
+  },
+  {
+   "id": "p16",
+   "question": "What is new in PSD3 as of this year?",
+   "expected_regions": [
+    "EU"
+   ],
+   "chosen_regions": [
+    "EU"
+   ],
+   "expected_date": true,
+   "chosen_date": true,
+   "published_from": "2024-01-01",
+   "published_to": "2024-06-20",
+   "query": "PSD3 new features 2024",
+   "regions_ok": true,
+   "date_ok": true
+  },
+  {
+   "id": "p17",
+   "question": "Can UPI payments be made on bank holidays?",
+   "expected_regions": [
+    "India"
+   ],
+   "chosen_regions": [
+    "India"
+   ],
+   "expected_date": false,
+   "chosen_date": false,
+   "published_from": null,
+   "published_to": null,
+   "query": "UPI payments on bank holidays",
+   "regions_ok": true,
+   "date_ok": true
+  },
+  {
+   "id": "p18",
+   "question": "What is the role of an acquirer?",
+   "expected_regions": [],
+   "chosen_regions": [],
+   "expected_date": false,
+   "chosen_date": false,
+   "published_from": null,
+   "published_to": null,
+   "query": "role of an acquirer",
+   "regions_ok": true,
+   "date_ok": true
+  }
+ ],
+ "golden": [
+  {
+   "id": "q01",
+   "question": "What is ISO 20022?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "faqs",
+    "iso20022_overview"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q02",
+   "question": "What does ISO 20022 improve compared with proprietary formats?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "iso20022_overview"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q03",
+   "question": "Which details can a single ISO 20022 payment message carry?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "iso20022_overview"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q04",
+   "question": "What is remittance information?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "iso20022_overview"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q05",
+   "question": "What is settlement in card payments?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "card_scheme_public_summary",
+    "faqs"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q06",
+   "question": "What is the difference between authorization and settlement?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "card_scheme_public_summary",
+    "faqs"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q07",
+   "question": "Who handles card dispute processing?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "card_scheme_public_summary"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q08",
+   "question": "What happens during a payment dispute?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "card_scheme_public_summary",
+    "faqs"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q09",
+   "question": "What is an acquirer?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "card_scheme_public_summary"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q10",
+   "question": "What does the issuing bank do?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "card_scheme_public_summary"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q11",
+   "question": "What role does the card network play?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "card_scheme_public_summary"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q12",
+   "question": "Why is strong customer authentication important?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "faqs"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q13",
+   "question": "What is PCI DSS?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "faqs"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q14",
+   "question": "What topics does public RBI guidance cover?",
+   "chosen_regions": [
+    "India"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "rbi_payment_systems_public_summary"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "q15",
+   "question": "Why do payment systems need good chunking and retrieval?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "faqs"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q16",
+   "question": "How do banks agree on a common way to exchange payment data?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "iso20022_overview"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q17",
+   "question": "How can I find out where a payment currently stands?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "iso20022_overview"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q18",
+   "question": "What if a customer says a purchase on their card was not theirs?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "card_scheme_public_summary",
+    "faqs"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q19",
+   "question": "How does money actually move between banks after a purchase is approved?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "card_scheme_public_summary",
+    "faqs"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q20",
+   "question": "Which bank looks after the shop's account?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "card_scheme_public_summary"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q21",
+   "question": "Do I need a second verification step before a payment goes through?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "faqs"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q22",
+   "question": "What do regulators expect banks to do to keep payments working during outages?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "rbi_payment_systems_public_summary"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q23",
+   "question": "What are the steps a card payment goes through?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "card_scheme_public_summary"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q24",
+   "question": "Why do public regulators publish guidance on digital payments?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "rbi_payment_systems_public_summary"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q25",
+   "question": "Who does PCI DSS apply to?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "pci_dss_overview"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q26",
+   "question": "What is the purpose of PCI DSS?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "pci_dss_overview"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q27",
+   "question": "Which organisations decide whether a company meets the card data security rules?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "pci_dss_overview"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q28",
+   "question": "When did strong customer authentication become mandatory under PSD2?",
+   "chosen_regions": [
+    "EU"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "psd2_overview"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "q29",
+   "question": "What are the aims of PSD2?",
+   "chosen_regions": [
+    "EU"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "psd2_overview"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "q30",
+   "question": "Can shops charge extra for paying by card in the EU?",
+   "chosen_regions": [
+    "EU"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "psd2_overview"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "q31",
+   "question": "What is PSD3?",
+   "chosen_regions": [
+    "EU"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "psd2_overview"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "q32",
+   "question": "Below what value can extra authentication be relaxed for online card payments in India?",
+   "chosen_regions": [
+    "India"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "rbi_card_not_present_afa"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "q33",
+   "question": "Do I have to use the simplified online card payment option?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "rbi_card_not_present_afa"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q34",
+   "question": "Who is liable if there is a security breach of the card authentication solution?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "rbi_card_not_present_afa"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q35",
+   "question": "How long do I have to dispute a credit card charge in the US?",
+   "chosen_regions": [
+    "US"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "cfpb_credit_card_disputes"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "q36",
+   "question": "What must the card company do if my billing complaint is right?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "cfpb_credit_card_disputes"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q37",
+   "question": "How long does the card company have to acknowledge a billing dispute?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "cfpb_credit_card_disputes"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q38",
+   "question": "What is UPI?",
+   "chosen_regions": [
+    "India"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "upi_overview"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "q39",
+   "question": "Can I send money on a bank holiday in India?",
+   "chosen_regions": [
+    "India"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "upi_overview"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "q40",
+   "question": "What are the two authentication factors in UPI?",
+   "chosen_regions": [
+    "India"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "upi_overview"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "q41",
+   "question": "What does pacs mean in ISO 20022?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "iso20022_message_identifiers"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q42",
+   "question": "How is an ISO 20022 message identifier structured?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "iso20022_message_identifiers"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "q43",
+   "question": "Which ISO 20022 messages deal with reporting account balances and investigations?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "iso20022_message_identifiers"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "h01",
+   "question": "Which regulator issued the circular on online card payments made without a physical card?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "rbi_card_not_present_afa"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "h02",
+   "question": "What kinds of firms did the EU payments directive allow besides banks?",
+   "chosen_regions": [
+    "EU"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "psd2_overview"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "h03",
+   "question": "What is the cardholder data environment?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "pci_dss_overview"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "h04",
+   "question": "Can I still dispute a credit card charge after I have paid the bill?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "cfpb_credit_card_disputes"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "h05",
+   "question": "Which apps let me link several bank accounts for instant transfers in India?",
+   "chosen_regions": [
+    "India"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "upi_overview"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "h06",
+   "question": "What do the digits in an ISO 20022 message identifier stand for?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "iso20022_message_identifiers"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "h07",
+   "question": "What is a velocity check?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "rbi_card_not_present_afa"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "h08",
+   "question": "What is strong customer authentication meant to confirm about the person paying?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "faqs"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "h09",
+   "question": "Does the US dispute guidance deal with chargebacks between the issuing and acquiring banks?",
+   "chosen_regions": [
+    "US"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "cfpb_credit_card_disputes"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "h10",
+   "question": "When was agreement reached on the update to the EU payments directive?",
+   "chosen_regions": [
+    "EU"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "psd2_overview"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "h11",
+   "question": "Do I need to register a payee before sending money by UPI?",
+   "chosen_regions": [
+    "India"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "upi_overview"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "h12",
+   "question": "Is the cardholder's agreement needed for the simplified online card payment in India?",
+   "chosen_regions": [
+    "India"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "rbi_card_not_present_afa"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "n01",
+   "question": "When must payment providers comply with the RBI authentication directions?",
+   "chosen_regions": [
+    "India"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "rbi_authentication_directions_2025"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "n02",
+   "question": "How many different checks does an Indian digital payment need to pass?",
+   "chosen_regions": [
+    "India"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "rbi_authentication_directions_2025"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "n03",
+   "question": "Is the relaxation for small online card payments still in force?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "rbi_authentication_directions_2025",
+    "rbi_card_not_present_afa"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "n04",
+   "question": "By when must card issuers validate cross-border card-not-present transactions?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "rbi_authentication_directions_2025"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "n05",
+   "question": "Who pays the customer back if the authentication rules were not followed and money was lost?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "rbi_authentication_directions_2025"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "i01",
+   "question": "What is the difference between authorization and settlement in credit card transactions?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "faqs"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "i02",
+   "question": "How does a credit or debit card transaction actually work behind the scenes?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "card_scheme_public_summary"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "i03",
+   "question": "How do credit card companies settle payments with the banks in clearing system?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "card_scheme_public_summary"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "i04",
+   "question": "What are all the steps to complete a credit card transaction?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "card_scheme_public_summary"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  },
+  {
+   "id": "i05",
+   "question": "Are UPI payments really secure in India?",
+   "chosen_regions": [
+    "India"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "upi_overview"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "i06",
+   "question": "What is the full name of UPI?",
+   "chosen_regions": [
+    "India"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "upi_overview"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "i07",
+   "question": "How secure are UPI transactions? What measures are in place to protect user data?",
+   "chosen_regions": [
+    "India"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "upi_overview"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "i08",
+   "question": "What is UPI, and how does it work?",
+   "chosen_regions": [
+    "India"
+   ],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "upi_overview"
+   ],
+   "gold_survives": true,
+   "filtered": true
+  },
+  {
+   "id": "i09",
+   "question": "How many days do I have to dispute a credit card charge?",
+   "chosen_regions": [],
+   "published_from": null,
+   "published_to": null,
+   "gold_docs": [
+    "cfpb_credit_card_disputes"
+   ],
+   "gold_survives": true,
+   "filtered": false
+  }
+ ]
+}

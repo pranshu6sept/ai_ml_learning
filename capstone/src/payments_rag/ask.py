@@ -84,6 +84,37 @@ def _known(
     return tuple(canonical[v.lower()] for v in given)
 
 
+def _run_graph(args: argparse.Namespace, retriever: Searcher, chat: AzureChatGenerator) -> int:
+    """Answer with the graph; with --review, a person decides when the evidence is partial."""
+    from langgraph.checkpoint.memory import MemorySaver
+
+    from .graph import Deps, build_graph, resume, run_graph
+
+    graph = build_graph(
+        Deps(retriever, chat),
+        review=args.review,
+        checkpointer=MemorySaver() if args.review else None,
+    )
+    result = run_graph(graph, args.question, thread_id="cli")
+    if result.interrupted:
+        print("The passages only partly answer the question:\n")
+        for n, text in enumerate(result.interrupted["passages"], 1):
+            print(f"[{n}] {text}\n")
+        decision = (
+            "answer" if input("Answer from these passages? [y/N] ").lower() == "y" else "refuse"
+        )
+        result = resume(graph, args.question, decision, thread_id="cli")
+    print(result.answer.text)
+    if result.answer.sources:
+        print("\nSources:")
+        for source in result.answer.sources:
+            print(f"  {source}")
+    else:
+        print(f"\n(refused: {result.answer.reason})")
+    print(f"\npath: {' -> '.join(result.trace)}")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Ask a question about the payments corpus.")
     parser.add_argument("question")
@@ -96,7 +127,19 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("--published-from", help="only documents published on or after YYYY-MM-DD")
     parser.add_argument("--published-to", help="only documents published on or before YYYY-MM-DD")
+    parser.add_argument(
+        "--graph",
+        action="store_true",
+        help="answer with the LangGraph pipeline (route, grade, validate)",
+    )
+    parser.add_argument(
+        "--review",
+        action="store_true",
+        help="with --graph: ask you when the evidence is only partial",
+    )
     args = parser.parse_args(argv)
+    if args.review and not args.graph:
+        parser.error("--review needs --graph")
     sources = load_registry()
     filters = SearchFilter(
         doc_ids=_known(parser, "--source", args.source, [s.doc_id for s in sources]),
@@ -112,7 +155,10 @@ def main(argv: list[str] | None = None) -> int:
         semantic=not args.no_semantic,
         filters=filters,
     )
-    result = ask(args.question, retriever, AzureChatGenerator(settings))
+    chat = AzureChatGenerator(settings)
+    if args.graph:
+        return _run_graph(args, retriever, chat)
+    result = ask(args.question, retriever, chat)
     print(result.text)
     if result.sources:
         print("\nSources:")

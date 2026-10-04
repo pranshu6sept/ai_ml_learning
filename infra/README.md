@@ -67,7 +67,7 @@ embeddings, notebooks) from the environment.
 | `401` from Search | Role-based access isn't enabled on the service, or you're signed out. The Bicep enables it; run `az login` again. |
 | `DeploymentNotFound` / `404` | The deployment name in `.env` doesn't match the portal. |
 | Cannot reuse the OpenAI account name after teardown | Azure OpenAI accounts are soft-deleted. Purge: `az cognitiveservices account list-deleted`, then `az cognitiveservices account purge`. |
-| `429` | Capacity is small (10K tokens per minute). Wait a minute, or raise `chatCapacity` if you have quota. |
+| `429` | Capacity is limited (chat 50K tokens per minute, embeddings 10K). Wait a minute, or raise `chatCapacity` if you have quota. |
 
 ## What has and hasn't been verified
 

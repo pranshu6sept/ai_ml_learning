@@ -39,6 +39,7 @@ from evaluate_grounding import (
     call_with_retries,
     estimate_tokens,
 )
+from pydantic import BaseModel
 from run_retrieval import RESULTS, load_golden
 
 from payments_rag import (
@@ -71,13 +72,17 @@ class PacedChat(AzureChatGenerator):
         super().__init__(settings)
         self._pacer = pacer
         self.waited = 0.0
+        self.calls = 0  # model calls made, for cost comparisons
 
-    def complete(self, prompt: str, *, json_mode: bool = False) -> str:
+    def complete(
+        self, prompt: str, *, json_mode: bool = False, schema: type[BaseModel] | None = None
+    ) -> str:
+        self.calls += 1
         started = time.monotonic()
         self._pacer.wait(estimate_tokens(prompt))
         self.waited += time.monotonic() - started
         return call_with_retries(
-            lambda: super(PacedChat, self).complete(prompt, json_mode=json_mode)
+            lambda: super(PacedChat, self).complete(prompt, json_mode=json_mode, schema=schema)
         )
 
 

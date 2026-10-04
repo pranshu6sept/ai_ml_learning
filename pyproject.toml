@@ -9,6 +9,7 @@ dependencies = [
     "lightgbm>=4.7.0",
     "numpy>=1.26",
     "pandas>=2.2",
+    "pydantic>=2.7",
     "scikit-learn>=1.5",
     "shap>=0.51.0",
     "snowballstemmer>=3.1.1",
@@ -37,6 +38,9 @@ notebooks = [
     "ipywidgets>=8.1.9",
     "jupyterlab>=4.2",
     "matplotlib>=3.11.2",
+]
+orchestration = [
+    "langgraph>=1.2",
 ]
 
 [build-system]

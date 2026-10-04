@@ -1,0 +1,20 @@
+[
+  {"id": "p01", "question": "What does the RBI require for two-factor authentication of digital payments?", "jurisdictions": ["India"], "date": false},
+  {"id": "p02", "question": "Under PSD2, when did strong customer authentication become mandatory?", "jurisdictions": ["EU"], "date": false},
+  {"id": "p03", "question": "How long do I have to dispute a credit card charge in the US?", "jurisdictions": ["US"], "date": false},
+  {"id": "p04", "question": "What is ISO 20022?", "jurisdictions": [], "date": false},
+  {"id": "p05", "question": "What is UPI and who runs it?", "jurisdictions": ["India"], "date": false},
+  {"id": "p06", "question": "What are the latest RBI authentication directions?", "jurisdictions": ["India"], "date": true},
+  {"id": "p07", "question": "What changed in 2025 for digital payment authentication in India?", "jurisdictions": ["India"], "date": true},
+  {"id": "p08", "question": "Explain card-not-present chargebacks.", "jurisdictions": [], "date": false},
+  {"id": "p09", "question": "What does the CFPB say about billing errors on credit cards?", "jurisdictions": ["US"], "date": false},
+  {"id": "p10", "question": "How are retailer surcharges handled for card payments in the EU?", "jurisdictions": ["EU"], "date": false},
+  {"id": "p11", "question": "What is PCI DSS?", "jurisdictions": [], "date": false},
+  {"id": "p12", "question": "What is remittance information?", "jurisdictions": [], "date": false},
+  {"id": "p13", "question": "What does the pacs message family do?", "jurisdictions": [], "date": false},
+  {"id": "p14", "question": "Which documents published before 2020 discuss card payments in India?", "jurisdictions": ["India"], "date": true},
+  {"id": "p15", "question": "How does settlement work after authorization?", "jurisdictions": [], "date": false},
+  {"id": "p16", "question": "What is new in PSD3 as of this year?", "jurisdictions": ["EU"], "date": true},
+  {"id": "p17", "question": "Can UPI payments be made on bank holidays?", "jurisdictions": ["India"], "date": false},
+  {"id": "p18", "question": "What is the role of an acquirer?", "jurisdictions": [], "date": false}
+]

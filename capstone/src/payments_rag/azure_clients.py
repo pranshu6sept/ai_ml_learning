@@ -17,6 +17,7 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
+from pydantic import BaseModel
 
 from .chunking import Chunk
 from .grounding import (
@@ -31,6 +32,8 @@ from .grounding import (
 )
 from .retrieval import Hit
 from .search_filters import SearchFilter, build_odata
+from .structured import ModelT, StructuredOutputError, parse, response_format
+from .tools import TOOL_NAME, SearchCorpus, tool_choice, tool_definition
 
 OPENAI_API_VERSION = "2024-10-21"  # documented GA Azure OpenAI data-plane version; override via env
 OPENAI_TOKEN_SCOPE = "https://cognitiveservices.azure.com/.default"
@@ -146,9 +149,16 @@ class AzureChatGenerator:
         self._client = client if client is not None else _openai_client(settings)
         self._temperature = temperature
 
-    def complete(self, prompt: str, *, json_mode: bool = False) -> str:
-        """Send one user message and return the reply text. ``json_mode`` asks for a JSON object."""
-        options: dict[str, Any] = {"response_format": {"type": "json_object"}} if json_mode else {}
+    def complete(
+        self, prompt: str, *, json_mode: bool = False, schema: type[BaseModel] | None = None
+    ) -> str:
+        """Send one user message and return the reply text. ``json_mode`` asks for a JSON object;
+        ``schema`` asks for JSON that matches that Pydantic model (see ``structured``)."""
+        options: dict[str, Any] = {}
+        if schema is not None:
+            options["response_format"] = response_format(schema)
+        elif json_mode:
+            options["response_format"] = {"type": "json_object"}
         if self._temperature is not None:
             options["temperature"] = self._temperature
         response = self._client.chat.completions.create(
@@ -157,6 +167,31 @@ class AzureChatGenerator:
             **options,
         )
         return str(response.choices[0].message.content or "").strip()
+
+    def complete_structured(self, prompt: str, model: type[ModelT]) -> ModelT:
+        """Ask for JSON matching ``model``; return it validated, or raise StructuredOutputError."""
+        return parse(model, self.complete(prompt, schema=model))
+
+    def plan_search(self, prompt: str) -> SearchCorpus:
+        """Offer the ``search_corpus`` tool and force a call; return its validated arguments.
+
+        The model does not run anything: it only says how it would call the tool. We validate
+        the arguments and decide what to do with them.
+        """
+        options: dict[str, Any] = {}
+        if self._temperature is not None:
+            options["temperature"] = self._temperature
+        response = self._client.chat.completions.create(
+            model=self._deployment,
+            messages=[{"role": "user", "content": prompt}],
+            tools=[tool_definition()],
+            tool_choice=tool_choice(),
+            **options,
+        )
+        calls = response.choices[0].message.tool_calls or []
+        if not calls or calls[0].function.name != TOOL_NAME:
+            raise StructuredOutputError("the model did not call the search_corpus tool")
+        return parse(SearchCorpus, calls[0].function.arguments)
 
     def generate(self, answer: GroundedAnswer) -> str:
         if answer.abstained:
@@ -422,7 +457,8 @@ class AzureHybridRetriever:
         self._semantic = semantic
         self._filters = filters
 
-    def search(self, query: str, top_k: int = 3) -> list[Hit]:
+    def search(self, query: str, top_k: int = 3, filters: SearchFilter | None = None) -> list[Hit]:
+        """``filters`` for this call, if given, replace the ones the retriever was built with."""
         vector = self._embedder([query])[0]
         return self._store.search(
             query,
@@ -430,5 +466,5 @@ class AzureHybridRetriever:
             top_k=top_k,
             strategy=self._strategy,
             semantic=self._semantic,
-            filters=self._filters,
+            filters=filters if filters is not None else self._filters,
         )
