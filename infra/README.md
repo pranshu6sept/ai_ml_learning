@@ -84,3 +84,29 @@ semantic ranker, and long-term behaviour (the free Search tier may be deleted if
 Idle resources cost nothing: Azure OpenAI charges per token only, and the free Search tier is $0. So far the smoke
 test and evaluations used roughly 100,000 embedding tokens and a couple of chat calls (my estimate, not a measured
 figure). To see actual spend, use **Cost Management** in the portal. To remove everything: `.\infra\teardown.ps1`.
+
+## Week 7: Blob Storage, a Foundry project, and an optional indexer service
+
+`week7.bicep` is a separate template for a separate resource group, so the Week 4-6 stack is not touched and everything here can be deleted in one step.
+
+| Resource | Cost (list price) | Notes |
+|---|---|---|
+| Storage account (Standard LRS) + `corpus` container | a fraction of a cent for a few KB; reads and writes about 0.004-0.055 USD per 10,000 | Shared-key access is off: Entra roles only |
+| Foundry resource (kind `AIServices`) + project | no charge for the resource; models and evaluations bill per token | Not a hub project. Prompt flow is retired on 2027-04-20 and is not used |
+| Basic Azure AI Search with a managed identity (**optional, off by default**) | **0.133 USD per hour** in Central India (about 3.19 USD a day) | The free tier cannot use a managed identity for indexers, so the indexer demo needs this |
+
+```powershell
+$env:AZURE_PRINCIPAL_ID = (az ad signed-in-user show --query id -o tsv)
+az provider register --namespace Microsoft.Storage --wait
+az group create -n rg-payments-rag-w7 -l centralindia
+az deployment group what-if -g rg-payments-rag-w7 -f infra/week7.bicep -p infra/week7.bicepparam
+az deployment group create  -g rg-payments-rag-w7 -f infra/week7.bicep -p infra/week7.bicepparam
+
+# Indexer demo (bills hourly): add the Basic service, and tell the template which OpenAI account to grant
+$env:AZURE_W7_INDEXER_SEARCH = "true"; $env:AZURE_OPENAI_ACCOUNT = "<your openai account name>"
+
+# Delete everything from Week 7 (the Week 4-6 stack is untouched):
+az group delete -n rg-payments-rag-w7 --yes --no-wait
+```
+
+`what-if` shows one "Unsupported" line when the indexer service is on: that is the cross-resource-group OpenAI role assignment, whose principal ID only exists after the search service is created.
