@@ -21,6 +21,7 @@ from __future__ import annotations
 import time
 from collections.abc import Sequence
 from dataclasses import dataclass
+from datetime import timedelta
 from typing import Any
 
 PAGE_CHARS = 600  # about the size of one of our 80-word chunks
@@ -56,13 +57,21 @@ def build_pipeline(
     openai_endpoint: str,
     embedding_deployment: str,
     dimensions: int,
+    soft_delete: bool = False,
+    schedule_minutes: int | None = None,
 ) -> None:
-    """Create (or update) the data source, index, skillset and indexer. Safe to repeat."""
+    """Create (or update) the data source, index, skillset and indexer. Safe to repeat.
+
+    ``soft_delete`` makes the indexer remove the search documents of blobs that were deleted (needs blob
+    soft delete on the storage account). ``schedule_minutes`` runs the indexer on a timer (5 minutes or more).
+    """
     from azure.search.documents.indexes.models import (
         AzureOpenAIEmbeddingSkill,
         HnswAlgorithmConfiguration,
+        IndexingSchedule,
         IndexProjectionMode,
         InputFieldMappingEntry,
+        NativeBlobSoftDeleteDeletionDetectionPolicy,
         OutputFieldMappingEntry,
         SearchableField,
         SearchField,
@@ -124,6 +133,9 @@ def build_pipeline(
             type="azureblob",
             connection_string=f"ResourceId={storage_resource_id};",
             container=SearchIndexerDataContainer(name=container),
+            data_deletion_detection_policy=NativeBlobSoftDeleteDeletionDetectionPolicy()
+            if soft_delete
+            else None,
         )
     )
     split = SplitSkill(
@@ -176,14 +188,21 @@ def build_pipeline(
             data_source_name=names.data_source,
             target_index_name=names.index,
             skillset_name=names.skillset,
+            schedule=IndexingSchedule(interval=timedelta(minutes=schedule_minutes))
+            if schedule_minutes
+            else None,
         )
     )
 
 
 def run_and_wait(
-    indexer_client: Any, name: str, *, timeout_s: int = 900, poll_s: int = 5
+    indexer_client: Any, name: str, *, timeout_s: int = 900, poll_s: int = 5, reset: bool = True
 ) -> dict[str, Any]:
-    """Reset and run the indexer, wait for it to finish, and return what happened."""
+    """Run the indexer, wait for that run to finish, and return what happened.
+
+    ``reset=True`` first clears the indexer's change tracking, so every blob is processed again.
+    ``reset=False`` is an incremental run: only blobs that changed since the last run are processed.
+    """
     # A newly created indexer starts its first run by itself; let it finish before resetting.
     # (The service-level status "running" only means the indexer is enabled; the run state is in
     # last_result.status.)
@@ -192,14 +211,20 @@ def run_and_wait(
         if last is not None and last.status != "inProgress":
             break
         time.sleep(poll_s)
-    indexer_client.reset_indexer(name)
+    previous = indexer_client.get_indexer_status(name).last_result
+    previous_start = previous.start_time if previous is not None else None
+    if reset:
+        indexer_client.reset_indexer(name)
     started = time.monotonic()
     indexer_client.run_indexer(name)
     while time.monotonic() - started < timeout_s:
         time.sleep(poll_s)
         status = indexer_client.get_indexer_status(name)
         last = status.last_result
-        if last is not None and last.status in ("success", "transientFailure", "persistentFailure"):
+        # Only a run that started after the call counts; the previous run's result is still on show at first.
+        if last is None or last.start_time == previous_start:
+            continue
+        if last.status in ("success", "transientFailure", "persistentFailure"):
             return {
                 "status": last.status,
                 "seconds": round(time.monotonic() - started, 1),

@@ -75,6 +75,14 @@ resource storage 'Microsoft.Storage/storageAccounts@2023-05-01' = {
 resource blobService 'Microsoft.Storage/storageAccounts/blobServices@2023-05-01' = {
   parent: storage
   name: 'default'
+  properties: {
+    // Soft delete lets an indexer notice deleted blobs (native soft-delete detection) and remove their
+    // search documents. Deleted blobs are kept for 7 days; the corpus is a few KB, so the cost is nil.
+    deleteRetentionPolicy: {
+      enabled: true
+      days: 7
+    }
+  }
 }
 
 resource corpusContainer 'Microsoft.Storage/storageAccounts/blobServices/containers@2023-05-01' = {

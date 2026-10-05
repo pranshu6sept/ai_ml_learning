@@ -45,9 +45,9 @@ class FakeIndexerClient:
         )  # "running" = the indexer is enabled
 
 
-def _run(status: str, **extra: Any) -> Any:
+def _run(status: str, start: int = 1, **extra: Any) -> Any:
     base = {"item_count": 11, "failed_item_count": 0, "errors": [], "warnings": []}
-    return SimpleNamespace(status=status, **{**base, **extra})
+    return SimpleNamespace(status=status, start_time=start, **{**base, **extra})
 
 
 def _build() -> tuple[FakeIndexClient, FakeIndexerClient]:
@@ -113,7 +113,9 @@ def test_the_index_has_a_vector_field_of_the_embedding_size() -> None:
 
 
 def test_running_waits_for_the_automatic_first_run_then_resets_and_reruns() -> None:
-    client = FakeIndexerClient([_run("inProgress"), _run("success"), _run("success")])
+    client = FakeIndexerClient(
+        [_run("inProgress"), _run("success"), _run("success"), _run("success", start=2)]
+    )
 
     result = run_and_wait(client, "corpus-indexer", poll_s=0)
 
@@ -125,10 +127,11 @@ def test_running_waits_for_the_automatic_first_run_then_resets_and_reruns() -> N
 def test_a_failed_run_is_reported_with_its_errors_not_hidden() -> None:
     failing = _run(
         "transientFailure",
+        start=2,
         failed_item_count=1,
         errors=[SimpleNamespace(key="doc1", error_message="429 from the embedding model")],
     )
-    client = FakeIndexerClient([_run("success"), failing])
+    client = FakeIndexerClient([_run("success"), _run("success"), failing])
 
     result = run_and_wait(client, "corpus-indexer", poll_s=0)
 
@@ -137,7 +140,44 @@ def test_a_failed_run_is_reported_with_its_errors_not_hidden() -> None:
 
 
 def test_a_run_that_never_finishes_times_out() -> None:
-    client = FakeIndexerClient([_run("success"), _run("inProgress")])
+    client = FakeIndexerClient([_run("success"), _run("success"), _run("inProgress", start=2)])
 
     with pytest.raises(TimeoutError):
         run_and_wait(client, "corpus-indexer", timeout_s=0, poll_s=0)
+
+    # After the call the old result is still on show; only a run with a new start time counts.
+    states = [
+        _run("success"),
+        _run("success"),
+        _run("success"),
+        _run("success", start=2, item_count=1),
+    ]
+    client = FakeIndexerClient(states)
+
+    result = run_and_wait(client, "corpus-indexer", poll_s=0, reset=False)
+
+    assert "reset" not in client.calls
+    assert result["items_processed"] == 1  # not the stale 11 from the previous run
+
+
+def test_a_deletion_policy_and_a_schedule_are_optional_extras_on_the_pipeline() -> None:
+    pytest.importorskip("azure.search.documents")
+    index, indexer = FakeIndexClient(), FakeIndexerClient()
+    build_pipeline(
+        index,
+        indexer,
+        names=IndexerNames(),
+        storage_resource_id="/subscriptions/s/resourceGroups/rg/providers/Microsoft.Storage/storageAccounts/a",
+        container="corpus",
+        openai_endpoint="https://oai.example.com/",
+        embedding_deployment="emb",
+        dimensions=1536,
+        soft_delete=True,
+        schedule_minutes=5,
+    )
+
+    assert indexer.created["data_source"].data_deletion_detection_policy is not None
+    assert indexer.created["indexer"].schedule.interval.total_seconds() == 300
+    plain = _build()[1]
+    assert plain.created["data_source"].data_deletion_detection_policy is None
+    assert plain.created["indexer"].schedule is None

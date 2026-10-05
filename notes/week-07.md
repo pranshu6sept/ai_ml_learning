@@ -54,8 +54,31 @@ Gold phrase intact inside one indexer page for 68 of 69 questions.
 - **What the data supports:** the managed indexer is **comparable** to our push pipeline: ahead of fixed chunks on Hit@1 and nDCG, about level with structure-aware chunks overall (lower Hit@1 and nDCG, higher Hit@3 in build 2). I would not rank them from these runs.
 - **What it cannot do:** keep the heading path (`section`) or cut on document structure, so citations lose the section name. Text Split cuts by length. The richer alternative, the Document Layout skill, needs a Foundry Tools resource and was not tried.
 - **Where each fits.** Push: full control of chunking and metadata (region and date filters need extra fields mapped through the skillset), runs on the free tier, no storage account. Indexer: scheduled, incremental re-indexing of changed blobs and no chunking or upload code to run, but needs Basic or higher for keyless access.
-- **Not measured:** incremental updates (change one blob and re-run), scheduling, and scale beyond 11 documents.
+- **Not measured:** scale beyond 11 documents. Incremental updates, deletes and scheduling are in the next section.
 - **Template weakness found on the rebuild:** the search identity's role assignments are named from the service name, which is stable, but a recreated service gets a new identity. The assignments left by the deleted identity then collide (`RoleAssignmentUpdateNotPermitted`). Delete the old assignments by ID before redeploying (see `infra/README.md`); a user-assigned identity would avoid this and was not tried.
+
+## Indexer lifecycle: incremental updates, deletes and schedule
+
+Our push pipeline rebuilds the whole index every time. The question here was whether the managed indexer only does the work that changed. Measured on a fresh Basic service (`evals/run_indexer_incremental.py`, `results/indexer_incremental.md`, then a controlled follow-up `evals/run_indexer_edit_probe.py`); about 20 minutes of Basic service, roughly 4-5 cents at list price. Blob soft delete was switched on in `infra/week7.bicep` for the delete tests.
+
+**What the data supports**
+
+| Question | Observation |
+|---|---|
+| Does an unchanged corpus cost anything? | **No.** On a settled indexer, two consecutive no-change runs processed **0 documents in 5.2 s each**, against 7 to 56 s (varying a lot between runs) for runs that processed all 11 documents. |
+| Is only the changed blob re-processed? | **Yes, in the controlled test and the scheduled run** (the scripted lifecycle also had an unexplained exception, below). A one-blob edit was processed as **1 document**, and the new text became searchable (a unique marker word was found in the edited document only). The other documents were not re-processed. |
+| Does the schedule work without a manual trigger? | **Yes.** With a 5-minute interval, an edit made right after setting the schedule was picked up by a run nobody triggered, 302 s after the edit, 1 document, marker found. |
+| What happens to a deleted blob by default? | **Its pages stay in the index** (the deleted card-scheme blob still had its 5 pages searchable). The indexer does not remove them on its own. |
+| With native soft-delete detection on the data source? | **Removed.** After enabling the policy and running, the deleted blob's 5 pages disappeared (44 to 39 pages). This needs soft delete on the storage account. |
+| Does restoring a deleted blob bring it back? | **Not by itself.** An undelete does not change the blob's last-modified time, and the next run processed 0 documents; the pages returned only after the blob was re-uploaded. A reset (or re-upload) is needed. |
+
+**What I could not explain, and what I would not rely on**
+- **Edits were counted twice.** In the controlled test, the run after an edit processed 1 document, and the *next* run (nothing changed) processed 1 more; the same after restoring the blob. Settled no-change runs then returned to 0. I do not know why (a re-check of recently modified blobs is a guess, not a finding). It costs a few seconds, not correctness.
+- **Two of my scripted steps looked wrong and were not reproduced.** In the first scripted lifecycle, the "no change" run right after the baseline processed all 11 documents (54 s), and the next step (a one-blob edit) also processed 11 and briefly showed 60 pages against 44 (the old pages of re-processed documents had not yet been removed; the count was back to 44 one step later). Neither happened in the controlled follow-up. Whatever caused them, **page counts read immediately after a run are not safe to trust**, and a bulk re-upload makes every blob look changed (my cleanup step did exactly that, and the next run processed all 11).
+- **How long a change takes to show up** is not established: in the controlled test the marker was found after the second run, and I did not search for it between the runs.
+- **The first scripted attempt crashed** on a 300-second connection timeout to a freshly created service's search endpoint (a retry minutes later worked). A new Basic service is not instantly usable.
+
+**What this means for the choice between pipelines.** The indexer is the better fit when the corpus changes often and re-embedding cost or time matters: unchanged documents cost nothing, edits are cheap, and a schedule keeps the index fresh. Our push pipeline is simpler and rebuilds from scratch, which makes stale pages impossible; for the indexer, deletion needs the soft-delete policy and verification, and after a chunking change a reset is the safe way to rebuild. A sensible check on either pipeline is to compare the page count with what the corpus should produce (the push pipeline already records an index manifest).
 
 ## Content filters
 
@@ -138,7 +161,9 @@ So the filter is useful for jailbreak attempts and generic harm, caused no false
 ## Open items
 
 - [x] `text-embedding-3-large` compared (no gain on structure-aware chunks); Cohere reranker blocked by zero quota on this tier
-- [ ] Indexer: incremental update and schedule test, and a user-assigned identity so redeploys do not hit orphaned role assignments
+- [x] Indexer: incremental update, delete and schedule tested (above)
+- [ ] A user-assigned identity for the search service, so redeploys do not hit orphaned role assignments
+- [ ] Explain the "edits counted twice" behaviour and the two unreproduced scripted steps
 - [ ] Decide whether to keep the Foundry resource and storage account or tear Week 7 down (both cost almost nothing)
-- [ ] Tick the roadmap box for prompt flow as "skipped, retired" rather than done
+- [x] Roadmap box for prompt flow ticked as "skipped, retired" in `12-week-checklist.md`
 - [ ] Week 10: Prompt Shields for documents through the Content Safety API, and an adversarial set that includes cited injections

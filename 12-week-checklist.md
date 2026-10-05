@@ -80,7 +80,7 @@ Tick boxes as you go (`[x]`). Every week ends with something pushed to GitHub an
 
 ### Week 7 · Nov 16–22 · Azure OpenAI, AI Foundry, AI Search deep dive
 - [ ] Azure OpenAI: deployments, quotas/TPM, content filters, embeddings deployment
-- [ ] AI Foundry: project, prompt flow, evaluations, model catalog
+- [x] AI Foundry: project, ~~prompt flow~~ (skipped on purpose: retired 2027-04-20 and hub-projects only; see `notes/week-07.md`), evaluations, model catalog
 - [ ] AI Search: indexers, skillsets, semantic ranker, vector profiles
 - [ ] **Deliverable:** infra as code (Bicep or Terraform) for these resources
 - [ ] Write-up + push

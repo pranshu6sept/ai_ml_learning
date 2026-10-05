@@ -1,0 +1,86 @@
+[
+ {
+  "step": "1 baseline (reset + full run)",
+  "change": "11 documents",
+  "indexer_items": 11,
+  "indexer_status": "success",
+  "seconds": 10.3,
+  "pages_total": 44,
+  "pages_faqs": 4,
+  "pages_card_scheme": 5,
+  "pages_upi": 3
+ },
+ {
+  "step": "2 no change",
+  "change": "none",
+  "indexer_items": 11,
+  "indexer_status": "success",
+  "seconds": 56.0,
+  "pages_total": 44,
+  "pages_faqs": 4,
+  "pages_card_scheme": 5,
+  "pages_upi": 3
+ },
+ {
+  "step": "3 edit one blob",
+  "change": "appended a sentence to faqs.md",
+  "indexer_items": 11,
+  "indexer_status": "success",
+  "seconds": 30.8,
+  "pages_total": 60,
+  "pages_faqs": 6,
+  "pages_card_scheme": 6,
+  "pages_upi": 3,
+  "marker_found_in": [
+   "faqs"
+  ]
+ },
+ {
+  "step": "4 delete a blob (no detection policy)",
+  "change": "deleted card_scheme_public_summary.md",
+  "indexer_items": 1,
+  "indexer_status": "success",
+  "seconds": 10.3,
+  "pages_total": 44,
+  "pages_faqs": 4,
+  "pages_card_scheme": 5,
+  "pages_upi": 3
+ },
+ {
+  "step": "5 enable soft-delete detection, run",
+  "change": "data source updated",
+  "indexer_items": 1,
+  "indexer_status": "success",
+  "seconds": 5.2,
+  "pages_total": 39,
+  "pages_faqs": 4,
+  "pages_card_scheme": 0,
+  "pages_upi": 3
+ },
+ {
+  "step": "6 undelete the blob",
+  "change": "restored card_scheme_public_summary.md",
+  "indexer_items": 0,
+  "indexer_status": "success",
+  "seconds": 5.2,
+  "pages_total": 39,
+  "pages_faqs": 4,
+  "pages_card_scheme": 0,
+  "pages_upi": 3
+ },
+ {
+  "step": "7 scheduled run (every 5 minutes), no manual trigger",
+  "change": "appended a sentence to upi_overview.md",
+  "indexer_items": 1,
+  "indexer_status": "success",
+  "seconds": 302,
+  "pages_total": 39,
+  "pages_faqs": 4,
+  "pages_card_scheme": 0,
+  "pages_upi": 3,
+  "marker_found_in": [
+   "upi_overview"
+  ],
+  "waited_s": 302
+ }
+]
