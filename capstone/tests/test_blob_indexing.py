@@ -181,3 +181,31 @@ def test_a_deletion_policy_and_a_schedule_are_optional_extras_on_the_pipeline() 
     plain = _build()[1]
     assert plain.created["data_source"].data_deletion_detection_policy is None
     assert plain.created["indexer"].schedule is None
+
+
+def test_a_user_assigned_identity_is_used_for_both_blob_access_and_the_embedding_skill() -> None:
+    pytest.importorskip("azure.search.documents")
+    index, indexer = FakeIndexClient(), FakeIndexerClient()
+    identity_id = (
+        "/subscriptions/s/resourceGroups/rg/providers/Microsoft.ManagedIdentity/"
+        "userAssignedIdentities/i"
+    )
+    build_pipeline(
+        index,
+        indexer,
+        names=IndexerNames(),
+        storage_resource_id="/subscriptions/s/resourceGroups/rg/providers/Microsoft.Storage/storageAccounts/a",
+        container="corpus",
+        openai_endpoint="https://oai.example.com/",
+        embedding_deployment="emb",
+        dimensions=1536,
+        identity_resource_id=identity_id,
+    )
+
+    source = indexer.created["data_source"].identity.as_dict()
+    embed = indexer.created["skillset"].skills[1].auth_identity.as_dict()
+    assert source["userAssignedIdentity"] == identity_id
+    assert embed["userAssignedIdentity"] == identity_id
+    assert (
+        _build()[1].created["data_source"].identity is None
+    )  # default: the service's own identity

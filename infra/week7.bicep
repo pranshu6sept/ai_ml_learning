@@ -45,6 +45,7 @@ var storageName = '${namePrefix}w7st${take(unique, 8)}' // 3-24 lowercase letter
 var foundryName = '${namePrefix}-foundry-${take(unique, 8)}'
 var projectName = 'payments-rag'
 var indexerSearchName = '${namePrefix}-idx-${take(unique, 8)}'
+var indexerIdentityName = '${namePrefix}-idx-id-${take(unique, 8)}'
 
 // Built-in role definition IDs.
 var roleBlobDataContributor = 'ba92f5b4-2d11-453d-a403-e96b0029c9fe'
@@ -196,7 +197,39 @@ resource evalJudge 'Microsoft.CognitiveServices/accounts/deployments@2025-06-01'
   }
 }
 
-// --- Optional: Basic Azure AI Search with a managed identity, for indexers ---------------------------
+// --- A user-assigned identity for the indexer search service -----------------------------------------
+// The identity and the roles it holds are created once and kept, whether or not the (billable) search service
+// exists. A system-assigned identity is created and destroyed with the service, so every recreate produced a new
+// identity and left the old one's role assignments behind (they then collided: RoleAssignmentUpdateNotPermitted).
+// With this identity, deleting and recreating the search service touches no role assignment. It is free.
+
+resource indexerIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
+  name: indexerIdentityName
+  location: location
+}
+
+resource indexerBlobReader 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  scope: storage
+  name: guid(storage.id, indexerIdentityName, roleBlobDataReader)
+  properties: {
+    principalId: indexerIdentity.properties.principalId
+    principalType: 'ServicePrincipal'
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', roleBlobDataReader)
+  }
+}
+
+// The embedding skill calls the existing Azure OpenAI account (in another resource group) as this identity.
+module indexerOpenAiUser 'modules/openai-user.bicep' = if (!empty(openAiAccountName)) {
+  name: 'indexer-openai-user'
+  scope: resourceGroup(openAiResourceGroup)
+  params: {
+    openAiAccountName: openAiAccountName
+    principalId: indexerIdentity.properties.principalId
+    assignmentKey: indexerIdentityName
+  }
+}
+
+// --- Optional: Basic Azure AI Search that runs indexers as that identity ------------------------------
 
 resource indexerSearch 'Microsoft.Search/searchServices@2025-05-01' = if (deployIndexerSearch) {
   name: indexerSearchName
@@ -205,7 +238,10 @@ resource indexerSearch 'Microsoft.Search/searchServices@2025-05-01' = if (deploy
     name: 'basic'
   }
   identity: {
-    type: 'SystemAssigned'
+    type: 'UserAssigned'
+    userAssignedIdentities: {
+      '${indexerIdentity.id}': {}
+    }
   }
   properties: {
     replicaCount: 1
@@ -217,18 +253,6 @@ resource indexerSearch 'Microsoft.Search/searchServices@2025-05-01' = if (deploy
         aadAuthFailureMode: 'http401WithBearerChallenge'
       }
     }
-  }
-}
-
-// The search service's identity reads the blobs. Its principal ID is only known after deployment,
-// so this assignment is created from the service's own identity output.
-resource searchBlobReader 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (deployIndexerSearch) {
-  scope: storage
-  name: guid(storage.id, indexerSearchName, roleBlobDataReader)
-  properties: {
-    principalId: deployIndexerSearch ? indexerSearch!.identity.principalId : ''
-    principalType: 'ServicePrincipal'
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', roleBlobDataReader)
   }
 }
 
@@ -244,16 +268,6 @@ resource userSearchRoles 'Microsoft.Authorization/roleAssignments@2022-04-01' = 
   }
 ]
 
-// The embedding skill calls the existing Azure OpenAI account (in another resource group) as the search identity.
-module searchOpenAiUser 'modules/openai-user.bicep' = if (deployIndexerSearch && !empty(openAiAccountName)) {
-  name: 'search-openai-user'
-  scope: resourceGroup(openAiResourceGroup)
-  params: {
-    openAiAccountName: openAiAccountName
-    principalId: deployIndexerSearch ? indexerSearch!.identity.principalId : ''
-  }
-}
-
 output storageAccountName string = storage.name
 output storageBlobEndpoint string = storage.properties.primaryEndpoints.blob
 output corpusContainer string = corpusContainer.name
@@ -263,5 +277,6 @@ output foundryOpenAiEndpoint string = 'https://${foundryName}.openai.azure.com/'
 output llamaJudgeDeployment string = empty(llamaJudgeName) ? '' : llamaJudgeName
 output foundryProjectEndpoint string = 'https://${foundryName}.services.ai.azure.com/api/projects/${projectName}'
 output evalJudgeDeployment string = empty(evalJudgeName) ? '' : evalJudgeName
+output indexerIdentityResourceId string = indexerIdentity.id
 output indexerSearchName string = deployIndexerSearch ? indexerSearch!.name : ''
 output indexerSearchEndpoint string = deployIndexerSearch ? 'https://${indexerSearchName}.search.windows.net' : ''

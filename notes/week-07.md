@@ -12,7 +12,7 @@ Everything below was run against the live Azure resources, one run per measureme
 4. **Chunking matters more than the embedding model.** `text-embedding-3-large` helped fixed chunks and did nothing for structure-aware chunks.
 5. **The managed indexer is comparable to our push pipeline, not better, and its cost model differs.** Unchanged documents and one-blob edits are cheap, a schedule works, but deleted blobs stay in the index unless a soft-delete policy is on.
 6. **I made two errors this week and caught them by checking** (details in the AI Search section): an nDCG bug that overstated two rows, and an "indexer is ahead" conclusion that did not survive rebuilding the index.
-7. **Infrastructure-as-code gotchas:** child operations on one Azure OpenAI account must run one at a time; a recreated search service leaves orphaned role assignments that block the redeploy; `what-if` reports harmless "modify" noise; Prompt flow is retired (2027-04-20) and was skipped.
+7. **Infrastructure-as-code gotchas:** child operations on one Azure OpenAI account must run one at a time; a system-assigned identity is recreated with its service and leaves orphaned role assignments that block the redeploy (fixed with a user-assigned identity, verified over two delete-and-recreate cycles); a deleted search service's name stays reserved for a few minutes; `what-if` reports harmless "modify" noise; Prompt flow is retired (2027-04-20) and was skipped.
 
 ## Status against the roadmap
 
@@ -36,7 +36,8 @@ Everything below was run against the live Azure resources, one run per measureme
 - a Storage account (Standard LRS) with a `corpus` container, shared-key access off (Entra roles only) and blob soft delete on (7 days);
 - a Foundry resource (kind `AIServices`) and a project, keyless (`disableLocalAuth`). The current model is an account plus a child project; no hub is needed;
 - two model deployments on the Foundry resource: Meta Llama 3.3 70B (`llama-judge`) and `gpt-5-mini` (the judge for cloud evaluations);
-- optionally, a Basic Azure AI Search service with a managed identity and the roles that let it read the blobs and call the embedding model. Off by default because it bills by the hour.
+- a **user-assigned managed identity** for the indexer, with the roles that let it read the blobs (Storage Blob Data Reader) and call the embedding model (Cognitive Services OpenAI User on the OpenAI account). It and its role assignments exist whether or not the search service does, and it is free;
+- optionally, a Basic Azure AI Search service that runs its indexers as that identity. Off by default because it bills by the hour.
 
 `what-if` showed 7 creates by default and 13 with the Basic service. The first deployment succeeded (about 9.5 minutes). One what-if line reads "Unsupported": the cross-resource-group OpenAI role assignment, whose principal ID only exists after the search service does.
 
@@ -70,7 +71,7 @@ So the filter is useful for jailbreak attempts and generic harm, and is **not** 
 - **Quota is listed per model and per resource kind.** The non-OpenAI models draw on the Foundry (`AIServices`) account: 20K tokens a minute each for Llama 3.3 70B, Llama 4 Scout, Phi-4 and Mistral small and medium; 5,000K for `gpt-oss-120b`. `text-embedding-3-large` has 350K on the OpenAI side. **Every Cohere model has zero quota** on this tier.
 - **The subscription is a free trial with the spending limit on**, so usage draws on trial credit and cannot charge a card.
 - **Semantic ranker** beyond the free allowance is listed at 1.00 USD per 1,000 queries; the free tier's monthly allowance is not stated in the limits page I read.
-- **Cost of this week's paid pieces:** the Basic search service ran three times (about 30, 12 and 20 minutes), about an hour in total, roughly 14 cents at the 0.133 USD per hour list price. Storage is a fraction of a cent and the Foundry resource has no charge of its own. Model token spend was not measured.
+- **Cost of this week's paid pieces:** the Basic search service ran five times (about 30, 12, 20, 16 and 10 minutes), about an hour and a half in total, roughly 20 cents at the 0.133 USD per hour list price. Storage is a fraction of a cent and the Foundry resource has no charge of its own. Model token spend was not measured.
 
 ### Embeddings: text-embedding-3-large vs small
 
@@ -152,7 +153,8 @@ Gold phrase intact inside one indexer page for 68 of 69 questions.
 - **What it cannot do:** keep the heading path (`section`) or cut on document structure, so citations lose the section name. Text Split cuts by length. The richer alternative, the Document Layout skill, needs a Foundry Tools resource and was not tried.
 - **Where each fits.** Push: full control of chunking and metadata (region and date filters need extra fields mapped through the skillset), runs on the free tier, no storage account. Indexer: scheduled, incremental re-indexing of changed blobs and no chunking or upload code to run, but needs Basic or higher for keyless access.
 - **Not measured:** scale beyond 11 documents.
-- **Template weakness found on the rebuild:** the search identity's role assignments are named from the service name, which is stable, but a recreated service gets a new identity. The assignments left by the deleted identity then collide (`RoleAssignmentUpdateNotPermitted`). Delete the old assignments by ID before redeploying (see `infra/README.md`); a user-assigned identity would avoid this and was not tried.
+- **Template weakness found on the rebuild, and its fix.** With a system-assigned identity, a recreated service gets a new identity, and the role assignments left by the old one collided with the new ones (`RoleAssignmentUpdateNotPermitted`). The fix is a **user-assigned identity** that outlives the service, with its role assignments created once. Verified: the pipeline ran as that identity (11 documents, 0 failed); the service was deleted and the identity kept both roles; the service was recreated by redeploying with **no orphan cleanup** and the pipeline ran again (11 documents, 0 failed); after the second delete, the only role holders on the storage account and the OpenAI account were me and the indexer identity. The one thing I did not test is deleting the whole `rg-payments-rag-w7` group: its storage assignment goes with the storage account, but the identity's role on the OpenAI account (in another group) is expected to stay behind as an orphan.
+- **A deleted search service's name stays reserved for a few minutes.** Redeploying 2.7 minutes after a delete failed with `ServiceDeleting`; a retry about 6 minutes after succeeded. This had not shown up before because earlier recreations were hours apart. It is a different error from the role-assignment collision, so read the failing operation before assuming the cause.
 
 ### Indexer lifecycle: incremental updates, deletes and schedule
 
@@ -170,18 +172,38 @@ Our push pipeline rebuilds the whole index every time. The question here was whe
 | Does restoring a deleted blob bring it back? | **Not by itself.** An undelete does not change the blob's last-modified time, and the next run processed 0 documents; the pages returned only after the blob was re-uploaded. A reset (or re-upload) is needed. |
 
 **What I could not explain, and what I would not rely on**
-- **Edits were counted twice.** In the controlled test, the run after an edit processed 1 document, and the *next* run (nothing changed) processed 1 more; the same after restoring the blob. Settled no-change runs then returned to 0. I do not know why (a re-check of recently modified blobs is a guess, not a finding). It costs a few seconds, not correctness.
+- **Edits were counted twice, and a timing experiment explains when.** In the controlled test, the run after an edit processed 1 document, and the *next* run (nothing changed) processed 1 more. `evals/run_indexer_double_count.py` varied how soon the first run followed the edit (`results/indexer_double_count.md`), with a no-edit control:
+
+  | Case | Run 1 | Run 2 | Run 3 | Run 4 |
+  |---|---|---|---|---|
+  | no edit (control) | 0 | 0 | 0 | 0 |
+  | edit, first run right away (31 s after) | 1 | 1 | 0 | 0 |
+  | edit, first run after waiting 120 s | 1 | 0 | 0 | 0 |
+
+  So a blob edited very shortly before a run is seen again by the next run, and one that has aged is not. That is consistent with the indexer re-checking recently modified blobs, which I read as a safeguard, but I did not find documentation for it, so the mechanism is an inference. **Limits:** one blob, one run per case, and the window length is only bounded (somewhere between about 30 and 120 s). The practical effect is one extra, harmless pass over that blob.
 - **Two of my scripted steps looked wrong and were not reproduced.** In the first scripted lifecycle, the "no change" run right after the baseline processed all 11 documents (54 s), and the next step (a one-blob edit) also processed 11 and briefly showed 60 pages against 44, which was back to 44 one step later. One possibility is that the old pages of re-processed documents had not yet been removed when I counted; I did not verify that. Neither step happened in the controlled follow-up. Whatever caused them, **page counts read immediately after a run are not safe to trust**, and a bulk re-upload makes every blob look changed (my cleanup step did exactly that, and the next run processed all 11).
 - **How long a change takes to show up** is not established: in the controlled test the marker was found after the second run, and I did not search for it between the runs.
 - **The first scripted attempt crashed** on a 300-second connection timeout to a freshly created service's search endpoint (a retry minutes later worked). A new Basic service is not instantly usable.
 
 **What this means for the choice between pipelines.** The indexer is the better fit when the corpus changes often and re-embedding cost or time matters: unchanged documents cost nothing, edits are cheap, and a schedule keeps the index fresh. Our push pipeline is simpler and rebuilds from scratch, which makes stale pages impossible; for the indexer, deletion needs the soft-delete policy and verification, and after a chunking change a reset is the safe way to rebuild. A sensible check on either pipeline is to compare the page count with what the corpus should produce (the push pipeline already records an index manifest).
 
+## Decision: keep or tear down Week 7
+
+**Keep** the Foundry resource and project, the storage account and the user-assigned identity; **delete** the Basic search service after every use (it already is).
+
+| Resource | Standing cost | Why keep |
+|---|---|---|
+| Foundry resource and project | none for the resource; the two model deployments (`llama-judge`, `gpt-5-mini`) bill per token only | Week 9 wants the evaluation in CI against a project; a project and a judge deployment already exist |
+| Storage account (7-day soft delete) | a fraction of a cent for a few KB | Holds the corpus for the indexer; Week 8 may reuse it |
+| User-assigned identity and its roles | none | Makes the indexer repeatable without cleanup |
+| Basic search service | **0.133 USD per hour while it exists** | Not kept: recreated from code in about 10 minutes when needed |
+
+Tear-down if wanted: `az group delete -n rg-payments-rag-w7 --yes --no-wait`, then delete the identity's role assignment on the Azure OpenAI account by ID (it lives in the other resource group and is not removed with this one; see `infra/README.md`).
+
 ## Open items
 
-- [ ] A user-assigned identity for the search service, so redeploys do not hit orphaned role assignments
-- [ ] Explain the "edits counted twice" behaviour and the two unreproduced scripted steps
-- [ ] Decide whether to keep the Foundry resource and storage account or tear Week 7 down (both cost almost nothing)
+- [ ] The two unreproduced steps in the first scripted lifecycle (a no-change run and an edit that each processed all 11 documents, with a transient 60-page count). The double-count behaviour is explained above; these two are still not
+- [ ] Delete the whole `rg-payments-rag-w7` group once and check that the OpenAI-account role assignment is left behind (expected, not tested)
 - [ ] Week 10: Prompt Shields for documents through the Content Safety API, and an adversarial set that includes cited injections
 
 Done and recorded above: embeddings comparison, Cohere (blocked), indexer incremental/delete/schedule, Foundry cloud evaluation, and the prompt-flow box ticked as "skipped, retired" in `12-week-checklist.md`.

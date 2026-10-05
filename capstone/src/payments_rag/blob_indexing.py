@@ -59,11 +59,14 @@ def build_pipeline(
     dimensions: int,
     soft_delete: bool = False,
     schedule_minutes: int | None = None,
+    identity_resource_id: str | None = None,
 ) -> None:
     """Create (or update) the data source, index, skillset and indexer. Safe to repeat.
 
     ``soft_delete`` makes the indexer remove the search documents of blobs that were deleted (needs blob
     soft delete on the storage account). ``schedule_minutes`` runs the indexer on a timer (5 minutes or more).
+    ``identity_resource_id`` is the resource ID of a user-assigned managed identity the indexer should use for
+    Blob Storage and Azure OpenAI; leave it out to use the search service's system-assigned identity.
     """
     from azure.search.documents.indexes.models import (
         AzureOpenAIEmbeddingSkill,
@@ -80,6 +83,7 @@ def build_pipeline(
         SearchIndexer,
         SearchIndexerDataContainer,
         SearchIndexerDataSourceConnection,
+        SearchIndexerDataUserAssignedIdentity,
         SearchIndexerIndexProjection,
         SearchIndexerIndexProjectionSelector,
         SearchIndexerIndexProjectionsParameters,
@@ -91,6 +95,11 @@ def build_pipeline(
     )
 
     kinds: Any = SearchFieldDataType
+    identity = (
+        SearchIndexerDataUserAssignedIdentity(resource_id=identity_resource_id)
+        if identity_resource_id
+        else None
+    )
     text = kinds.String
     index_client.create_or_update_index(
         SearchIndex(
@@ -126,7 +135,8 @@ def build_pipeline(
             ),
         )
     )
-    # The data source reads the container as the search service's managed identity (no account key).
+    # The data source reads the container as a managed identity (no account key): the service's own, or the
+    # user-assigned one named by ``identity_resource_id``.
     indexer_client.create_or_update_data_source_connection(
         SearchIndexerDataSourceConnection(
             name=names.data_source,
@@ -136,6 +146,7 @@ def build_pipeline(
             data_deletion_detection_policy=NativeBlobSoftDeleteDeletionDetectionPolicy()
             if soft_delete
             else None,
+            identity=identity,
         )
     )
     split = SplitSkill(
@@ -154,6 +165,7 @@ def build_pipeline(
         deployment_name=embedding_deployment,
         model_name="text-embedding-3-small",
         dimensions=dimensions,
+        auth_identity=identity,
         inputs=[InputFieldMappingEntry(name="text", source="/document/pages/*")],
         outputs=[OutputFieldMappingEntry(name="embedding", target_name="vector")],
     )

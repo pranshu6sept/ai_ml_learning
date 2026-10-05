@@ -111,11 +111,14 @@ az group delete -n rg-payments-rag-w7 --yes --no-wait
 
 `what-if` shows one "Unsupported" line when the indexer service is on: that is the cross-resource-group OpenAI role assignment, whose principal ID only exists after the search service is created.
 
-**Deleting and recreating the Basic service:** each new service gets a new managed identity, and the role assignments left by the old one block the redeploy (`RoleAssignmentUpdateNotPermitted`). After deleting the service, remove them by ID (assignee lookups fail for a deleted identity):
+**Deleting and recreating the Basic service:** the indexer runs as a **user-assigned managed identity** that `week7.bicep` creates once (with its Blob Reader and OpenAI User roles), so deleting and recreating the search service touches no role assignment. Two things to know:
 
-Check the list first: it should contain only the deleted service's identity.
+- A deleted search service's name stays reserved for a few minutes. Redeploying 2.7 minutes after a delete failed with `ServiceDeleting`; about 6 minutes after, it worked. Retry rather than changing the name.
+- The identity's role on the Azure OpenAI account lives in another resource group, so deleting `rg-payments-rag-w7` removes the storage role but is expected to leave that one behind. Remove it by assignment ID (assignee lookups fail for a deleted identity):
 
 ```powershell
-az role assignment list --scope <storage account id> --query "[?principalType=='ServicePrincipal'].id" -o tsv | ForEach-Object { az role assignment delete --ids $_ }
-# and the same on the Azure OpenAI account (the embedding skill's "OpenAI User" role)
+az role assignment list --scope <openai account id> --query "[?principalType=='ServicePrincipal'].id" -o tsv
+az role assignment delete --ids <id>   # check first that it is the deleted indexer identity's
 ```
+
+Add `AZURE_W7_INDEXER_IDENTITY_ID=<identity resource id>` (the `indexerIdentityResourceId` deployment output) to `.env` so `run_blob_indexer.py` uses it.

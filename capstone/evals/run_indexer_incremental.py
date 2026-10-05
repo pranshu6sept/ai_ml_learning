@@ -79,6 +79,7 @@ def main() -> None:
             indexer_client,
             names=names,
             storage_resource_id=values["AZURE_W7_STORAGE_RESOURCE_ID"],
+            identity_resource_id=values.get("AZURE_W7_INDEXER_IDENTITY_ID"),
             container="corpus",
             openai_endpoint=settings.openai_endpoint,
             embedding_deployment=settings.embedding_deployment,
