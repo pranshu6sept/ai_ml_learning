@@ -163,6 +163,31 @@ resource llamaJudge 'Microsoft.CognitiveServices/accounts/deployments@2025-06-01
   }
 }
 
+// --- A GPT judge for Foundry cloud evaluations ---------------------------------------------------------
+// The built-in AI-assisted evaluators (groundedness, relevance, similarity) run inside the project and call
+// a model deployed on the same Foundry resource. Pay per token.
+
+@description('Deployment name for the GPT judge used by cloud evaluations. Empty skips it.')
+param evalJudgeName string = 'gpt-5-mini'
+param evalJudgeCapacity int = 30
+
+resource evalJudge 'Microsoft.CognitiveServices/accounts/deployments@2025-06-01' = if (!empty(evalJudgeName)) {
+  parent: foundry
+  name: evalJudgeName
+  dependsOn: [llamaJudge] // deployments on one account run one at a time
+  sku: {
+    name: 'GlobalStandard'
+    capacity: evalJudgeCapacity
+  }
+  properties: {
+    model: {
+      format: 'OpenAI'
+      name: 'gpt-5-mini'
+      version: '2025-08-07'
+    }
+  }
+}
+
 // --- Optional: Basic Azure AI Search with a managed identity, for indexers ---------------------------
 
 resource indexerSearch 'Microsoft.Search/searchServices@2025-05-01' = if (deployIndexerSearch) {
@@ -228,5 +253,7 @@ output foundryAccountName string = foundry.name
 output foundryProjectName string = project.name
 output foundryOpenAiEndpoint string = 'https://${foundryName}.openai.azure.com/'
 output llamaJudgeDeployment string = empty(llamaJudgeName) ? '' : llamaJudgeName
+output foundryProjectEndpoint string = 'https://${foundryName}.services.ai.azure.com/api/projects/${projectName}'
+output evalJudgeDeployment string = empty(evalJudgeName) ? '' : evalJudgeName
 output indexerSearchName string = deployIndexerSearch ? indexerSearch!.name : ''
 output indexerSearchEndpoint string = deployIndexerSearch ? 'https://${indexerSearchName}.search.windows.net' : ''

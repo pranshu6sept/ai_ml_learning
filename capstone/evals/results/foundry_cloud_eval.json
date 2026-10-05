@@ -1,0 +1,776 @@
+{
+ "run": {
+  "id": "evalrun_35fcb00b088f4c028633e31a3d961871",
+  "created_at": 1791197083,
+  "data_source": {
+   "source": {
+    "content": [
+     {
+      "item": {
+       "id": "q01",
+       "query": "What is ISO 20022?",
+       "response": "ISO 20022 is a global standard for financial messaging [1]. It provides a common, structured way to exchange payment and settlement information across banks, payment service providers, corporations, and regulators [1]. ISO 20022 standardizes the format of messages so institutions can exchange structured payment information more consistently [2]. It is a messaging standard that most payment systems are adopting and that payment system operators use [3].",
+       "context": "[1] # ISO 20022 overview\n## Public summary\nISO 20022 is a global standard for financial messaging. It provides a common, structured way to\nexchange payment and settlement information across banks, payment service providers, corporations,\nand regulators.\n\n[2] # Payments FAQ starter set\n## FAQ 2: What is ISO 20022?\nISO 20022 is a global messaging standard for payment and financial data. It standardizes the format\nof messages so institutions can exchange structured payment information more consistently.\n\n[3] # ISO 20022 overview\n## Source note\nThis is an author-written summary, partly checked on 3 October 2026. The BIS report \"Harmonisation of ISO 20022\" (Committee on Payments and Market Infrastructures, 9 September 2022) supports that ISO 20022 is a messaging standard that most payment systems are adopting and that payment system operators use it. Pages of the Federal Reserve Financial Services and the BIS, seen only as search-engine summaries, describe richer and more structured data. Not confirmed: the list of users given above (corporations, regulators), the",
+       "ground_truth": "ISO 20022 is a global standard for financial messaging, used for payment and financial data."
+      }
+     },
+     {
+      "item": {
+       "id": "q02",
+       "query": "What does ISO 20022 improve compared with proprietary formats?",
+       "response": "ISO 20022 improves data quality by using a consistent message structure instead of fragmented, proprietary formats [1]. It helps institutions exchange richer details such as reference information, remittance data, party identification, and payment status updates in a more standard way [1].",
+       "context": "[1] # ISO 20022 overview\n## Why it matters\nThe standard improves data quality by using a consistent message structure instead of fragmented,\nproprietary formats. This helps institutions exchange richer details such as reference information,\nremittance data, party identification, and payment status updates in a more standard way.\n\n[2] # Payments FAQ starter set\n## FAQ 2: What is ISO 20022?\nISO 20022 is a global messaging standard for payment and financial data. It standardizes the format\nof messages so institutions can exchange structured payment information more consistently.\n\n[3] # ISO 20022 overview\n## Source note\nThis is an author-written summary, partly checked on 3 October 2026. The BIS report \"Harmonisation of ISO 20022\" (Committee on Payments and Market Infrastructures, 9 September 2022) supports that ISO 20022 is a messaging standard that most payment systems are adopting and that payment system operators use it. Pages of the Federal Reserve Financial Services and the BIS, seen only as search-engine summaries, describe richer and more structured data. Not confirmed: the list of users given above (corporations, regulators), the",
+       "ground_truth": "It improves data quality by using a consistent message structure instead of fragmented, proprietary formats."
+      }
+     },
+     {
+      "item": {
+       "id": "q03",
+       "query": "Which details can a single ISO 20022 payment message carry?",
+       "response": "A single ISO 20022 payment message can include structured information about the originator, beneficiary, amount, currency, purpose, and payment references [1]. It also carries remittance information that explains why a payment was sent [2]. Additionally, it can include status reporting details to track whether a payment is pending, processed, rejected, or settled [2].",
+       "context": "[1] # ISO 20022 overview\n## Example use in payments\nA single payment message can include structured information about the originator, beneficiary,\namount, currency, purpose, and payment references. This makes reconciliation and automation easier\nfor banks and corporates.\n\n[2] # ISO 20022 overview\n## Common concepts\n- Payment initiation: a customer or business asks a bank to send funds.\n- Message standards: each payment message has a standard structure and defined fields.\n- Remittance information: structured details that explain why a payment was sent.\n- Status reporting: participants can track whether a payment is pending, processed, rejected, or\nsettled.\n\n[3] # ISO 20022 overview\n## Why it matters\nThe standard improves data quality by using a consistent message structure instead of fragmented,\nproprietary formats. This helps institutions exchange richer details such as reference information,\nremittance data, party identification, and payment status updates in a more standard way.",
+       "ground_truth": "A single payment message can carry structured information about the originator, beneficiary, amount, currency, purpose and payment references."
+      }
+     },
+     {
+      "item": {
+       "id": "q04",
+       "query": "What is remittance information?",
+       "response": "Remittance information is structured details that explain why a payment was sent [1].",
+       "context": "[1] # ISO 20022 overview\n## Common concepts\n- Payment initiation: a customer or business asks a bank to send funds.\n- Message standards: each payment message has a standard structure and defined fields.\n- Remittance information: structured details that explain why a payment was sent.\n- Status reporting: participants can track whether a payment is pending, processed, rejected, or\nsettled.\n\n[2] # ISO 20022 overview\n## Why it matters\nThe standard improves data quality by using a consistent message structure instead of fragmented,\nproprietary formats. This helps institutions exchange richer details such as reference information,\nremittance data, party identification, and payment status updates in a more standard way.\n\n[3] # ISO 20022 overview\n## Public summary\nISO 20022 is a global standard for financial messaging. It provides a common, structured way to\nexchange payment and settlement information across banks, payment service providers, corporations,\nand regulators.",
+       "ground_truth": "Remittance information is structured details that explain why a payment was sent."
+      }
+     },
+     {
+      "item": {
+       "id": "q05",
+       "query": "What is settlement in card payments?",
+       "response": "Settlement is the process where funds move between participating institutions after the transaction is accepted and processed [1]. Settlement occurs after authorization and clearing steps [1]. Settlement involves the actual transfer of money between parties [2].",
+       "context": "[1] # Card scheme public summary\n## Payment lifecycle\n1. Authorization: the merchant sends a request to verify that the card is valid and the account can\nsupport the transaction.\n2. Clearing: the transaction details are exchanged through the card network and acquiring/issuing\nbanks so the payment can be reconciled.\n3. Settlement: funds move between participating institutions after the transaction is accepted and\nprocessed.\n4. Dispute handling: the scheme and the banks may investigate customer disputes, chargebacks, or\nfraud-related exceptions.\n\n[2] # Payments FAQ starter set\n## FAQ 1: What is the difference between authorization and settlement?\nAuthorization is the approval step that checks whether a payment instrument can be used and whether\nthe account has sufficient funds or approval for the transaction. Settlement is the later process where\nfunds move between parties after the transaction is accepted and processed.\n\n[3] # Card scheme public summary\n## Source note\nThis is an author-written summary, partly checked on 3 October 2026. The European Central Bank's Glossary of terms related to payment, clearing and settlement systems (30 September 2008) defines card issuer, card scheme, clearing and settlement in terms consistent with this summary. It describes the acquirer as the entity to which the merchant sends the information needed to process the card payment, which is looser than \"the bank that handles the merchant's account\" above. The authorization step as described here",
+       "ground_truth": "Settlement is the later process where funds move between the participating institutions after the transaction has been accepted and processed."
+      }
+     },
+     {
+      "item": {
+       "id": "q06",
+       "query": "What is the difference between authorization and settlement?",
+       "response": "Authorization is the approval step that checks whether a payment instrument can be used and whether the account has sufficient funds or approval for the transaction [1]. Authorization involves the merchant sending a request to verify that the card is valid and the account can support the transaction [2]. Settlement is the later process where funds move between parties after the transaction is accepted and processed [1]. Settlement occurs after clearing, where transaction details are exchanged through the card network and acquiring/issuing banks for reconciliation [2]. Settlement involves the actual movement of funds between participating institutions [2].",
+       "context": "[1] # Payments FAQ starter set\n## FAQ 1: What is the difference between authorization and settlement?\nAuthorization is the approval step that checks whether a payment instrument can be used and whether\nthe account has sufficient funds or approval for the transaction. Settlement is the later process where\nfunds move between parties after the transaction is accepted and processed.\n\n[2] # Card scheme public summary\n## Payment lifecycle\n1. Authorization: the merchant sends a request to verify that the card is valid and the account can\nsupport the transaction.\n2. Clearing: the transaction details are exchanged through the card network and acquiring/issuing\nbanks so the payment can be reconciled.\n3. Settlement: funds move between participating institutions after the transaction is accepted and\nprocessed.\n4. Dispute handling: the scheme and the banks may investigate customer disputes, chargebacks, or\nfraud-related exceptions.\n\n[3] # Card scheme public summary\n## Source note\nThis is an author-written summary, partly checked on 3 October 2026. The European Central Bank's Glossary of terms related to payment, clearing and settlement systems (30 September 2008) defines card issuer, card scheme, clearing and settlement in terms consistent with this summary. It describes the acquirer as the entity to which the merchant sends the information needed to process the card payment, which is looser than \"the bank that handles the merchant's account\" above. The authorization step as described here",
+       "ground_truth": "Authorization is the approval step that checks whether the card can be used and the account can support the transaction. Settlement is the later step where funds actually move between the parties."
+      }
+     },
+     {
+      "item": {
+       "id": "q08",
+       "query": "What happens during a payment dispute?",
+       "response": "A dispute happens when a cardholder challenges a transaction and asks for investigation, reversal, or customer protection due to issues such as fraud, non-receipt, or billing problems [1]. During the investigation, the company may not report the payment as late to a credit reporting company if you paid the undisputed amount on time, charge interest on the disputed amount, or make you pay the disputed charge [2]. The scheme and the banks may investigate customer disputes, chargebacks, or fraud-related exceptions during dispute handling [3].",
+       "context": "[1] # Payments FAQ starter set\n## FAQ 5: What is a dispute in card payments?\nA dispute happens when a cardholder challenges a transaction and asks for investigation, reversal, or\ncustomer protection due to issues such as fraud, non-receipt, or billing problems.\n\n[2] # CFPB guidance: disputing a credit card charge (United States)\n## During the investigation\nWhile a dispute is open, the company may not report the payment as late to a credit reporting company if you\npaid the undisputed amount on time, charge interest on the disputed amount, or make you pay the disputed charge.\n\n[3] # Card scheme public summary\n## Payment lifecycle\n1. Authorization: the merchant sends a request to verify that the card is valid and the account can\nsupport the transaction.\n2. Clearing: the transaction details are exchanged through the card network and acquiring/issuing\nbanks so the payment can be reconciled.\n3. Settlement: funds move between participating institutions after the transaction is accepted and\nprocessed.\n4. Dispute handling: the scheme and the banks may investigate customer disputes, chargebacks, or\nfraud-related exceptions.",
+       "ground_truth": "The cardholder challenges a transaction and asks for investigation, reversal or protection (for example for fraud, non-receipt or billing problems), and the scheme and banks may investigate it."
+      }
+     },
+     {
+      "item": {
+       "id": "q09",
+       "query": "What is an acquirer?",
+       "response": "An acquirer is the bank that handles the merchant's account [1]. The acquirer is also described as the entity to which the merchant sends the information needed to process the card payment [2].",
+       "context": "[1] # Card scheme public summary\n## Core concepts\n- Issuer: the bank that issued the card to the customer.\n- Acquirer: the bank that handles the merchant's account.\n- Merchant: the business receiving payment.\n- Network: the scheme or infrastructure connecting the participants.\n\n[2] # Card scheme public summary\n## Source note\nThis is an author-written summary, partly checked on 3 October 2026. The European Central Bank's Glossary of terms related to payment, clearing and settlement systems (30 September 2008) defines card issuer, card scheme, clearing and settlement in terms consistent with this summary. It describes the acquirer as the entity to which the merchant sends the information needed to process the card payment, which is looser than \"the bank that handles the merchant's account\" above. The authorization step as described here\n\n[3] # PCI DSS overview\n## Who it applies to\n- Any entity that stores, processes, or transmits cardholder data (CHD) or sensitive authentication data (SAD).\n- Any entity that could affect the security of the cardholder data environment (CDE).\n- In practice this covers every kind of participant in card processing: merchants, processors, acquirers,\nissuers and service providers.",
+       "ground_truth": "The acquirer is the bank that handles the merchant's account."
+      }
+     },
+     {
+      "item": {
+       "id": "q11",
+       "query": "What role does the card network play?",
+       "response": "The card network operates the rules and infrastructure that allow card payments to be authorized, cleared, and settled across banks and merchants [1]. The network connects the participants, including issuers, acquirers, and merchants [2]. The network facilitates the exchange of transaction details during clearing and supports the overall payment lifecycle [3].",
+       "context": "[1] # Card scheme public summary\n## Public summary\nCard networks such as Visa and Mastercard operate the rules and infrastructure that allow card\npayments to be authorized, cleared, and settled across banks and merchants. Public summaries generally\nexplain the payment lifecycle without exposing confidential operating details.\n\n[2] # Card scheme public summary\n## Core concepts\n- Issuer: the bank that issued the card to the customer.\n- Acquirer: the bank that handles the merchant's account.\n- Merchant: the business receiving payment.\n- Network: the scheme or infrastructure connecting the participants.\n\n[3] # Card scheme public summary\n## Payment lifecycle\n1. Authorization: the merchant sends a request to verify that the card is valid and the account can\nsupport the transaction.\n2. Clearing: the transaction details are exchanged through the card network and acquiring/issuing\nbanks so the payment can be reconciled.\n3. Settlement: funds move between participating institutions after the transaction is accepted and\nprocessed.\n4. Dispute handling: the scheme and the banks may investigate customer disputes, chargebacks, or\nfraud-related exceptions.",
+       "ground_truth": "The network is the scheme or infrastructure that connects the participants."
+      }
+     },
+     {
+      "item": {
+       "id": "q12",
+       "query": "Why is strong customer authentication important?",
+       "response": "Strong customer authentication reduces fraud by adding a second layer of verification before a payment or sensitive operation is approved [1]. It helps ensure the person performing the transaction is actually the legitimate account holder [1].",
+       "context": "[1] # Payments FAQ starter set\n## FAQ 3: Why is strong customer authentication important?\nStrong customer authentication reduces fraud by adding a second layer of verification before a\npayment or sensitive operation is approved. It helps ensure the person performing the transaction is\nactually the legitimate account holder.\n\n[2] # RBI authentication directions, 2025\n## Issuer responsibilities\nIssuers must ensure the robustness and integrity of the authentication mechanism before deployment. They must\ncompensate the customer in full without demur for a loss that arises from non-compliance with the directions. They\nmust also comply with the Digital Personal Data Protection Act, 2023.\n\n[3] # PSD2 overview\n## Strong customer authentication\nThe strong customer authentication (SCA) requirement came into force on 13 September 2019. The European\nCommission page gives the date but not the detailed rules or exemptions, so those must be checked in the\ntechnical standards.",
+       "ground_truth": "It reduces fraud by adding a second layer of verification before a payment or sensitive operation is approved."
+      }
+     },
+     {
+      "item": {
+       "id": "q13",
+       "query": "What is PCI DSS?",
+       "response": "PCI DSS is a security standard for protecting payment card data [1]. It provides requirements for storing, transmitting, and processing cardholder data securely [1]. PCI DSS is published by the PCI Security Standards Council [2]. It was developed to encourage and enhance payment card account data security [2]. It helps organisations adopt consistent data security measures worldwide [2]. It sets a baseline of technical and operational requirements designed to protect payment account data [2].",
+       "context": "[1] # Payments FAQ starter set\n## FAQ 4: What is PCI DSS?\nPCI DSS is a security standard for protecting payment card data. It provides requirements for storing,\ntransmitting, and processing cardholder data securely.\n\n[2] # PCI DSS overview\n## Public summary\nPCI DSS, the Payment Card Industry Data Security Standard, is published by the PCI Security Standards\nCouncil. According to the Council's standard page, it was developed to encourage and enhance payment card\naccount data security and to help organisations around the world adopt consistent data security measures.\nIt sets a baseline of technical and operational requirements designed to protect payment account data.\n\n[3] # PCI DSS overview\n## Who it applies to\n- Any entity that stores, processes, or transmits cardholder data (CHD) or sensitive authentication data (SAD).\n- Any entity that could affect the security of the cardholder data environment (CDE).\n- In practice this covers every kind of participant in card processing: merchants, processors, acquirers,\nissuers and service providers.",
+       "ground_truth": "PCI DSS is a security standard for protecting payment card data."
+      }
+     },
+     {
+      "item": {
+       "id": "q14",
+       "query": "What topics does public RBI guidance cover?",
+       "response": "Public RBI guidance covers safe and secure digital payments [1]. It includes customer authentication and fraud controls [1]. It addresses payment infrastructure and processing ecosystem (not confirmed) [1]. It mentions system resilience and operational continuity (not confirmed) [1]. It covers risk management and compliance expectations [1]. It explains the direction of payment systems, consumer protection, digital payments, and risk management in the Indian context [2]. It focuses on reducing fraud, improving security, and making digital payments reliable [3].",
+       "context": "[1] # RBI payment systems public summary\n## Typical topics in public guidance\n- Safe and secure digital payments\n- Customer authentication and fraud controls\n- Payment infrastructure and processing ecosystem (not confirmed in the sources checked)\n- System resilience and operational continuity (not confirmed in the sources checked)\n- Risk management and compliance expectations\n\n[2] # RBI payment systems public summary\n## Public summary\nPublic guidance from the Reserve Bank of India (RBI) explains the direction of payment systems,\nconsumer protection, digital payments, and risk management in the Indian context. It is useful for\nunderstanding how digital transactions are monitored and regulated in public policy discussions.\n\n[3] # RBI payment systems public summary\n## Why it matters\nPayment systems depend on trust. Public regulators publish guidance on reducing fraud, improving\nsecurity, and making digital payments reliable for both consumers and financial institutions.",
+       "ground_truth": "Public RBI guidance covers safe and secure digital payments, customer authentication and fraud controls, and risk management and compliance expectations. Payment infrastructure and system resilience are also listed, but marked as not confirmed in the sources checked."
+      }
+     },
+     {
+      "item": {
+       "id": "q15",
+       "query": "Why do payment systems need good chunking and retrieval?",
+       "response": "Payment systems need good chunking and retrieval because payment documentation is dense, structured, and often spread across standards, rules, and guidance [1]. Good retrieval depends on preserving section boundaries and technical context so the system can answer questions grounded in the correct policy or rule [1].",
+       "context": "[1] # Payments FAQ starter set\n## FAQ 6: Why do payment systems need good chunking and retrieval?\nPayment documentation is dense, structured, and often spread across standards, rules, and guidance.\nGood retrieval depends on preserving section boundaries and technical context so the system can answer\nquestions grounded in the correct policy or rule.\n\n[2] # NPCI UPI overview\n## Public summary\nThe Unified Payments Interface, UPI, is an instant, real-time payment system developed by NPCI, the National\nPayments Corporation of India, an RBI-regulated entity. It is designed to enable inter-bank transactions\nthrough mobile phones. Money moves directly from one bank account to another, so no wallet top-up is needed.\nPayments work around the clock, including Sundays and bank holidays.\n\n[3] # RBI payment systems public summary\n## Why it matters\nPayment systems depend on trust. Public regulators publish guidance on reducing fraud, improving\nsecurity, and making digital payments reliable for both consumers and financial institutions.",
+       "ground_truth": "Good retrieval depends on preserving section boundaries and technical context, so the system can answer questions grounded in the correct policy or rule."
+      }
+     },
+     {
+      "item": {
+       "id": "q20",
+       "query": "Which bank looks after the shop's account?",
+       "response": "The bank that handles the merchant's account is called the Acquirer [2].",
+       "context": "[1] # Card scheme public summary\n## Source note\ncard payment, which is looser than \"the bank that handles the merchant's account\" above. The authorization step as described here is consistent only with search-engine summaries of Mastercard pages (the Mastercard guide returned 403). Visa was not checked for the lifecycle.\n\n[2] # Card scheme public summary\n## Core concepts\n- Issuer: the bank that issued the card to the customer.\n- Acquirer: the bank that handles the merchant's account.\n- Merchant: the business receiving payment.\n- Network: the scheme or infrastructure connecting the participants.\n\n[3] # Card scheme public summary\n## Source note\nThis is an author-written summary, partly checked on 3 October 2026. The European Central Bank's Glossary of terms related to payment, clearing and settlement systems (30 September 2008) defines card issuer, card scheme, clearing and settlement in terms consistent with this summary. It describes the acquirer as the entity to which the merchant sends the information needed to process the card payment, which is looser than \"the bank that handles the merchant's account\" above. The authorization step as described here",
+       "ground_truth": "The acquirer, the bank that handles the merchant's account."
+      }
+     },
+     {
+      "item": {
+       "id": "q21",
+       "query": "Do I need a second verification step before a payment goes through?",
+       "response": "Strong customer authentication adds a second layer of verification before a payment is approved to reduce fraud and ensure the person performing the transaction is the legitimate account holder [1]. For online card-not-present transactions up to \u20b92,000, a second verification step may be relaxed if using a payment authentication solution provided by an authorised card network with participating banks [3]. Above \u20b92,000, a second verification step (AFA) remains mandatory [3].",
+       "context": "[1] # Payments FAQ starter set\n## FAQ 3: Why is strong customer authentication important?\nStrong customer authentication reduces fraud by adding a second layer of verification before a\npayment or sensitive operation is approved. It helps ensure the person performing the transaction is\nactually the legitimate account holder.\n\n[2] # Card scheme public summary\n## Payment lifecycle\n1. Authorization: the merchant sends a request to verify that the card is valid and the account can\nsupport the transaction.\n2. Clearing: the transaction details are exchanged through the card network and acquiring/issuing\nbanks so the payment can be reconciled.\n3. Settlement: funds move between participating institutions after the transaction is accepted and\nprocessed.\n4. Dispute handling: the scheme and the banks may investigate customer disputes, chargebacks, or\nfraud-related exceptions.\n\n[3] # RBI card-not-present transactions and additional authentication (2016, repealed)\n## The relaxation\nThe AFA requirement is relaxed for online card-not-present transactions up to \u20b92,000, when the payment is made\nthrough a payment authentication solution provided by an authorised card network together with participating\nissuing and acquiring banks. The cardholder registers once, giving the card details and completing AFA with\nthe issuing bank. Afterwards the registered card details act as the first factor and the login credentials of\nthe card network act as the second factor. Above \u20b92,000, AFA remains mandatory.",
+       "ground_truth": "Under strong customer authentication, a second layer of verification is added before a payment or sensitive operation is approved, to reduce fraud."
+      }
+     },
+     {
+      "item": {
+       "id": "q23",
+       "query": "What are the steps a card payment goes through?",
+       "response": "The steps a card payment goes through are: Authorization, Clearing, Settlement, and Dispute handling [1]. Authorization is when the merchant sends a request to verify that the card is valid and the account can support the transaction [1]. Clearing is when the transaction details are exchanged through the card network and acquiring/issuing banks so the payment can be reconciled [1]. Settlement is when funds move between participating institutions after the transaction is accepted and processed [1]. Dispute handling is when the scheme and the banks may investigate customer disputes, chargebacks, or fraud-related exceptions [1].",
+       "context": "[1] # Card scheme public summary\n## Payment lifecycle\n1. Authorization: the merchant sends a request to verify that the card is valid and the account can\nsupport the transaction.\n2. Clearing: the transaction details are exchanged through the card network and acquiring/issuing\nbanks so the payment can be reconciled.\n3. Settlement: funds move between participating institutions after the transaction is accepted and\nprocessed.\n4. Dispute handling: the scheme and the banks may investigate customer disputes, chargebacks, or\nfraud-related exceptions.\n\n[2] # Card scheme public summary\n## Source note\nThis is an author-written summary, partly checked on 3 October 2026. The European Central Bank's Glossary of terms related to payment, clearing and settlement systems (30 September 2008) defines card issuer, card scheme, clearing and settlement in terms consistent with this summary. It describes the acquirer as the entity to which the merchant sends the information needed to process the card payment, which is looser than \"the bank that handles the merchant's account\" above. The authorization step as described here\n\n[3] # Card scheme public summary\n## Source note\ncard payment, which is looser than \"the bank that handles the merchant's account\" above. The authorization step as described here is consistent only with search-engine summaries of Mastercard pages (the Mastercard guide returned 403). Visa was not checked for the lifecycle.",
+       "ground_truth": "Authorization (the merchant requests verification that the card is valid and the account can support the transaction), then clearing (details are exchanged through the card network and the acquiring and issuing banks so the payment can be reconciled), then settlement (funds move between the institutions)."
+      }
+     },
+     {
+      "item": {
+       "id": "q24",
+       "query": "Why do public regulators publish guidance on digital payments?",
+       "response": "Public regulators publish guidance on digital payments to reduce fraud [1]. They also aim to improve security [1]. Another reason is to make digital payments reliable for consumers and financial institutions [1].",
+       "context": "[1] # RBI payment systems public summary\n## Why it matters\nPayment systems depend on trust. Public regulators publish guidance on reducing fraud, improving\nsecurity, and making digital payments reliable for both consumers and financial institutions.\n\n[2] # RBI payment systems public summary\n## Public summary\nPublic guidance from the Reserve Bank of India (RBI) explains the direction of payment systems,\nconsumer protection, digital payments, and risk management in the Indian context. It is useful for\nunderstanding how digital transactions are monitored and regulated in public policy discussions.\n\n[3] # RBI payment systems public summary\n## Typical topics in public guidance\n- Safe and secure digital payments\n- Customer authentication and fraud controls\n- Payment infrastructure and processing ecosystem (not confirmed in the sources checked)\n- System resilience and operational continuity (not confirmed in the sources checked)\n- Risk management and compliance expectations",
+       "ground_truth": "To reduce fraud, improve security, and make digital payments reliable for consumers and financial institutions."
+      }
+     },
+     {
+      "item": {
+       "id": "q25",
+       "query": "Who does PCI DSS apply to?",
+       "response": "PCI DSS applies to any entity that stores, processes, or transmits cardholder data (CHD) or sensitive authentication data (SAD) [1]. It also applies to any entity that could affect the security of the cardholder data environment (CDE) [1]. This includes every kind of participant in card processing: merchants, processors, acquirers, issuers, and service providers [1].",
+       "context": "[1] # PCI DSS overview\n## Who it applies to\n- Any entity that stores, processes, or transmits cardholder data (CHD) or sensitive authentication data (SAD).\n- Any entity that could affect the security of the cardholder data environment (CDE).\n- In practice this covers every kind of participant in card processing: merchants, processors, acquirers,\nissuers and service providers.\n\n[2] # PCI DSS overview\n## Public summary\nPCI DSS, the Payment Card Industry Data Security Standard, is published by the PCI Security Standards\nCouncil. According to the Council's standard page, it was developed to encourage and enhance payment card\naccount data security and to help organisations around the world adopt consistent data security measures.\nIt sets a baseline of technical and operational requirements designed to protect payment account data.\n\n[3] # Payments FAQ starter set\n## FAQ 4: What is PCI DSS?\nPCI DSS is a security standard for protecting payment card data. It provides requirements for storing,\ntransmitting, and processing cardholder data securely.",
+       "ground_truth": "Any entity that stores, processes or transmits cardholder data or sensitive authentication data."
+      }
+     },
+     {
+      "item": {
+       "id": "q26",
+       "query": "What is the purpose of PCI DSS?",
+       "response": "PCI DSS is a security standard for protecting payment card data [1]. It was developed to encourage and enhance payment card account data security [2]. It helps organisations around the world adopt consistent data security measures [2]. It sets a baseline of technical and operational requirements designed to protect payment account data [2].",
+       "context": "[1] # Payments FAQ starter set\n## FAQ 4: What is PCI DSS?\nPCI DSS is a security standard for protecting payment card data. It provides requirements for storing,\ntransmitting, and processing cardholder data securely.\n\n[2] # PCI DSS overview\n## Public summary\nPCI DSS, the Payment Card Industry Data Security Standard, is published by the PCI Security Standards\nCouncil. According to the Council's standard page, it was developed to encourage and enhance payment card\naccount data security and to help organisations around the world adopt consistent data security measures.\nIt sets a baseline of technical and operational requirements designed to protect payment account data.\n\n[3] # PCI DSS overview\n## Who it applies to\n- Any entity that stores, processes, or transmits cardholder data (CHD) or sensitive authentication data (SAD).\n- Any entity that could affect the security of the cardholder data environment (CDE).\n- In practice this covers every kind of participant in card processing: merchants, processors, acquirers,\nissuers and service providers.",
+       "ground_truth": "It sets a baseline of technical and operational requirements designed to protect payment account data."
+      }
+     },
+     {
+      "item": {
+       "id": "q27",
+       "query": "Which organisations decide whether a company meets the card data security rules?",
+       "response": "Organisations that manage compliance programmes decide whether a company meets the card data security rules [1]. These organisations include a payment brand, an acquirer, or another entity [1]. The PCI Security Standards Council publishes the PCI DSS but does not enforce compliance [1][2].",
+       "context": "[1] # PCI DSS overview\n## Who decides whether an organisation complies\nThe standard page does not set out penalties or a single enforcement body. Compliance requirements are\ndetermined by organisations that manage compliance programmes, such as a payment brand, an acquirer or\nanother entity.\n\n[2] # PCI DSS overview\n## Public summary\nPCI DSS, the Payment Card Industry Data Security Standard, is published by the PCI Security Standards\nCouncil. According to the Council's standard page, it was developed to encourage and enhance payment card\naccount data security and to help organisations around the world adopt consistent data security measures.\nIt sets a baseline of technical and operational requirements designed to protect payment account data.\n\n[3] # Card scheme public summary\n## Public summary\nCard networks such as Visa and Mastercard operate the rules and infrastructure that allow card\npayments to be authorized, cleared, and settled across banks and merchants. Public summaries generally\nexplain the payment lifecycle without exposing confidential operating details.",
+       "ground_truth": "Organisations that manage compliance programmes, such as a payment brand, an acquirer or another entity."
+      }
+     },
+     {
+      "item": {
+       "id": "q28",
+       "query": "When did strong customer authentication become mandatory under PSD2?",
+       "response": "Strong customer authentication (SCA) became mandatory on 13 September 2019 under PSD2 [1].",
+       "context": "[1] # PSD2 overview\n## Strong customer authentication\nThe strong customer authentication (SCA) requirement came into force on 13 September 2019. The European\nCommission page gives the date but not the detailed rules or exemptions, so those must be checked in the\ntechnical standards.\n\n[2] # PSD2 overview\n## Public summary\nThe revised Payment Services Directive, PSD2, is European Union legislation on payment services. It became\napplicable in January 2018. The directive aims to make internet payment services easier and safer, to better\nprotect consumers against fraud, abuse and payment problems, to promote innovative mobile and internet\npayment services, and to strengthen consumer rights.\n\n[3] # RBI payment systems public summary\n## Source note\nThis is an author-written summary. I checked it on 3 October 2026 against two RBI documents: the Master Direction on Digital Payment Security Controls (issued 18 February 2021, RBI/2020-21/74) and the Authentication mechanisms for digital payment transactions Directions, 2025. They support the topics of secure digital payments, customer authentication and fraud controls, and risk management, governance and customer protection. Neither fetched summary mentions business continuity or resilience, so \"system resilience and operational continuity\" is not confirmed, and \"payment infrastructure and",
+       "ground_truth": "The strong customer authentication requirement came into force on 13 September 2019."
+      }
+     },
+     {
+      "item": {
+       "id": "q29",
+       "query": "What are the aims of PSD2?",
+       "response": "PSD2 aims to make internet payment services easier and safer [1]. It aims to better protect consumers against fraud, abuse, and payment problems [1]. It aims to promote innovative mobile and internet payment services [1]. It aims to strengthen consumer rights [1]. PSD2 also aims to increase competition and choice for consumers by introducing new payment service providers beyond banks [2]. It aims to strengthen the role of the European Banking Authority (EBA) [2]. It aims to limit fees for consumer debit and credit card transactions [3]. It bans retailer surcharges for card use [3].",
+       "context": "[1] # PSD2 overview\n## Public summary\nThe revised Payment Services Directive, PSD2, is European Union legislation on payment services. It became\napplicable in January 2018. The directive aims to make internet payment services easier and safer, to better\nprotect consumers against fraud, abuse and payment problems, to promote innovative mobile and internet\npayment services, and to strengthen consumer rights.\n\n[2] # PSD2 overview\n## Open banking and new providers\nPSD2 introduced a new category of payment service provider beyond banks, which increases competition and\nchoice for consumers. It also strengthened the role of the European Banking Authority (EBA), which\ncoordinates supervisory authorities and drafts technical standards.\n\n[3] # PSD2 overview\n## Consumer protection and card fees\nThe directive strengthens consumer rights and is part of a legislative package that limits fees for consumer\ndebit and credit card transactions. It bans retailer surcharges for card use.",
+       "ground_truth": "To make internet payment services easier and safer, better protect consumers against fraud, abuse and payment problems, promote innovative mobile and internet payment services, and strengthen consumer rights."
+      }
+     },
+     {
+      "item": {
+       "id": "q30",
+       "query": "Can shops charge extra for paying by card in the EU?",
+       "response": "Shops cannot charge extra fees for paying by card in the EU [1]. The directive bans retailer surcharges for card use [1]. This is part of consumer protection measures under PSD2 [1].",
+       "context": "[1] # PSD2 overview\n## Consumer protection and card fees\nThe directive strengthens consumer rights and is part of a legislative package that limits fees for consumer\ndebit and credit card transactions. It bans retailer surcharges for card use.\n\n[2] # PSD2 overview\n## Public summary\nThe revised Payment Services Directive, PSD2, is European Union legislation on payment services. It became\napplicable in January 2018. The directive aims to make internet payment services easier and safer, to better\nprotect consumers against fraud, abuse and payment problems, to promote innovative mobile and internet\npayment services, and to strengthen consumer rights.\n\n[3] # Card scheme public summary\n## Source note\nThis is an author-written summary, partly checked on 3 October 2026. The European Central Bank's Glossary of terms related to payment, clearing and settlement systems (30 September 2008) defines card issuer, card scheme, clearing and settlement in terms consistent with this summary. It describes the acquirer as the entity to which the merchant sends the information needed to process the card payment, which is looser than \"the bank that handles the merchant's account\" above. The authorization step as described here",
+       "ground_truth": "No. PSD2 bans retailer surcharges for card use."
+      }
+     },
+     {
+      "item": {
+       "id": "q32",
+       "query": "Below what value can extra authentication be relaxed for online card payments in India?",
+       "response": "Extra authentication can be relaxed for online card payments in India up to \u20b92,000 [1][3].",
+       "context": "[1] # RBI card-not-present transactions and additional authentication (2016, repealed)\n## The relaxation\nThe AFA requirement is relaxed for online card-not-present transactions up to \u20b92,000, when the payment is made\nthrough a payment authentication solution provided by an authorised card network together with participating\nissuing and acquiring banks. The cardholder registers once, giving the card details and completing AFA with\nthe issuing bank. Afterwards the registered card details act as the first factor and the login credentials of\nthe card network act as the second factor. Above \u20b92,000, AFA remains mandatory.\n\n[2] # RBI authentication directions, 2025\n## Earlier circulars repealed\nAnnexure 2 lists eight earlier circulars from 2009 to 2016 that the directions repeal. They include the circular\nof 6 December 2016 that relaxed additional-factor authentication for card-not-present payments up to \u20b92,000\n(DPSS.CO.PD No. 1431/02.14.003/2016-17).\n\n[3] # RBI card-not-present transactions and additional authentication (2016, repealed)\n## Public summary\nThis is a Reserve Bank of India circular dated 6 December 2016 (reference RBI/2016-17/172) on card-not-present\n(CNP) transactions. A card-not-present transaction is an online payment where the physical card is not\npresented. Normally such a transaction needs an additional factor of authentication (AFA) beyond the card\ndetails. The circular relaxes that requirement for small payments under conditions.",
+       "ground_truth": "Up to 2,000 rupees, when the payment is made through an authentication solution provided by an authorised card network together with participating issuing and acquiring banks."
+      }
+     },
+     {
+      "item": {
+       "id": "q34",
+       "query": "Who is liable if there is a security breach of the card authentication solution?",
+       "response": "Banks and networks bear full liability for any security breach or compromise of the card authentication solution [1].",
+       "context": "[1] # RBI card-not-present transactions and additional authentication (2016, repealed)\n## Conditions and responsibilities\n- The cardholder's consent is required, and the solution is optional for card-not-present transactions up to \u20b92,000.\n- Banks should educate customers about how to use the solution, its risks and how to raise grievances, and\nshould disclose the maximum customer liability at enrolment.\n- Velocity checks, meaning limits on how often transactions can happen, are recommended.\n- Banks and networks are listed as bearing full liability for any security breach or compromise.\n\n[2] # PCI DSS overview\n## Who it applies to\n- Any entity that stores, processes, or transmits cardholder data (CHD) or sensitive authentication data (SAD).\n- Any entity that could affect the security of the cardholder data environment (CDE).\n- In practice this covers every kind of participant in card processing: merchants, processors, acquirers,\nissuers and service providers.\n\n[3] # RBI card-not-present transactions and additional authentication (2016, repealed)\n## Conditions and responsibilities\n- The existing chargeback process does not change.",
+       "ground_truth": "Banks and networks are listed as bearing full liability for any security breach or compromise."
+      }
+     },
+     {
+      "item": {
+       "id": "q35",
+       "query": "How long do I have to dispute a credit card charge in the US?",
+       "response": "You must send a written billing error notice to the card company within 60 calendar days after the charge appeared on your statement [1].",
+       "context": "[1] # CFPB guidance: disputing a credit card charge (United States)\n## How to dispute\nCall the card company about the problem right away. To protect your rights, you must also send a written billing error notice to the card company within 60 calendar days after the charge appeared on your statement. The notice should give your name, address and account number and clearly explain what you think is wrong and why. Keep copies of all correspondence and a record of the dates of follow-up calls. You can dispute a charge even if you have\n\n[2] # CFPB guidance: disputing a credit card charge (United States)\n## What the card company must do\nAfter receiving the notice, the company has 30 days to send a letter confirming that it received the dispute,\nunless it has already finished the resolution process within that time. If you are correct, the charge must be\nremoved from your bill. If the company says the bill is correct, it must explain why in writing and state the\namount owed and the payment due date.\n\n[3] # CFPB guidance: disputing a credit card charge (United States)\n## How to dispute\nall correspondence and a record of the dates of follow-up calls. You can dispute a charge even if you have already paid it, although reimbursement may take longer.",
+       "ground_truth": "You must send a written billing error notice to the card company within 60 calendar days after the charge appeared on your statement."
+      }
+     },
+     {
+      "item": {
+       "id": "q36",
+       "query": "What must the card company do if my billing complaint is right?",
+       "response": "If your billing complaint is right, the card company must remove the charge from your bill [2].",
+       "context": "[1] # CFPB guidance: disputing a credit card charge (United States)\n## How to dispute\nCall the card company about the problem right away. To protect your rights, you must also send a written billing error notice to the card company within 60 calendar days after the charge appeared on your statement. The notice should give your name, address and account number and clearly explain what you think is wrong and why. Keep copies of all correspondence and a record of the dates of follow-up calls. You can dispute a charge even if you have\n\n[2] # CFPB guidance: disputing a credit card charge (United States)\n## What the card company must do\nAfter receiving the notice, the company has 30 days to send a letter confirming that it received the dispute,\nunless it has already finished the resolution process within that time. If you are correct, the charge must be\nremoved from your bill. If the company says the bill is correct, it must explain why in writing and state the\namount owed and the payment due date.\n\n[3] # CFPB guidance: disputing a credit card charge (United States)\n## Public summary\nThe US Consumer Financial Protection Bureau explains how a cardholder can dispute a charge on a credit card\nbill. This is a consumer-law process between the cardholder and the card company. It is separate from the\ncard-scheme chargeback rules between issuing and acquiring banks, which this guidance does not cover. The\nrelated rule is Regulation Z, section 1026.13, billing error resolution.",
+       "ground_truth": "If you are correct, the charge must be removed from your bill."
+      }
+     },
+     {
+      "item": {
+       "id": "q37",
+       "query": "How long does the card company have to acknowledge a billing dispute?",
+       "response": "The card company has 30 days to send a letter confirming that it received the dispute after receiving the notice [1].",
+       "context": "[1] # CFPB guidance: disputing a credit card charge (United States)\n## What the card company must do\nAfter receiving the notice, the company has 30 days to send a letter confirming that it received the dispute,\nunless it has already finished the resolution process within that time. If you are correct, the charge must be\nremoved from your bill. If the company says the bill is correct, it must explain why in writing and state the\namount owed and the payment due date.\n\n[2] # CFPB guidance: disputing a credit card charge (United States)\n## How to dispute\nCall the card company about the problem right away. To protect your rights, you must also send a written billing error notice to the card company within 60 calendar days after the charge appeared on your statement. The notice should give your name, address and account number and clearly explain what you think is wrong and why. Keep copies of all correspondence and a record of the dates of follow-up calls. You can dispute a charge even if you have\n\n[3] # CFPB guidance: disputing a credit card charge (United States)\n## How to dispute\nall correspondence and a record of the dates of follow-up calls. You can dispute a charge even if you have already paid it, although reimbursement may take longer.",
+       "ground_truth": "30 days to send a letter confirming it received the dispute, unless it has already finished resolving it within that time."
+      }
+     },
+     {
+      "item": {
+       "id": "q38",
+       "query": "What is UPI?",
+       "response": "UPI is an instant, real-time payment system developed by NPCI, the National Payments Corporation of India [1]. It enables inter-bank transactions through mobile phones [1]. Money moves directly from one bank account to another without needing a wallet top-up [1]. Payments work 24/7, including Sundays and bank holidays [1].",
+       "context": "[1] # NPCI UPI overview\n## Public summary\nThe Unified Payments Interface, UPI, is an instant, real-time payment system developed by NPCI, the National\nPayments Corporation of India, an RBI-regulated entity. It is designed to enable inter-bank transactions\nthrough mobile phones. Money moves directly from one bank account to another, so no wallet top-up is needed.\nPayments work around the clock, including Sundays and bank holidays.\n\n[2] # NPCI UPI overview\n## How people use it\n- A user can send money to a UPI ID, a mobile number or a QR code without first adding the beneficiary or\nwaiting for approval.\n- Several bank accounts can be linked in one UPI app, such as BHIM, PhonePe or Google Pay.\n- UPI is used for bill payments, mobile recharges, loan instalments, insurance premiums and subscriptions.\n- An AutoPay feature supports recurring payments within limits that the user sets.\n\n[3] # NPCI UPI overview\n## Authentication\nUPI follows the RBI's two-factor authentication rule: the first factor is the mobile number linked to the\nuser's bank account, and the second is the UPI PIN.",
+       "ground_truth": "The Unified Payments Interface is an instant, real-time payment system developed by NPCI, the National Payments Corporation of India, an RBI-regulated entity."
+      }
+     },
+     {
+      "item": {
+       "id": "q39",
+       "query": "Can I send money on a bank holiday in India?",
+       "response": "Payments work around the clock, including Sundays and bank holidays [1].",
+       "context": "[1] # NPCI UPI overview\n## Public summary\nThe Unified Payments Interface, UPI, is an instant, real-time payment system developed by NPCI, the National\nPayments Corporation of India, an RBI-regulated entity. It is designed to enable inter-bank transactions\nthrough mobile phones. Money moves directly from one bank account to another, so no wallet top-up is needed.\nPayments work around the clock, including Sundays and bank holidays.\n\n[2] # NPCI UPI overview\n## Interoperability\nA UPI ID created on one app can send money to an ID registered on a different app, so payments work across the\nmajor banks and apps in India.\n\n[3] # NPCI UPI overview\n## How people use it\n- A user can send money to a UPI ID, a mobile number or a QR code without first adding the beneficiary or\nwaiting for approval.\n- Several bank accounts can be linked in one UPI app, such as BHIM, PhonePe or Google Pay.\n- UPI is used for bill payments, mobile recharges, loan instalments, insurance premiums and subscriptions.\n- An AutoPay feature supports recurring payments within limits that the user sets.",
+       "ground_truth": "Yes. UPI payments work around the clock, including Sundays and bank holidays."
+      }
+     },
+     {
+      "item": {
+       "id": "q40",
+       "query": "What are the two authentication factors in UPI?",
+       "response": "The two authentication factors in UPI are the mobile number linked to the user's bank account and the UPI PIN [1]. These follow the RBI's two-factor authentication rule [1].",
+       "context": "[1] # NPCI UPI overview\n## Authentication\nUPI follows the RBI's two-factor authentication rule: the first factor is the mobile number linked to the\nuser's bank account, and the second is the UPI PIN.\n\n[2] # RBI authentication directions, 2025\n## Two factors of authentication\nAll digital payment transactions must be authenticated by at least two distinct factors of authentication unless\nthey are exempted. A factor of authentication is a credential of the customer that is used for authentication. It\ncan be something the user has, something the user knows or something the user is, for example a password, an SMS\none-time password, a PIN, a card, a software token, a fingerprint or another form of biometrics.\n\n[3] # NPCI UPI overview\n## How people use it\n- A user can send money to a UPI ID, a mobile number or a QR code without first adding the beneficiary or\nwaiting for approval.\n- Several bank accounts can be linked in one UPI app, such as BHIM, PhonePe or Google Pay.\n- UPI is used for bill payments, mobile recharges, loan instalments, insurance premiums and subscriptions.\n- An AutoPay feature supports recurring payments within limits that the user sets.",
+       "ground_truth": "The mobile number linked to the user's bank account, and the UPI PIN."
+      }
+     },
+     {
+      "item": {
+       "id": "q41",
+       "query": "What does pacs mean in ISO 20022?",
+       "response": "Pacs means payments clearing and settlement in ISO 20022 [1]. It includes messages that support clearing and settlement between financial institutions [1].",
+       "context": "[1] # ISO 20022 message definitions and identifiers\n## Business areas\n- pain: payments initiation, messages that support starting a payment from the ordering customer to a financial\ninstitution that services a cash account, and reporting its status.\n- pacs: payments clearing and settlement, messages that support clearing and settlement between financial\ninstitutions.\n- camt: cash management, messages that support reporting and advising on the cash side of financial\ntransactions, including cash movements, balances, and exceptions and investigations.\n\n[2] # Payments FAQ starter set\n## FAQ 2: What is ISO 20022?\nISO 20022 is a global messaging standard for payment and financial data. It standardizes the format\nof messages so institutions can exchange structured payment information more consistently.\n\n[3] # ISO 20022 overview\n## Public summary\nISO 20022 is a global standard for financial messaging. It provides a common, structured way to\nexchange payment and settlement information across banks, payment service providers, corporations,\nand regulators.",
+       "ground_truth": "pacs means payments clearing and settlement: messages that support clearing and settlement between financial institutions."
+      }
+     },
+     {
+      "item": {
+       "id": "q42",
+       "query": "How is an ISO 20022 message identifier structured?",
+       "response": "An ISO 20022 message identifier has four parts: four letters for the business area, three digits for the message definition, three digits for the variant, and two digits for the version [1]. The four-letter code represents the business area and is the start of every message identifier [2].",
+       "context": "[1] # ISO 20022 message definitions and identifiers\n## Message identifier structure\nA message identifier has four parts: four letters for the business area, three digits for the message\ndefinition, three digits for the variant and two digits for the version.\n\n[2] # ISO 20022 message definitions and identifiers\n## Public summary\nThe ISO 20022 repository groups its message definitions into business areas. Each business area has a\nfour-letter code, and that code is the start of every message identifier. Each message is described in a message\ndefinition, which is also converted into a syntax message scheme such as an XML schema.\n\n[3] # ISO 20022 overview\n## Example use in payments\nA single payment message can include structured information about the originator, beneficiary,\namount, currency, purpose, and payment references. This makes reconciliation and automation easier\nfor banks and corporates.",
+       "ground_truth": "Four parts: four letters for the business area, three digits for the message definition, three digits for the variant and two digits for the version."
+      }
+     },
+     {
+      "item": {
+       "id": "q43",
+       "query": "Which ISO 20022 messages deal with reporting account balances and investigations?",
+       "response": "The ISO 20022 messages that deal with reporting account balances and investigations are camt messages [1].",
+       "context": "[1] # ISO 20022 message definitions and identifiers\n## Business areas\n- pain: payments initiation, messages that support starting a payment from the ordering customer to a financial\ninstitution that services a cash account, and reporting its status.\n- pacs: payments clearing and settlement, messages that support clearing and settlement between financial\ninstitutions.\n- camt: cash management, messages that support reporting and advising on the cash side of financial\ntransactions, including cash movements, balances, and exceptions and investigations.\n\n[2] # Payments FAQ starter set\n## FAQ 2: What is ISO 20022?\nISO 20022 is a global messaging standard for payment and financial data. It standardizes the format\nof messages so institutions can exchange structured payment information more consistently.\n\n[3] # ISO 20022 overview\n## Public summary\nISO 20022 is a global standard for financial messaging. It provides a common, structured way to\nexchange payment and settlement information across banks, payment service providers, corporations,\nand regulators.",
+       "ground_truth": "The camt messages (cash management), which support reporting and advising on cash movements, balances, and exceptions and investigations."
+      }
+     },
+     {
+      "item": {
+       "id": "h01",
+       "query": "Which regulator issued the circular on online card payments made without a physical card?",
+       "response": "The Reserve Bank of India issued the circular on online card payments made without a physical card [1][3].",
+       "context": "[1] # RBI card-not-present transactions and additional authentication (2016, repealed)\n## Public summary\nThis is a Reserve Bank of India circular dated 6 December 2016 (reference RBI/2016-17/172) on card-not-present\n(CNP) transactions. A card-not-present transaction is an online payment where the physical card is not\npresented. Normally such a transaction needs an additional factor of authentication (AFA) beyond the card\ndetails. The circular relaxes that requirement for small payments under conditions.\n\n[2] # RBI authentication directions, 2025\n## Earlier circulars repealed\nAnnexure 2 lists eight earlier circulars from 2009 to 2016 that the directions repeal. They include the circular\nof 6 December 2016 that relaxed additional-factor authentication for card-not-present payments up to \u20b92,000\n(DPSS.CO.PD No. 1431/02.14.003/2016-17).\n\n[3] # RBI card-not-present transactions and additional authentication (2016, repealed)\n## Authority, scope and date\nThe circular was issued under the Payment and Settlement Systems Act 2007 (sections 10(2) and 18). It is a 2016\ndocument and it has since been repealed: the Reserve Bank of India Directions of 25 September 2025 list it in\nAnnexure 2 among the circulars they repeal, so the rules and limits described here no longer apply.",
+       "ground_truth": "The Reserve Bank of India, in a circular dated 6 December 2016 (reference RBI/2016-17/172) on card-not-present transactions."
+      }
+     },
+     {
+      "item": {
+       "id": "h03",
+       "query": "What is the cardholder data environment?",
+       "response": "The cardholder data environment (CDE) is the systems and processes that handle cardholder data (CHD) [1].",
+       "context": "[1] # PCI DSS overview\n## Terms used on the standard page\n- CHD: cardholder data.\n- SAD: sensitive authentication data.\n- CDE: cardholder data environment, the systems and processes that handle that data.\n\n[2] # PCI DSS overview\n## Who it applies to\n- Any entity that stores, processes, or transmits cardholder data (CHD) or sensitive authentication data (SAD).\n- Any entity that could affect the security of the cardholder data environment (CDE).\n- In practice this covers every kind of participant in card processing: merchants, processors, acquirers,\nissuers and service providers.\n\n[3] # Payments FAQ starter set\n## FAQ 4: What is PCI DSS?\nPCI DSS is a security standard for protecting payment card data. It provides requirements for storing,\ntransmitting, and processing cardholder data securely.",
+       "ground_truth": "The cardholder data environment (CDE) is the systems and processes that handle cardholder data."
+      }
+     },
+     {
+      "item": {
+       "id": "h04",
+       "query": "Can I still dispute a credit card charge after I have paid the bill?",
+       "response": "You can dispute a charge even if you have already paid it [1][2]. Reimbursement may take longer if you have paid the bill [1].",
+       "context": "[1] # CFPB guidance: disputing a credit card charge (United States)\n## How to dispute\nall correspondence and a record of the dates of follow-up calls. You can dispute a charge even if you have already paid it, although reimbursement may take longer.\n\n[2] # CFPB guidance: disputing a credit card charge (United States)\n## How to dispute\nCall the card company about the problem right away. To protect your rights, you must also send a written billing error notice to the card company within 60 calendar days after the charge appeared on your statement. The notice should give your name, address and account number and clearly explain what you think is wrong and why. Keep copies of all correspondence and a record of the dates of follow-up calls. You can dispute a charge even if you have\n\n[3] # CFPB guidance: disputing a credit card charge (United States)\n## What the card company must do\nAfter receiving the notice, the company has 30 days to send a letter confirming that it received the dispute,\nunless it has already finished the resolution process within that time. If you are correct, the charge must be\nremoved from your bill. If the company says the bill is correct, it must explain why in writing and state the\namount owed and the payment due date.",
+       "ground_truth": "Yes. You can dispute a charge even if you have already paid it, although reimbursement may take longer."
+      }
+     },
+     {
+      "item": {
+       "id": "h05",
+       "query": "Which apps let me link several bank accounts for instant transfers in India?",
+       "response": "Apps like BHIM, PhonePe, and Google Pay let you link several bank accounts for instant transfers in India [1].",
+       "context": "[1] # NPCI UPI overview\n## How people use it\n- A user can send money to a UPI ID, a mobile number or a QR code without first adding the beneficiary or\nwaiting for approval.\n- Several bank accounts can be linked in one UPI app, such as BHIM, PhonePe or Google Pay.\n- UPI is used for bill payments, mobile recharges, loan instalments, insurance premiums and subscriptions.\n- An AutoPay feature supports recurring payments within limits that the user sets.\n\n[2] # NPCI UPI overview\n## Public summary\nThe Unified Payments Interface, UPI, is an instant, real-time payment system developed by NPCI, the National\nPayments Corporation of India, an RBI-regulated entity. It is designed to enable inter-bank transactions\nthrough mobile phones. Money moves directly from one bank account to another, so no wallet top-up is needed.\nPayments work around the clock, including Sundays and bank holidays.\n\n[3] # NPCI UPI overview\n## Interoperability\nA UPI ID created on one app can send money to an ID registered on a different app, so payments work across the\nmajor banks and apps in India.",
+       "ground_truth": "Several bank accounts can be linked in one UPI app, such as BHIM, PhonePe or Google Pay."
+      }
+     },
+     {
+      "item": {
+       "id": "h06",
+       "query": "What do the digits in an ISO 20022 message identifier stand for?",
+       "response": "The three digits after the four letters represent the message definition [1]. The next three digits represent the variant [1]. The last two digits represent the version [1].",
+       "context": "[1] # ISO 20022 message definitions and identifiers\n## Message identifier structure\nA message identifier has four parts: four letters for the business area, three digits for the message\ndefinition, three digits for the variant and two digits for the version.\n\n[2] # ISO 20022 message definitions and identifiers\n## Public summary\nThe ISO 20022 repository groups its message definitions into business areas. Each business area has a\nfour-letter code, and that code is the start of every message identifier. Each message is described in a message\ndefinition, which is also converted into a syntax message scheme such as an XML schema.\n\n[3] # Payments FAQ starter set\n## FAQ 2: What is ISO 20022?\nISO 20022 is a global messaging standard for payment and financial data. It standardizes the format\nof messages so institutions can exchange structured payment information more consistently.",
+       "ground_truth": "A message identifier has four parts: four letters for the business area, three digits for the message definition, three digits for the variant and two digits for the version."
+      }
+     },
+     {
+      "item": {
+       "id": "h07",
+       "query": "What is a velocity check?",
+       "response": "A velocity check means limits on how often transactions can happen [1].",
+       "context": "[1] # RBI card-not-present transactions and additional authentication (2016, repealed)\n## Conditions and responsibilities\n- The cardholder's consent is required, and the solution is optional for card-not-present transactions up to \u20b92,000.\n- Banks should educate customers about how to use the solution, its risks and how to raise grievances, and\nshould disclose the maximum customer liability at enrolment.\n- Velocity checks, meaning limits on how often transactions can happen, are recommended.\n- Banks and networks are listed as bearing full liability for any security breach or compromise.\n\n[2] # NPCI UPI overview\n## Public summary\nThe Unified Payments Interface, UPI, is an instant, real-time payment system developed by NPCI, the National\nPayments Corporation of India, an RBI-regulated entity. It is designed to enable inter-bank transactions\nthrough mobile phones. Money moves directly from one bank account to another, so no wallet top-up is needed.\nPayments work around the clock, including Sundays and bank holidays.\n\n[3] # RBI payment systems public summary\n## Public summary\nPublic guidance from the Reserve Bank of India (RBI) explains the direction of payment systems,\nconsumer protection, digital payments, and risk management in the Indian context. It is useful for\nunderstanding how digital transactions are monitored and regulated in public policy discussions.",
+       "ground_truth": "Velocity checks are limits on how often transactions can happen, and they are recommended."
+      }
+     },
+     {
+      "item": {
+       "id": "h08",
+       "query": "What is strong customer authentication meant to confirm about the person paying?",
+       "response": "Strong customer authentication is meant to confirm that the person performing the transaction is actually the legitimate account holder [1].",
+       "context": "[1] # Payments FAQ starter set\n## FAQ 3: Why is strong customer authentication important?\nStrong customer authentication reduces fraud by adding a second layer of verification before a\npayment or sensitive operation is approved. It helps ensure the person performing the transaction is\nactually the legitimate account holder.\n\n[2] # PSD2 overview\n## Strong customer authentication\nThe strong customer authentication (SCA) requirement came into force on 13 September 2019. The European\nCommission page gives the date but not the detailed rules or exemptions, so those must be checked in the\ntechnical standards.\n\n[3] # RBI authentication directions, 2025\n## Two factors of authentication\nAll digital payment transactions must be authenticated by at least two distinct factors of authentication unless\nthey are exempted. A factor of authentication is a credential of the customer that is used for authentication. It\ncan be something the user has, something the user knows or something the user is, for example a password, an SMS\none-time password, a PIN, a card, a software token, a fingerprint or another form of biometrics.",
+       "ground_truth": "It helps ensure that the person performing the transaction is actually the legitimate account holder."
+      }
+     },
+     {
+      "item": {
+       "id": "h09",
+       "query": "Does the US dispute guidance deal with chargebacks between the issuing and acquiring banks?",
+       "response": "The US dispute guidance does not cover chargebacks between the issuing and acquiring banks [1]. It is a consumer-law process between the cardholder and the card company [1]. Chargebacks between banks are part of the card-scheme rules, which this guidance does not address [1].",
+       "context": "[1] # CFPB guidance: disputing a credit card charge (United States)\n## Public summary\nThe US Consumer Financial Protection Bureau explains how a cardholder can dispute a charge on a credit card\nbill. This is a consumer-law process between the cardholder and the card company. It is separate from the\ncard-scheme chargeback rules between issuing and acquiring banks, which this guidance does not cover. The\nrelated rule is Regulation Z, section 1026.13, billing error resolution.\n\n[2] # Card scheme public summary\n## Payment lifecycle\n1. Authorization: the merchant sends a request to verify that the card is valid and the account can\nsupport the transaction.\n2. Clearing: the transaction details are exchanged through the card network and acquiring/issuing\nbanks so the payment can be reconciled.\n3. Settlement: funds move between participating institutions after the transaction is accepted and\nprocessed.\n4. Dispute handling: the scheme and the banks may investigate customer disputes, chargebacks, or\nfraud-related exceptions.\n\n[3] # CFPB guidance: disputing a credit card charge (United States)\n## How to dispute\nCall the card company about the problem right away. To protect your rights, you must also send a written billing error notice to the card company within 60 calendar days after the charge appeared on your statement. The notice should give your name, address and account number and clearly explain what you think is wrong and why. Keep copies of all correspondence and a record of the dates of follow-up calls. You can dispute a charge even if you have",
+       "ground_truth": "No. The US dispute guidance is separate from the card-scheme chargeback rules between issuing and acquiring banks, which it does not cover."
+      }
+     },
+     {
+      "item": {
+       "id": "h10",
+       "query": "When was agreement reached on the update to the EU payments directive?",
+       "response": "Agreement on the update to the EU payments directive was reached on 27 November 2025 [2].",
+       "context": "[1] # PSD2 overview\n## Public summary\nThe revised Payment Services Directive, PSD2, is European Union legislation on payment services. It became\napplicable in January 2018. The directive aims to make internet payment services easier and safer, to better\nprotect consumers against fraud, abuse and payment problems, to promote innovative mobile and internet\npayment services, and to strengthen consumer rights.\n\n[2] # PSD2 overview\n## Revision\nPSD2 is being revised. Legislative proposals for PSD3 and PSR were published on 28 June 2023, and a political\nagreement on the review was reached on 27 November 2025, the date shown on the Commission page.\n\n[3] # Card scheme public summary\n## Source note\nThis is an author-written summary, partly checked on 3 October 2026. The European Central Bank's Glossary of terms related to payment, clearing and settlement systems (30 September 2008) defines card issuer, card scheme, clearing and settlement in terms consistent with this summary. It describes the acquirer as the entity to which the merchant sends the information needed to process the card payment, which is looser than \"the bank that handles the merchant's account\" above. The authorization step as described here",
+       "ground_truth": "A political agreement on the review of PSD2 (PSD3 and the PSR) was reached on 27 November 2025."
+      }
+     },
+     {
+      "item": {
+       "id": "h11",
+       "query": "Do I need to register a payee before sending money by UPI?",
+       "response": "No, a user can send money to a UPI ID, a mobile number or a QR code without first adding the beneficiary or waiting for approval [1].",
+       "context": "[1] # NPCI UPI overview\n## How people use it\n- A user can send money to a UPI ID, a mobile number or a QR code without first adding the beneficiary or\nwaiting for approval.\n- Several bank accounts can be linked in one UPI app, such as BHIM, PhonePe or Google Pay.\n- UPI is used for bill payments, mobile recharges, loan instalments, insurance premiums and subscriptions.\n- An AutoPay feature supports recurring payments within limits that the user sets.\n\n[2] # NPCI UPI overview\n## Interoperability\nA UPI ID created on one app can send money to an ID registered on a different app, so payments work across the\nmajor banks and apps in India.\n\n[3] # NPCI UPI overview\n## Public summary\nThe Unified Payments Interface, UPI, is an instant, real-time payment system developed by NPCI, the National\nPayments Corporation of India, an RBI-regulated entity. It is designed to enable inter-bank transactions\nthrough mobile phones. Money moves directly from one bank account to another, so no wallet top-up is needed.\nPayments work around the clock, including Sundays and bank holidays.",
+       "ground_truth": "No. A user can send money to a UPI ID, mobile number or QR code without first adding the beneficiary or waiting for approval."
+      }
+     },
+     {
+      "item": {
+       "id": "h12",
+       "query": "Is the cardholder's agreement needed for the simplified online card payment in India?",
+       "response": "Yes, the cardholder's consent is required for card-not-present transactions up to \u20b92,000 under the simplified solution [1].",
+       "context": "[1] # RBI card-not-present transactions and additional authentication (2016, repealed)\n## Conditions and responsibilities\n- The cardholder's consent is required, and the solution is optional for card-not-present transactions up to \u20b92,000.\n- Banks should educate customers about how to use the solution, its risks and how to raise grievances, and\nshould disclose the maximum customer liability at enrolment.\n- Velocity checks, meaning limits on how often transactions can happen, are recommended.\n- Banks and networks are listed as bearing full liability for any security breach or compromise.\n\n[2] # RBI card-not-present transactions and additional authentication (2016, repealed)\n## The relaxation\nThe AFA requirement is relaxed for online card-not-present transactions up to \u20b92,000, when the payment is made\nthrough a payment authentication solution provided by an authorised card network together with participating\nissuing and acquiring banks. The cardholder registers once, giving the card details and completing AFA with\nthe issuing bank. Afterwards the registered card details act as the first factor and the login credentials of\nthe card network act as the second factor. Above \u20b92,000, AFA remains mandatory.\n\n[3] # RBI card-not-present transactions and additional authentication (2016, repealed)\n## Public summary\nThis is a Reserve Bank of India circular dated 6 December 2016 (reference RBI/2016-17/172) on card-not-present\n(CNP) transactions. A card-not-present transaction is an online payment where the physical card is not\npresented. Normally such a transaction needs an additional factor of authentication (AFA) beyond the card\ndetails. The circular relaxes that requirement for small payments under conditions.",
+       "ground_truth": "Yes. The cardholder's consent is required, and the solution is optional for card-not-present transactions up to 2,000 rupees."
+      }
+     },
+     {
+      "item": {
+       "id": "n01",
+       "query": "When must payment providers comply with the RBI authentication directions?",
+       "response": "Payment system providers must comply with the RBI authentication directions by 1 April 2026 unless a provision says otherwise [1].",
+       "context": "[1] # RBI authentication directions, 2025\n## Public summary\nThe Reserve Bank of India (Authentication mechanisms for digital payment transactions) Directions, 2025 were\nissued on 25 September 2025. They apply to payment system providers and payment system participants, which include\nbanks and non-bank entities, for domestic digital payment transactions. The directions require compliance by 1 April\n2026 unless a provision says otherwise.\n\n[2] # RBI authentication directions, 2025\n## Issuer responsibilities\nIssuers must ensure the robustness and integrity of the authentication mechanism before deployment. They must\ncompensate the customer in full without demur for a loss that arises from non-compliance with the directions. They\nmust also comply with the Digital Personal Data Protection Act, 2023.\n\n[3] # RBI authentication directions, 2025\n## Cross-border card-not-present transactions\nBy 1 October 2026, card issuers must have mechanisms to validate non-recurring cross-border card-not-present\ntransactions, and they must apply risk-based handling to all such transactions.",
+       "ground_truth": "By 1 April 2026, unless a provision says otherwise."
+      }
+     },
+     {
+      "item": {
+       "id": "n02",
+       "query": "How many different checks does an Indian digital payment need to pass?",
+       "response": "An Indian digital payment must pass at least two distinct factors of authentication [1]. These factors can be something the user has, knows, or is, such as a password, OTP, PIN, card, software token, or biometric [1].",
+       "context": "[1] # RBI authentication directions, 2025\n## Two factors of authentication\nAll digital payment transactions must be authenticated by at least two distinct factors of authentication unless\nthey are exempted. A factor of authentication is a credential of the customer that is used for authentication. It\ncan be something the user has, something the user knows or something the user is, for example a password, an SMS\none-time password, a PIN, a card, a software token, a fingerprint or another form of biometrics.\n\n[2] # RBI card-not-present transactions and additional authentication (2016, repealed)\n## Conditions and responsibilities\n- The cardholder's consent is required, and the solution is optional for card-not-present transactions up to \u20b92,000.\n- Banks should educate customers about how to use the solution, its risks and how to raise grievances, and\nshould disclose the maximum customer liability at enrolment.\n- Velocity checks, meaning limits on how often transactions can happen, are recommended.\n- Banks and networks are listed as bearing full liability for any security breach or compromise.\n\n[3] # RBI payment systems public summary\n## Public summary\nPublic guidance from the Reserve Bank of India (RBI) explains the direction of payment systems,\nconsumer protection, digital payments, and risk management in the Indian context. It is useful for\nunderstanding how digital transactions are monitored and regulated in public policy discussions.",
+       "ground_truth": "At least two distinct factors of authentication, unless the transaction is exempted."
+      }
+     },
+     {
+      "item": {
+       "id": "n03",
+       "query": "Is the relaxation for small online card payments still in force?",
+       "response": "The relaxation for small online card payments up to \u20b92,000 was introduced in 2016 [1][2]. This circular was repealed by the RBI authentication directions in 2025 [3]. Therefore, the relaxation is no longer in force [3].",
+       "context": "[1] # RBI card-not-present transactions and additional authentication (2016, repealed)\n## The relaxation\nThe AFA requirement is relaxed for online card-not-present transactions up to \u20b92,000, when the payment is made\nthrough a payment authentication solution provided by an authorised card network together with participating\nissuing and acquiring banks. The cardholder registers once, giving the card details and completing AFA with\nthe issuing bank. Afterwards the registered card details act as the first factor and the login credentials of\nthe card network act as the second factor. Above \u20b92,000, AFA remains mandatory.\n\n[2] # RBI card-not-present transactions and additional authentication (2016, repealed)\n## Public summary\nThis is a Reserve Bank of India circular dated 6 December 2016 (reference RBI/2016-17/172) on card-not-present\n(CNP) transactions. A card-not-present transaction is an online payment where the physical card is not\npresented. Normally such a transaction needs an additional factor of authentication (AFA) beyond the card\ndetails. The circular relaxes that requirement for small payments under conditions.\n\n[3] # RBI authentication directions, 2025\n## Earlier circulars repealed\nAnnexure 2 lists eight earlier circulars from 2009 to 2016 that the directions repeal. They include the circular\nof 6 December 2016 that relaxed additional-factor authentication for card-not-present payments up to \u20b92,000\n(DPSS.CO.PD No. 1431/02.14.003/2016-17).",
+       "ground_truth": "No. The 2016 relaxation has been repealed: the RBI Directions of 25 September 2025 list it among the repealed circulars, so its rules and limits no longer apply."
+      }
+     },
+     {
+      "item": {
+       "id": "n04",
+       "query": "By when must card issuers validate cross-border card-not-present transactions?",
+       "response": "Card issuers must validate cross-border card-not-present transactions by 1 October 2026 [1].",
+       "context": "[1] # RBI authentication directions, 2025\n## Cross-border card-not-present transactions\nBy 1 October 2026, card issuers must have mechanisms to validate non-recurring cross-border card-not-present\ntransactions, and they must apply risk-based handling to all such transactions.\n\n[2] # RBI card-not-present transactions and additional authentication (2016, repealed)\n## The relaxation\nThe AFA requirement is relaxed for online card-not-present transactions up to \u20b92,000, when the payment is made\nthrough a payment authentication solution provided by an authorised card network together with participating\nissuing and acquiring banks. The cardholder registers once, giving the card details and completing AFA with\nthe issuing bank. Afterwards the registered card details act as the first factor and the login credentials of\nthe card network act as the second factor. Above \u20b92,000, AFA remains mandatory.\n\n[3] # RBI card-not-present transactions and additional authentication (2016, repealed)\n## Conditions and responsibilities\n- The cardholder's consent is required, and the solution is optional for card-not-present transactions up to \u20b92,000.\n- Banks should educate customers about how to use the solution, its risks and how to raise grievances, and\nshould disclose the maximum customer liability at enrolment.\n- Velocity checks, meaning limits on how often transactions can happen, are recommended.\n- Banks and networks are listed as bearing full liability for any security breach or compromise.",
+       "ground_truth": "By 1 October 2026, card issuers must have mechanisms to validate non-recurring cross-border card-not-present transactions, and they must apply risk-based handling to all such transactions."
+      }
+     },
+     {
+      "item": {
+       "id": "n05",
+       "query": "Who pays the customer back if the authentication rules were not followed and money was lost?",
+       "response": "The issuer must compensate the customer in full without demur for a loss that arises from non-compliance with the directions [1].",
+       "context": "[1] # RBI authentication directions, 2025\n## Issuer responsibilities\nIssuers must ensure the robustness and integrity of the authentication mechanism before deployment. They must\ncompensate the customer in full without demur for a loss that arises from non-compliance with the directions. They\nmust also comply with the Digital Personal Data Protection Act, 2023.\n\n[2] # RBI card-not-present transactions and additional authentication (2016, repealed)\n## Conditions and responsibilities\n- The existing chargeback process does not change.\n\n[3] # RBI card-not-present transactions and additional authentication (2016, repealed)\n## Conditions and responsibilities\n- The cardholder's consent is required, and the solution is optional for card-not-present transactions up to \u20b92,000.\n- Banks should educate customers about how to use the solution, its risks and how to raise grievances, and\nshould disclose the maximum customer liability at enrolment.\n- Velocity checks, meaning limits on how often transactions can happen, are recommended.\n- Banks and networks are listed as bearing full liability for any security breach or compromise.",
+       "ground_truth": "The issuer must compensate the customer in full without demur for a loss that arises from non-compliance with the directions."
+      }
+     },
+     {
+      "item": {
+       "id": "i01",
+       "query": "What is the difference between authorization and settlement in credit card transactions?",
+       "response": "Authorization is the approval step that checks whether a payment instrument can be used and whether the account has sufficient funds or approval for the transaction [1]. Authorization involves the merchant sending a request to verify that the card is valid and the account can support the transaction [2]. Settlement is the later process where funds move between parties after the transaction is accepted and processed [1]. Settlement occurs after clearing, where transaction details are exchanged through the card network and acquiring/issuing banks for reconciliation [2]. Settlement involves the actual movement of funds between participating institutions [2].",
+       "context": "[1] # Payments FAQ starter set\n## FAQ 1: What is the difference between authorization and settlement?\nAuthorization is the approval step that checks whether a payment instrument can be used and whether\nthe account has sufficient funds or approval for the transaction. Settlement is the later process where\nfunds move between parties after the transaction is accepted and processed.\n\n[2] # Card scheme public summary\n## Payment lifecycle\n1. Authorization: the merchant sends a request to verify that the card is valid and the account can\nsupport the transaction.\n2. Clearing: the transaction details are exchanged through the card network and acquiring/issuing\nbanks so the payment can be reconciled.\n3. Settlement: funds move between participating institutions after the transaction is accepted and\nprocessed.\n4. Dispute handling: the scheme and the banks may investigate customer disputes, chargebacks, or\nfraud-related exceptions.\n\n[3] # Card scheme public summary\n## Source note\nThis is an author-written summary, partly checked on 3 October 2026. The European Central Bank's Glossary of terms related to payment, clearing and settlement systems (30 September 2008) defines card issuer, card scheme, clearing and settlement in terms consistent with this summary. It describes the acquirer as the entity to which the merchant sends the information needed to process the card payment, which is looser than \"the bank that handles the merchant's account\" above. The authorization step as described here",
+       "ground_truth": "Authorization is the approval step that checks whether the card can be used and the account can support the transaction. Settlement is the later step where funds move between the parties."
+      }
+     },
+     {
+      "item": {
+       "id": "i02",
+       "query": "How does a credit or debit card transaction actually work behind the scenes?",
+       "response": "A credit or debit card transaction starts with authorization, where the merchant sends a request to verify the card's validity and account support for the transaction [1]. Next, clearing occurs, during which transaction details are exchanged through the card network and acquiring/issuing banks for payment reconciliation [1]. Then, settlement happens, where funds move between participating institutions after the transaction is accepted and processed [1]. Finally, dispute handling may take place, involving investigation of customer disputes, chargebacks, or fraud-related exceptions by the scheme and banks [1]. Card networks like Visa and Mastercard operate the rules and infrastructure that enable these steps across banks and merchants [2].",
+       "context": "[1] # Card scheme public summary\n## Payment lifecycle\n1. Authorization: the merchant sends a request to verify that the card is valid and the account can\nsupport the transaction.\n2. Clearing: the transaction details are exchanged through the card network and acquiring/issuing\nbanks so the payment can be reconciled.\n3. Settlement: funds move between participating institutions after the transaction is accepted and\nprocessed.\n4. Dispute handling: the scheme and the banks may investigate customer disputes, chargebacks, or\nfraud-related exceptions.\n\n[2] # Card scheme public summary\n## Public summary\nCard networks such as Visa and Mastercard operate the rules and infrastructure that allow card\npayments to be authorized, cleared, and settled across banks and merchants. Public summaries generally\nexplain the payment lifecycle without exposing confidential operating details.\n\n[3] # NPCI UPI overview\n## Public summary\nThe Unified Payments Interface, UPI, is an instant, real-time payment system developed by NPCI, the National\nPayments Corporation of India, an RBI-regulated entity. It is designed to enable inter-bank transactions\nthrough mobile phones. Money moves directly from one bank account to another, so no wallet top-up is needed.\nPayments work around the clock, including Sundays and bank holidays.",
+       "ground_truth": "The payment goes through authorization (the merchant requests verification that the card is valid and the account can support the transaction), clearing (details are exchanged through the card network and the banks so the payment can be reconciled) and settlement (funds move between the institutions)."
+      }
+     },
+     {
+      "item": {
+       "id": "i04",
+       "query": "What are all the steps to complete a credit card transaction?",
+       "response": "The steps to complete a credit card transaction are four in total [1]. First, Authorization: the merchant sends a request to verify that the card is valid and the account can support the transaction [1]. Second, Clearing: the transaction details are exchanged through the card network and acquiring/issuing banks so the payment can be reconciled [1]. Third, Settlement: funds move between participating institutions after the transaction is accepted and processed [1]. Fourth, Dispute handling: the scheme and the banks may investigate customer disputes, chargebacks, or fraud-related exceptions [1].",
+       "context": "[1] # Card scheme public summary\n## Payment lifecycle\n1. Authorization: the merchant sends a request to verify that the card is valid and the account can\nsupport the transaction.\n2. Clearing: the transaction details are exchanged through the card network and acquiring/issuing\nbanks so the payment can be reconciled.\n3. Settlement: funds move between participating institutions after the transaction is accepted and\nprocessed.\n4. Dispute handling: the scheme and the banks may investigate customer disputes, chargebacks, or\nfraud-related exceptions.\n\n[2] # RBI card-not-present transactions and additional authentication (2016, repealed)\n## Conditions and responsibilities\n- The cardholder's consent is required, and the solution is optional for card-not-present transactions up to \u20b92,000.\n- Banks should educate customers about how to use the solution, its risks and how to raise grievances, and\nshould disclose the maximum customer liability at enrolment.\n- Velocity checks, meaning limits on how often transactions can happen, are recommended.\n- Banks and networks are listed as bearing full liability for any security breach or compromise.\n\n[3] # Card scheme public summary\n## Source note\nThis is an author-written summary, partly checked on 3 October 2026. The European Central Bank's Glossary of terms related to payment, clearing and settlement systems (30 September 2008) defines card issuer, card scheme, clearing and settlement in terms consistent with this summary. It describes the acquirer as the entity to which the merchant sends the information needed to process the card payment, which is looser than \"the bank that handles the merchant's account\" above. The authorization step as described here",
+       "ground_truth": "Authorization (the merchant requests verification that the card is valid and the account can support the transaction), clearing (details are exchanged through the card network and the banks so the payment can be reconciled), then settlement (funds move between the institutions)."
+      }
+     },
+     {
+      "item": {
+       "id": "i06",
+       "query": "What is the full name of UPI?",
+       "response": "The full name of UPI is Unified Payments Interface [1].",
+       "context": "[1] # NPCI UPI overview\n## Public summary\nThe Unified Payments Interface, UPI, is an instant, real-time payment system developed by NPCI, the National\nPayments Corporation of India, an RBI-regulated entity. It is designed to enable inter-bank transactions\nthrough mobile phones. Money moves directly from one bank account to another, so no wallet top-up is needed.\nPayments work around the clock, including Sundays and bank holidays.\n\n[2] # NPCI UPI overview\n## Source note\nThis summary is based on NPCI's UPI product page. That page could not be loaded by an automated fetch, so the\ndetails here come from a search-engine summary of it and should be checked against the page.\n\n[3] # NPCI UPI overview\n## Authentication\nUPI follows the RBI's two-factor authentication rule: the first factor is the mobile number linked to the\nuser's bank account, and the second is the UPI PIN.",
+       "ground_truth": "Unified Payments Interface (UPI)."
+      }
+     },
+     {
+      "item": {
+       "id": "i07",
+       "query": "How secure are UPI transactions? What measures are in place to protect user data?",
+       "response": "UPI transactions are secured by RBI's two-factor authentication rule [1]. The first factor is the mobile number linked to the user's bank account [1]. The second factor is the UPI PIN [1]. No other specific data protection measures are mentioned in the provided documents [1][2][3].",
+       "context": "[1] # NPCI UPI overview\n## Authentication\nUPI follows the RBI's two-factor authentication rule: the first factor is the mobile number linked to the\nuser's bank account, and the second is the UPI PIN.\n\n[2] # NPCI UPI overview\n## How people use it\n- A user can send money to a UPI ID, a mobile number or a QR code without first adding the beneficiary or\nwaiting for approval.\n- Several bank accounts can be linked in one UPI app, such as BHIM, PhonePe or Google Pay.\n- UPI is used for bill payments, mobile recharges, loan instalments, insurance premiums and subscriptions.\n- An AutoPay feature supports recurring payments within limits that the user sets.\n\n[3] # NPCI UPI overview\n## Public summary\nThe Unified Payments Interface, UPI, is an instant, real-time payment system developed by NPCI, the National\nPayments Corporation of India, an RBI-regulated entity. It is designed to enable inter-bank transactions\nthrough mobile phones. Money moves directly from one bank account to another, so no wallet top-up is needed.\nPayments work around the clock, including Sundays and bank holidays.",
+       "ground_truth": "UPI follows the RBI's two-factor authentication rule: the mobile number linked to the user's bank account, and the UPI PIN. The corpus does not describe other data-protection measures."
+      }
+     },
+     {
+      "item": {
+       "id": "i08",
+       "query": "What is UPI, and how does it work?",
+       "response": "UPI is an instant, real-time payment system developed by NPCI, the National Payments Corporation of India, regulated by RBI [1]. It enables inter-bank transactions through mobile phones [1]. Money moves directly from one bank account to another without needing a wallet top-up [1]. Payments can be made 24/7, including Sundays and bank holidays [1]. Users can send money to a UPI ID, mobile number, or QR code without adding the beneficiary first or waiting for approval [2]. Multiple bank accounts can be linked in one UPI app like BHIM, PhonePe, or Google Pay [2]. UPI is used for bill payments, mobile recharges, loan instalments, insurance premiums, and subscriptions [2]. It supports recurring payments via an AutoPay feature within user-set limits [2]. UPI follows RBI's two-factor authentication: the mobile number linked to the bank account and the UPI PIN [3].",
+       "context": "[1] # NPCI UPI overview\n## Public summary\nThe Unified Payments Interface, UPI, is an instant, real-time payment system developed by NPCI, the National\nPayments Corporation of India, an RBI-regulated entity. It is designed to enable inter-bank transactions\nthrough mobile phones. Money moves directly from one bank account to another, so no wallet top-up is needed.\nPayments work around the clock, including Sundays and bank holidays.\n\n[2] # NPCI UPI overview\n## How people use it\n- A user can send money to a UPI ID, a mobile number or a QR code without first adding the beneficiary or\nwaiting for approval.\n- Several bank accounts can be linked in one UPI app, such as BHIM, PhonePe or Google Pay.\n- UPI is used for bill payments, mobile recharges, loan instalments, insurance premiums and subscriptions.\n- An AutoPay feature supports recurring payments within limits that the user sets.\n\n[3] # NPCI UPI overview\n## Authentication\nUPI follows the RBI's two-factor authentication rule: the first factor is the mobile number linked to the\nuser's bank account, and the second is the UPI PIN.",
+       "ground_truth": "UPI, the Unified Payments Interface, is an instant, real-time payment system developed by NPCI. Users can send money to a UPI ID, mobile number or QR code, and payments are authenticated with the linked mobile number and the UPI PIN."
+      }
+     },
+     {
+      "item": {
+       "id": "i09",
+       "query": "How many days do I have to dispute a credit card charge?",
+       "response": "You have 60 calendar days to send a written billing error notice to the card company after the charge appeared on your statement [2].",
+       "context": "[1] # CFPB guidance: disputing a credit card charge (United States)\n## What the card company must do\nAfter receiving the notice, the company has 30 days to send a letter confirming that it received the dispute,\nunless it has already finished the resolution process within that time. If you are correct, the charge must be\nremoved from your bill. If the company says the bill is correct, it must explain why in writing and state the\namount owed and the payment due date.\n\n[2] # CFPB guidance: disputing a credit card charge (United States)\n## How to dispute\nCall the card company about the problem right away. To protect your rights, you must also send a written billing error notice to the card company within 60 calendar days after the charge appeared on your statement. The notice should give your name, address and account number and clearly explain what you think is wrong and why. Keep copies of all correspondence and a record of the dates of follow-up calls. You can dispute a charge even if you have\n\n[3] # CFPB guidance: disputing a credit card charge (United States)\n## How to dispute\nall correspondence and a record of the dates of follow-up calls. You can dispute a charge even if you have already paid it, although reimbursement may take longer.",
+       "ground_truth": "60 calendar days after the charge appeared on your statement, by sending the card company a written billing error notice."
+      }
+     }
+    ],
+    "type": "file_content"
+   },
+   "type": "jsonl"
+  },
+  "error": null,
+  "eval_id": "eval_ad3b246632444968b1826bc959430cb1",
+  "metadata": {
+   "trigger_type": "oneoff"
+  },
+  "model": null,
+  "name": "golden answers x 57",
+  "object": "eval.run",
+  "per_model_usage": [
+   {
+    "cached_tokens": 0,
+    "completion_tokens": 57079,
+    "invocation_count": 171,
+    "model_name": "gpt-5-mini-2025-08-07",
+    "prompt_tokens": 256015,
+    "total_tokens": 313094
+   },
+   {
+    "cached_tokens": 0,
+    "completion_tokens": 57079,
+    "invocation_count": 171,
+    "model_name": "azure_ai_evaluation",
+    "prompt_tokens": 256015,
+    "total_tokens": 313094
+   }
+  ],
+  "per_testing_criteria_results": [
+   {
+    "failed": 0,
+    "passed": 57,
+    "testing_criteria": "groundedness",
+    "errored": 0,
+    "skipped": 0
+   },
+   {
+    "failed": 0,
+    "passed": 57,
+    "testing_criteria": "relevance",
+    "errored": 0,
+    "skipped": 0
+   },
+   {
+    "failed": 0,
+    "passed": 57,
+    "testing_criteria": "similarity",
+    "errored": 0,
+    "skipped": 0
+   }
+  ],
+  "report_url": "https://ai.azure.com/nextgen/r/xILncmxOT6G8scGgQvJPuA,rg-payments-rag-w7,,payrag-foundry-45jvjy7f,payments-rag/build/evaluations/eval_ad3b246632444968b1826bc959430cb1/run/evalrun_35fcb00b088f4c028633e31a3d961871",
+  "result_counts": {
+   "errored": 0,
+   "failed": 0,
+   "passed": 57,
+   "total": 57,
+   "skipped": 0
+  },
+  "status": "completed",
+  "modified_at": 1791197620,
+  "duration": "PT8M55.5139411S",
+  "created_by": "Pranshu Agarwal",
+  "properties": {
+   "eval_id": "eval_ad3b246632444968b1826bc959430cb1",
+   "runType": "eval_run",
+   "_azureml.evaluation_run": "evaluation.service",
+   "_azureml.evaluate_artifacts": "[{\"path\": \"instance_results.jsonl\", \"type\": \"table\"}]",
+   "DataSourceType": "Jsonl",
+   "job_logs": "azureai://accounts/payrag-foundry-45jvjy7f/projects/payments-rag/evaluationresults/eval-result-evalrun_35fcb00b088f4c028633e31a3d961871-MQEO/versions/1"
+  }
+ },
+ "scores": {
+  "groundedness": {
+   "q01": 5.0,
+   "q02": 5.0,
+   "q03": 5.0,
+   "q04": 5.0,
+   "q05": 5.0,
+   "q06": 5.0,
+   "q08": 5.0,
+   "q09": 5.0,
+   "q11": 5.0,
+   "q12": 5.0,
+   "q13": 5.0,
+   "q14": 5.0,
+   "q15": 5.0,
+   "q20": 5.0,
+   "q21": 5.0,
+   "q23": 5.0,
+   "q24": 5.0,
+   "q25": 5.0,
+   "q26": 5.0,
+   "q27": 5.0,
+   "q28": 5.0,
+   "q29": 5.0,
+   "q30": 5.0,
+   "q32": 5.0,
+   "q34": 5.0,
+   "q35": 5.0,
+   "q36": 5.0,
+   "q37": 5.0,
+   "q38": 5.0,
+   "q39": 5.0,
+   "q40": 5.0,
+   "q41": 5.0,
+   "q42": 5.0,
+   "q43": 5.0,
+   "h01": 5.0,
+   "h03": 5.0,
+   "h04": 5.0,
+   "h05": 5.0,
+   "h06": 5.0,
+   "h07": 5.0,
+   "h08": 5.0,
+   "h09": 5.0,
+   "h10": 5.0,
+   "h11": 5.0,
+   "h12": 5.0,
+   "n01": 5.0,
+   "n02": 5.0,
+   "n03": 5.0,
+   "n04": 5.0,
+   "n05": 5.0,
+   "i01": 5.0,
+   "i02": 5.0,
+   "i04": 5.0,
+   "i06": 5.0,
+   "i07": 5.0,
+   "i08": 5.0,
+   "i09": 5.0
+  },
+  "relevance": {
+   "q01": 4.0,
+   "q02": 4.0,
+   "q03": 4.0,
+   "q04": 3.0,
+   "q05": 4.0,
+   "q06": 4.0,
+   "q08": 4.0,
+   "q09": 4.0,
+   "q11": 4.0,
+   "q12": 4.0,
+   "q13": 5.0,
+   "q14": 4.0,
+   "q15": 5.0,
+   "q20": 4.0,
+   "q21": 5.0,
+   "q23": 4.0,
+   "q24": 4.0,
+   "q25": 4.0,
+   "q26": 4.0,
+   "q27": 4.0,
+   "q28": 4.0,
+   "q29": 4.0,
+   "q30": 4.0,
+   "q32": 4.0,
+   "q34": 3.0,
+   "q35": 4.0,
+   "q36": 4.0,
+   "q37": 4.0,
+   "q38": 4.0,
+   "q39": 3.0,
+   "q40": 4.0,
+   "q41": 4.0,
+   "q42": 4.0,
+   "q43": 3.0,
+   "h01": 4.0,
+   "h03": 4.0,
+   "h04": 4.0,
+   "h05": 4.0,
+   "h06": 4.0,
+   "h07": 3.0,
+   "h08": 4.0,
+   "h09": 5.0,
+   "h10": 4.0,
+   "h11": 4.0,
+   "h12": 4.0,
+   "n01": 4.0,
+   "n02": 4.0,
+   "n03": 5.0,
+   "n04": 4.0,
+   "n05": 4.0,
+   "i01": 4.0,
+   "i02": 4.0,
+   "i04": 4.0,
+   "i06": 4.0,
+   "i07": 3.0,
+   "i08": 4.0,
+   "i09": 4.0
+  },
+  "similarity": {
+   "q01": 5.0,
+   "q02": 5.0,
+   "q03": 4.0,
+   "q04": 5.0,
+   "q05": 5.0,
+   "q06": 5.0,
+   "q08": 4.0,
+   "q09": 5.0,
+   "q11": 5.0,
+   "q12": 5.0,
+   "q13": 5.0,
+   "q14": 5.0,
+   "q15": 5.0,
+   "q20": 5.0,
+   "q21": 5.0,
+   "q23": 4.0,
+   "q24": 5.0,
+   "q25": 5.0,
+   "q26": 5.0,
+   "q27": 5.0,
+   "q28": 5.0,
+   "q29": 5.0,
+   "q30": 5.0,
+   "q32": 4.0,
+   "q34": 5.0,
+   "q35": 5.0,
+   "q36": 5.0,
+   "q37": 4.0,
+   "q38": 5.0,
+   "q39": 5.0,
+   "q40": 5.0,
+   "q41": 5.0,
+   "q42": 5.0,
+   "q43": 5.0,
+   "h01": 5.0,
+   "h03": 5.0,
+   "h04": 5.0,
+   "h05": 5.0,
+   "h06": 5.0,
+   "h07": 5.0,
+   "h08": 5.0,
+   "h09": 5.0,
+   "h10": 5.0,
+   "h11": 5.0,
+   "h12": 5.0,
+   "n01": 5.0,
+   "n02": 5.0,
+   "n03": 5.0,
+   "n04": 5.0,
+   "n05": 5.0,
+   "i01": 5.0,
+   "i02": 5.0,
+   "i04": 4.0,
+   "i06": 5.0,
+   "i07": 5.0,
+   "i08": 5.0,
+   "i09": 5.0
+  }
+ },
+ "n": 57
+}

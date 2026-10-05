@@ -12,7 +12,7 @@ This file records what was done and measured so far. Items not yet done are list
 | Azure OpenAI content filters | **Done and measured** (below): default policy probed, a stricter custom policy defined in Bicep and probed |
 | Foundry project | **Deployed** (`payments-rag`), no use made of it yet |
 | Foundry prompt flow | **Skipped on purpose**: retired on 2027-04-20, not recommended for new work, hub projects only (Microsoft docs). The roadmap item is out of date |
-| Foundry evaluations | Partly: the `azure-ai-evaluation` evaluators were run in Week 5 outside a project. Not yet run inside the Foundry project or portal |
+| Foundry evaluations | **Done**: Week 5 ran the evaluators locally; Week 7 ran them inside the Foundry project (below), with matching results |
 | Foundry model catalogue | **Done for chat models**: listed, quota checked, one non-OpenAI model deployed and used as a judge. Embeddings-large and the Cohere reranker not tried |
 | AI Search indexers and skillsets | **Done and measured** (below); comparable to the push pipeline, not better |
 | AI Search semantic ranker, vector profiles | Done in Week 4 |
@@ -114,6 +114,21 @@ So the filter is useful for jailbreak attempts and generic harm, caused no false
 - **Not worth switching on this evidence:** twice the vector size and storage for no gain on the chunking we use. One run, my own questions.
 - **Cohere reranker: not testable on this subscription.** `Cohere-rerank-v4.0` (pro and fast), the Cohere embedding models and Command A are all in the catalogue, but the quota listed for every Cohere model is **zero** on the Free Tier, so they cannot be deployed.
 
+## Foundry cloud evaluation (inside the project)
+
+`evals/run_foundry_cloud_eval.py` sends the 57 answered, answerable answers from Week 5 (question, answer, the retrieved passages as context, and the reference answer) to the Foundry project, where the service runs the built-in evaluators with the project's own judge (`gpt-5-mini`, deployed on the Foundry resource and added to `infra/week7.bicep`). The run is stored in the project and has a portal report URL. It uses the `azure-ai-projects` 2.x evaluations API (`evals.create` and `evals.runs.create` on the project's OpenAI client, inline `file_content` data); that package pins its own `openai`, so the script runs in a throwaway environment (command in the script). The signed-in user needs the Foundry User role at the Foundry account scope, which the template already assigns. Run status `completed`, 57 of 57 passed, 0 errored (`results/foundry_cloud_eval.md`).
+
+| Evaluator | Cloud mean | Same evaluators run locally in Week 5 | Identical per answer | Within one point |
+|---|---|---|---|---|
+| Groundedness | 5.00 | 5.00 | 57 of 57 | 57 of 57 |
+| Relevance | 3.98 | 3.91 | 45 of 57 | 57 of 57 |
+| Similarity to the reference | 4.89 | 4.89 | 52 of 57 | 56 of 57 |
+
+- **Cloud and local agree**, as they should: same evaluator definitions and the same judge model. The disagreements are single-point differences on a 5-point scale (judge sampling variation). The one two-point gap is n04 (similarity 3 locally, 5 in the cloud), an answer one of my own judges had called partial.
+- **The cloud run adds hosting, not new information.** The numbers carry the same weakness as before: every groundedness score is 5, relevance rewards comprehensiveness (3 or 4 for short correct answers; the six answers under 4 are h07, i07, q04, q34, q39 and q43), and the default pass threshold of 3 means everything passes, so it cannot serve as a quality gate on this data.
+- **What it is good for:** a stored, versioned run with a report, run by a service identity in CI without local packages (Week 9), and a place to attach scheduled or continuous evaluation later.
+- **Not done:** the model-target workflow (the project calling a model or agent to generate the answers), uploaded versioned datasets (inline content was enough for 57 items), the safety evaluators, and a custom evaluator.
+
 ## Quota findings
 
 - **Rate limits are per deployment and bind before token limits:** the chat deployment allows 50 requests per minute at 50K tokens per minute. Paced for 150 and a run was throttled, with the SDK retrying silently so latency rose rather than errors appearing.
@@ -122,7 +137,6 @@ So the filter is useful for jailbreak attempts and generic harm, caused no false
 
 ## Open items
 
-- [ ] Foundry project: run evaluations inside it (the evaluators have only been run locally against a deployment)
 - [x] `text-embedding-3-large` compared (no gain on structure-aware chunks); Cohere reranker blocked by zero quota on this tier
 - [ ] Indexer: incremental update and schedule test, and a user-assigned identity so redeploys do not hit orphaned role assignments
 - [ ] Decide whether to keep the Foundry resource and storage account or tear Week 7 down (both cost almost nothing)
