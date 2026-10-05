@@ -165,6 +165,29 @@ resource strictDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024
   }
 }
 
+@description('Larger embedding model (3072 dimensions) used only to compare against the small one. Empty skips it.')
+param embeddingLargeName string = 'text-embedding-3-large'
+param embeddingLargeVersion string = '1'
+@description('Capacity of the large embedding deployment in thousands of tokens per minute.')
+param embeddingLargeCapacity int = 30
+
+resource embeddingLargeDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = if (!empty(embeddingLargeName)) {
+  parent: openai
+  name: embeddingLargeName
+  dependsOn: [strictDeployment] // deployments on one account run one at a time
+  sku: {
+    name: 'Standard'
+    capacity: embeddingLargeCapacity
+  }
+  properties: {
+    model: {
+      format: 'OpenAI'
+      name: 'text-embedding-3-large'
+      version: embeddingLargeVersion
+    }
+  }
+}
+
 resource judgeDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = if (!empty(judgeModel)) {
   parent: openai
   name: judgeModel

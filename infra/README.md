@@ -110,3 +110,12 @@ az group delete -n rg-payments-rag-w7 --yes --no-wait
 ```
 
 `what-if` shows one "Unsupported" line when the indexer service is on: that is the cross-resource-group OpenAI role assignment, whose principal ID only exists after the search service is created.
+
+**Deleting and recreating the Basic service:** each new service gets a new managed identity, and the role assignments left by the old one block the redeploy (`RoleAssignmentUpdateNotPermitted`). After deleting the service, remove them by ID (assignee lookups fail for a deleted identity):
+
+Check the list first: it should contain only the deleted service's identity.
+
+```powershell
+az role assignment list --scope <storage account id> --query "[?principalType=='ServicePrincipal'].id" -o tsv | ForEach-Object { az role assignment delete --ids $_ }
+# and the same on the Azure OpenAI account (the embedding skill's "OpenAI User" role)
+```

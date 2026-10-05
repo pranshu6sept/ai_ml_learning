@@ -14,7 +14,7 @@ This file records what was done and measured so far. Items not yet done are list
 | Foundry prompt flow | **Skipped on purpose**: retired on 2027-04-20, not recommended for new work, hub projects only (Microsoft docs). The roadmap item is out of date |
 | Foundry evaluations | Partly: the `azure-ai-evaluation` evaluators were run in Week 5 outside a project. Not yet run inside the Foundry project or portal |
 | Foundry model catalogue | **Done for chat models**: listed, quota checked, one non-OpenAI model deployed and used as a judge. Embeddings-large and the Cohere reranker not tried |
-| AI Search indexers and skillsets | **Done and measured** (below) |
+| AI Search indexers and skillsets | **Done and measured** (below); comparable to the push pipeline, not better |
 | AI Search semantic ranker, vector profiles | Done in Week 4 |
 | Deliverable: IaC for these resources | **Done**: `infra/main.bicep` (OpenAI, Search, roles, budget) and `infra/week7.bicep` (Storage, Foundry project, optional Basic Search) |
 
@@ -36,20 +36,26 @@ This file records what was done and measured so far. Items not yet done are list
 
 **Run result:** 11 documents processed, 0 failed, 0 errors, 0 warnings, 35.9 s for a reset and full run (the first automatic run took 8 s). The index held 44 pages of 167 to 595 characters (median 553).
 
-**Retrieval compared with our push pipeline** (`results/indexer_vs_push.md`; 69 answerable golden questions; all three use keyword + vector hybrid search with no semantic ranker, so only chunking and indexing differ):
+**Retrieval compared with our push pipeline** (`results/indexer_vs_push.md`; 69 answerable golden questions; all three use keyword + vector hybrid search with no semantic ranker, so only chunking and indexing differ). The indexer pipeline was built and scored **twice** on freshly created services, with identical code and data:
 
-| Index | Chunks | Hit@1 | Hit@3 | Recall@5 | MRR@10 | nDCG@5 |
-|---|---|---|---|---|---|---|
-| push, fixed chunks | 52 | 0.43 | 0.81 | 0.90 | 0.64 | 0.76 |
-| push, structure-aware chunks | 63 | 0.62 | 0.84 | 0.91 | 0.75 | 0.77 |
-| indexer (Text Split, 600 chars) | 44 | 0.57 | 0.88 | 0.95 | 0.72 | 0.81 |
+| Index | Chunks | Hit@1 | Hit@3 | Recall@5 | MRR@10 | nDCG@3 | nDCG@5 |
+|---|---|---|---|---|---|---|---|
+| push, fixed chunks | 52 | 0.43 | 0.81 | 0.90 | 0.64 | 0.61 | 0.67 |
+| push, structure-aware chunks | 63 | 0.62 | 0.84 | 0.91 | 0.75 | 0.72 | 0.77 |
+| indexer (Text Split, 600 chars), build 2 (current) | 44 | 0.52 | 0.91 | 0.90 | 0.72 | 0.71 | 0.73 |
+| indexer, build 1 (superseded; nDCG was wrong, see below) | 44 | 0.57 | 0.88 | 0.95 | 0.72 | n/a | n/a |
 
 Gold phrase intact inside one indexer page for 68 of 69 questions.
 
-- **The managed indexer is competitive with our own pipeline.** It is ahead of fixed chunks on every measure and about level with structure-aware chunks: slightly lower Hit@1 (0.57 vs 0.62), slightly higher Hit@3, recall and nDCG. Those gaps are three or four questions in 69, so I would not call either ahead; one run, my own questions.
+**Correction.** The first version of this table was wrong in two ways, and I have replaced it:
+1. **A scoring bug.** The comparison script scored every variant with the structure-aware chunk set as the "ideal ranking" that nDCG needs, including the fixed-chunk and indexer rows, whose chunks differ. Their nDCG was overstated (fixed 0.76 at nDCG@5, indexer 0.81; the correct values are 0.67 and 0.73). Hit, Recall and MRR were unaffected. `evaluate()` now takes the chunk set that was actually searched, with a test that fails if the ideal ranking comes from the wrong set. Every other script already passed the matching chunking.
+2. **A conclusion that did not hold.** Build 1 looked "ahead" of our own chunking on Hit@3, recall and nDCG. Rebuilding the same pipeline gave Hit@1 0.52 (was 0.57), Hit@3 0.91 (0.88) and Recall@5 0.90 (0.95): swings of three or four questions from the rebuild alone. So the earlier margin was within rebuild-to-rebuild noise.
+
+- **What the data supports:** the managed indexer is **comparable** to our push pipeline: ahead of fixed chunks on Hit@1 and nDCG, about level with structure-aware chunks overall (lower Hit@1 and nDCG, higher Hit@3 in build 2). I would not rank them from these runs.
 - **What it cannot do:** keep the heading path (`section`) or cut on document structure, so citations lose the section name. Text Split cuts by length. The richer alternative, the Document Layout skill, needs a Foundry Tools resource and was not tried.
-- **Where each wins.** Push: full control of chunking and metadata (filters on region and date need extra fields mapped through the skillset), runs on the free tier, no storage account. Indexer: scheduled, incremental re-indexing of changed blobs, no chunking or upload code to run, but needs Basic or higher for keyless access.
-- **Not measured:** incremental updates (changing one blob and re-running), scheduling, and cost at a scale beyond 11 documents.
+- **Where each fits.** Push: full control of chunking and metadata (region and date filters need extra fields mapped through the skillset), runs on the free tier, no storage account. Indexer: scheduled, incremental re-indexing of changed blobs and no chunking or upload code to run, but needs Basic or higher for keyless access.
+- **Not measured:** incremental updates (change one blob and re-run), scheduling, and scale beyond 11 documents.
+- **Template weakness found on the rebuild:** the search identity's role assignments are named from the service name, which is stable, but a recreated service gets a new identity. The assignments left by the deleted identity then collide (`RoleAssignmentUpdateNotPermitted`). Delete the old assignments by ID before redeploying (see `infra/README.md`); a user-assigned identity would avoid this and was not tried.
 
 ## Content filters
 
@@ -93,6 +99,21 @@ So the filter is useful for jailbreak attempts and generic harm, caused no false
 - **Each judge flags different answers**, so the one-or-two borderline answers are genuinely uncertain. I read Llama's two new faithfulness flags against the passages: **q01 is a judge error** (the flagged sentence appears verbatim in passage [1]); **q14 is debatable** (the answer kept the passage's "not confirmed" hedge, and the judge's claim list dropped it before checking). Llama is a weaker judge than the others on those two, which is itself a reason to keep reading flagged answers by hand.
 - **Not done:** comparing `text-embedding-3-large` with `text-embedding-3-small` on retrieval, and trying the Cohere reranker against the semantic ranker.
 
+## Embeddings: text-embedding-3-large vs small
+
+`evals/run_embedding_large.py` builds a second index (3072 dimensions) from the same chunks and scores Azure hybrid search (no semantic ranker) over the 69 golden questions; only the embedding model differs (`results/embedding_large.md`).
+
+| Chunking | Embedding | Hit@1 | Hit@3 | Recall@5 | MRR@10 | nDCG@5 |
+|---|---|---|---|---|---|---|
+| fixed | small (1536) | 0.43 | 0.81 | 0.90 | 0.64 | 0.67 |
+| fixed | large (3072) | 0.55 | 0.84 | 0.89 | 0.71 | 0.72 |
+| structure-aware | small (1536) | 0.62 | 0.84 | 0.91 | 0.75 | 0.77 |
+| structure-aware | large (3072) | 0.61 | 0.83 | 0.90 | 0.74 | 0.76 |
+
+- **The larger model helps our weaker chunking and does nothing for our best.** With fixed chunks Hit@1 rises 0.12 (about 8 questions, more than the three-or-four-question rebuild noise seen above) and MRR 0.07; with structure-aware chunks everything is flat within a point. Retrieval quality here is limited by chunking, not by the embedding model.
+- **Not worth switching on this evidence:** twice the vector size and storage for no gain on the chunking we use. One run, my own questions.
+- **Cohere reranker: not testable on this subscription.** `Cohere-rerank-v4.0` (pro and fast), the Cohere embedding models and Command A are all in the catalogue, but the quota listed for every Cohere model is **zero** on the Free Tier, so they cannot be deployed.
+
 ## Quota findings
 
 - **Rate limits are per deployment and bind before token limits:** the chat deployment allows 50 requests per minute at 50K tokens per minute. Paced for 150 and a run was throttled, with the SDK retrying silently so latency rose rather than errors appearing.
@@ -102,8 +123,8 @@ So the filter is useful for jailbreak attempts and generic harm, caused no false
 ## Open items
 
 - [ ] Foundry project: run evaluations inside it (the evaluators have only been run locally against a deployment)
-- [ ] Compare `text-embedding-3-large` and the Cohere reranker with what we already measured
-- [ ] Indexer: incremental update and schedule test
+- [x] `text-embedding-3-large` compared (no gain on structure-aware chunks); Cohere reranker blocked by zero quota on this tier
+- [ ] Indexer: incremental update and schedule test, and a user-assigned identity so redeploys do not hit orphaned role assignments
 - [ ] Decide whether to keep the Foundry resource and storage account or tear Week 7 down (both cost almost nothing)
 - [ ] Tick the roadmap box for prompt flow as "skipped, retired" rather than done
 - [ ] Week 10: Prompt Shields for documents through the Content Safety API, and an adversarial set that includes cited injections

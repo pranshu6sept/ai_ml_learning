@@ -109,3 +109,18 @@ def test_a_subset_of_strategies_uploads_only_those(tmp_path: Path) -> None:
 
     assert list(counts) == ["fixed"]
     assert store.events == ["recreate", "upload fixed"]
+
+
+def test_a_custom_embedding_size_reaches_the_index_definition(tmp_path: Path) -> None:
+    sizes: list[int | None] = []
+
+    class SizedStore(FakeStore):
+        def recreate_index(self, dimensions: int | None = None) -> None:  # type: ignore[override]
+            sizes.append(dimensions)
+            super().recreate_index()
+
+    build_index(  # type: ignore[arg-type]
+        store=SizedStore(), embedder=_embed, manifest_path=tmp_path / "m.json", dimensions=3072
+    )
+
+    assert sizes == [3072]

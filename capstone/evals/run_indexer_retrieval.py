@@ -99,12 +99,22 @@ def main() -> None:
         ),
         "indexer (Text Split, 600 chars)": lambda _c: IndexerRetriever(indexer_client, embedder),
     }
+    indexer_chunks = all_chunks(indexer_client)
+    # Each variant is scored against the chunk set it actually searches: that set defines how many
+    # relevant chunks exist, which nDCG needs. (An earlier version used structure-aware chunks for
+    # every variant, which made the fixed-chunk and indexer nDCG wrong.)
+    strategies = {
+        "push, fixed chunks": ("fixed", None),
+        "push, structure-aware chunks": ("structure_aware", None),
+        "indexer (Text Split, 600 chars)": ("structure_aware", indexer_chunks),
+    }
     results = {
-        name: evaluate("structure_aware", documents, golden, retriever_factory=f)
+        name: evaluate(
+            strategies[name][0], documents, golden, retriever_factory=f, chunks=strategies[name][1]
+        )
         for name, f in variants.items()
     }
 
-    indexer_chunks = all_chunks(indexer_client)
     intact = sum(any(is_relevant(c, q) for c in indexer_chunks) for q in golden)
     sizes = sorted(len(c.text) for c in indexer_chunks)
 

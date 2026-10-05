@@ -7,8 +7,8 @@
    "recall@3": 0.7899,
    "recall@5": 0.8986,
    "mrr@10": 0.6376,
-   "ndcg@3": 0.6834,
-   "ndcg@5": 0.7575
+   "ndcg@3": 0.6081,
+   "ndcg@5": 0.6722
   },
   "push, structure-aware chunks": {
    "hit@1": 0.6232,
@@ -21,14 +21,14 @@
    "ndcg@5": 0.7659
   },
   "indexer (Text Split, 600 chars)": {
-   "hit@1": 0.5652,
-   "hit@3": 0.8841,
-   "recall@1": 0.5362,
-   "recall@3": 0.8478,
-   "recall@5": 0.9493,
-   "mrr@10": 0.7249,
-   "ndcg@3": 0.7426,
-   "ndcg@5": 0.8128
+   "hit@1": 0.5217,
+   "hit@3": 0.913,
+   "recall@1": 0.4928,
+   "recall@3": 0.8768,
+   "recall@5": 0.8986,
+   "mrr@10": 0.7162,
+   "ndcg@3": 0.7106,
+   "ndcg@5": 0.7284
   }
  },
  "indexer_chunks": 44,

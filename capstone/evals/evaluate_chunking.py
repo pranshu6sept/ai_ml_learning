@@ -97,8 +97,12 @@ def evaluate(
     questions: list[dict[str, Any]],
     retriever_options: dict[str, Any] | None = None,
     retriever_factory: Callable[[list[Chunk]], Any] | None = None,
+    chunks: list[Chunk] | None = None,
 ) -> dict:
-    chunks = chunk_corpus(documents, strategy)
+    """Score a retriever. ``chunks`` is the set the retriever searches; it defines how many
+    relevant chunks exist (the ideal ranking for nDCG). Leave it out to use ``strategy``'s chunks;
+    pass it when the index was chunked some other way (for example by an Azure indexer)."""
+    chunks = chunks if chunks is not None else chunk_corpus(documents, strategy)
     started = time.perf_counter()
     if retriever_factory is not None:
         retriever = retriever_factory(chunks)

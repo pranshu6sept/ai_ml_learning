@@ -1,0 +1,7 @@
+{
+  "corpus_sha256": "75745c313aa8c52ed15c58b2dbf7c655e4160ea0c01f3b1545bd860195283f98",
+  "chunks_per_strategy": {
+    "fixed": 52,
+    "structure_aware": 63
+  }
+}

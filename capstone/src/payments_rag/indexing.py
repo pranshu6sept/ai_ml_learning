@@ -61,10 +61,12 @@ def build_index(
     documents: Sequence[IngestedDocument] | None = None,
     strategies: Sequence[str] = STRATEGIES,
     manifest_path: Path = INDEX_MANIFEST,
+    dimensions: int | None = None,
 ) -> dict[str, int]:
     """Recreate the index from the corpus and return how many chunks each strategy uploaded."""
     documents = list(documents) if documents is not None else ingest()
-    store.recreate_index()
+    # ``dimensions`` is the embedding size; the default index size fits text-embedding-3-small.
+    store.recreate_index(dimensions) if dimensions else store.recreate_index()
     counts: dict[str, int] = {}
     for strategy in strategies:
         chunks = chunk_corpus(documents, strategy)
