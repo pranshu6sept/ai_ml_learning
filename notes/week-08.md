@@ -1,6 +1,6 @@
 # Week 8: hosting and identity (in progress)
 
-Roadmap items: Azure ML (workspace, compute, jobs, model registry, a managed endpoint that serves the Week 3 model); deploy the capstone API to App Service or Functions; Key Vault and managed identity with no keys in code or env files; book the AI-102 exam; **deliverable: the capstone reachable at a public URL, keyless auth to Azure services.**
+Roadmap items: Azure ML (workspace, compute, jobs, model registry, a managed endpoint that serves the Week 3 model); deploy the capstone API to App Service or Functions; Key Vault and managed identity with no keys in code or env files; **deliverable: the capstone reachable at a public URL, keyless auth to Azure services.**
 
 This file records what is done and measured. The Azure ML half is not started; see "Not done".
 
@@ -12,7 +12,7 @@ This file records what is done and measured. The Azure ML half is not started; s
 | Key Vault and managed identity, no keys in code or env files | **Done and audited** (below) |
 | Deliverable: public URL with keyless auth to Azure services | **Done**, with the limits listed below |
 | Azure ML: workspace, compute, jobs, registry, managed endpoint for the Week 3 model | **Not started** (needs your decision on cost; see the end) |
-| Book the AI-102 exam date | **Yours to do**; I cannot book it |
+| Book the AI-102 exam date | **Removed from the plan**: AI-102 is retired (replaced by AI-103) and the exam is not needed for the capstone |
 
 ## The API (`payments_rag/api.py`)
 
@@ -69,7 +69,6 @@ Ten answerable golden questions, sent one at a time (2.5 s apart), against the l
 ## Not done and open
 
 - [ ] **Azure ML** (workspace, compute, jobs, model registry, a managed endpoint). Findings so far: the `az ml` extension is not installed; quota is 4 vCPUs in each of several VM families in Central India; **the Week 3 model was never saved** (only scripts that train it), so serving it means training, saving and registering a model and writing a scoring script. A managed online endpoint bills for its instance for as long as it exists.
-- [ ] Book the AI-102 exam date (yours).
 - [ ] Re-measure latency and ranking quality after the semantic allowance resets; try B1 (always-on, more CPU) for the p95.
 - [ ] Decide whether to keep the hosted app. The free plan and the vault cost almost nothing; the app is publicly reachable but needs the key for `/ask`.
 - [ ] Not tested: the F1 plan's daily CPU-time limit (what happens when it is reached), the global rate limit on the hosted app, and the whole `rg-payments-rag-w8` group being deleted (the app's roles on the OpenAI account and the search service are in another group and are expected to remain as orphans, as in Week 7).

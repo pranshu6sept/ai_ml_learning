@@ -89,7 +89,6 @@ Tick boxes as you go (`[x]`). Every week ends with something pushed to GitHub an
 - [ ] Azure ML: workspace, compute, jobs, model registry, managed endpoint (deploy the Week 3 model)
 - [ ] Deploy capstone API to App Service (or Functions)
 - [ ] Key Vault + managed identity; no keys in code or env files
-- [ ] Book AI-102 exam date (DP-100 optional)
 - [ ] **Deliverable:** capstone reachable at a public URL, keyless auth to Azure services
 - [ ] Write-up + push
 
@@ -156,7 +155,6 @@ Tick boxes as you go (`[x]`). Every week ends with something pushed to GitHub an
 - [ ] Guardrail test report
 - [ ] Live App Insights dashboard
 - [ ] Classical-ML project with metrics and imbalance handling
-- [ ] AI-102 passed or scheduled
 
 ## Weekly log
 | Week | Shipped (link) | Key number | Hours | Notes |
