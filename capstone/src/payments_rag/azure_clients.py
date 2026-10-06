@@ -10,6 +10,7 @@ been run against a live Azure service. ``capstone/evals/azure_smoke_test.py`` is
 from __future__ import annotations
 
 import contextlib
+import logging
 import os
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
@@ -34,6 +35,8 @@ from .retrieval import Hit
 from .search_filters import SearchFilter, build_odata
 from .structured import ModelT, StructuredOutputError, parse, response_format
 from .tools import TOOL_NAME, SearchCorpus, tool_choice, tool_definition
+
+log = logging.getLogger(__name__)
 
 OPENAI_API_VERSION = "2024-10-21"  # documented GA Azure OpenAI data-plane version; override via env
 OPENAI_TOKEN_SCOPE = "https://cognitiveservices.azure.com/.default"
@@ -440,8 +443,22 @@ class AzureSearchStore:
         return hits
 
 
+def semantic_unavailable(error: Exception) -> bool:
+    """True when the search service refuses a semantic query, for example because the free monthly
+    allowance is used up ("Free Query Semantic Usage exceeded for the month"). Other errors: no."""
+    from azure.core.exceptions import HttpResponseError
+
+    return isinstance(error, HttpResponseError) and "semantic" in str(error).lower()
+
+
 class AzureHybridRetriever:
-    """Adapts the Azure index to the ``search(query, top_k)`` shape of the local ``Retriever``."""
+    """Adapts the Azure index to the ``search(query, top_k)`` shape of the local ``Retriever``.
+
+    With ``semantic_fallback=True`` a semantic query the service refuses (allowance used up, ranker
+    unavailable) is repeated as plain hybrid search instead of failing, and ``fallbacks`` counts how
+    often. That keeps a service answering, with weaker ranking (Hit@1 0.62 instead of 0.86 on our
+    questions). Off by default so evaluations fail loudly instead of scoring a different system.
+    """
 
     def __init__(
         self,
@@ -450,21 +467,38 @@ class AzureHybridRetriever:
         strategy: str | None = None,
         semantic: bool = False,
         filters: SearchFilter | None = None,
+        semantic_fallback: bool = False,
     ) -> None:
         self._store = store
         self._embedder = embedder
         self._strategy = strategy
         self._semantic = semantic
         self._filters = filters
+        self._semantic_fallback = semantic_fallback
+        self.fallbacks = 0
 
     def search(self, query: str, top_k: int = 3, filters: SearchFilter | None = None) -> list[Hit]:
         """``filters`` for this call, if given, replace the ones the retriever was built with."""
         vector = self._embedder([query])[0]
-        return self._store.search(
-            query,
-            vector,
-            top_k=top_k,
-            strategy=self._strategy,
-            semantic=self._semantic,
-            filters=filters if filters is not None else self._filters,
-        )
+        chosen = filters if filters is not None else self._filters
+
+        def run(semantic: bool) -> list[Hit]:
+            return self._store.search(
+                query,
+                vector,
+                top_k=top_k,
+                strategy=self._strategy,
+                semantic=semantic,
+                filters=chosen,
+            )
+
+        try:
+            return run(self._semantic)
+        except Exception as error:
+            if not (self._semantic and self._semantic_fallback and semantic_unavailable(error)):
+                raise
+            self.fallbacks += 1
+            log.warning(
+                "semantic ranker unavailable, using plain hybrid search: %s", str(error)[:200]
+            )
+            return run(False)

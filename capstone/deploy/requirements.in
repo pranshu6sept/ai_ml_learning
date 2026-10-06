@@ -1,0 +1,11 @@
+# What the capstone API needs at run time (not the whole workspace: no torch, no xgboost, no notebooks).
+# Compile with:  uv pip compile capstone/deploy/requirements.in -o capstone/deploy/requirements.txt --python-version 3.11
+numpy
+scikit-learn
+snowballstemmer
+pydantic
+openai
+azure-identity
+azure-search-documents
+fastapi
+uvicorn

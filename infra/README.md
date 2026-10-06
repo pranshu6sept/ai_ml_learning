@@ -122,3 +122,27 @@ az role assignment delete --ids <id>   # check first that it is the deleted inde
 ```
 
 Add `AZURE_W7_INDEXER_IDENTITY_ID=<identity resource id>` (the `indexerIdentityResourceId` deployment output) to `.env` so `run_blob_indexer.py` uses it.
+
+## Week 8: the API on App Service, with a Key Vault secret
+
+`week8.bicep` is a third template, with its own resource group (`rg-payments-rag-w8`). It adds a Linux App Service plan (free F1 by default), a web app with a system-assigned managed identity, and a Key Vault, and gives the app's identity only the roles it needs on the existing OpenAI account and search service.
+
+```powershell
+$env:AZURE_PRINCIPAL_ID = (az ad signed-in-user show --query id -o tsv)
+$env:AZURE_OPENAI_ACCOUNT = "<your openai account name>"
+$env:AZURE_SEARCH_SERVICE = "<your search service name>"
+az provider register --namespace Microsoft.Web --wait; az provider register --namespace Microsoft.KeyVault --wait
+az group create -n rg-payments-rag-w8 -l centralindia
+az deployment group create -g rg-payments-rag-w8 -f infra/week8.bicep -p infra/week8.bicepparam
+
+# Set the API key once (the value never goes in the repo): generate it, write it from a file, delete the file.
+az keyvault secret set --vault-name <vault> --name payrag-api-key --file key.txt
+
+# Build and deploy the code.
+uv run python capstone/deploy/build_zip.py
+az webapp deploy -g rg-payments-rag-w8 -n <app> --src-path capstone/deploy/dist/app.zip --type zip
+# The command can look stuck or fail without a cause while the server succeeds: check
+az webapp log deployment show -g rg-payments-rag-w8 -n <app>
+```
+
+Plan: F1 is free (no always-on, a small shared instance); `$env:AZURE_W8_PLAN_SKU = "B1"` is 0.018 USD an hour. A Key Vault reference needs the secret to exist before the app starts, or a restart afterwards. To remove everything: `az group delete -n rg-payments-rag-w8 --yes --no-wait`; the app's role assignments on the OpenAI account and the search service are in the other resource group and stay behind as orphans (delete them by assignment ID).

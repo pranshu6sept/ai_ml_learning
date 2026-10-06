@@ -29,3 +29,6 @@ data/raw/
 
 # personal career notes, kept local
 notes/resume-reframing.md
+
+# built deployment zip
+capstone/deploy/dist/

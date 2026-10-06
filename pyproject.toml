@@ -24,6 +24,10 @@ azure = [
     "azure-storage-blob>=12.19.0",
     "openai>=3.24.0",
 ]
+api = [
+    "fastapi>=0.115",
+    "uvicorn>=0.30",
+]
 dev = [
     "pytest>=8.0",
     "pytest-cov>=5.0",
@@ -73,7 +77,7 @@ mypy_path = ["classical_ml/src", "capstone/src"]
 packages = ["classical_ml", "payments_rag"]
 
 [[tool.mypy.overrides]]
-module = ["sklearn.*", "snowballstemmer", "sentence_transformers", "azure.*", "openai", "langgraph.*"]
+module = ["sklearn.*", "snowballstemmer", "sentence_transformers", "azure.*", "openai", "langgraph.*", "fastapi.*", "uvicorn"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]

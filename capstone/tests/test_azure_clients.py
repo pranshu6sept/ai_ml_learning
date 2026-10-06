@@ -421,3 +421,63 @@ def test_the_retriever_passes_the_semantic_flag_through() -> None:
 
     assert retriever.search("surcharges?", top_k=1)[0].score == pytest.approx(3.1)
     assert search.search_kwargs["query_type"] == "semantic"
+
+
+class _SemanticFailingStore:
+    """Raises the service's semantic-quota error for semantic queries, answers plain ones."""
+
+    def __init__(self, error: Exception) -> None:
+        self.error = error
+        self.calls: list[bool] = []
+
+    def search(self, query: str, vector: Any, **kwargs: Any) -> list[Hit]:
+        self.calls.append(kwargs["semantic"])
+        if kwargs["semantic"]:
+            raise self.error
+        return [Hit(Chunk("plain hybrid result", 0, doc_id="d"), 0.03)]
+
+
+def _quota_error() -> Exception:
+    pytest.importorskip("azure.core")
+    from azure.core.exceptions import HttpResponseError
+
+    return HttpResponseError("Free Query Semantic Usage exceeded for the month.")
+
+
+def _retriever(store: Any, **options: Any) -> AzureHybridRetriever:
+    embedder = AzureOpenAIEmbedder(SETTINGS, client=SimpleNamespace(embeddings=FakeEmbeddings()))
+    return AzureHybridRetriever(store, embedder, "structure_aware", semantic=True, **options)
+
+
+def test_without_the_fallback_a_refused_semantic_query_still_fails_loudly() -> None:
+    pytest.importorskip("azure.core")
+    from azure.core.exceptions import HttpResponseError
+
+    store = _SemanticFailingStore(_quota_error())
+
+    with pytest.raises(HttpResponseError, match="Semantic"):
+        _retriever(store).search("q")
+
+    assert store.calls == [True]
+
+
+def test_with_the_fallback_a_refused_semantic_query_is_repeated_as_plain_hybrid_search() -> None:
+    store = _SemanticFailingStore(_quota_error())
+    retriever = _retriever(store, semantic_fallback=True)
+
+    hits = retriever.search("q")
+
+    assert hits[0].chunk.text == "plain hybrid result"
+    assert store.calls == [True, False] and retriever.fallbacks == 1
+
+
+def test_the_fallback_only_covers_semantic_errors_not_other_failures() -> None:
+    pytest.importorskip("azure.core")
+    from azure.core.exceptions import HttpResponseError
+
+    store = _SemanticFailingStore(HttpResponseError("The index is not found"))
+
+    with pytest.raises(HttpResponseError, match="not found"):
+        _retriever(store, semantic_fallback=True).search("q")
+
+    assert store.calls == [True]  # no second attempt, no hidden fallback
