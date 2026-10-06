@@ -30,7 +30,7 @@ def test_the_zip_holds_the_package_and_requirements_and_nothing_else(tmp_path: P
     package = _tree(tmp_path)
     out = tmp_path / "out" / "app.zip"
 
-    names = _load().build(out, package, tmp_path / "requirements.txt")
+    names = _load().build(out, package, tmp_path / "requirements.txt", web=None)
 
     assert sorted(names) == [
         "payments_rag/__init__.py",
@@ -45,7 +45,7 @@ def test_the_zip_holds_the_package_and_requirements_and_nothing_else(tmp_path: P
 def test_no_secret_cache_or_unrelated_file_can_end_up_in_the_zip(tmp_path: Path) -> None:
     package = _tree(tmp_path)
 
-    names = _load().build(tmp_path / "app.zip", package, tmp_path / "requirements.txt")
+    names = _load().build(tmp_path / "app.zip", package, tmp_path / "requirements.txt", web=None)
 
     assert not any(n.endswith((".env", ".pyc")) or "__pycache__" in n for n in names)
 
@@ -56,7 +56,7 @@ def test_a_missing_requirements_file_is_an_error_not_a_silent_empty_deployment(
     package = _tree(tmp_path)
 
     try:
-        _load().build(tmp_path / "app.zip", package, tmp_path / "nope.txt")
+        _load().build(tmp_path / "app.zip", package, tmp_path / "nope.txt", web=None)
     except FileNotFoundError as error:
         assert "requirements" in str(error)
     else:
@@ -66,7 +66,39 @@ def test_a_missing_requirements_file_is_an_error_not_a_silent_empty_deployment(
 def test_the_real_package_zip_contains_the_api_and_no_environment_file(tmp_path: Path) -> None:
     module = _load()
 
-    names = module.build(tmp_path / "real.zip")
+    names = module.build(tmp_path / "real.zip", web=None)
 
     assert "payments_rag/api.py" in names and "requirements.txt" in names
     assert not any(n.endswith(".env") or n.startswith("tests/") for n in names)
+
+
+def _page(root: Path) -> Path:
+    page = root / "dist"
+    (page / "assets").mkdir(parents=True)
+    (page / "index.html").write_text("<title>x</title>", encoding="utf-8")
+    (page / "assets" / "app.js").write_text("1", encoding="utf-8")
+    return page
+
+
+def test_the_built_page_goes_into_the_zip_under_payments_rag_web(tmp_path: Path) -> None:
+    package = _tree(tmp_path)
+
+    names = _load().build(
+        tmp_path / "app.zip", package, tmp_path / "requirements.txt", web=_page(tmp_path)
+    )
+
+    assert "payments_rag/web/index.html" in names and "payments_rag/web/assets/app.js" in names
+
+
+def test_a_missing_page_is_an_error_not_a_silently_page_less_deployment(tmp_path: Path) -> None:
+    package = _tree(tmp_path)
+
+    try:
+        _load().build(
+            tmp_path / "app.zip", package, tmp_path / "requirements.txt", web=tmp_path / "no-dist"
+        )
+    except FileNotFoundError as error:
+        assert "npm run build" in str(error) and "--api-only" in str(error)
+    else:
+        raise AssertionError("expected FileNotFoundError")
+    assert not (tmp_path / "app.zip").exists()  # nothing half-written

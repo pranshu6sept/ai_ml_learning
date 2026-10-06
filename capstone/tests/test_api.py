@@ -1,6 +1,7 @@
 """The HTTP layer, tested with a fake answerer (no Azure, no network)."""
 
 import logging
+from pathlib import Path
 
 import pytest
 
@@ -203,3 +204,96 @@ def test_feedback_is_stored_and_validated() -> None:
     assert list(app.state.feedback.items) == [
         {"request_id": "abc", "rating": "up", "comment": "good"}
     ]
+
+
+def _web(tmp_path: Path) -> Path:
+    root = tmp_path / "web"
+    (root / "assets").mkdir(parents=True)
+    (root / "index.html").write_text(
+        "<!doctype html><title>Payments Assistant</title>", encoding="utf-8"
+    )
+    (root / "assets" / "app.js").write_text("console.log(1)", encoding="utf-8")
+    return root
+
+
+def _web_client(tmp_path: Path, **options) -> TestClient:  # type: ignore[no-untyped-def]
+    app = create_app(_answer, configured=lambda: True, web_root=_web(tmp_path), **options)
+    return TestClient(app)
+
+
+def test_the_built_page_is_served_at_the_root_and_its_files_under_assets(tmp_path: Path) -> None:
+    client = _web_client(tmp_path)
+
+    page = client.get("/")
+
+    assert page.status_code == 200 and "Payments Assistant" in page.text
+    assert client.get("/assets/app.js").text == "console.log(1)"
+
+
+def test_the_page_does_not_shadow_the_api_or_the_docs(tmp_path: Path) -> None:
+    client = _web_client(tmp_path, api_key="k")
+
+    assert client.get("/health").json()["status"] == "ok"
+    assert client.post("/ask", json={"question": "q"}).status_code == 401  # still protected
+    assert (
+        client.post("/ask", json={"question": "q"}, headers={"X-API-Key": "k"}).status_code == 200
+    )
+    assert client.get("/docs").status_code == 200
+    assert client.get("/openapi.json").status_code == 200
+
+
+def test_the_api_key_never_protects_the_page_itself_but_the_page_holds_no_key(
+    tmp_path: Path,
+) -> None:
+    client = _web_client(tmp_path, api_key="topsecret")
+
+    assert client.get("/").status_code == 200
+    assert "topsecret" not in client.get("/").text
+
+
+def test_responses_carry_security_headers_and_a_strict_csp(tmp_path: Path) -> None:
+    client = _web_client(tmp_path)
+
+    for path in ("/", "/health", "/assets/app.js"):
+        headers = client.get(path).headers
+        assert headers["x-content-type-options"] == "nosniff"
+        assert headers["x-frame-options"] == "DENY"
+        assert headers["referrer-policy"] == "no-referrer"
+        csp = headers["content-security-policy"]
+        assert "default-src 'self'" in csp and "frame-ancestors 'none'" in csp
+        assert "unsafe-inline" not in csp and "unsafe-eval" not in csp
+
+
+def test_the_docs_page_keeps_working_because_it_is_left_out_of_the_csp(tmp_path: Path) -> None:
+    headers = _web_client(tmp_path).get("/docs").headers
+
+    assert "content-security-policy" not in headers
+    assert headers["x-content-type-options"] == "nosniff"
+
+
+def test_an_unknown_path_is_a_404_not_the_page(tmp_path: Path) -> None:
+    assert _web_client(tmp_path).get("/nope").status_code == 404
+
+
+def test_without_a_built_page_the_root_is_a_404_and_the_api_still_works(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    monkeypatch.setenv("PAYRAG_WEB_DIR", str(tmp_path / "nothing-here"))
+    client = TestClient(create_app(_answer, configured=lambda: True))
+
+    assert client.get("/").status_code == 404
+    assert client.post("/ask", json={"question": "q"}).status_code == 200
+
+
+def test_serve_web_false_turns_the_page_off(tmp_path: Path) -> None:
+    app = create_app(_answer, configured=lambda: True, serve_web=False, web_root=_web(tmp_path))
+
+    assert TestClient(app).get("/").status_code == 404
+
+
+def test_the_page_location_can_come_from_the_environment(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    monkeypatch.setenv("PAYRAG_WEB_DIR", str(_web(tmp_path)))
+
+    assert TestClient(create_app(_answer, configured=lambda: True)).get("/").status_code == 200

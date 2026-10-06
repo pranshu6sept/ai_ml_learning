@@ -32,3 +32,6 @@ notes/resume-reframing.md
 
 # built deployment zip
 capstone/deploy/dist/
+
+# node
+node_modules/

@@ -11,6 +11,7 @@ This file records what is done and measured. The Azure ML half is not started; s
 | Deploy the capstone API to App Service | **Done**: FastAPI app on a Linux App Service (free F1 plan), public HTTPS URL |
 | Key Vault and managed identity, no keys in code or env files | **Done and audited** (below) |
 | Deliverable: public URL with keyless auth to Azure services | **Done**, with the limits listed below |
+| A React front end for the API (added at your request) | **Done**, served by the API at the same URL (below) |
 | Azure ML: workspace, compute, jobs, registry, managed endpoint for the Week 3 model | **Not started** (needs your decision on cost; see the end) |
 | Book the AI-102 exam date | **Removed from the plan**: AI-102 is retired (replaced by AI-103) and the exam is not needed for the capstone |
 
@@ -58,6 +59,25 @@ Ten answerable golden questions, sent one at a time (2.5 s apart), against the l
 
 3 of the 10 were refused (the same kind of refusals the Week 5 evaluation shows). **p95 is above the 4 s target** in `capstone-architecture.md`. One run of 10, so the p95 is essentially the slowest request; it is a signal, not a measurement. Likely contributors (not isolated): the App Service (Central India) calls Azure OpenAI in South India; the answerability check and the answer are two sequential model calls; the free plan is a shared, small instance. The very first request after deployment took 9.9 s (client and token setup).
 
+## The React front end (`capstone/frontend/`)
+
+A Vite + React + TypeScript page: key field, question box (Enter sends, 1000-character counter), one-click example questions, a service-status pill, cited answers with numbered badges that jump to the sources list, an amber refusal card with the reason, thumbs up and down, and a history of this session's answers. Light and dark themes, usable at phone width. How to run it is in `capstone/frontend/README.md`.
+
+**One origin, no CORS.** The API serves the built files at `/` (from `payments_rag/web/` in the deployment zip), so the page and the API share one address. In development the Vite server proxies the API paths instead. `build_zip.py` includes the built page and **fails if it is missing** (or takes `--api-only`), so a deployment cannot silently ship without its page.
+
+**The key.** Anything in a web page is public, so the API key is typed into the page, kept in `sessionStorage` (this tab only, cleared when it closes), sent as `X-API-Key`, and never written to `localStorage` or the build. It is a shared secret that stops strangers spending money on the model; it is not user accounts.
+
+**Safety choices**, each with a test: answers render as text and React elements, never HTML (a hostile `<img onerror>` answer shows as literal text); only `https` source addresses become links, with `rel="noopener noreferrer"`; error messages are fixed text (a server's error detail is never shown); the server sends a strict Content-Security-Policy (own scripts, styles and connections only, no framing, no inline script or style), `nosniff`, `no-referrer` and `X-Frame-Options: DENY`, except on `/docs`, which loads its interface from a CDN.
+
+**Tests and checks.**
+- 43 front-end tests (Vitest + Testing Library) cover the API client's error mapping (401, 422, 429 with `Retry-After`, 5xx, network, abort), the citation and source parsing, and the page: answers, refusals, errors, the countdown after a 429, Enter versus Shift+Enter, the length limit, the key's storage, feedback, history and the hostile-answer case. 9 more backend tests cover serving the page, headers and the unshadowed API.
+- A real-Chrome run (Playwright, throwaway environment) against the local server and then the **hosted URL**: the wrong key shows the right message; a real question returned a cited answer with 3 sources and 4 citation badges; a refusal showed as one; feedback was accepted; the key sat in `sessionStorage` and not `localStorage`; the phone layout (390 px, dark mode) had no horizontal overflow; the console showed no errors and no CSP violations apart from the 401 I caused on purpose.
+- CI has a new `frontend` job (`npm ci`, typecheck, tests, build). I ran those steps from a clean install locally but **could not run GitHub Actions itself**, so its first real run is on your next push.
+
+**What it found.** The real-browser run caught two things unit tests did not: the browser requests `/favicon.ico` on every visit and got a 404 (fixed with an inline icon), and my first run failed because I had started the server from the wrong folder so it could not find `.env` (the page correctly showed the error). A unit test also caught a real bug: a source whose location contained parentheses (a Wikipedia-style URL, or `javascript:alert(1)`) was silently dropped, so its citation looked missing; the parser now splits on the last ` (`.
+
+**Not done.** No accessibility audit beyond labels, roles and keyboard use (no screen-reader or automated axe run); no end-to-end test in CI (the browser run was manual); history is in memory only, so a reload clears it; the page does not stream the answer (the API is not streaming, so an answer appears after 2 to 5 s).
+
 ## What I found along the way
 
 - **The free semantic-ranker allowance is used up.** The first local run of the API returned 502 with `Free Query Semantic Usage exceeded for the month`. My evaluation runs consumed it (I never confirmed the allowance's size, and I did not verify when it resets; the message says "for the month"). The service now has an opt-in fallback: `AzureHybridRetriever(..., semantic_fallback=True)` repeats a refused semantic query as plain hybrid search and counts it (`fallbacks`), only for that error. It is **off by default** so evaluations still fail loudly instead of scoring a different system, and **on in the API**. The fallback is visible in the log only. **The hosted assistant is therefore currently running with the weaker ranking** (on our questions, Azure hybrid alone had Hit@1 0.62 against 0.86 with the ranker), and the full `ask` pipeline's answer quality without the ranker was **not measured**. Until the allowance resets, the Azure evaluation scripts that use the ranker will fail.
@@ -72,4 +92,4 @@ Ten answerable golden questions, sent one at a time (2.5 s apart), against the l
 - [ ] Re-measure latency and ranking quality after the semantic allowance resets; try B1 (always-on, more CPU) for the p95.
 - [ ] Decide whether to keep the hosted app. The free plan and the vault cost almost nothing; the app is publicly reachable but needs the key for `/ask`.
 - [ ] Not tested: the F1 plan's daily CPU-time limit (what happens when it is reached), the global rate limit on the hosted app, and the whole `rg-payments-rag-w8` group being deleted (the app's roles on the OpenAI account and the search service are in another group and are expected to remain as orphans, as in Week 7).
-- [ ] Week 9: the Dockerfile and the CI/CD pipeline that deploys on merge (today's deployment is a manual zip deploy).
+- [ ] Week 9: the Dockerfile and the CI/CD pipeline that deploys on merge (today's deployment is a manual zip deploy; it should build the front end first).

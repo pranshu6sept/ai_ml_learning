@@ -27,11 +27,13 @@ import threading
 import time
 import uuid
 from collections import deque
-from collections.abc import Callable
+from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Annotated, Literal
 
-from fastapi import Depends, FastAPI, Header, HTTPException
+from fastapi import Depends, FastAPI, Header, HTTPException, Request, Response
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field
 
 from .ask import Answer
@@ -41,6 +43,14 @@ log = logging.getLogger("payments_rag.api")
 MAX_QUESTION_CHARS = 1000
 DEFAULT_RATE_PER_MINUTE = 30
 MAX_FEEDBACK_ITEMS = 1000
+
+# The page may load only its own scripts, styles and connections and may not be framed. /docs and
+# /redoc load their interface from a CDN, so they are left out of the CSP (other headers apply).
+CSP = (
+    "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; "
+    "connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"
+)
+NO_CSP_PATHS = {"/docs", "/redoc", "/docs/oauth2-redirect"}
 
 Answerer = Callable[[str], Answer]
 
@@ -117,6 +127,17 @@ class FeedbackStore:
             self.items.append({"request_id": request_id, "rating": rating, "comment": comment})
 
 
+def find_web_root() -> Path | None:
+    """The built React app: ``PAYRAG_WEB_DIR`` if set, else ``payments_rag/web`` (inside the
+    deployed zip), else the front end's build output beside the source. None if no index exists."""
+    configured = os.environ.get("PAYRAG_WEB_DIR")
+    here = Path(__file__).resolve().parent
+    candidates = (
+        [Path(configured)] if configured else [here / "web", here.parents[1] / "frontend" / "dist"]
+    )
+    return next((c for c in candidates if (c / "index.html").is_file()), None)
+
+
 def default_answerer() -> Answerer:
     """The production pipeline, built on first use so importing this module never calls Azure."""
     from .ask import STRATEGY, ask
@@ -158,8 +179,14 @@ def create_app(
     rate_per_minute: int = DEFAULT_RATE_PER_MINUTE,
     clock: Callable[[], float] = time.monotonic,
     configured: Callable[[], bool] = settings_present,
+    serve_web: bool = True,
+    web_root: Path | None = None,
 ) -> FastAPI:
-    """Build the app. ``answerer`` defaults to the Azure pipeline, created on the first request."""
+    """Build the app. ``answerer`` defaults to the Azure pipeline, created on the first request.
+
+    With ``serve_web`` the built React app is served at ``/`` (from ``web_root``, or found by
+    ``find_web_root``), so the page and the API share one origin and need no CORS.
+    """
     app = FastAPI(title="Payments knowledge assistant", version="0.1.0")
     limiter = RateLimiter(rate_per_minute, clock)
     feedback = FeedbackStore()
@@ -218,7 +245,23 @@ def create_app(
         feedback.add(body.request_id, body.rating, body.comment)
         return FeedbackResponse(stored=True)
 
+    @app.middleware("http")
+    async def security_headers(
+        request: Request, call_next: Callable[[Request], Awaitable[Response]]
+    ) -> Response:
+        response = await call_next(request)
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["Referrer-Policy"] = "no-referrer"
+        response.headers["X-Frame-Options"] = "DENY"
+        if request.url.path not in NO_CSP_PATHS:
+            response.headers["Content-Security-Policy"] = CSP
+        return response
+
     app.state.feedback = feedback
+    root = (web_root or find_web_root()) if serve_web else None
+    if root is not None:
+        # Mounted last: the API routes above and the docs pages are matched first.
+        app.mount("/", StaticFiles(directory=root, html=True), name="web")
     return app
 
 
