@@ -45,3 +45,23 @@ jobs:
         run: npm test
       - name: Build
         run: npm run build
+
+  image:
+    # Builds capstone/Dockerfile and checks the container serves the API and the page (no Azure needed).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: docker build -t payrag-api capstone
+      - name: Smoke test
+        run: |
+          docker run -d --name payrag -p 8000:8000 -e PAYRAG_API_KEY=ci-key payrag-api
+          for i in $(seq 1 30); do curl -sf http://127.0.0.1:8000/health && break; sleep 1; done
+          curl -sf http://127.0.0.1:8000/health | grep -q '"status":"ok"'
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8000/)" = 200
+          test "$(curl -s -o /dev/null -w '%{http_code}' -X POST http://127.0.0.1:8000/ask \
+            -H 'content-type: application/json' -d '{"question":"hi"}')" = 401
+          test "$(docker exec payrag id -un)" = app
+      - name: Container log
+        if: always()
+        run: docker logs payrag || true
