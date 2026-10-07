@@ -35,6 +35,7 @@ dev = [
     "mypy>=1.11",
     "pre-commit>=3.8",
     "pandas-stubs>=2.2",
+    "httpx>=0.27",
 ]
 embeddings = [
     "sentence-transformers>=6.1.0",
