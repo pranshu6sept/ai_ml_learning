@@ -3,6 +3,7 @@ name: CI
 on:
   push:
   pull_request:
+  workflow_dispatch: # run by hand (on main: also deploys)
 
 jobs:
   check:
@@ -65,3 +66,42 @@ jobs:
       - name: Container log
         if: always()
         run: docker logs payrag || true
+
+  deploy:
+    # On a push to main (or a manual run on main), after every check passes: push the image and point the App Service at it.
+    # Signs in to Azure with OIDC as the deployer identity from infra/week8.bicep (hosting = 'container');
+    # the repository variables below are IDs and names, not secrets. Skipped until they are set.
+    needs: [check, frontend, image]
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && vars.AZURE_CLIENT_ID != ''
+    runs-on: ubuntu-latest
+    concurrency: deploy-production # one deploy at a time; a newer push waits rather than racing
+    permissions:
+      id-token: write # to request the OIDC token
+      contents: read
+    env:
+      IMAGE: ${{ vars.ACR_NAME }}.azurecr.io/payrag-api:${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - name: Build and push the image
+        run: |
+          az acr login --name "${{ vars.ACR_NAME }}"
+          docker build -t "$IMAGE" capstone
+          docker push "$IMAGE"
+      - name: Point the app at the new image
+        run: |
+          az webapp config set -g "${{ vars.AZURE_RESOURCE_GROUP }}" -n "${{ vars.WEBAPP_NAME }}" \
+            --linux-fx-version "DOCKER|$IMAGE" -o none
+      - name: Check the deployed app
+        run: |
+          url="https://$(az webapp show -g "${{ vars.AZURE_RESOURCE_GROUP }}" -n "${{ vars.WEBAPP_NAME }}" --query defaultHostName -o tsv)"
+          # The free plan starts the container on the first request after a change; give it up to 5 minutes.
+          for i in $(seq 1 30); do
+            if curl -sf "$url/health" | grep -q '"configured":true'; then echo "healthy: $url"; exit 0; fi
+            sleep 10
+          done
+          echo "the app did not report healthy and configured within 5 minutes"; exit 1

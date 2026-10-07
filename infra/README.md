@@ -146,3 +146,20 @@ az webapp log deployment show -g rg-payments-rag-w8 -n <app>
 ```
 
 Plan: F1 is free (no always-on, a small shared instance); `$env:AZURE_W8_PLAN_SKU = "B1"` is 0.018 USD an hour. A Key Vault reference needs the secret to exist before the app starts, or a restart afterwards. To remove everything: `az group delete -n rg-payments-rag-w8 --yes --no-wait`; the app's role assignments on the OpenAI account and the search service are in the other resource group and stay behind as orphans (delete them by assignment ID).
+
+## Week 9: run the container, deploy on merge
+
+The same template with `hosting = 'container'` adds a Basic container registry (about 5 USD a month), lets the app pull from it with its own identity, and creates `payrag-github-deployer`, a user-assigned identity that only a workflow run for a push to `main` of this repository can sign in as (a federated credential: GitHub stores no Azure secret). The deployer can push images and change this one web app, nothing else.
+
+```powershell
+# The same environment variables as above, plus:
+$env:AZURE_W8_HOSTING = "container"
+az provider register --namespace Microsoft.ContainerRegistry --wait
+az provider register --namespace Microsoft.ManagedIdentity --wait
+az deployment group create -g rg-payments-rag-w8 -f infra/week8.bicep -p infra/week8.bicepparam `
+  --query "properties.outputs.{AZURE_CLIENT_ID:deployerClientId.value, AZURE_TENANT_ID:tenantId.value, AZURE_SUBSCRIPTION_ID:subscriptionId.value, ACR_NAME:registryName.value, WEBAPP_NAME:appName.value, AZURE_RESOURCE_GROUP:resourceGroupName.value}"
+```
+
+Copy the six printed values into GitHub as **repository variables** (Settings → Secrets and variables → Actions → Variables; they are IDs and names, not secrets). Then run the CI workflow on `main` by hand (Actions → CI → Run workflow): the `deploy` job builds the image, pushes it tagged with the commit SHA, points the app at it and waits for `/health` to report `configured: true`. From then on every push to `main` that passes the checks deploys.
+
+**The app is down from the template deployment until that first run**: it points at an image tag that does not exist yet. To go back to the zip: `$env:AZURE_W8_HOSTING = "zip"`, deploy the template again, then deploy the zip as above.

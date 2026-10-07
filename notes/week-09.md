@@ -9,7 +9,7 @@ Roadmap items: multi-stage Dockerfile; GitHub Actions lint → test → eval gat
 | Multi-stage Dockerfile | **Done** (`capstone/Dockerfile`), built and smoke-tested |
 | CI builds the image and smoke-tests it | **Done** (`image` job in `.github/workflows/ci.yml`) |
 | Eval gate (golden-set scores below threshold fail CI) | Not started |
-| Deploy on merge to main | Not started: needs an Azure identity GitHub can use (see "Open") |
+| Deploy on merge to main | **Written, not yet run**: `deploy` job in CI, container hosting in `infra/week8.bicep` (below) |
 | Experiment tracking | Partly: the Week 8 Azure ML training job logs parameters and metrics to MLflow |
 
 ## The image (`capstone/Dockerfile`)
@@ -22,7 +22,16 @@ Measured (one local build):
 
 The container cannot use `az login`, so for real answers it needs a managed identity (in Azure) or the identity's settings passed in. The smoke test needs neither.
 
+## Deploy on merge
+
+Decision (yours): run the Docker image rather than the zip, from a Basic Azure Container Registry (about 5 USD a month, covered by the free credit for now). Sign-in from GitHub is OIDC, so no Azure secret is stored in GitHub.
+
+- `infra/week8.bicep` gained `hosting = 'container'` (default still `zip`): the registry (admin user off), `AcrPull` for the app's identity, and `payrag-github-deployer`, a user-assigned identity with a federated credential for `repo:pranshu6sept/ai_ml_learning:ref:refs/heads/main`, holding `AcrPush` on the registry and Website Contributor on the app only.
+- The `deploy` job (`.github/workflows/ci.yml`) runs after `check`, `frontend` and `image` pass, only for `main` (push or a manual run), and is skipped until the repository variables exist. It pushes the image tagged with the commit SHA, sets the app's image, and fails unless `/health` reports `configured: true` within 5 minutes.
+- Checked here: the template compiles and lints clean with the Bicep CLI (0.48.1), and the workflow passes actionlint. **Not checked: nothing has been deployed.** Unverified until the first run: that the free F1 plan runs this container (image 696 MB), and the three role definition IDs, which I wrote from memory (check with `az role definition list --name AcrPull --query [0].name`, likewise `AcrPush` and `Website Contributor`; Week 8 had a wrong ID).
+- Steps: `infra/README.md`, "Week 9".
+
 ## Open
 
-- [ ] **Deploy on merge**: the workflow needs to sign in to Azure. The keyless way is a federated credential (OIDC) on an app registration or user-assigned identity, scoped to the App Service, with `AZURE_CLIENT_ID`, `AZURE_TENANT_ID` and `AZURE_SUBSCRIPTION_ID` as repository variables (no secret). Also decide: keep the zip deploy, or run this image (needs a container registry, which costs money, or GitHub's registry with a pull credential).
+- [ ] **First deploy**: deploy the template with container hosting, set the six repository variables, run CI on `main` by hand, record the result (time to healthy, a real `/ask`).
 - [ ] Eval gate: which golden-set metrics, which thresholds, and how to run them in CI without paying for model calls on every push.
