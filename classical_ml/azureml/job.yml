@@ -1,0 +1,27 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+display_name: fraud-lightgbm-train
+experiment_name: fraud-week3
+description: Train the Week 3 LightGBM fraud model on the credit-card dataset and save it as an MLflow model.
+
+# Uploads classical_ml/ (train.py and the package next to it); the 150 MB CSV is uploaded as a data input.
+code: ..
+command: >-
+  pip install --quiet lightgbm==4.7.0 mlflow azureml-mlflow &&
+  python azureml/train.py
+  --data ${{inputs.creditcard}}
+  --model-output ${{outputs.model}}
+
+inputs:
+  creditcard:
+    type: uri_file
+    path: ../../data/raw/creditcard.csv
+
+outputs:
+  model:
+    type: mlflow_model
+
+# A curated environment maintained by Microsoft (scikit-learn, pandas, numpy); LightGBM is installed at job start.
+# (A custom conda environment would need an image build, and with it a container registry.)
+environment: azureml://registries/azureml/environments/sklearn-1.5/labels/latest
+
+compute: azureml:cpu-cluster

@@ -1,0 +1,4 @@
+$schema: https://azuremlschemas.azureedge.net/latest/managedOnlineEndpoint.schema.json
+name: payrag-fraud
+description: Fraud probability for a card transaction (Week 3 LightGBM model).
+auth_mode: key

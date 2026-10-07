@@ -1,0 +1,8 @@
+$schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
+name: blue
+endpoint_name: payrag-fraud
+model: azureml:fraud-lightgbm:1
+# An MLflow model needs no scoring script and no environment: Azure ML builds the serving environment from the
+# conda file saved with the model.
+instance_type: Standard_DS2_v2   # 2 vCPUs, 0.169 USD an hour for as long as the deployment exists
+instance_count: 1
