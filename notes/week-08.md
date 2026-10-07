@@ -2,7 +2,7 @@
 
 Roadmap items: Azure ML (workspace, compute, jobs, model registry, a managed endpoint that serves the Week 3 model); deploy the capstone API to App Service or Functions; Key Vault and managed identity with no keys in code or env files; **deliverable: the capstone reachable at a public URL, keyless auth to Azure services.**
 
-This file records what is done and measured. The Azure ML half is not started; see "Not done".
+This file records what is done and measured. The Azure ML half is done up to the model registry; the managed endpoint never served a request (see "Azure ML").
 
 ## Status against the roadmap
 
@@ -12,7 +12,7 @@ This file records what is done and measured. The Azure ML half is not started; s
 | Key Vault and managed identity, no keys in code or env files | **Done and audited** (below) |
 | Deliverable: public URL with keyless auth to Azure services | **Done**, with the limits listed below |
 | A React front end for the API (added at your request) | **Done**, served by the API at the same URL (below) |
-| Azure ML: workspace, compute, jobs, registry, managed endpoint for the Week 3 model | **Not started** (needs your decision on cost; see the end) |
+| Azure ML: workspace, compute, jobs, registry, managed endpoint for the Week 3 model | **Partly done**: workspace, cluster, training job and registered model (v2) done; the endpoint deployment failed twice and was set aside (below) |
 | Book the AI-102 exam date | **Removed from the plan**: AI-102 is retired (replaced by AI-103) and the exam is not needed for the capstone |
 
 ## The API (`payments_rag/api.py`)
@@ -78,6 +78,16 @@ A Vite + React + TypeScript page: key field, question box (Enter sends, 1000-cha
 
 **Not done.** No accessibility audit beyond labels, roles and keyboard use (no screen-reader or automated axe run); no end-to-end test in CI (the browser run was manual); history is in memory only, so a reload clears it; the page does not stream the answer (the API is not streaming, so an answer appears after 2 to 5 s).
 
+## Azure ML
+
+Template `infra/week8-ml.bicep`; job, endpoint and deployment specs and the training script in `classical_ml/azureml/` (the script has 7 unit tests).
+
+- **Training job** (`job.yml`, CPU cluster, curated scikit-learn environment): trains the Week 3 LightGBM settings on the credit-card data and saves an MLflow model that returns the fraud probability. The job `sweet_vulture_8nk4kqms0d` completed; its output is registered as `fraud-lightgbm` version 2, and its `conda.yaml` lists `azureml-ai-monitoring` (checked by downloading the model).
+- **Endpoint, attempt 1** (model v1): crash-looped on start, cause below. Endpoint deleted.
+- **Endpoint, attempt 2** (model v2, 2026-10-07): the endpoint was created, the deployment failed with `ImageBuildFailure`. The build log shows pip timing out five times reading `pypi.org/simple/azureml-inference-server-http` (`from versions: none`), so this was the build's network, not the model. **Not retried: set aside to move on to Week 9.** No request has been served, so there is no latency or cost measurement for the endpoint.
+
+To finish it: `az ml online-deployment create -f deployment.yml --all-traffic`, then `az ml online-endpoint invoke -n payrag-fraud --request-file sample-request.json`, then delete the endpoint. Reading the build log needs `--auth-mode key` (my account has no Storage Blob Data role on the workspace storage).
+
 ## What I found along the way
 
 - **The free semantic-ranker allowance is used up.** The first local run of the API returned 502 with `Free Query Semantic Usage exceeded for the month`. My evaluation runs consumed it (I never confirmed the allowance's size, and I did not verify when it resets; the message says "for the month"). The service now has an opt-in fallback: `AzureHybridRetriever(..., semantic_fallback=True)` repeats a refused semantic query as plain hybrid search and counts it (`fallbacks`), only for that error. It is **off by default** so evaluations still fail loudly instead of scoring a different system, and **on in the API**. The fallback is visible in the log only. **The hosted assistant is therefore currently running with the weaker ranking** (on our questions, Azure hybrid alone had Hit@1 0.62 against 0.86 with the ranker), and the full `ask` pipeline's answer quality without the ranker was **not measured**. Until the allowance resets, the Azure evaluation scripts that use the ranker will fail.
@@ -89,7 +99,7 @@ A Vite + React + TypeScript page: key field, question box (Enter sends, 1000-cha
 
 ## Not done and open
 
-- [ ] **Azure ML** (workspace, compute, jobs, model registry, a managed endpoint). Findings so far: the `az ml` extension is not installed; quota is 4 vCPUs in each of several VM families in Central India; **the Week 3 model was never saved** (only scripts that train it), so serving it means training, saving and registering a model and writing a scoring script. A managed online endpoint bills for its instance for as long as it exists.
+- [ ] **Azure ML endpoint**: retry the deployment (the last failure was a PyPI timeout during the image build) and record one invoke, its latency and the cost; then delete the endpoint. A managed online endpoint bills for its instance for as long as the deployment exists.
 - [ ] Re-measure latency and ranking quality after the semantic allowance resets; try B1 (always-on, more CPU) for the p95.
 - [ ] Decide whether to keep the hosted app. The free plan and the vault cost almost nothing; the app is publicly reachable but needs the key for `/ask`.
 - [ ] Not tested: the F1 plan's daily CPU-time limit (what happens when it is reached), the global rate limit on the hosted app, and the whole `rg-payments-rag-w8` group being deleted (the app's roles on the OpenAI account and the search service are in another group and are expected to remain as orphans, as in Week 7).
