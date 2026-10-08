@@ -146,3 +146,18 @@ az webapp log deployment show -g rg-payments-rag-w8 -n <app>
 ```
 
 Plan: F1 is free (no always-on, a small shared instance); `$env:AZURE_W8_PLAN_SKU = "B1"` is 0.018 USD an hour. A Key Vault reference needs the secret to exist before the app starts, or a restart afterwards. To remove everything: `az group delete -n rg-payments-rag-w8 --yes --no-wait`; the app's role assignments on the OpenAI account and the search service are in the other resource group and stay behind as orphans (delete them by assignment ID).
+
+## Week 8: Azure ML (`week8-ml.bicep`, resource group `rg-payments-rag-w8ml`)
+
+```powershell
+az deployment group create -g rg-payments-rag-w8ml -f infra/week8-ml.bicep   # workspace + cpu-cluster (scales to 0)
+cd classical_ml
+az ml job create -f azureml/job.yml --web=false          # trains, logs metrics, saves an MLflow model
+az ml model create -n fraud-lightgbm --type mlflow_model --path azureml://jobs/<job>/outputs/model
+az ml online-endpoint create -f azureml/endpoint.yml
+az ml online-deployment create -f azureml/deployment.yml --all-traffic
+az ml online-endpoint invoke -n payrag-fraud --request-file azureml/sample-request.json
+az ml online-endpoint delete -n payrag-fraud --yes       # an endpoint bills per instance-hour until deleted
+```
+
+Needs the resource providers PolicyInsights, Cdn, Network, ContainerService and ManagedIdentity registered. The workspace's Key Vault must use access policies, not RBAC. Check the registered model's `requirements.txt` lists `azureml-ai-monitoring` before deploying. The endpoint's image build can fail on pypi timeouts; retrying worked.
