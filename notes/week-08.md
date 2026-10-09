@@ -57,7 +57,7 @@ Ten answerable golden questions, sent one at a time (2.5 s apart), against the l
 | Server-side (`latency_ms`) | 3.3 s | 5.2 s |
 | Client-side, from this laptop | 3.5 s | 5.4 s |
 
-3 of the 10 were refused (the same kind of refusals the Week 5 evaluation shows). **p95 is above the 4 s target** in `capstone-architecture.md`. One run of 10, so the p95 is essentially the slowest request; it is a signal, not a measurement. Likely contributors (not isolated): the App Service (Central India) calls Azure OpenAI in South India; the answerability check and the answer are two sequential model calls; the free plan is a shared, small instance. The very first request after deployment took 9.9 s (client and token setup).
+3 of the 10 were refused (the same kind of refusals the Week 5 evaluation shows). **p95 was above the 4 s target** in `capstone-architecture.md` on that run. One run of 10, so the p95 is essentially the slowest request. **Re-run on 2026-10-09** (same plan, first 10 answerable golden questions, 2.5 s apart, 2 refused): server-side median 2.5 s, p95 3.0 s; client-side median 2.7 s, p95 3.4 s. That is under the target, so the first result was most likely one slow request. Still one run of 10 each; the real spread is unknown. I did not try B1. Likely contributors (not isolated): the App Service (Central India) calls Azure OpenAI in South India; the answerability check and the answer are two sequential model calls; the free plan is a shared, small instance. The very first request after deployment took 9.9 s (client and token setup).
 
 ## The React front end (`capstone/frontend/`)
 
@@ -91,7 +91,17 @@ Workspace `payrag-ml-udonru` and a CPU cluster that scales to zero. `train.py` r
 
 ## What I found along the way
 
-- **The free semantic-ranker allowance is used up.** The first local run of the API returned 502 with `Free Query Semantic Usage exceeded for the month`. My evaluation runs consumed it (I never confirmed the allowance's size, and I did not verify when it resets; the message says "for the month"). The service now has an opt-in fallback: `AzureHybridRetriever(..., semantic_fallback=True)` repeats a refused semantic query as plain hybrid search and counts it (`fallbacks`), only for that error. It is **off by default** so evaluations still fail loudly instead of scoring a different system, and **on in the API**. The fallback is visible in the log only. **The hosted assistant is therefore currently running with the weaker ranking** (on our questions, Azure hybrid alone had Hit@1 0.62 against 0.86 with the ranker), and the full `ask` pipeline's answer quality without the ranker was **not measured**. Until the allowance resets, the Azure evaluation scripts that use the ranker will fail.
+- **The free semantic-ranker allowance is used up.** The first local run of the API returned 502 with `Free Query Semantic Usage exceeded for the month`. My evaluation runs consumed it (I never confirmed the allowance's size, and I did not verify when it resets; the message says "for the month"). The service now has an opt-in fallback: `AzureHybridRetriever(..., semantic_fallback=True)` repeats a refused semantic query as plain hybrid search and counts it (`fallbacks`), only for that error. It is **off by default** so evaluations still fail loudly instead of scoring a different system, and **on in the API**. The fallback is visible in the log only. **The hosted assistant is therefore running with the weaker ranking** (checked again on 2026-10-09: the ranker still refuses with the same message). The search service is on the **Free tier**, which I believe cannot use pay-as-you-go semantic billing; that would need a Basic service and a rebuilt index, which I did not do. On our questions Azure hybrid alone had Hit@1 0.62 against 0.86 with the ranker. **Measured now:** the Week 5 end-to-end evaluation re-run with `run_generation.py --no-semantic` (same 95 questions, same judge, one run each, results in `results/generation_no_semantic.md`):
+
+| | With ranker (Week 5) | Without |
+|---|---|---|
+| Answerable questions answered | 57 of 69 | 51 of 69 |
+| Correct, answered only | 0.96 | 0.93 |
+| Correct, end to end (refusal = 0) | 0.80 | 0.69 |
+| Faithfulness | 0.99 | 0.98 |
+| Unanswerable correctly refused | 25 of 26 | 25 of 26 |
+
+So the ranker's value shows up as **more answers, not worse answers**: 6 more false refusals, with faithfulness and the refusal of unanswerable questions unchanged. Six questions out of 69 from a single run each, judged by the model that wrote the answers, so the size of the gap is rough. The `corpus_update` set was hit hardest (2 of 5 answered against 5 of 5). Until the allowance resets, the Azure evaluation scripts that use the ranker will fail.
 - **A role ID written from memory was wrong.** "Key Vault Secrets Officer" has a different ID from the one I typed (`RoleDefinitionDoesNotExist`). Look IDs up (`az role definition list --name ...`) instead of recalling them.
 - **A Key Vault reference stays unresolved until the app is restarted or redeployed.** It read `SecretNotFound` after I created the secret, and `Resolved` after the deployment that followed. Create the secret before the first start, or restart.
 - **`az webapp deploy` is unreliable about reporting.** One run printed a failure with no cause; the next hung for over ten minutes while the server log showed "Deployment successful" two minutes in. I did not diagnose why. Check the server-side deployment log (`az webapp log deployment show`) and the site itself, not only the command's exit.
@@ -101,7 +111,8 @@ Workspace `payrag-ml-udonru` and a CPU cluster that scales to zero. `train.py` r
 ## Not done and open
 
 - [x] Azure ML: done (above). Not tested: scaling, authentication rotation, latency of the endpoint, monitoring.
-- [ ] Re-measure latency and ranking quality after the semantic allowance resets; try B1 (always-on, more CPU) for the p95.
+- [ ] Re-measure ranking quality after the semantic allowance resets (it said "for the month"; I did not verify the reset date). Latency was re-measured (above); B1 not tried.
 - [ ] Decide whether to keep the hosted app. The free plan and the vault cost almost nothing; the app is publicly reachable but needs the key for `/ask`.
-- [ ] Not tested: the F1 plan's daily CPU-time limit (what happens when it is reached), the global rate limit on the hosted app, and the whole `rg-payments-rag-w8` group being deleted (the app's roles on the OpenAI account and the search service are in another group and are expected to remain as orphans, as in Week 7).
+- [x] Rate limit on the hosted app, tested 2026-10-09: 40 valid requests within a minute gave 30 x 200 and 10 x 429 with `Retry-After` 56 to 57 s.
+- [ ] Not tested: the F1 plan's daily CPU-time limit (what happens when it is reached), and the whole `rg-payments-rag-w8` group being deleted (the app's roles on the OpenAI account and the search service are in another group and are expected to remain as orphans, as in Week 7).
 - [ ] Week 9: the Dockerfile and the CI/CD pipeline that deploys on merge (today's deployment is a manual zip deploy; it should build the front end first).

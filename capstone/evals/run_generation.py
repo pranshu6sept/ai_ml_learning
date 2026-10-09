@@ -61,7 +61,6 @@ from payments_rag import (
 from payments_rag.ask import STRATEGY, ask
 from payments_rag.chunking import Chunk
 
-CACHE = HERE / "generation_cache.json"
 FAITHFULNESS_TARGET = 0.9  # from capstone-architecture.md
 
 
@@ -203,11 +202,19 @@ def summarise(records: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
-def render(records: list[dict[str, Any]], summary: dict[str, Any], by_split: dict[str, Any]) -> str:
+def render(
+    records: list[dict[str, Any]],
+    summary: dict[str, Any],
+    by_split: dict[str, Any],
+    semantic: bool = True,
+) -> str:
     s = summary
+    ranker = (
+        "Azure hybrid + semantic ranker" if semantic else "Azure hybrid search, NO semantic ranker"
+    )
     target = "meets" if s["faithfulness_mean"] >= FAITHFULNESS_TARGET else "is below"
     lines = [
-        f"{len(records)} golden questions through the real pipeline (Azure hybrid + semantic ranker, "
+        f"{len(records)} golden questions through the real pipeline ({ranker}, "
         "answerability check, cited answer). Judge = the same gpt-4.1-mini deployment, so scores are "
         "optimistic. One run. One question is worth "
         f"{1 / max(1, s['answerable']):.3f} of an answerable-question score.\n",
@@ -270,19 +277,30 @@ def render(records: list[dict[str, Any]], summary: dict[str, Any], by_split: dic
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--limit", type=int, help="only the first N questions (smoke test)")
+    parser.add_argument(
+        "--no-semantic",
+        action="store_true",
+        help="hybrid search without the semantic ranker (what the hosted API runs once the free "
+        "allowance is used up); writes generation_no_semantic.* so the Week 5 results stay as they are",
+    )
     args = parser.parse_args(argv)
+    suffix = "_no_semantic" if args.no_semantic else ""
+    cache_path = HERE / f"generation{suffix}_cache.json"
     sys.stdout.reconfigure(encoding="utf-8")  # answers contain characters such as the rupee sign
 
     documents = {d: strip_sections(t, META_SECTIONS) for d, t in load_documents().items()}
     golden = load_golden(documents)
     if args.limit:
         golden = golden[: args.limit]
-    cache: dict[str, Any] = json.loads(CACHE.read_text("utf-8")) if CACHE.exists() else {}
+    cache: dict[str, Any] = json.loads(cache_path.read_text("utf-8")) if cache_path.exists() else {}
 
     settings = AzureSettings.from_env()
     chat = PacedChat(settings, Pacer(TPM_BUDGET, MAX_REQUESTS_PER_MINUTE))
     retriever = AzureHybridRetriever(
-        AzureSearchStore(settings), AzureOpenAIEmbedder(settings), STRATEGY, semantic=True
+        AzureSearchStore(settings),
+        AzureOpenAIEmbedder(settings),
+        STRATEGY,
+        semantic=not args.no_semantic,
     )
     records = []
     for n, q in enumerate(golden, 1):
@@ -297,7 +315,7 @@ def main(argv: list[str] | None = None) -> None:
         record = run_question(chat, retriever, q)
         cache[q["id"]] = record
         records.append(record)
-        CACHE.write_text(json.dumps(cache, indent=1, ensure_ascii=False), encoding="utf-8")
+        cache_path.write_text(json.dumps(cache, indent=1, ensure_ascii=False), encoding="utf-8")
         status = "refused" if record["refused"] else "answered"
         print(f"[{n}/{len(golden)}] {q['id']} {status} ({record['seconds']} s)", flush=True)
 
@@ -307,10 +325,10 @@ def main(argv: list[str] | None = None) -> None:
         split: summarise([r for r in records if r["split"] == split and r["expected"] == "answer"])
         for split in splits
     }
-    text = render(records, summary, by_split)
+    text = render(records, summary, by_split, semantic=not args.no_semantic)
     RESULTS.mkdir(exist_ok=True)
-    (RESULTS / "generation.md").write_text(text, encoding="utf-8")
-    (RESULTS / "generation.json").write_text(
+    (RESULTS / f"generation{suffix}.md").write_text(text, encoding="utf-8")
+    (RESULTS / f"generation{suffix}.json").write_text(
         json.dumps(
             {"summary": summary, "by_split": by_split, "records": records},
             indent=1,
