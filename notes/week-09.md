@@ -10,10 +10,11 @@ Built fresh on `main`. An earlier unmerged branch (`claude/great-carson-6kp0ng`)
 |---|---|
 | Multi-stage Dockerfile | **Done and run**: built locally, started, smoke-tested (below). Its CI job has not run on GitHub yet |
 | CI: lint → test → eval gate → build | **Done**: `check` job (lint, format, types, tests, eval gate) and a `docker` job (build, smoke test), plus `frontend` |
-| CI: deploy | **Not done**: needs a container registry (about 5 USD a month on Basic) and an Azure sign-in from GitHub; see "Not done" |
+| CI: deploy | **Written, first real run pending**: a `deploy` job builds and pushes the image and points the app at it (below) |
+| Hosted app runs the container from a registry | **Done and checked** (below) |
 | Experiment tracking | **Done**: evaluation results logged to MLflow, locally and in the Azure ML workspace |
 | Prompts versioned in Git; a PR that drops scores fails CI | **Done, with limits** (below) |
-| Deliverable: green pipeline that deploys on merge | **Not done** (no deploy step) |
+| Deliverable: green pipeline that deploys on merge | **Not yet shown**: the pieces exist; it counts as done when a push to main has run the deploy job green (see "Not done") |
 
 ## Prompts in files (`payments_rag/prompts/`)
 
@@ -53,9 +54,20 @@ Built and run locally (Docker 28.1.1): the image is **492 MB**. In a container s
 
 `check` (ruff, format, mypy, tests, eval gate), `docker` (build, smoke test: `/health`, the page, 401 without the key, non-root) and `frontend`. I ran every `check` step in a fresh environment built the way CI builds it (`uv sync --group api`, Python 3.11): all passed. The `docker` job is a copy of the commands I ran locally, but **it has not run on GitHub**; its first real run is on your next push.
 
+## Container hosting and deploy on merge
+
+`infra/week8.bicep` is staged so the live app never points at an image that is not there: (1) `createRegistry` adds a Basic registry (about 5 USD a month from the free credit), the `payrag-github-deployer` identity and the roles; (2) the first image is pushed; (3) `runContainer` switches the app to it. The free F1 plan runs a custom container (I tested it on a throwaway app and deleted it; two 2019 articles said otherwise).
+
+- **Identities and roles** (read back from Azure after stage 1): the registry has no admin user and no anonymous pull; the app holds AcrPull only and pulls with its own identity (`acrUseManagedIdentityCreds`, no registry password); the deployer holds AcrPush on the registry and Website Contributor on the one web app. Its federated credential trusts only the subject `repo:pranshu6sept/ai_ml_learning:ref:refs/heads/main`, so a fork, another branch or a pull request cannot sign in as it. No Azure secret exists in GitHub.
+- **Live check after stage 3** (run by the template deployment you ran yourself): the app reports the runtime `DOCKER|payragacrvevakqzp.azurecr.io/payrag-api:f23d0a8`; `/health` returns `configured: true`; the page returns 200; `/ask` without the key returns 401; one real question returned a cited answer with 3 sources (the first request after the restart took 7.2 s; one cold request, not a latency measurement).
+- **The workflow job** (`deploy` in `ci.yml`): after `check`, `frontend` and `docker` pass on a push to main, it signs in with OIDC, builds and pushes `payrag-api:<commit>`, runs `az webapp config set` to the new tag, waits 45 s and polls `/health` for up to 5 minutes. It is skipped until the repository variable `AZURE_CLIENT_ID` exists. **Limit:** `/health` does not say which image answered, so a pass means "healthy and configured", not "this exact image"; the pause makes a stale pass unlikely, not impossible.
+- **What went wrong along the way:** my first draft of the zip's start command had a placeholder typo in the template (caught before any deploy). Three of my Azure commands, and the first attempt to add the deploy job, were stopped by the permission check; you ran the stage 3 deployment yourself.
+
 ## Not done and open
 
-- [ ] **Deploy on merge.** Needs: (1) a container registry (Basic is about 5 USD a month; the zip deploy today needs none); (2) a user-assigned identity with a federated credential so GitHub signs in to Azure without a stored secret; (3) changing the hosted app from zip to container, which takes it down until the first image is pushed. All three change the live app and your Azure account, so I have not started them without your go-ahead. The earlier unmerged branch has a template for this that I have not reviewed or tested.
+- [ ] **Show the deploy green.** The deploy job has not run on GitHub. Its first real run is the push that adds it (once the six repository variables exist). Until then "deploys on merge" is untested.
+- [ ] **Registry cleanup.** The workflow pushes one tag per commit and deletes none. A Basic registry includes 10 GB, and layers are shared, so this is slow growth, but nothing prunes old tags yet.
+- [ ] **Public-repo log exposure.** The variables hold tenant, subscription and client IDs. They are identifiers, not credentials, but this repository is public, so they can appear in public workflow logs. Check a run's log; use a private repo if that matters.
 - [ ] Run the evaluation inside CI on prompt changes (needs the same Azure sign-in, plus model cost per run and rate-limit pacing).
 - [ ] Pin the Docker base images by digest; scan the image for vulnerabilities.
 - [ ] Gate the with-ranker results once the free allowance resets and they can be re-run with a prompt hash.

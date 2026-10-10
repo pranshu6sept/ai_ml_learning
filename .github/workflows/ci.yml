@@ -69,3 +69,49 @@ jobs:
         run: npm test
       - name: Build
         run: npm run build
+
+  deploy:
+    # Runs only on a push to main after every check passed, and only once the repository variables below
+    # exist, so the pipeline stays green on a fork or before Azure is set up. It signs in to Azure with
+    # GitHub's OIDC token as the deployer identity from infra/week8.bicep: there is no Azure secret in this
+    # repository. That identity can push images to one registry and manage one web app, and Entra ID accepts
+    # its token only for a push to main of this repository.
+    needs: [check, frontend, docker]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.AZURE_CLIENT_ID != ''
+    runs-on: ubuntu-latest
+    concurrency: deploy-production # one deploy at a time; a newer push waits instead of racing
+    permissions:
+      id-token: write # to request the OIDC token
+      contents: read
+    env:
+      IMAGE: ${{ vars.ACR_NAME }}.azurecr.io/payrag-api:${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - name: Build and push the image
+        run: |
+          az acr login --name "${{ vars.ACR_NAME }}"
+          docker build -t "$IMAGE" capstone
+          docker push "$IMAGE"
+      - name: Point the app at the new image
+        run: |
+          az webapp config set -g "${{ vars.AZURE_RESOURCE_GROUP }}" -n "${{ vars.WEBAPP_NAME }}" \
+            --linux-fx-version "DOCKER|$IMAGE" -o none
+      - name: Wait for the app to restart and check it is healthy
+        # /health does not say which image answered, so pause first to let the old instance be replaced.
+        # A pass means "healthy and configured", not "this exact image".
+        run: |
+          sleep 45
+          host=$(az webapp show -g "${{ vars.AZURE_RESOURCE_GROUP }}" -n "${{ vars.WEBAPP_NAME }}" --query defaultHostName -o tsv)
+          for i in $(seq 1 30); do
+            body=$(curl -s -m 20 "https://$host/health" || true)
+            echo "$(date +%T) $body"
+            echo "$body" | grep -q '"configured":true' && exit 0
+            sleep 10
+          done
+          echo "the app did not report healthy and configured within 5 minutes" >&2
+          exit 1
