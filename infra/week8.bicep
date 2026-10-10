@@ -40,13 +40,45 @@ param searchIndex string = 'payments-rag'
 @description('Name of the Key Vault secret that holds the API key.')
 param apiKeySecretName string = 'payrag-api-key'
 
+// Week 9: run the app from a container image and let GitHub Actions deploy it. Staged on purpose, so the
+// live app never points at an image that is not there yet:
+//   1. createRegistry = true               adds the registry, the deployer identity and their roles; the app
+//                                          keeps running from the zip
+//   2. push the first image                (docker push, or the workflow)
+//   3. createRegistry + runContainer = true, imageTag = <a tag that exists>   switches the app to the image
+// To go back to the zip: runContainer = false, then deploy the zip as in infra/README.md.
+@description('Create the container registry (Basic, about 5 USD a month), the GitHub deployer identity and the roles.')
+param createRegistry bool = false
+
+@description('Run the app from the registry image instead of the zip. Needs createRegistry and an image with imageTag.')
+param runContainer bool = false
+
+@description('GitHub repository (owner/name) whose workflow on the main branch may deploy.')
+param githubRepo string = 'pranshu6sept/ai_ml_learning'
+
+param imageName string = 'payrag-api'
+
+@description('The image tag the app runs. The workflow sets the commit SHA; this only has to exist when runContainer is true.')
+param imageTag string = 'latest'
+
 var unique = uniqueString(resourceGroup().id)
 var planName = '${namePrefix}-plan-${take(unique, 8)}'
 var appName = '${namePrefix}-api-${take(unique, 8)}'
 var vaultName = '${namePrefix}-kv-${take(unique, 8)}'
+var registryName = '${namePrefix}acr${take(unique, 8)}' // letters and digits only
+var registryLoginServer = '${registryName}.azurecr.io'
+var deployerName = '${namePrefix}-github-deployer'
 
 var roleKeyVaultSecretsUser = '4633458b-17de-408a-b874-0445c86b69e6'
 var roleKeyVaultSecretsOfficer = 'b86a8fe4-44ce-4948-aee5-eccb2c155cd7'
+var roleAcrPull = '7f951dda-4ed3-4680-a7ca-43fe172d538d'
+var roleAcrPush = '8311e382-0749-4cb8-b61a-304f252e45ec'
+var roleWebsiteContributor = 'de139f84-1756-47ae-9be6-808fbbe84772'
+
+// Settings that differ between the zip (App Service builds the Python environment) and the image.
+var hostingSettings = runContainer
+  ? [{ name: 'WEBSITES_ENABLE_APP_SERVICE_STORAGE', value: 'false' }]
+  : [{ name: 'SCM_DO_BUILD_DURING_DEPLOYMENT', value: 'true' }]
 
 resource openai 'Microsoft.CognitiveServices/accounts@2024-10-01' existing = {
   name: openAiAccountName
@@ -92,15 +124,15 @@ resource app 'Microsoft.Web/sites@2023-12-01' = {
     serverFarmId: plan.id
     httpsOnly: true
     siteConfig: {
-      linuxFxVersion: 'PYTHON|3.11'
-      appCommandLine: 'python -m uvicorn payments_rag.api:app --host 0.0.0.0 --port 8000'
+      linuxFxVersion: runContainer ? 'DOCKER|${registryLoginServer}/${imageName}:${imageTag}' : 'PYTHON|3.11'
+      acrUseManagedIdentityCreds: runContainer // pull with the app's own identity: no registry password
+      // The image starts uvicorn itself (the Dockerfile's CMD); the zip needs the command.
+      appCommandLine: runContainer ? '' : 'python -m uvicorn payments_rag.api:app --host 0.0.0.0 --port 8000'
       healthCheckPath: '/health'
       minTlsVersion: '1.2'
       ftpsState: 'Disabled'
       alwaysOn: planSku != 'F1' // not available on the free tier
-      appSettings: [
-        // Build the Python environment from requirements.txt when the zip is deployed.
-        { name: 'SCM_DO_BUILD_DURING_DEPLOYMENT', value: 'true' }
+      appSettings: concat(hostingSettings, [
         { name: 'WEBSITES_PORT', value: '8000' }
         // Names and endpoints only: nothing here is a secret.
         { name: 'AZURE_OPENAI_ENDPOINT', value: openai.properties.endpoint }
@@ -110,7 +142,7 @@ resource app 'Microsoft.Web/sites@2023-12-01' = {
         { name: 'AZURE_SEARCH_INDEX', value: searchIndex }
         // A reference, not a value: App Service reads the secret with the app's identity.
         { name: 'PAYRAG_API_KEY', value: '@Microsoft.KeyVault(SecretUri=${vault.properties.vaultUri}secrets/${apiKeySecretName}/)' }
-      ]
+      ])
     }
   }
 }
@@ -158,6 +190,76 @@ module appSearchReader 'modules/search-reader.bicep' = {
   }
 }
 
+// ---- Week 9: container registry and the GitHub deployer (only when createRegistry) ----
+
+// Basic is the cheapest tier (about 5 USD a month, 10 GB included). No admin user (anonymous pull is off by default):
+// the app pulls as itself, the workflow pushes as the deployer identity.
+resource registry 'Microsoft.ContainerRegistry/registries@2023-07-01' = if (createRegistry) {
+  name: registryName
+  location: location
+  sku: {
+    name: 'Basic'
+  }
+  properties: {
+    adminUserEnabled: false
+    publicNetworkAccess: 'Enabled'
+  }
+}
+
+resource appPullsImages 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (createRegistry) {
+  scope: registry
+  name: guid(registry.id, appName, roleAcrPull)
+  properties: {
+    principalId: app.identity.principalId
+    principalType: 'ServicePrincipal'
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', roleAcrPull)
+  }
+}
+
+// The identity GitHub Actions signs in as. It holds no secret: Entra ID trusts a token from GitHub's OIDC
+// issuer only when its subject is exactly "a workflow run for a push to main of this repository", so a fork,
+// another branch or a pull request cannot sign in as it.
+resource deployer 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = if (createRegistry) {
+  name: deployerName
+  location: location
+}
+
+resource deployerFromGithubMain 'Microsoft.ManagedIdentity/userAssignedIdentities/federatedIdentityCredentials@2023-01-31' = if (createRegistry) {
+  parent: deployer
+  name: 'github-main'
+  properties: {
+    issuer: 'https://token.actions.githubusercontent.com'
+    subject: 'repo:${githubRepo}:ref:refs/heads/main'
+    audiences: ['api://AzureADTokenExchange']
+  }
+}
+
+// It may push images to this registry and manage this one web app, nothing else.
+resource deployerPushesImages 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (createRegistry) {
+  scope: registry
+  name: guid(registry.id, deployerName, roleAcrPush)
+  properties: {
+    principalId: deployer!.properties.principalId
+    principalType: 'ServicePrincipal'
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', roleAcrPush)
+  }
+}
+
+resource deployerManagesApp 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (createRegistry) {
+  scope: app
+  name: guid(app.id, deployerName, roleWebsiteContributor)
+  properties: {
+    principalId: deployer!.properties.principalId
+    principalType: 'ServicePrincipal'
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', roleWebsiteContributor)
+  }
+}
+
+output registryName string = createRegistry ? registryName : ''
+output deployerClientId string = createRegistry ? deployer!.properties.clientId : ''
+output tenantId string = tenant().tenantId
+output subscriptionId string = subscription().subscriptionId
+output resourceGroupName string = resourceGroup().name
 output appName string = app.name
 output appUrl string = 'https://${app.properties.defaultHostName}'
 output vaultName string = vault.name

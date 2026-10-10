@@ -160,4 +160,29 @@ az ml online-endpoint invoke -n payrag-fraud --request-file azureml/sample-reque
 az ml online-endpoint delete -n payrag-fraud --yes       # an endpoint bills per instance-hour until deleted
 ```
 
-Needs the resource providers PolicyInsights, Cdn, Network, ContainerService and ManagedIdentity registered. The workspace's Key Vault must use access policies, not RBAC. Check the registered model's `requirements.txt` lists `azureml-ai-monitoring` before deploying. The endpoint's image build can fail on pypi timeouts; retrying worked.
+Needs the resource providers PolicyInsights, Cdn, Network, ContainerService and ManagedIdentity registered.
+## Week 9: run the container, deploy on merge (`week8.bicep`, staged)
+
+`week8.bicep` can host the app from a container image instead of the zip. It is staged so the live app never points at an image that is not there yet. Registry: Basic, about 5 USD a month from the free credit; the F1 plan runs containers (tested on a throwaway app). In the commands, `$env:AZURE_PRINCIPAL_ID`, `AZURE_OPENAI_ACCOUNT` and `AZURE_SEARCH_SERVICE` are set as for the zip deployment above.
+
+```powershell
+# Stage 1: registry, the GitHub deployer identity (no secret; trusted only for a push to main of this repo)
+# and their roles. The app keeps running from the zip.
+$env:AZURE_W8_REGISTRY = "true"
+az deployment group create -g rg-payments-rag-w8 -f infra/week8.bicep -p infra/week8.bicepparam
+
+# Stage 2: push the first image, tagged with the commit.
+$tag = git rev-parse --short HEAD
+az acr login -g rg-payments-rag-w8 --name <registry>
+docker build -t <registry>.azurecr.io/payrag-api:$tag capstone
+docker push <registry>.azurecr.io/payrag-api:$tag
+
+# Stage 3: switch the app to the image (it pulls with its own identity, no registry password).
+$env:AZURE_W8_RUN_CONTAINER = "true"; $env:AZURE_W8_IMAGE_TAG = $tag
+az deployment group create -g rg-payments-rag-w8 -f infra/week8.bicep -p infra/week8.bicepparam
+curl https://<app>.azurewebsites.net/health      # expect {"status":"ok","configured":true}
+
+# Back to the zip: leave AZURE_W8_RUN_CONTAINER unset, deploy the template, then deploy the zip as above.
+```
+
+Deploy on merge is **not set up yet**: the workflow has no deploy job. When it does, it will need six repository **variables** (IDs and names, not secrets): `AZURE_CLIENT_ID` (the template's `deployerClientId` output), `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID`, `ACR_NAME`, `WEBAPP_NAME` and `AZURE_RESOURCE_GROUP`. The stage 1 outputs print them: `az deployment group show -g rg-payments-rag-w8 -n week8 --query properties.outputs`. The workspace's Key Vault must use access policies, not RBAC. Check the registered model's `requirements.txt` lists `azureml-ai-monitoring` before deploying. The endpoint's image build can fail on pypi timeouts; retrying worked.
