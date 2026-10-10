@@ -79,6 +79,7 @@ var roleKeyVaultSecretsOfficer = 'b86a8fe4-44ce-4948-aee5-eccb2c155cd7'
 var roleAcrPull = '7f951dda-4ed3-4680-a7ca-43fe172d538d'
 var roleAcrPush = '8311e382-0749-4cb8-b61a-304f252e45ec'
 var roleWebsiteContributor = 'de139f84-1756-47ae-9be6-808fbbe84772'
+var roleAcrDelete = 'c2f4ef07-c644-48eb-af81-4b1b4947fb11'
 
 // Settings that differ between the zip (App Service builds the Python environment) and the image.
 var hostingSettings = runContainer
@@ -247,6 +248,18 @@ resource deployerPushesImages 'Microsoft.Authorization/roleAssignments@2022-04-0
     principalId: deployer!.properties.principalId
     principalType: 'ServicePrincipal'
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', roleAcrPush)
+  }
+}
+
+// After each deploy the workflow deletes every image but the running one (capstone/deploy/prune_registry.py),
+// which AcrPush alone cannot do. AcrDelete only deletes images, and only in this registry.
+resource deployerDeletesOldImages 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (createRegistry) {
+  scope: registry
+  name: guid(registry.id, deployerName, roleAcrDelete)
+  properties: {
+    principalId: deployer!.properties.principalId
+    principalType: 'ServicePrincipal'
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', roleAcrDelete)
   }
 }
 

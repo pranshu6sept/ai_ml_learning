@@ -115,3 +115,7 @@ jobs:
           done
           echo "the app did not report healthy and configured within 5 minutes" >&2
           exit 1
+      - name: Keep only the image that is now running
+        # Runs only after the health check passed, so a failed deploy leaves the previous image in place
+        # to go back to. Deletes every other image (tagged or not) and refuses if this one is missing.
+        run: python3 capstone/deploy/prune_registry.py --registry "${{ vars.ACR_NAME }}" --keep "$GITHUB_SHA"
