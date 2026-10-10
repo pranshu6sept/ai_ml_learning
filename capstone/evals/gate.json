@@ -1,0 +1,23 @@
+{
+  "_note": "Thresholds are the measured scores minus roughly two questions' worth of slack, not a statistical bound: bm25+stem Hit@3 0.7246, MRR@10 0.6092 (retrieval.json); generation_no_semantic.json faithfulness 0.984, correctness of answered 0.931, end to end 0.688, refused 25/26. Lower a number only in a PR that explains why.",
+  "retrieval": {
+    "retriever": "bm25+stem",
+    "strategy": "structure_aware",
+    "min": {
+      "hit@3": 0.7,
+      "mrr@10": 0.58
+    }
+  },
+  "generation": [
+    {
+      "results": "results/generation_no_semantic.json",
+      "require_current_prompts": true,
+      "min": {
+        "faithfulness_mean": 0.9,
+        "correctness_mean_answered": 0.9,
+        "correctness_end_to_end": 0.65,
+        "refused_share": 0.9
+      }
+    }
+  ]
+}

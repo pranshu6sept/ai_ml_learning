@@ -38,3 +38,8 @@ node_modules/
 
 # logs (the Azure ML image-build log was committed by hand once; keep new ones out)
 *.log
+
+# MLflow local tracking store (capstone/evals/track_results.py)
+mlruns/
+mlartifacts/
+mlflow.db

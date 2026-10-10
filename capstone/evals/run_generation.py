@@ -60,6 +60,7 @@ from payments_rag import (
 )
 from payments_rag.ask import STRATEGY, ask
 from payments_rag.chunking import Chunk
+from payments_rag.prompts import prompt_version
 
 FAITHFULNESS_TARGET = 0.9  # from capstone-architecture.md
 
@@ -325,12 +326,18 @@ def main(argv: list[str] | None = None) -> None:
         split: summarise([r for r in records if r["split"] == split and r["expected"] == "answer"])
         for split in splits
     }
-    text = render(records, summary, by_split, semantic=not args.no_semantic)
+    header = f"Prompt version: `{prompt_version()}`\n\n"
+    text = header + render(records, summary, by_split, semantic=not args.no_semantic)
     RESULTS.mkdir(exist_ok=True)
     (RESULTS / f"generation{suffix}.md").write_text(text, encoding="utf-8")
     (RESULTS / f"generation{suffix}.json").write_text(
         json.dumps(
-            {"summary": summary, "by_split": by_split, "records": records},
+            {
+                "prompt_version": prompt_version(),
+                "summary": summary,
+                "by_split": by_split,
+                "records": records,
+            },
             indent=1,
             ensure_ascii=False,
         ),

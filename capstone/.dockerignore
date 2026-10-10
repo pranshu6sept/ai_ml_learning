@@ -1,0 +1,12 @@
+# The build context is the capstone folder; keep out everything the image does not use.
+**/__pycache__
+**/*.pyc
+**/.env
+**/.env.*
+frontend/node_modules
+frontend/dist
+deploy/dist
+tests
+evals
+docs
+examples

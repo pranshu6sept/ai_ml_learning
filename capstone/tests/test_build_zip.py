@@ -69,6 +69,7 @@ def test_the_real_package_zip_contains_the_api_and_no_environment_file(tmp_path:
     names = module.build(tmp_path / "real.zip", web=None)
 
     assert "payments_rag/api.py" in names and "requirements.txt" in names
+    assert "payments_rag/prompts/answer.txt" in names  # data files the package reads
     assert not any(n.endswith(".env") or n.startswith("tests/") for n in names)
 
 

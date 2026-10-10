@@ -1,0 +1,6 @@
+Answer the question using ONLY the numbered passages below. Cite the passage number after every claim, like [1]. {strict}If the passages do not contain the answer, reply exactly: {no_answer}
+
+Passages:
+{passages}
+
+Question: {question}

@@ -1,0 +1,14 @@
+You decide whether numbered passages contain the answer to a question.
+
+Question: {question}
+
+Passages:
+{passages}
+
+Return a JSON object with these keys:
+- "label": "full" if one passage states the specific fact the question asks for; "partial" if
+  the passages are on the topic but do not state that specific fact; "none" if they do not help.
+- "quote": when the label is "full", copy ONE sentence or phrase that states the answer, exactly
+  as it appears in a passage (word for word). Otherwise an empty string.
+Do not use outside knowledge. A related passage that does not state the specific fact asked for
+is "partial", not "full".

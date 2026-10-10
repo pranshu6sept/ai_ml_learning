@@ -97,10 +97,10 @@ Tick boxes as you go (`[x]`). Every week ends with something pushed to GitHub an
 ## Phase 4: MLOps/LLMOps + guardrails
 
 ### Week 9 · Nov 30–Dec 6 · CI/CD and eval gates
-- [ ] Multi-stage Dockerfile
+- [x] Multi-stage Dockerfile
 - [ ] GitHub Actions: lint → test → eval gate → build → deploy
-- [ ] MLflow or Azure ML experiment tracking
-- [ ] Prompts versioned in Git; PRs that drop golden-set scores below threshold fail CI
+- [x] MLflow or Azure ML experiment tracking
+- [x] Prompts versioned in Git; PRs that drop golden-set scores below threshold fail CI (committed results gate, see notes/week-09.md)
 - [ ] **Deliverable:** green pipeline that deploys on merge to main
 - [ ] Write-up + push
 

@@ -9,14 +9,13 @@ from dataclasses import dataclass
 
 import numpy as np
 
+from . import prompts
 from .reranking import Reranker, rerank
 from .retrieval import Hit, Retriever
 
 NO_ANSWER = "I don't know based on the provided documents."
-STRICT_CITATION_RULE = (
-    "Write short sentences and end EVERY sentence with a citation such as [1] or [1][2]. "
-    "Do not write an introduction, a summary or any sentence that has no citation. "
-)
+# The prompts live in `payments_rag/prompts/*.txt` (see there for why).
+STRICT_CITATION_RULE = prompts.load("strict_citation_rule").rstrip("\n") + " "
 _CITATION = re.compile(r"\[(\d+)\]")
 _TRAILING_CITATION = re.compile(r"([.!?])\s*((?:\[\d+\]\s*)+)(?=\s|$)")
 # An inline numbered list ("steps: 1. A. 2. B [1].") is kept as ONE sentence, so a
@@ -75,11 +74,14 @@ def build_prompt(answer: GroundedAnswer, *, strict: bool = False) -> str:
         return f"Reply exactly: {NO_ANSWER}"
     passages = "\n\n".join(f"[{n}] {h.chunk.text}" for n, h in enumerate(answer.evidence, 1))
     return (
-        "Answer the question using ONLY the numbered passages below. Cite the passage number after "
-        "every claim, like [1]. "
-        + (STRICT_CITATION_RULE if strict else "")
-        + "If the passages do not contain the answer, reply exactly: "
-        f"{NO_ANSWER}\n\nPassages:\n{passages}\n\nQuestion: {answer.question}"
+        prompts.load("answer")
+        .rstrip("\n")
+        .format(
+            strict=STRICT_CITATION_RULE if strict else "",
+            no_answer=NO_ANSWER,
+            passages=passages,
+            question=answer.question,
+        )
     )
 
 
@@ -164,21 +166,7 @@ def enforce_citations(reply: str, n_passages: int) -> CitedReply:
     return CitedReply(" ".join(kept), tuple(dropped), invalid, False)
 
 
-ANSWERABILITY_PROMPT = """You decide whether numbered passages contain the answer to a question.
-
-Question: {question}
-
-Passages:
-{passages}
-
-Return a JSON object with these keys:
-- "label": "full" if one passage states the specific fact the question asks for; "partial" if
-  the passages are on the topic but do not state that specific fact; "none" if they do not help.
-- "quote": when the label is "full", copy ONE sentence or phrase that states the answer, exactly
-  as it appears in a passage (word for word). Otherwise an empty string.
-Do not use outside knowledge. A related passage that does not state the specific fact asked for
-is "partial", not "full".
-"""
+ANSWERABILITY_PROMPT = prompts.load("answerability")
 
 
 @dataclass(frozen=True)

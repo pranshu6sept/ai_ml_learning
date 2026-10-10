@@ -24,6 +24,30 @@ jobs:
         run: uv run mypy
       - name: Tests
         run: uv run pytest --cov=classical_ml --cov=payments_rag
+      - name: Eval gate
+        # Fails when golden-set scores fall below capstone/evals/gate.json, or when a prompt was
+        # edited without re-running the evaluation (the committed results name the prompt version).
+        run: uv run python capstone/evals/eval_gate.py
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the image
+        run: docker build -t payrag-api capstone
+      - name: Smoke test
+        # No Azure settings here, so the service must still start and say it is not configured;
+        # /ask must refuse a request without the key.
+        run: |
+          docker run -d --name smoke -p 8000:8000 -e PAYRAG_API_KEY=smoke-test-key payrag-api
+          for i in $(seq 1 30); do curl -sf localhost:8000/health && break; sleep 1; done
+          curl -sf localhost:8000/health | grep '"status":"ok"'
+          curl -sf -o /dev/null localhost:8000/
+          test "$(curl -s -o /dev/null -w '%{http_code}' -H 'Content-Type: application/json' -d '{"question":"hi"}' localhost:8000/ask)" = 401
+          test "$(docker exec smoke id -u)" != 0
+      - name: Logs on failure
+        if: failure()
+        run: docker logs smoke
 
   frontend:
     runs-on: ubuntu-latest

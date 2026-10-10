@@ -48,6 +48,11 @@ notebooks = [
 orchestration = [
     "langgraph>=1.2",
 ]
+tracking = [
+    "mlflow-skinny>=3.0",
+    "sqlalchemy>=2.0",  # the SQLite store MLflow 3 uses by default
+    "alembic>=1.13",
+]
 
 [build-system]
 requires = ["hatchling"]

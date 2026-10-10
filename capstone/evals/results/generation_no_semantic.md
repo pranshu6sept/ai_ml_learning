@@ -1,3 +1,5 @@
+Prompt version: `5aca1c24bba7`
+
 95 golden questions through the real pipeline (Azure hybrid search, NO semantic ranker, answerability check, cited answer). Judge = the same gpt-4.1-mini deployment, so scores are optimistic. One run. One question is worth 0.014 of an answerable-question score.
 
 ## Headline
