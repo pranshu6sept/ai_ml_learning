@@ -10,11 +10,11 @@ Built fresh on `main`. An earlier unmerged branch (`claude/great-carson-6kp0ng`)
 |---|---|
 | Multi-stage Dockerfile | **Done and run**: built locally, started, smoke-tested (below). Its CI job has not run on GitHub yet |
 | CI: lint → test → eval gate → build | **Done**: `check` job (lint, format, types, tests, eval gate) and a `docker` job (build, smoke test), plus `frontend` |
-| CI: deploy | **Written, first real run pending**: a `deploy` job builds and pushes the image and points the app at it (below) |
+| CI: deploy | **Done and run**: a `deploy` job builds and pushes the image and points the app at it; it failed once on the Azure sign-in, then passed (below) |
 | Hosted app runs the container from a registry | **Done and checked** (below) |
 | Experiment tracking | **Done**: evaluation results logged to MLflow, locally and in the Azure ML workspace |
 | Prompts versioned in Git; a PR that drops scores fails CI | **Done, with limits** (below) |
-| Deliverable: green pipeline that deploys on merge | **Not yet shown**: the pieces exist; it counts as done when a push to main has run the deploy job green (see "Not done") |
+| Deliverable: green pipeline that deploys on merge | **Done**: run 38079824440 on main: `check`, `frontend`, `docker` and `deploy` all green, and the live app then reported the pipeline's image (below) |
 
 ## Prompts in files (`payments_rag/prompts/`)
 
@@ -65,7 +65,8 @@ Built and run locally (Docker 28.1.1): the image is **492 MB**. In a container s
 
 ## Not done and open
 
-- [ ] **Show the deploy green.** The deploy job has not run on GitHub. Its first real run is the push that adds it (once the six repository variables exist). Until then "deploys on merge" is untested.
+- [x] **The deploy ran on GitHub, with one failure first.** The first run failed at `azure/login` with `AADSTS700213: No matching federated identity record`. This repository's token carries the subject `repo:pranshu6sept@128319537/ai_ml_learning@1400134254:ref:refs/heads/main` (owner and repo IDs, checked with `gh api`), not the plain `repo:OWNER/REPO` form I had put in the trust. I changed the credential's subject to the exact string (a stricter match that survives a rename), put it in `week8.bicepparam` as `githubSubject` so a later template deployment keeps it, and re-ran the failed job from the same commit: it passed. Afterwards, from outside CI: the app's runtime is `DOCKER|…/payrag-api:efa329eb…` (the pipeline's commit), the registry holds that tag and `f23d0a8`, `/health` reports `configured: true`, and "What is ISO 20022?" returned a cited answer with 3 sources.
+- [ ] **Not yet shown:** a second, unprompted deploy (push without me intervening), a failed deploy being caught (the health gate has not been made to fail), and the rollback path in the pipeline (there is none; rollback is the template parameter).
 - [ ] **Registry cleanup.** The workflow pushes one tag per commit and deletes none. A Basic registry includes 10 GB, and layers are shared, so this is slow growth, but nothing prunes old tags yet.
 - [ ] **Public-repo log exposure.** The variables hold tenant, subscription and client IDs. They are identifiers, not credentials, but this repository is public, so they can appear in public workflow logs. Check a run's log; use a private repo if that matters.
 - [ ] Run the evaluation inside CI on prompt changes (needs the same Azure sign-in, plus model cost per run and rate-limit pacing).

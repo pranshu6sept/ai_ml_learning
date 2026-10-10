@@ -56,6 +56,11 @@ param runContainer bool = false
 @description('GitHub repository (owner/name) whose workflow on the main branch may deploy.')
 param githubRepo string = 'pranshu6sept/ai_ml_learning'
 
+@description('''The exact "sub" claim GitHub puts in the workflow's OIDC token; Entra ID matches it character for character.
+Newer repositories use the immutable form repo:OWNER@OWNER_ID/REPO@REPO_ID:ref:refs/heads/main (survives a rename). The
+sign-in error AADSTS700213 prints the subject GitHub actually sent; check the IDs with `gh api repos/OWNER/REPO`.''')
+param githubSubject string = 'repo:${githubRepo}:ref:refs/heads/main'
+
 param imageName string = 'payrag-api'
 
 @description('The image tag the app runs. The workflow sets the commit SHA; this only has to exist when runContainer is true.')
@@ -229,7 +234,7 @@ resource deployerFromGithubMain 'Microsoft.ManagedIdentity/userAssignedIdentitie
   name: 'github-main'
   properties: {
     issuer: 'https://token.actions.githubusercontent.com'
-    subject: 'repo:${githubRepo}:ref:refs/heads/main'
+    subject: githubSubject
     audiences: ['api://AzureADTokenExchange']
   }
 }
