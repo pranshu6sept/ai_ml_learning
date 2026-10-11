@@ -29,6 +29,18 @@ Answerer = Callable[[str], Answer]
 EventSink = Callable[[str, tuple[str, ...]], None]  # (stage, reason codes)
 
 
+PLATFORM_FILTER = "platform_filter"
+
+
+def platform_filtered(error: BaseException) -> bool:
+    """True for the Azure OpenAI error raised when its content filter refuses a prompt.
+
+    Recognised by its ``code`` attribute (``openai.BadRequestError`` carries it), so this module
+    does not need the ``openai`` package.
+    """
+    return getattr(error, "code", None) == "content_filter"
+
+
 def prompt_secrets() -> list[str]:
     """The prompt templates: text that must never come back in an answer."""
     return [prompts.load(name) for name in prompts.prompt_names()]
@@ -53,7 +65,17 @@ def guarded(
         if not verdict.allowed:
             return Answer("", policy.INPUT_BLOCKED, (), True, policy.reason(*verdict.reasons))
 
-        result = answerer(verdict.text)
+        try:
+            result = answerer(verdict.text)
+        except Exception as error:
+            if not platform_filtered(error):
+                raise
+            # The Azure OpenAI deployment's own content filter refused the prompt (HTTP 400,
+            # code "content_filter"): a refusal, not a server error.
+            emit("pipeline", (PLATFORM_FILTER,))
+            return Answer(
+                verdict.text, policy.INPUT_BLOCKED, (), True, policy.reason(PLATFORM_FILTER)
+            )
         passages = [hit.chunk.text for hit in result.evidence]
         out = check_output(result.text, passages, refused=result.refused, secrets=hidden)
         emit("output", out.reasons)

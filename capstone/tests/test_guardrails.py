@@ -318,3 +318,31 @@ def test_no_golden_or_hard_negative_question_is_blocked() -> None:
     blocked = [q for q in golden + hard if not check_input(q).allowed]
 
     assert blocked == []
+
+
+# ---- the deployment's own content filter ----
+
+
+class FakeContentFilterError(Exception):
+    code = "content_filter"
+
+
+def test_a_content_filter_refusal_from_the_platform_becomes_a_graceful_refusal() -> None:
+    def refused_by_platform(question: str) -> Answer:
+        raise FakeContentFilterError("the prompt triggered the content management policy")
+
+    events: list[tuple[str, tuple[str, ...]]] = []
+
+    result = guarded(refused_by_platform, on_event=lambda s, c: events.append((s, c)))("A question")
+
+    assert result.refused and result.text == policy.INPUT_BLOCKED
+    assert result.reason == "guardrail:platform_filter"
+    assert events == [("pipeline", ("platform_filter",))]
+
+
+def test_other_errors_from_the_pipeline_still_propagate() -> None:
+    def broken(question: str) -> Answer:
+        raise RuntimeError("search is down")
+
+    with pytest.raises(RuntimeError):
+        guarded(broken)("A question")

@@ -267,6 +267,97 @@ def render(result: dict[str, Any], title: str) -> str:
     return "\n".join(lines) + "\n"
 
 
+class ThrottledShield:
+    """Prompt Shields at a pace the free tier allows (5 requests a second), retrying transient errors.
+
+    An evaluation must not quietly count a failed call as "no attack", so after four failures this
+    raises instead of failing open.
+    """
+
+    def __init__(self, inner: Any, min_interval: float = 0.3) -> None:
+        self.inner = inner
+        self.min_interval = min_interval
+        self.calls = 0
+        self.errors = 0
+        self._last = 0.0
+
+    @classmethod
+    def from_env(cls) -> ThrottledShield:
+        import os
+
+        from payments_rag.guardrails.shield import PromptShields
+
+        endpoint = os.environ.get("AZURE_CONTENT_SAFETY_ENDPOINT")
+        if not endpoint:
+            raise SystemExit("set AZURE_CONTENT_SAFETY_ENDPOINT to use --shield")
+        return cls(PromptShields(endpoint))
+
+    def __call__(self, text: str) -> bool:
+        import time
+
+        from payments_rag.guardrails.shield import ShieldError
+
+        for attempt in range(4):
+            time.sleep(max(0.0, self._last + self.min_interval - time.monotonic()))
+            self._last = time.monotonic()
+            self.calls += 1
+            try:
+                return bool(self.inner.analyze(text).user_attack)
+            except ShieldError:
+                self.errors += 1
+                time.sleep(1.0 + attempt)
+        raise RuntimeError("Prompt Shields kept failing; not recording a guess")
+
+
+def run_live(use_shield: bool, out: str, compound: bool = False) -> int:
+    """The experiments that need Azure OpenAI; the shield, if asked for, is the free Content Safety one."""
+    import os
+
+    import guardrails_live as live
+
+    from payments_rag.guardrails.shield import PromptShields
+
+    data = load_inputs()
+    heldout = read_jsonl(HERE / "adversarial_heldout.jsonl")
+    chat, settings = live.make_chat()
+    shield = None
+    if use_shield:
+        endpoint = os.environ.get("AZURE_CONTENT_SAFETY_ENDPOINT")
+        if not endpoint:
+            raise SystemExit("set AZURE_CONTENT_SAFETY_ENDPOINT to use --shield")
+        shield = PromptShields(endpoint)
+    throttled = ThrottledShield(shield) if shield is not None else None
+    if compound:
+        # Answerable questions with an instruction attached: the pipeline cannot refuse them for being off-topic.
+        attacks = read_jsonl(HERE / "adversarial_compound.jsonl")
+        rows = live.user_attacks_end_to_end(chat, settings, attacks, throttled)["rows"]
+        result = {"rows": rows, "model_calls": chat.calls}
+        text = live.render_compound(rows) + f"\nModel calls: {chat.calls}.\n"
+        RESULTS.mkdir(exist_ok=True)
+        (RESULTS / f"{out}.md").write_text(text, encoding="utf-8")
+        (RESULTS / f"{out}.json").write_text(
+            json.dumps(result, indent=1, ensure_ascii=False), encoding="utf-8"
+        )
+        print(text)
+        return 0
+    result = {
+        "user_attacks": live.user_attacks_end_to_end(
+            chat, settings, data["attacks"] + heldout, throttled
+        ),
+        "document_attacks": live.document_attacks(chat, data["attacks"], data["records"], shield),
+        "prompt_leakage": live.prompt_leakage(chat, data["attacks"] + heldout, data["records"]),
+        "model_calls": chat.calls,
+    }
+    text = live.render_live(result) + f"\nModel calls: {chat.calls}.\n"
+    RESULTS.mkdir(exist_ok=True)
+    (RESULTS / f"{out}.md").write_text(text, encoding="utf-8")
+    (RESULTS / f"{out}.json").write_text(
+        json.dumps(result, indent=1, ensure_ascii=False), encoding="utf-8"
+    )
+    print(text)
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument(
@@ -277,12 +368,37 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="use the sets written after patterns v2 was frozen (adversarial_heldout.jsonl, benign_heldout.jsonl)",
     )
+    parser.add_argument(
+        "--shield",
+        action="store_true",
+        help="also call Azure Prompt Shields (needs AZURE_CONTENT_SAFETY_ENDPOINT and az login)",
+    )
+    parser.add_argument(
+        "--compound",
+        action="store_true",
+        help="with --live: only the answerable-question-plus-injection set (adversarial_compound.jsonl)",
+    )
+    parser.add_argument(
+        "--live",
+        action="store_true",
+        help="run the experiments that call Azure OpenAI (end to end, document attacks, leakage)",
+    )
     args = parser.parse_args(argv)
     sys.stdout.reconfigure(encoding="utf-8")  # type: ignore[attr-defined]
-    result = run_offline(heldout=args.heldout)
+    if args.live:
+        return run_live(args.shield, args.out, args.compound)
+    shield = ThrottledShield.from_env() if args.shield else None
+    result = run_offline(shield, heldout=args.heldout)
+    if shield is not None:
+        result["shield"] = {"calls": shield.calls, "retried_errors": shield.errors}
     RESULTS.mkdir(exist_ok=True)
-    title = "patterns, PII redaction and output checks (offline)"
+    title = "patterns + Azure Prompt Shields" if shield else "patterns only (offline)"
     text = render(result, title + (", HELD-OUT sets" if args.heldout else ""))
+    if shield is not None:
+        text += (
+            f"\nPrompt Shields: {shield.calls} calls, {shield.errors} transient errors retried "
+            "(free tier, 5 requests a second).\n"
+        )
     (RESULTS / f"{args.out}.md").write_text(text, encoding="utf-8")
     (RESULTS / f"{args.out}.json").write_text(
         json.dumps(result, indent=1, ensure_ascii=False), encoding="utf-8"
