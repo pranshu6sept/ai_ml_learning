@@ -118,10 +118,10 @@ Tick boxes as you go (`[x]`). Every week ends with something pushed to GitHub an
 ## Phase 5: Observability + polish
 
 ### Week 11 · Dec 14–20 · Observability and drift
-- [ ] OpenTelemetry → Application Insights: span per LLM call (latency, tokens, cost, retrieval hits)
-- [ ] Dashboard + alerts (p95 latency, error rate, cost/day, groundedness)
-- [ ] User feedback capture (thumbs up/down stored with trace id)
-- [ ] Drift: query/embedding distribution shift, retrieval-quality decay; PSI/KS for the classical model
+- [~] OpenTelemetry → Application Insights: span per LLM call (latency, tokens, cost, retrieval hits) (code done and tested; not yet switched on in production)
+- [~] Dashboard + alerts (p95 latency, error rate, cost/day, groundedness) (workbook and 2 free metric alerts deployed; p95, cost and groundedness proxy on the dashboard only; not yet seen rendering)
+- [~] User feedback capture (thumbs up/down stored with trace id) (logged with the trace id; not durable storage)
+- [x] Drift: query/embedding distribution shift, retrieval-quality decay; PSI/KS for the classical model
 - [ ] **Deliverable:** live App Insights dashboard (screenshot in README)
 - [ ] Write-up + push
 

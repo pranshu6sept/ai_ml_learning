@@ -1,0 +1,203 @@
+{
+ "query_drift": {
+  "reference_n": 48,
+  "rows": [
+   {
+    "set": "heldout",
+    "n": 14,
+    "auc_mean": 0.4084183673469387,
+    "null_auc_mean": 0.4127551020408163,
+    "null_auc_p95": 0.5469387755102041,
+    "distinguishable": false,
+    "centroid_cosine_distance": 0.09595681269184386,
+    "length_psi": 2.2064679940028524,
+    "length_psi_same_size": 2.2064679940028533,
+    "length_psi_null_p95": 3.6785422624404394,
+    "length_distinguishable": false,
+    "length_ks": 0.3511904761904762,
+    "length_ks_p": 0.10693231518311948
+   },
+   {
+    "set": "corpus_update",
+    "n": 6,
+    "auc_mean": 0.4305555555555555,
+    "null_auc_mean": 0.35277777777777786,
+    "null_auc_p95": 0.4736111111111111,
+    "distinguishable": false,
+    "centroid_cosine_distance": 0.15825638805729791,
+    "length_psi": 5.994776898345032,
+    "length_psi_same_size": 5.994776898345032,
+    "length_psi_null_p95": 5.950074049873514,
+    "length_distinguishable": true,
+    "length_ks": 0.7083333333333334,
+    "length_ks_p": 0.004237222967666079
+   },
+   {
+    "set": "independent (web-sourced wording)",
+    "n": 44,
+    "auc_mean": 0.5824652777777779,
+    "null_auc_mean": 0.47526041666666663,
+    "null_auc_p95": 0.6388020833333332,
+    "distinguishable": false,
+    "centroid_cosine_distance": 0.07882314064268747,
+    "length_psi": 1.0889912398057886,
+    "length_psi_same_size": 2.132675219499607,
+    "length_psi_null_p95": 2.796539518858299,
+    "length_distinguishable": false,
+    "length_ks": 0.42045454545454547,
+    "length_ks_p": 0.0003652126547240812
+   },
+   {
+    "set": "abstain (off-topic)",
+    "n": 18,
+    "auc_mean": 0.5038580246913579,
+    "null_auc_mean": 0.4217592592592593,
+    "null_auc_p95": 0.5234567901234569,
+    "distinguishable": false,
+    "centroid_cosine_distance": 0.14705111918991864,
+    "length_psi": 1.8035919079217488,
+    "length_psi_same_size": 1.803591907921749,
+    "length_psi_null_p95": 3.2385874202982365,
+    "length_distinguishable": false,
+    "length_ks": 0.23611111111111116,
+    "length_ks_p": 0.40697578724812694
+   },
+   {
+    "set": "attacks (user channel)",
+    "n": 68,
+    "auc_mean": 0.970486111111111,
+    "null_auc_mean": 0.47526041666666663,
+    "null_auc_p95": 0.6388020833333332,
+    "distinguishable": true,
+    "centroid_cosine_distance": 0.4308205477863505,
+    "length_psi": 1.5556609113531152,
+    "length_psi_same_size": 2.571095482521198,
+    "length_psi_null_p95": 2.796539518858299,
+    "length_distinguishable": false,
+    "length_ks": 0.39950980392156865,
+    "length_ks_p": 0.00015503265422859986
+   },
+   {
+    "set": "compound attacks",
+    "n": 10,
+    "auc_mean": 0.9770000000000001,
+    "null_auc_mean": 0.4704999999999998,
+    "null_auc_p95": 0.6960000000000001,
+    "distinguishable": true,
+    "centroid_cosine_distance": 0.3013947284236873,
+    "length_psi": 6.052713453767892,
+    "length_psi_same_size": 6.052713453767892,
+    "length_psi_null_p95": 4.625841176367752,
+    "length_distinguishable": true,
+    "length_ks": 0.7333333333333334,
+    "length_ks_p": 9.961995364922987e-05
+   }
+  ]
+ },
+ "retrieval_decay": {
+  "baseline_hit_at_3": 0.7246376811594203,
+  "answerable": 69,
+  "tolerance": 0.043478260869565216,
+  "rows": [
+   {
+    "removed": "card_scheme_public_summary",
+    "questions_with_this_gold_doc": 14,
+    "hit_at_3": 0.6666666666666666,
+    "drop": 0.05797101449275366,
+    "decay_flagged": true,
+    "top_score_psi": 0.05105064111041066,
+    "top_score_ks": 0.0579710144927536
+   },
+   {
+    "removed": "cfpb_credit_card_disputes",
+    "questions_with_this_gold_doc": 6,
+    "hit_at_3": 0.6666666666666666,
+    "drop": 0.05797101449275366,
+    "decay_flagged": true,
+    "top_score_psi": 0.12253861115348391,
+    "top_score_ks": 0.10144927536231885
+   },
+   {
+    "removed": "faqs",
+    "questions_with_this_gold_doc": 12,
+    "hit_at_3": 0.6231884057971014,
+    "drop": 0.10144927536231885,
+    "decay_flagged": true,
+    "top_score_psi": 0.13314220040129104,
+    "top_score_ks": 0.10144927536231885
+   },
+   {
+    "removed": "iso20022_message_identifiers",
+    "questions_with_this_gold_doc": 4,
+    "hit_at_3": 0.6521739130434783,
+    "drop": 0.07246376811594202,
+    "decay_flagged": true,
+    "top_score_psi": 0.06205126158334279,
+    "top_score_ks": 0.10144927536231885
+   },
+   {
+    "removed": "iso20022_overview",
+    "questions_with_this_gold_doc": 6,
+    "hit_at_3": 0.6521739130434783,
+    "drop": 0.07246376811594202,
+    "decay_flagged": true,
+    "top_score_psi": 0.07308041431764857,
+    "top_score_ks": 0.07246376811594203
+   },
+   {
+    "removed": "pci_dss_overview",
+    "questions_with_this_gold_doc": 4,
+    "hit_at_3": 0.6666666666666666,
+    "drop": 0.05797101449275366,
+    "decay_flagged": true,
+    "top_score_psi": 0.10676639828252653,
+    "top_score_ks": 0.07246376811594202
+   },
+   {
+    "removed": "psd2_overview",
+    "questions_with_this_gold_doc": 6,
+    "hit_at_3": 0.6666666666666666,
+    "drop": 0.05797101449275366,
+    "decay_flagged": true,
+    "top_score_psi": 0.06439808574488222,
+    "top_score_ks": 0.10144927536231883
+   },
+   {
+    "removed": "rbi_authentication_directions_2025",
+    "questions_with_this_gold_doc": 5,
+    "hit_at_3": 0.7101449275362319,
+    "drop": 0.01449275362318836,
+    "decay_flagged": false,
+    "top_score_psi": 0.06738414492475571,
+    "top_score_ks": 0.08695652173913043
+   },
+   {
+    "removed": "rbi_card_not_present_afa",
+    "questions_with_this_gold_doc": 7,
+    "hit_at_3": 0.6666666666666666,
+    "drop": 0.05797101449275366,
+    "decay_flagged": true,
+    "top_score_psi": 0.07021279341125636,
+    "top_score_ks": 0.08695652173913049
+   },
+   {
+    "removed": "rbi_payment_systems_public_summary",
+    "questions_with_this_gold_doc": 3,
+    "hit_at_3": 0.6666666666666666,
+    "drop": 0.05797101449275366,
+    "decay_flagged": true,
+    "top_score_psi": 0.044470544375300604,
+    "top_score_ks": 0.07246376811594203
+   },
+   {
+    "removed": "upi_overview",
+    "questions_with_this_gold_doc": 9,
+    "hit_at_3": 0.6376811594202898,
+    "drop": 0.08695652173913049,
+    "decay_flagged": true,
+    "top_score_psi": 0.13536263734009793,
+    "top_score_ks": 0.1449275362318841
+   }
+  ]
+ }
+}

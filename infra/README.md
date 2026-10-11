@@ -211,3 +211,24 @@ uv run --all-groups python capstone/evals/run_guardrails.py --live --shield   # 
 ```
 
 The template gives *you* the "Cognitive Services User" role. To let the web app call the service, set `AZURE_W10_APP_PRINCIPAL_ID` to the app's identity (`az webapp identity show -g rg-payments-rag-w8 -n <app> --query principalId -o tsv`) and redeploy this template, then give the app the endpoint: `az webapp config appsettings set -g rg-payments-rag-w8 -n <app> --settings AZURE_CONTENT_SAFETY_ENDPOINT=https://<account>.cognitiveservices.azure.com/` (or set `AZURE_CONTENT_SAFETY_ENDPOINT` when deploying `week8.bicep`, remembering to pass the running image tag). **Both are done for the hosted app.** The guards can be switched off with `PAYRAG_GUARDRAILS=off`; remove the endpoint setting to turn only the shield off.
+
+## Week 11: observability (`week11.bicep`, resource group `rg-payments-rag-w11`)
+
+Workspace-based Application Insights, kept inside the free allowances: a Log Analytics workspace with a **0.1 GB daily cap**, key authentication **disabled** on the component (the app signs in with its own identity), a workbook (the dashboard), and two free metric alerts. See `notes/week-11.md` for what is free and what is not verified.
+
+```powershell
+az group create -n rg-payments-rag-w11 -l centralindia
+$env:AZURE_W11_APP_PRINCIPAL_ID = (az webapp identity show -g rg-payments-rag-w8 -n <app> --query principalId -o tsv)
+# $env:AZURE_W11_ALERT_EMAIL = "you@example.com"     # optional: without it alerts show in the portal only
+az deployment group create -g rg-payments-rag-w11 -f infra/week11.bicep -p infra/week11.bicepparam
+```
+
+To switch telemetry on in the hosted app, give it the connection string (an identifier, not a secret, because key sign-in is off, but it is passed at deploy time instead of being committed) and let the pipeline deploy the image that contains the code:
+
+```powershell
+$cs = az resource show -g rg-payments-rag-w11 -n <component> --resource-type Microsoft.Insights/components --query properties.ConnectionString -o tsv
+az webapp config appsettings set -g rg-payments-rag-w8 -n <app> --settings APPLICATIONINSIGHTS_CONNECTION_STRING=$cs
+# or set APPLICATIONINSIGHTS_CONNECTION_STRING when deploying week8.bicep (and pass the running image tag)
+```
+
+**Not done for the hosted app yet** (see the notes).
