@@ -165,7 +165,20 @@ def load_inputs() -> dict[str, Any]:
     }
 
 
-def run_offline(shield: Callable[[str], bool] | None = None) -> dict[str, Any]:
+def run_offline(
+    shield: Callable[[str], bool] | None = None, heldout: bool = False
+) -> dict[str, Any]:
+    """The offline measurements. ``heldout`` uses the sets written after patterns v2 was frozen."""
+    if heldout:
+        attacks = read_jsonl(HERE / "adversarial_heldout.jsonl")
+        benign = read_jsonl(HERE / "benign_heldout.jsonl")
+        return {
+            "input_attacks": input_attacks(attacks, shield),
+            "pii": pii_cases(attacks),
+            "benign_golden": {"total": 0, "blocked": [], "altered": []},
+            "benign_hard": benign_questions([b["text"] for b in benign], shield),
+            "real_answers": {"total": 0, "blocked": []},
+        }
     data = load_inputs()
     return {
         "input_attacks": input_attacks(data["attacks"], shield),
@@ -223,7 +236,12 @@ def render(result: dict[str, Any], title: str) -> str:
         "## False positives on legitimate input\n",
         "| Set | Questions | Blocked | False-positive rate | Altered by redaction |",
         "|---|---|---|---|---|",
-        f"| Golden-set questions | {g['total']} | {len(g['blocked'])} | {pct(rate(len(g['blocked']), g['total']))} | {len(g['altered'])} |",
+    ]
+    if g["total"]:
+        lines.append(
+            f"| Golden-set questions | {g['total']} | {len(g['blocked'])} | {pct(rate(len(g['blocked']), g['total']))} | {len(g['altered'])} |"
+        )
+    lines += [
         f"| Hard negatives (attack-sounding, legitimate) | {h['total']} | {len(h['blocked'])} | {pct(rate(len(h['blocked']), h['total']))} | {len(h['altered'])} |",
         "",
     ]
@@ -236,15 +254,16 @@ def render(result: dict[str, Any], title: str) -> str:
             f"- redacted ({label}): {b['text'][:70]} -> {b['became'][:70]}"
             for b in block["altered"]
         ]
-    lines += [
-        "",
-        "## False positives on real answers (output guard)\n",
-        f"{len(ra['blocked'])} of {ra['total']} answers the pipeline really gave were blocked. "
-        "The support threshold was tuned on these same answers, so 0 is optimistic.\n",
-    ]
-    lines += [
-        f"- blocked `{b['id']}` [{','.join(b['reasons'])}]: {b['reply']}" for b in ra["blocked"]
-    ]
+    if ra["total"]:
+        lines += [
+            "",
+            "## False positives on real answers (output guard)\n",
+            f"{len(ra['blocked'])} of {ra['total']} answers the pipeline really gave were blocked. "
+            "The support threshold was tuned on these same answers, so 0 is optimistic.\n",
+        ]
+        lines += [
+            f"- blocked `{b['id']}` [{','.join(b['reasons'])}]: {b['reply']}" for b in ra["blocked"]
+        ]
     return "\n".join(lines) + "\n"
 
 
@@ -253,11 +272,17 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--out", default="guardrails", help="results file stem (written under results/)"
     )
+    parser.add_argument(
+        "--heldout",
+        action="store_true",
+        help="use the sets written after patterns v2 was frozen (adversarial_heldout.jsonl, benign_heldout.jsonl)",
+    )
     args = parser.parse_args(argv)
     sys.stdout.reconfigure(encoding="utf-8")  # type: ignore[attr-defined]
-    result = run_offline()
+    result = run_offline(heldout=args.heldout)
     RESULTS.mkdir(exist_ok=True)
-    text = render(result, "patterns, PII redaction and output checks (offline)")
+    title = "patterns, PII redaction and output checks (offline)"
+    text = render(result, title + (", HELD-OUT sets" if args.heldout else ""))
     (RESULTS / f"{args.out}.md").write_text(text, encoding="utf-8")
     (RESULTS / f"{args.out}.json").write_text(
         json.dumps(result, indent=1, ensure_ascii=False), encoding="utf-8"
