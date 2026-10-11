@@ -36,6 +36,7 @@ from fastapi import Depends, FastAPI, Header, HTTPException, Request, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field
 
+from . import telemetry
 from .ask import Answer
 from .guardrails import policy
 from .guardrails.pii import redact
@@ -268,7 +269,9 @@ def create_app(
                 detail="too many requests; try again shortly",
                 headers={"Retry-After": str(limiter.retry_after())},
             )
-        request_id = uuid.uuid4().hex
+        totals = telemetry.begin_request()
+        # The trace id doubles as the request id, so a rating sent later joins its trace.
+        request_id = telemetry.current_trace_id() or uuid.uuid4().hex
         started = time.perf_counter()
         try:
             result = get_answerer()(body.question)
@@ -279,6 +282,16 @@ def create_app(
                 status_code=502, detail="the assistant could not answer; try again"
             ) from None
         latency_ms = round((time.perf_counter() - started) * 1000)
+        telemetry.annotate_request(
+            totals,
+            **{
+                "payrag.refused": result.refused,
+                "payrag.reason": result.reason[:120],  # a fixed pipeline phrase or a guard code
+                "payrag.question_chars": len(body.question),
+                "payrag.sources": len(result.sources),
+                "payrag.answer_chars": len(result.text),
+            },
+        )
         log.info(
             "request %s refused=%s reason=%s latency_ms=%d",
             request_id,
@@ -299,6 +312,16 @@ def create_app(
     @app.post("/feedback", dependencies=[Depends(check_key)])
     def feedback_endpoint(body: FeedbackRequest) -> FeedbackResponse:
         feedback.add(body.request_id, body.rating, body.comment)
+        # To Application Insights as a trace record joined to the request by its id. The comment
+        # text is not sent (it may hold personal data); only whether there was one.
+        log.info(
+            "feedback",
+            extra={
+                "payrag_request_id": body.request_id,
+                "payrag_rating": body.rating,
+                "payrag_has_comment": bool(body.comment),
+            },
+        )
         return FeedbackResponse(stored=True)
 
     @app.middleware("http")
@@ -321,4 +344,15 @@ def create_app(
     return app
 
 
+def start_telemetry() -> bool:
+    """Switch on Application Insights if configured. A telemetry problem never stops the app."""
+    try:
+        return telemetry.setup()
+    except Exception:
+        log.exception("telemetry could not be started; the app runs without it")
+        return False
+
+
+# Before the app is created: the distro instruments FastAPI only if it is configured first.
+start_telemetry()
 app = create_app()

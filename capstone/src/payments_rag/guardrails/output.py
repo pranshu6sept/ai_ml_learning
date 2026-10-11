@@ -32,7 +32,7 @@ from dataclasses import dataclass
 from pydantic import BaseModel, Field, ValidationError
 
 from .pii import redact
-from .support import DEFAULT_THRESHOLD, unsupported
+from .support import DEFAULT_THRESHOLD, answer_support
 
 LEAK_CHARS = 40
 MAX_REPLY_CHARS = 4000
@@ -57,6 +57,7 @@ class OutputVerdict:
     text: str  # the text to show when allowed (PII redacted); empty when blocked
     reasons: tuple[str, ...]
     redactions: tuple[str, ...] = ()
+    support_min: float | None = None  # the weakest sentence's lexical support (None for refusals)
 
 
 def _squash(text: str) -> str:
@@ -95,8 +96,13 @@ def check_output(
             return OutputVerdict(False, "", (NO_CITATION,))
         if any(not 1 <= n <= len(passages) for n in marks):
             return OutputVerdict(False, "", (BAD_CITATION,))
-        if unsupported(reply, passages, threshold):
-            return OutputVerdict(False, "", (UNSUPPORTED,))
+        scores = answer_support(reply, passages)
+        weakest = min((s.support for s in scores), default=1.0)
+        if weakest < threshold:
+            return OutputVerdict(False, "", (UNSUPPORTED,), (), weakest)
+        support_min: float | None = weakest
+    else:
+        support_min = None
     redaction = redact(reply)
     kinds = tuple(dict.fromkeys(f.kind for f in redaction.findings))
-    return OutputVerdict(True, redaction.text, (PII_REDACTED,) if kinds else (), kinds)
+    return OutputVerdict(True, redaction.text, (PII_REDACTED,) if kinds else (), kinds, support_min)

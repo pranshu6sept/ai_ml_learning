@@ -357,3 +357,33 @@ def test_the_shield_is_used_only_when_its_endpoint_is_configured(
 
     monkeypatch.setenv("AZURE_CONTENT_SAFETY_ENDPOINT", "https://x.cognitiveservices.azure.com")
     assert isinstance(shield_from_env(), PromptShields)
+
+
+def test_feedback_is_logged_with_its_request_id_but_not_the_comment(
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    client = _client()
+    request_id = client.post("/ask", json={"question": "What is ISO 20022?"}).json()["request_id"]
+
+    with caplog.at_level(logging.INFO, logger="payments_rag.api"):
+        client.post(
+            "/feedback",
+            json={"request_id": request_id, "rating": "down", "comment": "my card 4111 is wrong"},
+        )
+
+    record = next(r for r in caplog.records if r.getMessage() == "feedback")
+    assert record.payrag_request_id == request_id  # type: ignore[attr-defined]
+    assert record.payrag_rating == "down"  # type: ignore[attr-defined]
+    assert record.payrag_has_comment is True  # type: ignore[attr-defined]
+    assert "4111" not in str(record.__dict__)
+
+
+def test_a_telemetry_failure_never_stops_the_app(monkeypatch: pytest.MonkeyPatch) -> None:
+    from payments_rag import api
+
+    def broken() -> bool:
+        raise RuntimeError("no network to Application Insights")
+
+    monkeypatch.setattr(api.telemetry, "setup", broken)
+
+    assert api.start_telemetry() is False

@@ -9,3 +9,4 @@ azure-identity
 azure-search-documents
 fastapi
 uvicorn
+azure-monitor-opentelemetry

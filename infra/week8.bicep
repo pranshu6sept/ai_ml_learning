@@ -71,6 +71,12 @@ param imageTag string = 'latest'
 @description('Content Safety endpoint for Prompt Shields; empty to leave the shield off.')
 param contentSafetyEndpoint string = ''
 
+// Week 11: send traces to Application Insights (infra/week11.bicep). Empty means no telemetry. The app signs
+// in with its own identity (the component has key authentication disabled), so this string is not a secret,
+// but it is still passed at deploy time instead of being written into the repository.
+@description('Application Insights connection string; empty to leave telemetry off.')
+param appInsightsConnectionString string = ''
+
 var unique = uniqueString(resourceGroup().id)
 var planName = '${namePrefix}-plan-${take(unique, 8)}'
 var appName = '${namePrefix}-api-${take(unique, 8)}'
@@ -95,6 +101,10 @@ var hostingSettings = runContainer
 var shieldSettings = empty(contentSafetyEndpoint)
   ? []
   : [{ name: 'AZURE_CONTENT_SAFETY_ENDPOINT', value: contentSafetyEndpoint }]
+
+var telemetrySettings = empty(appInsightsConnectionString)
+  ? []
+  : [{ name: 'APPLICATIONINSIGHTS_CONNECTION_STRING', value: appInsightsConnectionString }]
 
 resource openai 'Microsoft.CognitiveServices/accounts@2024-10-01' existing = {
   name: openAiAccountName
@@ -148,7 +158,7 @@ resource app 'Microsoft.Web/sites@2023-12-01' = {
       minTlsVersion: '1.2'
       ftpsState: 'Disabled'
       alwaysOn: planSku != 'F1' // not available on the free tier
-      appSettings: concat(hostingSettings, shieldSettings, [
+      appSettings: concat(hostingSettings, shieldSettings, telemetrySettings, [
         { name: 'WEBSITES_PORT', value: '8000' }
         // Names and endpoints only: nothing here is a secret.
         { name: 'AZURE_OPENAI_ENDPOINT', value: openai.properties.endpoint }

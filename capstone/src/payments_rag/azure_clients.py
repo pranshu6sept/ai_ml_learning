@@ -20,6 +20,7 @@ from typing import Any
 import numpy as np
 from pydantic import BaseModel
 
+from . import telemetry
 from .chunking import Chunk
 from .grounding import (
     NO_ANSWER,
@@ -126,7 +127,12 @@ class AzureOpenAIEmbedder:
         vectors: list[list[float]] = []
         for start in range(0, len(texts), self._batch_size):
             batch = list(texts[start : start + self._batch_size])
-            response = self._client.embeddings.create(model=self._deployment, input=batch)
+            with telemetry.span(
+                "embedding", **{"gen_ai.request.model": self._deployment}
+            ) as current:
+                response = self._client.embeddings.create(model=self._deployment, input=batch)
+                tokens = int(getattr(getattr(response, "usage", None), "total_tokens", 0) or 0)
+                telemetry.record_model_call(self._deployment, tokens, 0, current)
             vectors.extend(item.embedding for item in sorted(response.data, key=lambda d: d.index))
         if not vectors:
             return np.zeros((0, EMBEDDING_DIMENSIONS), dtype=np.float32)
@@ -164,11 +170,21 @@ class AzureChatGenerator:
             options["response_format"] = {"type": "json_object"}
         if self._temperature is not None:
             options["temperature"] = self._temperature
-        response = self._client.chat.completions.create(
-            model=self._deployment,
-            messages=[{"role": "user", "content": prompt}],
-            **options,
-        )
+        with telemetry.span(
+            "llm.chat", **{"gen_ai.request.model": self._deployment, "payrag.json_mode": json_mode}
+        ) as current:
+            response = self._client.chat.completions.create(
+                model=self._deployment,
+                messages=[{"role": "user", "content": prompt}],
+                **options,
+            )
+            usage = getattr(response, "usage", None)
+            telemetry.record_model_call(
+                self._deployment,
+                int(getattr(usage, "prompt_tokens", 0) or 0),
+                int(getattr(usage, "completion_tokens", 0) or 0),
+                current,
+            )
         return str(response.choices[0].message.content or "").strip()
 
     def complete_structured(self, prompt: str, model: type[ModelT]) -> ModelT:
@@ -492,13 +508,23 @@ class AzureHybridRetriever:
                 filters=chosen,
             )
 
-        try:
-            return run(self._semantic)
-        except Exception as error:
-            if not (self._semantic and self._semantic_fallback and semantic_unavailable(error)):
-                raise
-            self.fallbacks += 1
-            log.warning(
-                "semantic ranker unavailable, using plain hybrid search: %s", str(error)[:200]
+        with telemetry.span("retrieval.search", **{"payrag.top_k": top_k}) as current:
+            fell_back = False
+            try:
+                hits = run(self._semantic)
+            except Exception as error:
+                if not (self._semantic and self._semantic_fallback and semantic_unavailable(error)):
+                    raise
+                self.fallbacks += 1
+                fell_back = True
+                log.warning(
+                    "semantic ranker unavailable, using plain hybrid search: %s", str(error)[:200]
+                )
+                hits = run(False)
+            current.set_attribute("payrag.hits", len(hits))
+            current.set_attribute(
+                "payrag.doc_ids", ",".join(dict.fromkeys(h.chunk.doc_id for h in hits))
             )
-            return run(False)
+            current.set_attribute("payrag.top_score", float(hits[0].score) if hits else 0.0)
+            current.set_attribute("payrag.semantic_fallback", fell_back)
+            return hits

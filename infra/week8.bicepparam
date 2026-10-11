@@ -23,3 +23,6 @@ param githubSubject = readEnvironmentVariable('AZURE_W8_GITHUB_SUBJECT', 'repo:p
 
 // Week 10: set to turn Prompt Shields on in the app (and grant the app its role with week10.bicep first).
 param contentSafetyEndpoint = readEnvironmentVariable('AZURE_CONTENT_SAFETY_ENDPOINT', '')
+
+// Week 11: set APPLICATIONINSIGHTS_CONNECTION_STRING to turn telemetry on (see infra/week11.bicep).
+param appInsightsConnectionString = readEnvironmentVariable('APPLICATIONINSIGHTS_CONNECTION_STRING', '')

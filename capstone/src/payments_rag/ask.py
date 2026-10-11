@@ -15,6 +15,7 @@ import sys
 from dataclasses import dataclass
 from typing import Protocol
 
+from . import telemetry
 from .azure_clients import (
     AzureChatGenerator,
     AzureHybridRetriever,
@@ -51,6 +52,14 @@ def ask(
     question: str, retriever: Searcher, generator: AzureChatGenerator, *, top_k: int = TOP_K
 ) -> Answer:
     """Retrieve, check the passages really answer the question, then answer with citations."""
+    with telemetry.span("ask") as current:
+        answer = _ask(question, retriever, generator, top_k)
+        current.set_attribute("payrag.refused", answer.refused)
+        current.set_attribute("payrag.hits", len(answer.evidence))
+        return answer
+
+
+def _ask(question: str, retriever: Searcher, generator: AzureChatGenerator, top_k: int) -> Answer:
     hits = tuple(retriever.search(question, top_k))
     if not hits:
         return Answer(question, NO_ANSWER, (), True, "nothing in the corpus matched the question")

@@ -1,0 +1,156 @@
+{
+  "version": "Notebook/1.0",
+  "fallbackResourceIds": ["__APP_INSIGHTS_ID__"],
+  "items": [
+    {
+      "type": 1,
+      "content": {
+        "json": "## Payments knowledge assistant: live operations\nEvery tile is a query over the last 7 days of Application Insights telemetry from the hosted API. **Cost is an estimate** (tokens times list prices written in `telemetry.py`), not the invoice. **Answer support** is a cheap lexical proxy for groundedness (the weakest sentence's share of words found in its cited passage), not a model-judged score. Traffic here is small, so treat any single day with caution."
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Last 7 days at a glance",
+        "query": "requests | where name has '/ask' | extend cost = toreal(customDimensions['payrag.cost_usd']), refused = tostring(customDimensions['payrag.refused']) =~ 'true', support = toreal(customDimensions['payrag.support_min']) | summarize Requests = count(), ['Failed %'] = round(100.0 * countif(success == false) / count(), 1), ['p50 ms'] = round(percentile(duration, 50)), ['p95 ms'] = round(percentile(duration, 95)), ['Refused %'] = round(100.0 * countif(refused) / count(), 1), ['Estimated cost USD'] = round(sum(cost), 4), ['Avg answer support'] = round(avg(support), 2)",
+        "size": 4,
+        "timeContext": {"durationMs": 604800000},
+        "queryType": 0,
+        "resourceType": "microsoft.insights/components",
+        "visualization": "table"
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Requests and failures per hour",
+        "query": "requests | where name has '/ask' | summarize Requests = count(), Failed = countif(success == false) by bin(timestamp, 1h) | order by timestamp asc",
+        "size": 0,
+        "timeContext": {"durationMs": 604800000},
+        "queryType": 0,
+        "resourceType": "microsoft.insights/components",
+        "visualization": "timechart"
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Latency of POST /ask (ms): p50, p95, p99",
+        "query": "requests | where name has '/ask' | summarize p50 = percentile(duration, 50), p95 = percentile(duration, 95), p99 = percentile(duration, 99) by bin(timestamp, 1h) | order by timestamp asc",
+        "size": 0,
+        "timeContext": {"durationMs": 604800000},
+        "queryType": 0,
+        "resourceType": "microsoft.insights/components",
+        "visualization": "timechart"
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Estimated cost per day (USD) and tokens",
+        "query": "requests | where name has '/ask' | extend cost = toreal(customDimensions['payrag.cost_usd']), tin = toint(customDimensions['payrag.tokens_in']), tout = toint(customDimensions['payrag.tokens_out']) | summarize ['Estimated cost USD'] = round(sum(cost), 5), ['Tokens in'] = sum(tin), ['Tokens out'] = sum(tout), ['Cost per request USD'] = round(avg(cost), 6) by Day = bin(timestamp, 1d) | order by Day asc",
+        "size": 0,
+        "timeContext": {"durationMs": 604800000},
+        "queryType": 0,
+        "resourceType": "microsoft.insights/components",
+        "visualization": "table"
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Why answers were refused or blocked",
+        "query": "requests | where name has '/ask' | extend refused = tostring(customDimensions['payrag.refused']) =~ 'true', reason = tostring(customDimensions['payrag.reason']), guard = tostring(customDimensions['payrag.guard_stage']) | where refused | extend Reason = iff(reason startswith 'guardrail:', strcat('guard: ', tostring(customDimensions['payrag.guard_reason'])), reason) | summarize Count = count() by Reason | order by Count desc",
+        "size": 0,
+        "timeContext": {"durationMs": 604800000},
+        "queryType": 0,
+        "resourceType": "microsoft.insights/components",
+        "visualization": "barchart"
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Answer support per day (groundedness proxy): average and 5th percentile of the weakest sentence",
+        "query": "requests | where name has '/ask' | extend support = toreal(customDimensions['payrag.support_min']) | where isnotnull(support) | summarize Average = round(avg(support), 3), ['5th percentile'] = round(percentile(support, 5), 3), Answers = count() by bin(timestamp, 1d) | order by timestamp asc",
+        "size": 0,
+        "timeContext": {"durationMs": 604800000},
+        "queryType": 0,
+        "resourceType": "microsoft.insights/components",
+        "visualization": "timechart"
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Model calls: latency (ms) and tokens by call type",
+        "query": "dependencies | where name in ('llm.chat', 'embedding') | extend tin = toint(customDimensions['gen_ai.usage.input_tokens']), tout = toint(customDimensions['gen_ai.usage.output_tokens']) | summarize Calls = count(), ['p50 ms'] = round(percentile(duration, 50)), ['p95 ms'] = round(percentile(duration, 95)), ['Avg tokens in'] = round(avg(tin)), ['Avg tokens out'] = round(avg(tout)) by Call = name",
+        "size": 0,
+        "timeContext": {"durationMs": 604800000},
+        "queryType": 0,
+        "resourceType": "microsoft.insights/components",
+        "visualization": "table"
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Retrieval quality: hits, best score, and how often the semantic ranker fell back",
+        "query": "dependencies | where name == 'retrieval.search' | extend hits = toint(customDimensions['payrag.hits']), top = toreal(customDimensions['payrag.top_score']), fallback = tostring(customDimensions['payrag.semantic_fallback']) =~ 'true' | summarize ['Avg hits'] = round(avg(hits), 2), ['Avg best score'] = round(avg(top), 3), ['Searches with no hits'] = countif(hits == 0), ['Semantic fallbacks'] = countif(fallback), Searches = count() by Day = bin(timestamp, 1d) | order by Day asc",
+        "size": 0,
+        "timeContext": {"durationMs": 604800000},
+        "queryType": 0,
+        "resourceType": "microsoft.insights/components",
+        "visualization": "table"
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "User feedback (thumbs up and down, joined to the request by its trace id)",
+        "query": "traces | where message == 'feedback' | extend Rating = tostring(customDimensions['payrag_rating']) | summarize Count = count() by Rating, Day = bin(timestamp, 1d) | order by Day asc",
+        "size": 0,
+        "timeContext": {"durationMs": 604800000},
+        "queryType": 0,
+        "resourceType": "microsoft.insights/components",
+        "visualization": "barchart"
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "Drift signals per day: question length, refusal rate, best retrieval score",
+        "query": "requests | where name has '/ask' | extend qlen = toint(customDimensions['payrag.question_chars']), refused = tostring(customDimensions['payrag.refused']) =~ 'true' | summarize ['Avg question chars'] = round(avg(qlen)), ['p95 question chars'] = round(percentile(qlen, 95)), ['Refused %'] = round(100.0 * countif(refused) / count(), 1), Requests = count() by Day = bin(timestamp, 1d) | order by Day asc",
+        "size": 0,
+        "timeContext": {"durationMs": 604800000},
+        "queryType": 0,
+        "resourceType": "microsoft.insights/components",
+        "visualization": "table"
+      }
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "title": "How much telemetry is being stored (records per day by table): the cost guard",
+        "query": "union requests, dependencies, traces, exceptions | summarize Records = count() by Day = bin(timestamp, 1d), Table = itemType | order by Day asc",
+        "size": 0,
+        "timeContext": {"durationMs": 604800000},
+        "queryType": 0,
+        "resourceType": "microsoft.insights/components",
+        "visualization": "table"
+      }
+    }
+  ],
+  "isLocked": false
+}
