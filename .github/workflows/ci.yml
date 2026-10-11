@@ -107,15 +107,9 @@ jobs:
         run: |
           sleep 45
           host=$(az webapp show -g "${{ vars.AZURE_RESOURCE_GROUP }}" -n "${{ vars.WEBAPP_NAME }}" --query defaultHostName -o tsv)
-          for i in $(seq 1 30); do
-            body=$(curl -s -m 20 "https://$host/health" || true)
-            echo "$(date +%T) $body"
-            echo "$body" | grep -q '"configured":true' && exit 0
-            sleep 10
-          done
-          echo "the app did not report healthy and configured within 5 minutes" >&2
-          exit 1
+          python3 capstone/deploy/wait_healthy.py --url "https://$host/health" --timeout 300
       - name: Keep only the image that is now running
-        # Runs only after the health check passed, so a failed deploy leaves the previous image in place
-        # to go back to. Deletes every other image (tagged or not) and refuses if this one is missing.
+        # No `if:` here on purpose: the default is "only if every earlier step succeeded". If the step above
+        # fails, this one is skipped, so a failed deploy leaves the previous image to go back to. Deletes every
+        # other image (tagged or not) and refuses if this one is missing.
         run: python3 capstone/deploy/prune_registry.py --registry "${{ vars.ACR_NAME }}" --keep "$GITHUB_SHA"

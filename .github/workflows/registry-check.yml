@@ -1,0 +1,36 @@
+name: Registry check
+
+# Run by hand (Actions -> Registry check -> Run workflow). Read-only: the prune script only ever runs with
+# --dry-run here, so nothing is deleted. It signs in as the same deployer identity as the deploy job.
+#   1. proves the prune script refuses (exit 1) when asked to keep an image that does not exist;
+#   2. audits that the registry holds only the image the app is running.
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    if: vars.AZURE_CLIENT_ID != ''
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - name: Pruning refuses when the image to keep is missing
+        run: |
+          if python3 capstone/deploy/prune_registry.py --registry "${{ vars.ACR_NAME }}" --keep no-such-tag --dry-run; then
+            echo "expected the script to refuse and exit 1" >&2
+            exit 1
+          fi
+          echo "refused as expected"
+      - name: Only the running image is in the registry
+        run: |
+          tag=$(az webapp config show -g "${{ vars.AZURE_RESOURCE_GROUP }}" -n "${{ vars.WEBAPP_NAME }}" --query linuxFxVersion -o tsv | sed 's/.*://')
+          echo "the app runs tag $tag"
+          python3 capstone/deploy/prune_registry.py --registry "${{ vars.ACR_NAME }}" --keep "$tag" --dry-run | tee out.txt
+          grep -q "; 0 other image(s) listed" out.txt
