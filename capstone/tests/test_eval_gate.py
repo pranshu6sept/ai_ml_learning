@@ -121,3 +121,45 @@ def test_editing_a_prompt_makes_the_committed_gate_fail(
     result = gate.check_generation(spec, prompts.prompt_version(), EVALS)
 
     assert "generation_no_semantic.json: prompt version" in failed(result)
+
+
+def test_the_gate_includes_the_guardrail_checks_and_they_pass(gate: Any) -> None:
+    checks = gate.run(json.loads((EVALS / "gate.json").read_text(encoding="utf-8")))
+
+    names = [c.name for c in checks]
+    assert any(n.startswith("guardrails dev: ") for n in names)
+    assert any(n.startswith("guardrails heldout: ") for n in names)
+    assert failed(checks) == []
+
+
+def test_a_weaker_input_guard_would_fail_the_gate(
+    gate: Any, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import payments_rag.guardrails.input as guard_input
+
+    monkeypatch.setattr(guard_input, "injection_patterns_match", lambda text: False)
+
+    checks = gate.run({"guardrails": {"dev": {"min": {"attack_block_rate": 0.7}}}})
+
+    assert failed(checks) == ["guardrails dev: attack_block_rate"]
+
+
+def test_an_input_guard_that_blocks_everything_would_fail_the_false_positive_checks(
+    gate: Any, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import payments_rag.guardrails.input as guard_input
+
+    monkeypatch.setattr(guard_input, "injection_patterns_match", lambda text: True)
+
+    checks = gate.run(
+        {
+            "guardrails": {
+                "dev": {"min": {"hard_negative_allowed_rate": 1.0, "golden_allowed_rate": 1.0}}
+            }
+        }
+    )
+
+    assert set(failed(checks)) == {
+        "guardrails dev: hard_negative_allowed_rate",
+        "guardrails dev: golden_allowed_rate",
+    }

@@ -105,12 +105,12 @@ Tick boxes as you go (`[x]`). Every week ends with something pushed to GitHub an
 - [ ] Write-up + push
 
 ### Week 10 · Dec 7–13 · Guardrails
-- [ ] Azure AI Content Safety: Prompt Shields, groundedness detection
-- [ ] Input/output validators (Pydantic; Guardrails AI or NeMo Guardrails)
-- [ ] PII redaction (account numbers, card PANs, IBANs)
-- [ ] Adversarial set mapped to OWASP LLM Top 10 (injection, jailbreak, data leakage)
-- [ ] Refusal + fallback behavior
-- [ ] **Deliverable:** guardrail test report with block rates and false-positive rate
+- [~] Azure AI Content Safety: Prompt Shields done (free tier); groundedness detection NOT used (not in South India, not on the free tier)
+- [x] Input/output validators (Pydantic; Guardrails AI or NeMo Guardrails not used)
+- [x] PII redaction (account numbers, card PANs, IBANs)
+- [x] Adversarial set mapped to OWASP LLM Top 10 (injection, jailbreak, data leakage)
+- [x] Refusal + fallback behavior
+- [x] **Deliverable:** guardrail test report with block rates and false-positive rate (notes/week-10.md)
 - [ ] Write-up + push
 
 ---

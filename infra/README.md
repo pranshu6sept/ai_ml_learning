@@ -195,3 +195,19 @@ curl https://<app>.azurewebsites.net/health      # expect {"status":"ok","config
 Of these only the plain deploy path (what step 2 runs) has been exercised, by the real deploys. I have not rehearsed a failed-deploy rollback or the zip fallback after the move to containers.
 
 The `deploy` job in `.github/workflows/ci.yml` builds and pushes the image and points the app at it after the checks pass on a push to main. It is skipped until the repository **variables** exist; it needs six (IDs and names, not secrets): `AZURE_CLIENT_ID` (the template's `deployerClientId` output), `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID`, `ACR_NAME`, `WEBAPP_NAME` and `AZURE_RESOURCE_GROUP`. The stage 1 outputs print them: `az deployment group show -g rg-payments-rag-w8 -n week8 --query properties.outputs`. The workspace's Key Vault must use access policies, not RBAC. Check the registered model's `requirements.txt` lists `azureml-ai-monitoring` before deploying. The endpoint's image build can fail on pypi timeouts; retrying worked.
+
+## Week 10: Content Safety for Prompt Shields (`week10.bicep`, resource group `rg-payments-rag-w10`)
+
+One free (F0) Azure AI Content Safety account in South India, which is the region Microsoft's table lists Prompt Shields in (Central India is not listed) and where the models run. Key authentication is disabled; callers use an Entra ID token. Groundedness detection is not available on F0 or in South India, so it is not used.
+
+```powershell
+az group create -n rg-payments-rag-w10 -l southindia
+$env:AZURE_PRINCIPAL_ID = (az ad signed-in-user show --query id -o tsv)
+az deployment group create -g rg-payments-rag-w10 -f infra/week10.bicep -p infra/week10.bicepparam
+# The endpoint is in the output (accountName / endpoint); for the evaluation:
+$env:AZURE_CONTENT_SAFETY_ENDPOINT = "https://<account>.cognitiveservices.azure.com"
+uv run --all-groups python capstone/evals/run_guardrails.py --shield          # offline sets + Prompt Shields
+uv run --all-groups python capstone/evals/run_guardrails.py --live --shield   # real model (about 135 calls)
+```
+
+The template gives *you* the "Cognitive Services User" role. To let the web app call the service, set `AZURE_W10_APP_PRINCIPAL_ID` to the app's identity (`az webapp identity show`) and redeploy this template, then add `AZURE_CONTENT_SAFETY_ENDPOINT` to the app's settings. **Neither is done for the hosted app**; until both are, production runs the local guards only. The guards can be switched off with `PAYRAG_GUARDRAILS=off`.

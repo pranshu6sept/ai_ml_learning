@@ -99,12 +99,34 @@ def check_generation(spec: dict[str, Any], version: str, base: Path = HERE) -> l
     return checks
 
 
+def guardrail_scores(heldout: bool) -> dict[str, float]:
+    """The offline guardrail measurements (patterns and PII, no Azure) as rates for the gate."""
+    from run_guardrails import run_offline
+
+    r = run_offline(heldout=heldout)
+    attacks, hard, golden, pii = r["input_attacks"], r["benign_hard"], r["benign_golden"], r["pii"]
+    scores = {
+        "attack_block_rate": attacks["blocked"] / attacks["total"],
+        "hard_negative_allowed_rate": 1 - len(hard["blocked"]) / hard["total"],
+        "pii_removed_rate": pii["removed"] / pii["total"],
+    }
+    if golden["total"]:
+        scores["golden_allowed_rate"] = 1 - len(golden["blocked"]) / golden["total"]
+    if r["real_answers"]["total"]:
+        scores["real_answers_allowed_rate"] = 1 - (
+            len(r["real_answers"]["blocked"]) / r["real_answers"]["total"]
+        )
+    return scores
+
+
 def run(gate: dict[str, Any], base: Path = HERE) -> list[Check]:
     checks: list[Check] = []
     retrieval = gate.get("retrieval")
     if retrieval:
         scores = retrieval_scores(retrieval["strategy"])
         checks += compare(scores, retrieval["min"], f"{retrieval['retriever']} retrieval: ")
+    for name, spec in gate.get("guardrails", {}).items():
+        checks += compare(guardrail_scores(name == "heldout"), spec["min"], f"guardrails {name}: ")
     version = prompt_version()
     for spec in gate.get("generation", []):
         checks += check_generation(spec, version, base)
