@@ -37,6 +37,8 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field
 
 from .ask import Answer
+from .guardrails import policy
+from .guardrails.pii import redact
 
 log = logging.getLogger("payments_rag.api")
 
@@ -53,6 +55,16 @@ CSP = (
 NO_CSP_PATHS = {"/docs", "/redoc", "/docs/oauth2-redirect"}
 
 Answerer = Callable[[str], Answer]
+
+SAFETY_REASON = "blocked by a safety check"
+
+
+def public_reason(reason: str) -> str:
+    """The reason shown to the caller. A guard's rule code stays in the log: naming the rule that
+    fired would tell an attacker what to rephrase."""
+    if reason.startswith(policy.REASON_PREFIX):
+        return SAFETY_REASON
+    return reason.split(f"; {policy.REASON_PREFIX}")[0]
 
 
 class AskRequest(BaseModel):
@@ -138,9 +150,35 @@ def find_web_root() -> Path | None:
     return next((c for c in candidates if (c / "index.html").is_file()), None)
 
 
+def shield_from_env() -> Callable[[str], bool] | None:
+    """Azure Prompt Shields if ``AZURE_CONTENT_SAFETY_ENDPOINT`` is set, else None (keyless)."""
+    endpoint = os.environ.get("AZURE_CONTENT_SAFETY_ENDPOINT", "").strip()
+    if not endpoint:
+        return None
+    from .guardrails.shield import PromptShields
+
+    return PromptShields(endpoint)
+
+
+def with_guardrails(answerer: Answerer, shield: Callable[[str], bool] | None = None) -> Answerer:
+    """Wrap ``answerer`` in the input and output guards, unless ``PAYRAG_GUARDRAILS=off``.
+
+    The guards are on by default. The rule that fired goes to the log (never to the caller).
+    """
+    if os.environ.get("PAYRAG_GUARDRAILS", "on").strip().lower() == "off":
+        return answerer
+    from .guardrails.guard import guarded
+
+    return guarded(
+        answerer,
+        shield=shield,
+        on_event=lambda stage, codes: log.info("guardrail %s: %s", stage, ",".join(codes)),
+    )
+
+
 def default_answerer() -> Answerer:
     """The production pipeline, built on first use so importing this module never calls Azure."""
-    from .ask import STRATEGY, ask
+    from .ask import STRATEGY, Searcher, ask
     from .azure_clients import (
         AzureChatGenerator,
         AzureHybridRetriever,
@@ -150,7 +188,7 @@ def default_answerer() -> Answerer:
     )
 
     settings = AzureSettings.from_env()
-    retriever = AzureHybridRetriever(
+    retriever: Searcher = AzureHybridRetriever(
         AzureSearchStore(settings),
         AzureOpenAIEmbedder(settings),
         STRATEGY,
@@ -158,7 +196,19 @@ def default_answerer() -> Answerer:
         semantic_fallback=True,  # keep answering if the free semantic allowance runs out
     )
     chat = AzureChatGenerator(settings)
-    return lambda question: ask(question, retriever, chat)
+    shield = shield_from_env()
+    if shield is not None:
+        from .guardrails.shield import PromptShields, ShieldedRetriever
+
+        if isinstance(
+            shield, PromptShields
+        ):  # also screen retrieved passages for hidden instructions
+            retriever = ShieldedRetriever(retriever, shield)
+
+    def answerer(question: str) -> Answer:
+        return ask(question, retriever, chat)
+
+    return with_guardrails(answerer, shield)
 
 
 def settings_present() -> bool:
@@ -229,14 +279,20 @@ def create_app(
                 status_code=502, detail="the assistant could not answer; try again"
             ) from None
         latency_ms = round((time.perf_counter() - started) * 1000)
-        log.info("request %s refused=%s latency_ms=%d", request_id, result.refused, latency_ms)
+        log.info(
+            "request %s refused=%s reason=%s latency_ms=%d",
+            request_id,
+            result.refused,
+            result.reason,
+            latency_ms,
+        )
         return AskResponse(
             request_id=request_id,
-            question=body.question,
+            question=redact(body.question).text,  # never echo a card number back
             answer=result.text,
             sources=list(result.sources),
             refused=result.refused,
-            reason=result.reason,
+            reason=public_reason(result.reason),
             latency_ms=latency_ms,
         )
 
