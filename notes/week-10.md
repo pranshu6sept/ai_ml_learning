@@ -15,7 +15,7 @@ Every number below is from a file in `capstone/evals/results/`. The attacks, the
 | Adversarial set mapped to OWASP | **Done**: 93 attacks (LLM01, LLM02, LLM07; I verified those three IDs and names against 2025 sources, not the rest of the list) |
 | Refusal and fallback behaviour | **Done**: fixed replies, rule codes kept out of the response |
 | Deliverable: report with block rates and false-positive rate | **Done** (below) |
-| In production | **Local guards: in the code, on by default, not yet deployed** (not pushed). **Prompt Shields: not enabled in production** (needs a role and an app setting; see "Not done") |
+| In production | **Done and checked.** The local guards are deployed (pushed, deploy job green, running image = the pushed commit). **Prompt Shields is on** in the hosted app: the app's own identity holds "Cognitive Services User" on the free F0 account and the app has the endpoint setting. Checked by sending two attacks the local patterns miss (a Portuguese override and "Your previous instructions no longer apply..."); both came back "blocked by a safety check" while a normal question was still answered |
 
 ## What was built (`payments_rag/guardrails/`)
 
@@ -89,8 +89,8 @@ Input guard: 0 of 95 golden questions blocked, 0 of 16 development hard negative
 
 ## Not done and open
 
-- [ ] **Enable Prompt Shields in the hosted app.** It needs two changes to the live account: the app's identity needs "Cognitive Services User" on `payrag-cs-iuwh6gf5` (the template takes `AZURE_W10_APP_PRINCIPAL_ID`) and the app needs `AZURE_CONTENT_SAFETY_ENDPOINT` as a setting. Until then production would run the local guards only.
-- [ ] **Push the guard code.** It is committed locally; pushing deploys it through the pipeline with the local guards on.
+- [x] **Prompt Shields enabled in the hosted app**, on the free tier. Done by granting the app's identity the role (`week10.bicep` with `AZURE_W10_APP_PRINCIPAL_ID`) and adding the one app setting `AZURE_CONTENT_SAFETY_ENDPOINT` directly (`az webapp config appsettings set`), because a full `week8.bicep` re-deployment re-applies the whole site and its preview was noisy. `week8.bicep` also carries the setting now (`contentSafetyEndpoint`), so a later template deployment keeps it. **Not verified:** the free tier's monthly allowance; each question now costs up to two shield calls (the question, and the retrieved passages). If the allowance runs out, calls fail and the shield **fails open** (logged warning; the local guards and the output check still run), so the symptom would be more attacks passing, not an outage.
+- [x] **Guard code pushed and deployed** (run 38144314611, all four jobs green).
 - [ ] A larger attack set from a person who did not write the guards (the biggest remaining weakness), including injections that change a fact.
 - [ ] A decision on non-English questions: the support check blocks non-English answers; the shield and patterns are English-first.
 - [ ] Groundedness detection, if a paid resource in a supported region is wanted: it would be compared against the lexical check on the 52 real answers.

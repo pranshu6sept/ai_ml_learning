@@ -66,6 +66,11 @@ param imageName string = 'payrag-api'
 @description('The image tag the app runs. The workflow sets the commit SHA; this only has to exist when runContainer is true.')
 param imageTag string = 'latest'
 
+// Week 10: the Azure AI Content Safety endpoint for Prompt Shields (infra/week10.bicep). Empty means the app
+// runs the local guards only. The app also needs "Cognitive Services User" on that account (week10.bicep).
+@description('Content Safety endpoint for Prompt Shields; empty to leave the shield off.')
+param contentSafetyEndpoint string = ''
+
 var unique = uniqueString(resourceGroup().id)
 var planName = '${namePrefix}-plan-${take(unique, 8)}'
 var appName = '${namePrefix}-api-${take(unique, 8)}'
@@ -85,6 +90,11 @@ var roleAcrDelete = 'c2f4ef07-c644-48eb-af81-4b1b4947fb11'
 var hostingSettings = runContainer
   ? [{ name: 'WEBSITES_ENABLE_APP_SERVICE_STORAGE', value: 'false' }]
   : [{ name: 'SCM_DO_BUILD_DURING_DEPLOYMENT', value: 'true' }]
+
+// The shield is on only when an endpoint is given (the app signs in to it with its own identity: no key).
+var shieldSettings = empty(contentSafetyEndpoint)
+  ? []
+  : [{ name: 'AZURE_CONTENT_SAFETY_ENDPOINT', value: contentSafetyEndpoint }]
 
 resource openai 'Microsoft.CognitiveServices/accounts@2024-10-01' existing = {
   name: openAiAccountName
@@ -138,7 +148,7 @@ resource app 'Microsoft.Web/sites@2023-12-01' = {
       minTlsVersion: '1.2'
       ftpsState: 'Disabled'
       alwaysOn: planSku != 'F1' // not available on the free tier
-      appSettings: concat(hostingSettings, [
+      appSettings: concat(hostingSettings, shieldSettings, [
         { name: 'WEBSITES_PORT', value: '8000' }
         // Names and endpoints only: nothing here is a secret.
         { name: 'AZURE_OPENAI_ENDPOINT', value: openai.properties.endpoint }

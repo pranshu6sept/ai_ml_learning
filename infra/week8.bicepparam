@@ -20,3 +20,6 @@ param imageTag = readEnvironmentVariable('AZURE_W8_IMAGE_TAG', 'latest')
 // This repository's token carries the immutable-ID subject (owner id 128319537, repo id 1400134254, checked
 // with `gh api repos/pranshu6sept/ai_ml_learning`); the plain repo:OWNER/REPO form was rejected (AADSTS700213).
 param githubSubject = readEnvironmentVariable('AZURE_W8_GITHUB_SUBJECT', 'repo:pranshu6sept@128319537/ai_ml_learning@1400134254:ref:refs/heads/main')
+
+// Week 10: set to turn Prompt Shields on in the app (and grant the app its role with week10.bicep first).
+param contentSafetyEndpoint = readEnvironmentVariable('AZURE_CONTENT_SAFETY_ENDPOINT', '')
