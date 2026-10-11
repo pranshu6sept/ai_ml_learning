@@ -234,3 +234,18 @@ def test_the_totals_and_extra_facts_are_put_on_the_request_span(recorded: Any) -
     assert attributes["payrag.cost_usd"] == pytest.approx(0.00072)
     assert attributes["payrag.model_calls"] == 1 and attributes["payrag.refused"] is False
     assert "payrag.sources" not in attributes  # None values are left out
+
+
+def test_setup_lets_this_packages_info_records_through(monkeypatch: pytest.MonkeyPatch) -> None:
+    import logging
+
+    module = SimpleNamespace(configure_azure_monitor=lambda **kwargs: None)
+    monkeypatch.setitem(__import__("sys").modules, "azure.monitor.opentelemetry", module)
+    logger = logging.getLogger("payments_rag")
+    monkeypatch.setattr(logger, "level", logging.WARNING)
+
+    assert telemetry.setup("InstrumentationKey=00000000;IngestionEndpoint=https://x/", object())
+
+    assert logger.level == logging.INFO and logging.getLogger("payments_rag.api").isEnabledFor(
+        logging.INFO
+    )

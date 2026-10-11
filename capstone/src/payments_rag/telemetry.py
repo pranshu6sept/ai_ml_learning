@@ -201,4 +201,7 @@ def setup(connection_string: str | None = None, credential: Any = None) -> bool:
 
         credential = DefaultAzureCredential()
     configure_azure_monitor(connection_string=connection_string, credential=credential)
+    # Python loggers default to WARNING, which silently drops this package's INFO records (the
+    # feedback event, the guard events). Without this only warnings reached Application Insights.
+    logging.getLogger("payments_rag").setLevel(logging.INFO)
     return True
